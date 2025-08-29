@@ -7,6 +7,8 @@ public class ObjEscudoMadeira  extends Entidade{
 
     public ObjEscudoMadeira(PainelDoJogo painel) {
         super(painel);
+        
+        tipo = tipoEscudo;
         nome = "escudo madeira";
         baixo1 = setup("/img/objetos/shield_wood", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorDefesa = 1;

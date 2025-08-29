@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import main.PainelDoJogo;
 import main.Teclado;
+import objeto.ObjBolaDeFogo;
 import objeto.ObjChave;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
@@ -83,6 +84,7 @@ public class Jogador extends Entidade {
         moeda = 0;
         armaAtual = new ObjEspadaNormal(painel);
         EscudoAtual = new ObjEscudoMadeira(painel);
+        projetil = new ObjBolaDeFogo(painel);
         ataque = getAtaque();
         defesa = getDefesa();
     }
@@ -115,14 +117,30 @@ public class Jogador extends Entidade {
     }
 
     public void getImagemDeAtaque(){
-        ataqueCima1 = setup("/img/spritesjogador/ataques/boy_attack_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueCima2 = setup("/img/spritesjogador/ataques/boy_attack_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_attack_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_attack_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_attack_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_attack_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_attack_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_attack_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        if(armaAtual.tipo == tipoEspada){
+            ataqueCima1 = setup("/img/spritesjogador/ataques/boy_attack_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/img/spritesjogador/ataques/boy_attack_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_attack_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_attack_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_attack_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_attack_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_attack_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_attack_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+
+        }
+
+        if(armaAtual.tipo == tipoMachado){
+            ataqueCima1 = setup("/img/spritesjogador/ataques/boy_axe_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/img/spritesjogador/ataques/boy_axe_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_axe_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_axe_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_axe_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_axe_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_axe_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_axe_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+
+        }
+        
     }
 
     
@@ -215,6 +233,18 @@ public class Jogador extends Entidade {
                 }
                 
             }
+            if(painel.teclado.teclaDeTiroPressionada == true && projetil.vivo == false && contadorDeTiro == 30){
+                
+                //definir coordenadas, direção e usuário padrão
+                projetil.setAcao(mundoX, mundoY, direcao, true, this);
+
+                //adicionar o projetil na lista de projetil
+                painel.listaProjetil.add(projetil);
+
+                contadorDeTiro = 0;
+
+                painel.iniciarEfeitoSonoro(10);
+            }
 
 
             if(invencivel == true){
@@ -223,7 +253,11 @@ public class Jogador extends Entidade {
                     invencivel = false;
                     invencivelContador = 0;
                 }
-            }         
+            }   
+
+            if(contadorDeTiro < 30){
+                contadorDeTiro++;
+            }    
     
     
         } 
@@ -257,7 +291,7 @@ public class Jogador extends Entidade {
             areaSolida.height = areaAtaque.height;
 
             int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
-            danoDoInimigo(indiceInimigo);
+            danoDoInimigo(indiceInimigo, ataque);
 
             mundoX = AtualMundoX;
             mundoY = AtualMundoY;
@@ -313,8 +347,70 @@ public class Jogador extends Entidade {
         
     }
 
-    public void danoDoInimigo(int indice){
+    
+    public void verificarNivelAcima(){
+        if(exp >= proximoNivelExp){
+            nivel++;
+            proximoNivelExp = proximoNivelExp * 2;
+            vidaMaxima += 2;
+            forca++;
+            destreza++;
+            ataque = getAtaque();
+            defesa = getDefesa();
+            painel.iniciarEfeitoSonoro(8);
+            painel.estadoDoJogo = painel.estadoDoDialogo;
+            painel.interfaceDoUsuario.dialogoAtual = "Você subiu para o nível " + nivel + "!";
+
+        }
+    }
+
+    public void selecionarItem(){
+        int indeceItem = painel.interfaceDoUsuario.pegarItemSelecionado();
+
+        if(indeceItem < inventario.size()){
+
+            Entidade itemSelecionado = inventario.get(indeceItem);
+
+            if(itemSelecionado.tipo == tipoEspada || itemSelecionado.tipo == tipoMachado){
+                armaAtual = itemSelecionado;
+                ataque = getAtaque();
+                getImagemDeAtaque();
+
+            }
+            if(itemSelecionado.tipo == tipoEscudo){
+                EscudoAtual = itemSelecionado;
+                defesa = getDefesa();
+            }
+            if(itemSelecionado.tipo == tipoConsumivel){
+                itemSelecionado.usar(this);
+                inventario.remove(indeceItem);
+            }
+
+            
+
+        }
+    }
+
+    public void contatoComInimigo(int i){
+        if (i != 999){
+
+            if(invencivel == false && painel.inimigo[i].morrendo == false){
+                painel.iniciarEfeitoSonoro(6);
+
+                int dano = painel.inimigo[i].ataque - defesa;
+                if(dano < 0){
+                    dano = 0;
+
+                }
+                vida -= dano; //dano do inimigo
+                invencivel = true;
+            }
+            
+        }
+    }
+    public void danoDoInimigo(int indice, int ataque){
         if(indice != 999){
+
             if(painel.inimigo[indice].invencivel == false){
                 painel.iniciarEfeitoSonoro(5);
 
@@ -338,39 +434,6 @@ public class Jogador extends Entidade {
             }
             
         
-        }
-    }
-    public void verificarNivelAcima(){
-        if(exp >= proximoNivelExp){
-            nivel++;
-            proximoNivelExp = proximoNivelExp * 2;
-            vidaMaxima += 2;
-            forca++;
-            destreza++;
-            ataque = getAtaque();
-            defesa = getDefesa();
-            painel.iniciarEfeitoSonoro(8);
-            painel.estadoDoJogo = painel.estadoDoDialogo;
-            painel.interfaceDoUsuario.dialogoAtual = "Você subiu para o nível " + nivel + "!";
-
-        }
-    }
-
-    public void contatoComInimigo(int i){
-        if (i != 999){
-
-            if(invencivel == false){
-                painel.iniciarEfeitoSonoro(6);
-
-                int dano = painel.inimigo[i].ataque - defesa;
-                if(dano < 0){
-                    dano = 0;
-
-                }
-                vida -= dano; //dano do inimigo
-                invencivel = true;
-            }
-            
         }
     }
         

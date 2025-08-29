@@ -21,6 +21,7 @@ public class Som {
         somURL[7] = getClass().getResource("/Sons/blocked.wav");
         somURL[8] = getClass().getResource("/Sons/levelup.wav");
         somURL[9] = getClass().getResource("/Sons/cursor.wav");
+        somURL[10] = getClass().getResource("/Sons/burning.wav");
         
     }
 

@@ -408,6 +408,13 @@ public class InterfaceDoUsuario {
 
         //desenhar itens
         for(int i = 0; i < painel.jogador.inventario.size(); i++){
+            //equipar arma (cursor)
+            if(painel.jogador.inventario.get(i) == painel.jogador.armaAtual ||
+               painel.jogador.inventario.get(i) == painel.jogador.EscudoAtual){
+                g2.setColor(new Color(240,190,90));
+                g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
+
+            }
                
             g2.drawImage(painel.jogador.inventario.get(i).baixo1, espacoX, espacoY, null);
 

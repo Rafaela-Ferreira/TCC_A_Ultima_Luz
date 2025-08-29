@@ -52,6 +52,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public Entidade Obj[] = new Entidade[10]; //10 objs ao mesmo tempo
     public Entidade npc[] = new Entidade[10]; //10 objs ao mesmo tempo
     public Entidade inimigo[] = new Entidade[20]; //20 inimigo ao mesmo tempo
+    public ArrayList<Entidade> listaProjetil = new ArrayList<>();
     ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
 
 
@@ -184,6 +185,19 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
+            //atualizar o estado do projetil - bola de fogo
+            for(int i = 0; i < listaProjetil.size(); i++){
+                if(listaProjetil.get(i) != null){
+                    if(listaProjetil.get(i).vivo == true){
+                        listaProjetil.get(i).atualizar();
+                    }
+                    if(listaProjetil.get(i).vivo == false){
+                        listaProjetil.remove(i);
+                    }
+                    
+                }
+            }
+
 
         }
         if(estadoDoJogo == pausarEstadoDoJogo){
@@ -228,6 +242,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
             for(int i = 0; i < inimigo.length; i++){
                 if(inimigo[i] != null){
                     listaEntidade.add(inimigo[i]);
+                }
+            }
+
+            for(int i = 0; i < listaProjetil.size(); i++){
+                if(listaProjetil.get(i) != null){
+                    listaEntidade.add(listaProjetil.get(i));
                 }
             }
 

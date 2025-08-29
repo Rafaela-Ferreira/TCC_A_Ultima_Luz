@@ -6,7 +6,7 @@ public class Teclado implements KeyListener {
 
     PainelDoJogo painel;
 
-    public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, precionarEnter;
+    public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, precionarEnter, teclaDeTiroPressionada;
     
     //debug
     boolean mostrarTextoDebug = false;
@@ -139,6 +139,9 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             precionarEnter = true;
         }
+        if (code == KeyEvent.VK_F) {
+            teclaDeTiroPressionada = true;
+        }
         //debug
         if(code == KeyEvent.VK_T){
             if(mostrarTextoDebug == false){
@@ -152,16 +155,20 @@ public class Teclado implements KeyListener {
         }
 
     }
+
     public void pausarEstadoDoJogo(int code){
         if (code == KeyEvent.VK_P) {
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
         }
     }
+
     public void dialogoEstado(int code){
         if (code == KeyEvent.VK_ENTER) {
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
         }
     }
+
+
     public void personagemEstado(int code){
         if (code == KeyEvent.VK_C) {
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
@@ -192,6 +199,9 @@ public class Teclado implements KeyListener {
             }
            
         }
+        if(code == KeyEvent.VK_ENTER){
+            painel.jogador.selecionarItem();
+        }
     }
 
 
@@ -211,6 +221,8 @@ public class Teclado implements KeyListener {
         } else if (code == KeyEvent.VK_D) {
             //System.out.println("Movendo para a direita");
             precionarDireita = false;
+        }else if (code == KeyEvent.VK_F) {
+            teclaDeTiroPressionada = false;
         }
     }
     

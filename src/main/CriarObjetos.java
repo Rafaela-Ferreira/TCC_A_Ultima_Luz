@@ -3,7 +3,9 @@ package main;
 import entidade.NpcVelho;
 import main.inimigo.lodoVerde;
 import objeto.ObjChave;
+import objeto.ObjEscudoAzul;
 import objeto.ObjMachado;
+import objeto.ObjPocaoVermelha;
 
 public class CriarObjetos {
     PainelDoJogo painel;
@@ -34,7 +36,16 @@ public class CriarObjetos {
         painel.Obj[i].mundoX = painel.tamanhoDoTile*33;
         painel.Obj[i].mundoY = painel.tamanhoDoTile*21;
         i++;
+
+        painel.Obj[i] = new ObjEscudoAzul(painel);
+        painel.Obj[i].mundoX = painel.tamanhoDoTile*35;
+        painel.Obj[i].mundoY = painel.tamanhoDoTile*21;
+        i++;
         
+        painel.Obj[i] = new ObjPocaoVermelha(painel);
+        painel.Obj[i].mundoX = painel.tamanhoDoTile*22;
+        painel.Obj[i].mundoY = painel.tamanhoDoTile*27;
+        i++;
     }
 
     public void setNpc(){

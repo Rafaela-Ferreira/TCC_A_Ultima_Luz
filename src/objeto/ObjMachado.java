@@ -7,6 +7,8 @@ public class ObjMachado extends Entidade{
 
     public ObjMachado(PainelDoJogo painel) {
         super(painel);
+        
+        tipo = tipoMachado;
         nome = "Machado";
         baixo1 = setup("/img/objetos/axe", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorAtaque = 2;

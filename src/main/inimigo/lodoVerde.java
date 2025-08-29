@@ -14,10 +14,10 @@ public class lodoVerde extends Entidade{
 
         this.painel = painel;
         
-        tipo = 2;
+        tipo = tipoInimigo;
         nome ="Lodo Verde";
         velocidade = 1;
-        vidaMaxima = 5;
+        vidaMaxima = 4;
         vida = vidaMaxima;
         ataque = 5;
         defesa = 0;

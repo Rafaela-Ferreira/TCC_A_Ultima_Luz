@@ -43,15 +43,17 @@ public class Entidade {
     public int contadorDeSprite = 0;
     public int contadorDeBloqueioDeAcao = 0;
     public int invencivelContador = 0;
+    public int contadorDeTiro = 0;
     int contadorMorrendo = 0;
     int contadorBarraDeVida = 0;
     
     //Atributos do jogador
-    public int tipo; //0 -> jogador, 1 -> npc, 2 -> inimigo....
     public String nome;
     public int velocidade;
     public int vidaMaxima;
     public int vida;
+    public int manaMaxima;
+    public int mana;
     public int nivel;
     public int forca;
     public int destreza;
@@ -62,11 +64,23 @@ public class Entidade {
     public int moeda;
     public Entidade armaAtual;
     public Entidade EscudoAtual;
+    public Projetil projetil;
 
     //atributos dos Itens
     public int valorAtaque;
     public int valorDefesa;
     public String descricao = "";
+    public int usarConsumivel;
+
+    //Tipo de entidade
+    public int tipo; //0 -> jogador, 1 -> npc, 2 -> inimigo....
+    public final int tipoJogador = 0;
+    public final int tipoNpc = 1;
+    public final int tipoInimigo = 2;
+    public final int tipoEspada = 3; 
+    public final int tipoMachado = 4;
+    public final int tipoEscudo = 5;
+    public final int tipoConsumivel = 6;
 
 
 
@@ -100,6 +114,7 @@ public class Entidade {
                 break;
         }
     }
+    public void usar(Entidade entidade){}
 
     public void atualizar(){
         setAcao();
@@ -111,7 +126,7 @@ public class Entidade {
         painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
         boolean contatoComJogador = painel.colisaoChecked.verificarJogador(this);
 
-        if(this.tipo == 2 && contatoComJogador == true){
+        if(this.tipo == tipoInimigo && contatoComJogador == true){
             if(painel.jogador.invencivel == false){
                 painel.iniciarEfeitoSonoro(6);
                 
@@ -241,7 +256,6 @@ public class Entidade {
         if(contadorMorrendo > i*7 && contadorMorrendo <= i*7) alterarAlfa(g2, 0f);
         if(contadorMorrendo > i*8 && contadorMorrendo <= i*8) alterarAlfa(g2, 1f);
         if(contadorMorrendo > i*8){
-            morrendo = false;
             vivo = false;
         }
     }
@@ -257,6 +271,7 @@ public class Entidade {
 
         try{
             imagem = ImageIO.read(getClass().getResourceAsStream(caminho + ".png"));
+            //System.out.println(imagem == null ? "Imagem NÃO encontrada" : "Imagem encontrada");
             imagem = ferramentas.escalaImage(imagem, altura, largura);
 
         }catch(IOException e){
