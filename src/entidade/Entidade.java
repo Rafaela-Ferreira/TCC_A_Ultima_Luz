@@ -54,6 +54,7 @@ public class Entidade {
     public int vida;
     public int manaMaxima;
     public int mana;
+    public int municao;
     public int nivel;
     public int forca;
     public int destreza;
@@ -67,6 +68,7 @@ public class Entidade {
     public Projetil projetil;
 
     //atributos dos Itens
+    public int valor;
     public int valorAtaque;
     public int valorDefesa;
     public String descricao = "";
@@ -81,7 +83,7 @@ public class Entidade {
     public final int tipoMachado = 4;
     public final int tipoEscudo = 5;
     public final int tipoConsumivel = 6;
-
+    public final int tipoRetirada = 7; //type_pickupOnly
 
 
     public Entidade(PainelDoJogo painel){
@@ -116,6 +118,53 @@ public class Entidade {
     }
     public void usar(Entidade entidade){}
 
+    public void verificarDrop(){}
+
+    public void droparItem(Entidade droparItem){
+        for(int i = 0; i < painel.Obj.length; i++){
+            if(painel.Obj[i] == null){
+                painel.Obj[i] = droparItem;
+                painel.Obj[i].mundoX = mundoX;
+                painel.Obj[i].mundoY = mundoY;
+                break;
+            }
+        }
+    }
+    public Color getParticulaCor(){
+        Color cor = null;
+        return cor;
+    }
+
+    public int getParticulaTamanho(){
+        int tamanho = 0; //6 pixels
+        return tamanho;
+    }
+    public int getParticulaVelocidade(){
+        int velocidade = 0;
+        return velocidade;
+    } 
+
+    public int getParticulaVidaMaxima(){
+        int vidaMaxima = 0;
+        return vidaMaxima;
+    }
+
+    public void geradorParticula(Entidade gerador, Entidade alvo){
+        Color cor = gerador.getParticulaCor();
+        int tamanho = gerador.getParticulaTamanho();
+        int velocidade = gerador.getParticulaVelocidade();
+        int vidaMaxima = gerador.getParticulaVidaMaxima();
+
+        Particula p1 = new Particula( painel, alvo, cor, tamanho, velocidade, vidaMaxima, -2, -1);
+        Particula p2 = new Particula( painel, alvo, cor, tamanho, velocidade, vidaMaxima, 2, -1);
+        Particula p3 = new Particula( painel, alvo, cor, tamanho, velocidade, vidaMaxima, -2, 1);
+        Particula p4 = new Particula( painel, alvo, cor, tamanho, velocidade, vidaMaxima, 2, 1);
+        painel.listaParticula.add(p1);
+        painel.listaParticula.add(p2);
+        painel.listaParticula.add(p3);
+        painel.listaParticula.add(p4);
+    }
+
     public void atualizar(){
         setAcao();
 
@@ -124,20 +173,12 @@ public class Entidade {
         painel.colisaoChecked.verificarObjeto(this, false);
         painel.colisaoChecked.verificarEntidade(this, painel.npc);
         painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+        painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+
         boolean contatoComJogador = painel.colisaoChecked.verificarJogador(this);
 
         if(this.tipo == tipoInimigo && contatoComJogador == true){
-            if(painel.jogador.invencivel == false){
-                painel.iniciarEfeitoSonoro(6);
-                
-                int dano = ataque - painel.jogador.defesa;
-                if(dano < 0){
-                    dano = 0;
-
-                }
-                painel.jogador.vida -= dano;
-                painel.jogador.invencivel = true;
-            }
+            danoJogador(ataque);
         }
 
         //se colição for false,
@@ -174,7 +215,25 @@ public class Entidade {
             }
         }
 
+        if(contadorDeTiro < 30){
+            contadorDeTiro++;
+        }
 
+
+    }
+
+    public void danoJogador(int ataque){
+        if(painel.jogador.invencivel == false){
+            painel.iniciarEfeitoSonoro(6);
+            
+            int dano = ataque - painel.jogador.defesa;
+            if(dano < 0){
+                dano = 0;
+
+            }
+            painel.jogador.vida -= dano;
+            painel.jogador.invencivel = true;
+        }
     }
 
     public void desenhar(Graphics2D g2){
@@ -237,7 +296,7 @@ public class Entidade {
                 animacaoMorrendo(g2);
             }
 
-            g2.drawImage(imagem, telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile, null);
+            g2.drawImage(imagem, telaX, telaY, null);
 
             alterarAlfa(g2, 1f);
         }

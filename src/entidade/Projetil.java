@@ -27,11 +27,20 @@ public class Projetil extends Entidade{
 
             if(indiceInimigo != 999){
                 painel.jogador.danoDoInimigo(indiceInimigo, ataque);
+                geradorParticula(usuario.projetil, painel.inimigo[indiceInimigo]);
                 vivo = false;
             }
         }
 
         if(usuario != painel.jogador){
+            
+            boolean contatoComJogador = painel.colisaoChecked.verificarJogador(this);
+            
+            if(painel.jogador.invencivel == false && contatoComJogador == true){
+                danoJogador(ataque);
+                geradorParticula(usuario.projetil, painel.jogador);
+                vivo = false;
+            }
 
         }
 
@@ -56,6 +65,15 @@ public class Projetil extends Entidade{
             }
             contadorDeSprite = 0;
         }
+    }
+
+    public boolean temRecursos(Entidade usar){
+        boolean temRecursos = false;
+        
+        return temRecursos;
+    }
+    public void subtrairRecursos(Entidade usar){
+        
     }
     
 }

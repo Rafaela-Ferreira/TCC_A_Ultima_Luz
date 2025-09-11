@@ -4,6 +4,10 @@ import java.util.Random;
 
 import entidade.Entidade;
 import main.PainelDoJogo;
+import objeto.ObjCoracao;
+import objeto.ObjMana;
+import objeto.ObjMoedaBronze;
+import objeto.ObjPedra;
 
 public class lodoVerde extends Entidade{
 
@@ -22,6 +26,8 @@ public class lodoVerde extends Entidade{
         ataque = 5;
         defesa = 0;
         exp = 2;
+
+        projetil = new ObjPedra(painel);
 
         areaSolida.x = 3;
         areaSolida.y = 18;
@@ -67,10 +73,34 @@ public class lodoVerde extends Entidade{
 
             contadorDeBloqueioDeAcao = 0;
         }
+
+        int i = new Random().nextInt(100)+1;
+
+        if(i > 99 && projetil.vivo == false && contadorDeTiro == 30){
+            
+            projetil.setAcao(mundoX, mundoY, direcao, true, this);
+            painel.listaProjetil.add(projetil);
+            contadorDeTiro = 0;
+        }
     }
 
     public void acaoAoDano(){
         contadorDeBloqueioDeAcao = 0;
         direcao = painel.jogador.direcao;
+    }
+    public void verificarDrop(){
+        //lançar um dado
+        int i = new Random().nextInt(100)+1;
+
+        //definir o drop do inimigo 
+        if(i < 50){
+            droparItem(new ObjMoedaBronze(painel));
+        }
+        if(i >= 50 && i < 75){
+            droparItem(new ObjCoracao(painel));
+        }
+        if(i >= 75 && i < 100){
+            droparItem(new ObjMana(painel));
+        }
     }
 }

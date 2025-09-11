@@ -1,5 +1,8 @@
 package objeto;
 
+import java.awt.Color;
+
+import entidade.Entidade;
 import entidade.Projetil;
 import main.PainelDoJogo;
 
@@ -34,6 +37,37 @@ public class ObjBolaDeFogo extends Projetil{
         esquerda2 = setup("/img/projetavel/fireball_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
         direita1 = setup("/img/projetavel/fireball_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
         direita2 = setup("/img/projetavel/fireball_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+    }
+
+    public boolean temRecursos(Entidade usar){
+        boolean temRecursos = false;
+        if(usar.mana >= usarConsumivel){
+            temRecursos = true;
+        }
+        return temRecursos;
+    }
+
+    public void subtrairRecursos(Entidade usar){
+        usar.mana -= usarConsumivel;
+    }
+
+    public Color getParticulaCor(){
+        Color cor = new Color(240,50,0);
+        return cor;
+    }
+
+    public int getParticulaTamanho(){
+        int tamanho = 10; //10 pixels
+        return tamanho;
+    }
+    public int getParticulaVelocidade(){
+        int velocidade = 1;
+        return velocidade;
+    } 
+
+    public int getParticulaVidaMaxima(){
+        int vidaMaxima = 20;
+        return vidaMaxima;
     }
     
 }

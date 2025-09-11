@@ -103,8 +103,9 @@ public class ManipuladorDeEventos {
             painel.estadoDoJogo = estadoDoJogo;
             painel.jogador.cancelarAtaque = true;
             painel.iniciarEfeitoSonoro(2);
-            painel.interfaceDoUsuario.dialogoAtual = "Você tomou água de cura!\nSua vida foi renovada.";
+            painel.interfaceDoUsuario.dialogoAtual = "Você tomou água de cura!\nSua vida e sua mana foi renovada.";
             painel.jogador.vida = painel.jogador.vidaMaxima;
+            painel.jogador.mana = painel.jogador.manaMaxima;
             painel.criarObjetos.setInimigos();
         }
         

@@ -3,9 +3,14 @@ package main;
 import entidade.NpcVelho;
 import main.inimigo.lodoVerde;
 import objeto.ObjChave;
+import objeto.ObjCoracao;
 import objeto.ObjEscudoAzul;
 import objeto.ObjMachado;
+import objeto.ObjMana;
+import objeto.ObjMoedaBronze;
 import objeto.ObjPocaoVermelha;
+import tile.blocosInterativos.ArvoreSeca;
+
 
 public class CriarObjetos {
     PainelDoJogo painel;
@@ -17,12 +22,12 @@ public class CriarObjetos {
     public void setarObjetos() {
         //como adicionar objetos ao array de objetos
         int i = 0;
-        painel.Obj[i] = new ObjChave(painel);
+        painel.Obj[i] = new ObjMoedaBronze(painel);
         painel.Obj[i].mundoX = painel.tamanhoDoTile*25;
         painel.Obj[i].mundoY = painel.tamanhoDoTile*23;
         i++;
 
-        painel.Obj[i] = new ObjChave(painel);
+        painel.Obj[i] = new ObjMoedaBronze(painel);
         painel.Obj[i].mundoX = painel.tamanhoDoTile*21;
         painel.Obj[i].mundoY = painel.tamanhoDoTile*19;
         i++;
@@ -38,14 +43,46 @@ public class CriarObjetos {
         i++;
 
         painel.Obj[i] = new ObjEscudoAzul(painel);
-        painel.Obj[i].mundoX = painel.tamanhoDoTile*35;
-        painel.Obj[i].mundoY = painel.tamanhoDoTile*21;
+        painel.Obj[i].mundoX = painel.tamanhoDoTile*26;
+        painel.Obj[i].mundoY = painel.tamanhoDoTile*16;
         i++;
         
         painel.Obj[i] = new ObjPocaoVermelha(painel);
         painel.Obj[i].mundoX = painel.tamanhoDoTile*22;
         painel.Obj[i].mundoY = painel.tamanhoDoTile*27;
         i++;
+
+        painel.Obj[i] = new ObjCoracao(painel);
+        painel.Obj[i].mundoX = painel.tamanhoDoTile*22;
+        painel.Obj[i].mundoY = painel.tamanhoDoTile*29;
+        i++;
+        
+        painel.Obj[i] = new ObjMana(painel);
+        painel.Obj[i].mundoX = painel.tamanhoDoTile*22;
+        painel.Obj[i].mundoY = painel.tamanhoDoTile*31;
+        i++;
+    }
+
+    public void setBlocosInterativos(){
+        int i = 0;
+
+        painel.blocosI[i] = new ArvoreSeca(painel, 27,12); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 28,12); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 29,12); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 30,12); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 31,12); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 32,12); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 33,12); i++;
+
+        painel.blocosI[i] = new ArvoreSeca(painel, 25,16); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 34,21); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 34,22); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 20,20); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 20,21); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 20,22); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 22,24); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 23,24); i++;
+        painel.blocosI[i] = new ArvoreSeca(painel, 24,24); i++;
     }
 
     public void setNpc(){

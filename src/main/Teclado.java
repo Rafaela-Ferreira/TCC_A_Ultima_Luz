@@ -50,6 +50,10 @@ public class Teclado implements KeyListener {
         else if(painel.estadoDoJogo == painel.estadoPersonagem){
             personagemEstado(code);
         }
+        //estado de opções
+        else if(painel.estadoDoJogo == painel.estadoOpcoes){
+            opcaoEstado(code);
+        }
 
     }
 
@@ -71,7 +75,7 @@ public class Teclado implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 if(painel.interfaceDoUsuario.numeroDoComando == 0){
                     painel.interfaceDoUsuario.estadoDeRolagemTitulo = 1;
-                    //painel.iniciarMusica(0);
+                    painel.iniciarMusica(0);
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 1){
                     //add mais tarde
@@ -101,15 +105,15 @@ public class Teclado implements KeyListener {
                 if(painel.interfaceDoUsuario.numeroDoComando == 0){
                     System.out.println("Você escolheu Lutador");
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                    painel.iniciarMusica(0);
+                    //painel.iniciarMusica(0);
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 1){
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                    painel.iniciarMusica(0);
+                    //painel.iniciarMusica(0);
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 2){
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                    painel.iniciarMusica(0);
+                    //painel.iniciarMusica(0);
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 3){
                     painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0;
@@ -141,6 +145,9 @@ public class Teclado implements KeyListener {
         }
         if (code == KeyEvent.VK_F) {
             teclaDeTiroPressionada = true;
+        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            painel.estadoDoJogo = painel.estadoOpcoes;
         }
         //debug
         if(code == KeyEvent.VK_T){
@@ -202,6 +209,65 @@ public class Teclado implements KeyListener {
         if(code == KeyEvent.VK_ENTER){
             painel.jogador.selecionarItem();
         }
+    }
+    public void opcaoEstado(int code){
+        if(code == KeyEvent.VK_ESCAPE){
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+        }
+        if(code == KeyEvent.VK_ENTER){
+            precionarEnter = true;
+        }
+        int maxNumComando = 0;
+        switch (painel.interfaceDoUsuario.subEstado) {
+            case 0: maxNumComando = 5; break;
+            case 3: maxNumComando = 1; break;
+        
+            
+        }
+
+        if(code == KeyEvent.VK_W){
+            painel.interfaceDoUsuario.numeroDoComando--;
+            painel.iniciarEfeitoSonoro(9);
+            if(painel.interfaceDoUsuario.numeroDoComando < 0){
+                painel.interfaceDoUsuario.numeroDoComando = maxNumComando;
+            }
+
+        }
+        if(code == KeyEvent.VK_S){
+            painel.interfaceDoUsuario.numeroDoComando++;
+            painel.iniciarEfeitoSonoro(9);
+            if(painel.interfaceDoUsuario.numeroDoComando >  maxNumComando){
+                painel.interfaceDoUsuario.numeroDoComando = 0;
+            }
+        }
+        if(code == KeyEvent.VK_A){
+            if(painel.interfaceDoUsuario.subEstado == 0){
+                if(painel.interfaceDoUsuario.numeroDoComando == 1 && painel.musica.escalaDoVolume > 0){
+                    painel.musica.escalaDoVolume--;
+                    painel.musica.VerificarVolume();
+                    painel.iniciarEfeitoSonoro(9);
+                }
+                if(painel.interfaceDoUsuario.numeroDoComando == 2 && painel.efeitoSonoro.escalaDoVolume > 0){
+                    painel.efeitoSonoro.escalaDoVolume--;
+                    painel.iniciarEfeitoSonoro(9);
+                }
+            }
+        }
+        if(code == KeyEvent.VK_D){
+            if(painel.interfaceDoUsuario.subEstado == 0){
+                if(painel.interfaceDoUsuario.numeroDoComando == 1 && painel.musica.escalaDoVolume < 5){
+                    painel.musica.escalaDoVolume++;
+                    painel.musica.VerificarVolume();
+                    painel.iniciarEfeitoSonoro(9);
+                }
+                if(painel.interfaceDoUsuario.numeroDoComando == 2 && painel.efeitoSonoro.escalaDoVolume < 5){
+                    painel.efeitoSonoro.escalaDoVolume++;
+                    painel.iniciarEfeitoSonoro(9);
+                }
+            }
+        }
+
+        
     }
 
 

@@ -2,12 +2,14 @@ package main;
 import javax.swing.JFrame;
 
 public class Principal {
+    public static JFrame janela;
     public static void main(String[] args) throws Exception {
         
-        JFrame janela = new JFrame();
+        janela = new JFrame();
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setResizable(false);
         janela.setTitle("RPG 2D de Aventura");
+        //janela.setUndecorated(true);
 
         PainelDoJogo painelDoJogo = new PainelDoJogo();
         janela.add(painelDoJogo);

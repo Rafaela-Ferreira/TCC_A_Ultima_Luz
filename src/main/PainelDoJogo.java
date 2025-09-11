@@ -4,12 +4,16 @@ import javax.swing.JPanel;
 import entidade.Entidade;
 import entidade.Jogador;
 import tile.GerenciadorDeBlocos;
+import tile.blocosInterativos.BlocosInterativos;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,16 +25,22 @@ public class PainelDoJogo extends JPanel implements Runnable {
     final int escala = 3; 
     
     public final int tamanhoDoTile = tamanhoOriginalDoTile * escala; // Tile de 48x48 pixels
-    public final int maxColunasTela = 16;
+    public final int maxColunasTela = 20;
     public final int maxLinhasTela = 12;
 
-    public final int larguraTela = tamanhoDoTile * maxColunasTela; // 768 pixels
+    public final int larguraTela = tamanhoDoTile * maxColunasTela; // 960 pixels
     public final int alturaTela = tamanhoDoTile * maxLinhasTela; // 576 pixels
 
     //world settings
     public final int maxColunasMundo = 50; // Número máximo de colunas no mundo
     public final int maxLinhasMundo = 50; // Número máximo de linhas no mundo
    
+    //tela cheia
+    int larguraTela2 = larguraTela;
+    int alturaTela2 = alturaTela;
+    BufferedImage telaTemporaria;
+    Graphics2D g2;
+    public boolean telaCheiaAtiva = false;
 
     //FPS
     int FPS= 60;
@@ -49,10 +59,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     //Entidades e objetos do jogo
     public Jogador jogador = new Jogador(this, teclado); 
-    public Entidade Obj[] = new Entidade[10]; //10 objs ao mesmo tempo
+    public Entidade Obj[] = new Entidade[20]; //20 objs ao mesmo tempo
     public Entidade npc[] = new Entidade[10]; //10 objs ao mesmo tempo
     public Entidade inimigo[] = new Entidade[20]; //20 inimigo ao mesmo tempo
+    public BlocosInterativos blocosI[] = new BlocosInterativos[50];
     public ArrayList<Entidade> listaProjetil = new ArrayList<>();
+    public ArrayList<Entidade> listaParticula = new ArrayList<>();
     ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
 
 
@@ -63,6 +75,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int pausarEstadoDoJogo = 2; 
     public final int estadoDoDialogo = 3;
     public final int estadoPersonagem = 4; 
+    public final int estadoOpcoes = 5; 
 
 
 
@@ -78,10 +91,28 @@ public class PainelDoJogo extends JPanel implements Runnable {
         criarObjetos.setarObjetos(); 
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
+        criarObjetos.setBlocosInterativos();
 
         //iniciarMusica(0);// Inicia a música de fundo
         //pararMusica();
         estadoDoJogo = tituloEstado;
+
+        telaTemporaria = new BufferedImage(larguraTela, alturaTela, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D)telaTemporaria.getGraphics();
+
+        //setTelaCheia();
+    }
+
+    public void setTelaCheia(){
+        //pegar a tela do monitor
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Principal.janela);
+
+        //pegar altura e largura da tela
+        larguraTela2 = Principal.janela.getWidth();
+        alturaTela2 = Principal.janela.getHeight();
+
     }
     
     public void iniciarThreadDoJogo() {
@@ -145,7 +176,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 atualizarJogo(); 
-                repaint();
+                //repaint();
+                desenharTelaTemporaria();
+                desenharTela();
                 delta--; 
                 quadrosDesenhados++;
             }
@@ -156,6 +189,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 cronometro = 0; 
             }
         }
+    }
+
+    public void desenharTela(){
+        Graphics g = getGraphics();
+        g.drawImage(telaTemporaria, 0,0, larguraTela2, alturaTela2, null);
+        g.dispose();
     }
 
     public void atualizarJogo() {
@@ -179,6 +218,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
                         inimigo[i].atualizar();
                     }
                     if(inimigo[i].vivo == false){
+                        inimigo[i].verificarDrop();  //dropar item
                         inimigo[i] = null;
                     }
                     
@@ -198,6 +238,25 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
+            
+            for(int i = 0; i < listaParticula.size(); i++){
+                if(listaParticula.get(i) != null){
+                    if(listaParticula.get(i).vivo == true){
+                        listaParticula.get(i).atualizar();
+                    }
+                    if(listaParticula.get(i).vivo == false){
+                        listaParticula.remove(i);
+                    }
+                    
+                }
+            }
+
+            for(int i = 0; i < blocosI.length; i++){
+                if(blocosI[i] != null){
+                    blocosI[i].atualizar();
+                }
+            }
+
 
         }
         if(estadoDoJogo == pausarEstadoDoJogo){
@@ -206,12 +265,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
         
     }
 
-    public void paintComponent(Graphics g) {
-        // Método padrão do Java para desenhar no JPanel
-        super.paintComponent(g); // Chama o método da superclasse (JPanel), já que PainelDoJogo é uma subclasse
-        
-        Graphics2D g2 = (Graphics2D) g;
-
+    public void desenharTelaTemporaria(){
         //debug
         long desenhoInicio = 0;
         if(teclado.mostrarTextoDebug == true){
@@ -221,10 +275,19 @@ public class PainelDoJogo extends JPanel implements Runnable {
         //TITULO
         if(estadoDoJogo == tituloEstado){
             interfaceDoUsuario.desenhar(g2);
-        }else{
+        
+        }
+        else{
             // Desenha os tiles-blocos de imagem
             gerenciadorDeBlocos.desenhar(g2);
             
+            // Desenha os tiles-blocos interativos
+            for(int i = 0; i < blocosI.length; i++){
+                if(blocosI[i] != null){
+                    blocosI[i].desenhar(g2);
+                }
+            }
+
             listaEntidade.add(jogador);
 
             for(int i = 0; i < npc.length; i++){
@@ -248,6 +311,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
             for(int i = 0; i < listaProjetil.size(); i++){
                 if(listaProjetil.get(i) != null){
                     listaEntidade.add(listaProjetil.get(i));
+                }
+            }
+
+            for(int i = 0; i < listaParticula.size(); i++){
+                if(listaParticula.get(i) != null){
+                    listaEntidade.add(listaParticula.get(i));
                 }
             }
 
@@ -294,11 +363,112 @@ public class PainelDoJogo extends JPanel implements Runnable {
             }
         
         }
+    }
+
+    /*
+    public void paintComponent(Graphics g) {
+        // Método padrão do Java para desenhar no JPanel
+        super.paintComponent(g); // Chama o método da superclasse (JPanel), já que PainelDoJogo é uma subclasse
+        
+        Graphics2D g2 = (Graphics2D) g;
+
+        //debug
+        long desenhoInicio = 0;
+        if(teclado.mostrarTextoDebug == true){
+            desenhoInicio = System.nanoTime();
+        }
+
+        //TITULO
+        if(estadoDoJogo == tituloEstado){
+            interfaceDoUsuario.desenhar(g2);
+        }else{
+            // Desenha os tiles-blocos de imagem
+            gerenciadorDeBlocos.desenhar(g2);
+            
+            // Desenha os tiles-blocos interativos
+            for(int i = 0; i < blocosI.length; i++){
+                if(blocosI[i] != null){
+                    blocosI[i].desenhar(g2);
+                }
+            }
+
+            listaEntidade.add(jogador);
+
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    listaEntidade.add(npc[i]);
+                }
+            }
+
+            for(int i = 0; i < Obj.length; i++){
+                if(Obj[i] != null){
+                    listaEntidade.add(Obj[i]);
+                }
+            }
+
+            for(int i = 0; i < inimigo.length; i++){
+                if(inimigo[i] != null){
+                    listaEntidade.add(inimigo[i]);
+                }
+            }
+
+            for(int i = 0; i < listaProjetil.size(); i++){
+                if(listaProjetil.get(i) != null){
+                    listaEntidade.add(listaProjetil.get(i));
+                }
+            }
+
+            for(int i = 0; i < listaParticula.size(); i++){
+                if(listaParticula.get(i) != null){
+                    listaEntidade.add(listaParticula.get(i));
+                }
+            }
+
+            //organizar
+            Collections.sort(listaEntidade, new Comparator<Entidade>(){
+
+                @Override
+                public int compare(Entidade e1, Entidade e2) {
+                    
+                    int resultado = Integer.compare(e1.mundoY, e2.mundoY);
+                    return resultado;
+                }
+
+            });
+            
+            //desenhar entidades
+            for(int i = 0; i < listaEntidade.size(); i++){
+                listaEntidade.get(i).desenhar(g2);
+            }
+            //remover da lista de entidades
+            listaEntidade.clear();
+        
+
+            // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
+            interfaceDoUsuario.desenhar(g2);
+
+            //DEBUG
+            if(teclado.mostrarTextoDebug == true){
+                long desenhoFinal = System.nanoTime();
+                long tempoDeDesenho = desenhoFinal - desenhoInicio;
+                g2.setFont(new Font("Arial", Font.PLAIN, 26));
+                g2.setColor(Color.white);
+                int x = 10;
+                int y = 400;
+                int linhaAltura = 20;
+                g2.drawString("mundoX" + jogador.mundoX, x, y); y += linhaAltura;
+                g2.drawString("mundoY" + jogador.mundoY, x, y); y += linhaAltura;
+                g2.drawString("Coluna" + (jogador.mundoX + jogador.areaSolida.x) / tamanhoDoTile, x, y); y += linhaAltura;
+                g2.drawString("Linha" + (jogador.mundoY + jogador.areaSolida.y) / tamanhoDoTile, x, y); y += linhaAltura;
+
+                g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y);
+                
+            }
+        
+        }
         g2.dispose(); // Desenha um retângulo branco cobrindo toda a tela
         
-        
-        
-    }
+    } */
 
 
     public void iniciarMusica( int i){

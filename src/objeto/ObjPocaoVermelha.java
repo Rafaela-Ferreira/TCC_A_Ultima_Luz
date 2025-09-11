@@ -5,8 +5,7 @@ import main.PainelDoJogo;
 
 public class ObjPocaoVermelha  extends Entidade{
     PainelDoJogo painel;
-    int valorDeCura = 5;
-
+    
     public ObjPocaoVermelha(PainelDoJogo painel) {
         super(painel);
 
@@ -14,17 +13,15 @@ public class ObjPocaoVermelha  extends Entidade{
 
         tipo = tipoConsumivel;
         nome = "pocao vermelha";
+        valor = 5;
         baixo1 = setup("/img/objetos/potion_red", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        descricao = "[" + nome + "]\ncura sua vida em " + valorDeCura + ".";
+        descricao = "[" + nome + "]\ncura sua vida em " + valor + ".";
     }
+
     public void usar(Entidade entidade){
         painel.estadoDoJogo = painel.estadoDoDialogo;
-        painel.interfaceDoUsuario.dialogoAtual = "Voce bebeu uma " + nome + ".\nSua vida foi restaurada em " + valorDeCura + ".";
-        entidade.vida += valorDeCura;
-        if(painel.jogador.vida > painel.jogador.vidaMaxima){
-            painel.jogador.vida = painel.jogador.vidaMaxima;
-
-        }
+        painel.interfaceDoUsuario.dialogoAtual = "Voce bebeu uma " + nome + ".\nSua vida foi restaurada em " + valor + ".";
+        entidade.vida += valor;
         painel.iniciarEfeitoSonoro(2);
     }
     

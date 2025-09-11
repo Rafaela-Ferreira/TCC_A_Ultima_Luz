@@ -1,12 +1,9 @@
 package entidade;
 
-
 import java.awt.AlphaComposite;
 
-//import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-//import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -16,6 +13,7 @@ import objeto.ObjBolaDeFogo;
 import objeto.ObjChave;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
+
 
 
 public class Jogador extends Entidade {
@@ -57,9 +55,7 @@ public class Jogador extends Entidade {
         areaSolida.width = 32; 
         areaSolida.height = 32; 
 
-        //definindo o tamanho da area de ataque
-        //areaAtaque.width = 36;
-        //areaAtaque.height = 36;
+        
 
         setDefaultValues();
         getImagem();
@@ -77,14 +73,19 @@ public class Jogador extends Entidade {
         nivel = 1;
         vidaMaxima = 6;
         vida = vidaMaxima;
+        manaMaxima = 4;
+        mana = manaMaxima;
+        municao = 10;
         forca = 1; //quanto mais força ele tem, mais dano ele dá.
         destreza = 1; //quanto mais destreza ele tem, menos dano ele recebe.
         exp =0;
         proximoNivelExp = 5;
         moeda = 0;
         armaAtual = new ObjEspadaNormal(painel);
+        //armaAtual = new ObjMachado(painel);
         EscudoAtual = new ObjEscudoMadeira(painel);
         projetil = new ObjBolaDeFogo(painel);
+        //projetil = new ObjPedra(painel); //municao
         ataque = getAtaque();
         defesa = getDefesa();
     }
@@ -184,6 +185,11 @@ public class Jogador extends Entidade {
                 //verifica colisão com inimigo
                 int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
                 contatoComInimigo(indiceInimigo);
+                
+                //verificar colisão com blocos interativos
+                int indiceBlocosI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+
+
                 //verificar evento
                 painel.mEventos.verificarEvento();
 
@@ -233,13 +239,17 @@ public class Jogador extends Entidade {
                 }
                 
             }
-            if(painel.teclado.teclaDeTiroPressionada == true && projetil.vivo == false && contadorDeTiro == 30){
+            if(painel.teclado.teclaDeTiroPressionada == true && projetil.vivo == false 
+                && contadorDeTiro == 30 && projetil.temRecursos(this) == true){
                 
                 //definir coordenadas, direção e usuário padrão
                 projetil.setAcao(mundoX, mundoY, direcao, true, this);
 
                 //adicionar o projetil na lista de projetil
                 painel.listaProjetil.add(projetil);
+
+                // subtrai o consumo (mana, munição, etc.)
+                projetil.subtrairRecursos(this);
 
                 contadorDeTiro = 0;
 
@@ -257,7 +267,11 @@ public class Jogador extends Entidade {
 
             if(contadorDeTiro < 30){
                 contadorDeTiro++;
-            }    
+            }
+            
+            if(mana > manaMaxima){
+                mana = manaMaxima;
+            }
     
     
         } 
@@ -293,6 +307,9 @@ public class Jogador extends Entidade {
             int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
             danoDoInimigo(indiceInimigo, ataque);
 
+            int indiceBlocosI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+            danoNoBlocoInterativo(indiceBlocosI);
+
             mundoX = AtualMundoX;
             mundoY = AtualMundoY;
             areaSolida.width = areaSolidaAltura;
@@ -313,18 +330,26 @@ public class Jogador extends Entidade {
       se tiver, a quantidade de chaves diminui */
     public void pegarObjeto(int indice){
         if (indice != 999) {
-            
-            String texto;
-
-            if(inventario.size() != tamanhoMaximoInventario){
-                inventario.add(painel.Obj[indice]);
-                painel.iniciarEfeitoSonoro(1);
-                texto = "Tenho uma " + painel.Obj[indice].nome + "!";
-            }else{
-                texto = "você não pode carregar mais nada!";
+            //itens somente para retirada
+            if(painel.Obj[indice].tipo == tipoRetirada){
+                painel.Obj[indice].usar(this);
+                painel.Obj[indice]= null;
             }
-            painel.interfaceDoUsuario.adicionarMensagem(texto);
-            painel.Obj[indice] = null; //remover o objeto do mapa
+            //itens do invetario
+            else{
+                String texto;
+
+                if(inventario.size() != tamanhoMaximoInventario){
+                    inventario.add(painel.Obj[indice]);
+                    painel.iniciarEfeitoSonoro(1);
+                    texto = "Tenho uma " + painel.Obj[indice].nome + "!";
+                }else{
+                    texto = "você não pode carregar mais nada!";
+                }
+                painel.interfaceDoUsuario.adicionarMensagem(texto);
+                painel.Obj[indice] = null; //remover o objeto do mapa
+            }
+
         }
     }
 
@@ -434,6 +459,24 @@ public class Jogador extends Entidade {
             }
             
         
+        }
+    }
+
+    public void danoNoBlocoInterativo(int i ){
+        if(i!= 999 && painel.blocosI[i].destruir == true 
+            && painel.blocosI[i].itemCorreto(this) == true && painel.blocosI[i].invencivel == false){
+
+            painel.blocosI[i].iniciarEfeitoSonoro();
+            painel.blocosI[i].vida--;
+            painel.blocosI[i].invencivel = true;
+
+            //gerar particula
+            geradorParticula(painel.blocosI[i], painel.blocosI[i]);
+            
+            if(painel.blocosI[i].vida == 0){
+                painel.blocosI[i]= painel.blocosI[i].getDestruir();
+            }
+            
         }
     }
         
