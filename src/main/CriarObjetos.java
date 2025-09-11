@@ -98,6 +98,7 @@ public class CriarObjetos {
 
 
         //mapa 1
+        numeroMapa = 1;
         painel.npc[numeroMapa][i] = new NpcVelho(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*7;
