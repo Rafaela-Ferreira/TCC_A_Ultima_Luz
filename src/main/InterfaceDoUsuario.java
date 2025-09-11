@@ -114,7 +114,51 @@ public class InterfaceDoUsuario {
         if(painel.estadoDoJogo == painel.estadoOpcoes){
             desenharTelaDeOpcoes();
         }
+
+        //estado de game over
+        if(painel.estadoDoJogo == painel.estadoGameOver){
+            desenharTelaDeGameOver();
+        }
         
+    }
+
+    public void desenharTelaDeGameOver(){
+        g2.setColor(new Color(0, 0,0, 150));
+        g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
+
+        int x, y;
+        String texto;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110F));
+        
+        texto = "Game Over";
+        //sombra
+        g2.setColor(Color.black);
+        x = obterTextoXCentralizado(texto);
+        y = painel.tamanhoDoTile*4;
+        g2.drawString(texto, x, y);
+
+        //main
+        g2.setColor(Color.white);
+        g2.drawString(texto, x-4, y-4);
+
+        //reiniciar
+        g2.setFont(g2.getFont().deriveFont(50F));
+        texto = "Reiniciar";
+        x = obterTextoXCentralizado(texto);
+        y += painel.tamanhoDoTile*4;
+        g2.drawString(texto, x, y);
+        if(numeroDoComando == 0){
+            g2.drawString(">", x-40, y);
+        }
+
+        //voltar a tela inicial
+        texto = "Sair";
+        x = obterTextoXCentralizado(texto);
+        y += 55;
+        g2.drawString(texto, x, y);
+        if(numeroDoComando == 1){
+            g2.drawString(">", x-40, y);
+        }
     }
 
     public void desenharVidaDoJogador(){
@@ -623,6 +667,8 @@ public class InterfaceDoUsuario {
         g2.drawRect(textoX, textoY, 120, 24);
         volumeLargura = 24 * painel.efeitoSonoro.escalaDoVolume;
         g2.fillRect(textoX, textoY, volumeLargura, 24);
+
+        painel.config.salvarConfiguracoes();
 
     }
 

@@ -26,8 +26,8 @@ public class ColisaoChecked {
         switch (entidade.direcao) {
             case "cima":
                 entidadeTopoLinha = (entidadeTopoMundoY - entidade.velocidade) / painel.tamanhoDoTile;
-                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeEsquerdaColuna][entidadeTopoLinha];
-                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeDireitaColuna][entidadeTopoLinha];
+                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeEsquerdaColuna][entidadeTopoLinha];
+                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeDireitaColuna][entidadeTopoLinha];
                 
                 if(painel.gerenciadorDeBlocos.blocos[numeroDoBloco1].temColisao == true ||
                     painel.gerenciadorDeBlocos.blocos[numeroDoBloco2].temColisao == true) {
@@ -37,8 +37,8 @@ public class ColisaoChecked {
                 break;
             case "baixo":
                 entidadeBaseLinha = (entidadeBaseMundoY + entidade.velocidade) / painel.tamanhoDoTile;
-                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeEsquerdaColuna][entidadeBaseLinha];
-                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeDireitaColuna][entidadeBaseLinha];
+                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeEsquerdaColuna][entidadeBaseLinha];
+                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeDireitaColuna][entidadeBaseLinha];
                 
                 if(painel.gerenciadorDeBlocos.blocos[numeroDoBloco1].temColisao == true ||
                     painel.gerenciadorDeBlocos.blocos[numeroDoBloco2].temColisao == true) {
@@ -47,8 +47,8 @@ public class ColisaoChecked {
                 break;
             case "esquerda":
                 entidadeEsquerdaColuna = (entidadeEsquerdaMundoX - entidade.velocidade) / painel.tamanhoDoTile;
-                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeEsquerdaColuna][entidadeTopoLinha];
-                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeEsquerdaColuna][entidadeBaseLinha];
+                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeEsquerdaColuna][entidadeTopoLinha];
+                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeEsquerdaColuna][entidadeBaseLinha];
                 
                 if(painel.gerenciadorDeBlocos.blocos[numeroDoBloco1].temColisao == true ||
                     painel.gerenciadorDeBlocos.blocos[numeroDoBloco2].temColisao == true) {
@@ -57,8 +57,8 @@ public class ColisaoChecked {
                 break;
             case "direita":
                 entidadeDireitaColuna = (entidadeDireitaMundoX + entidade.velocidade) / painel.tamanhoDoTile;
-                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeDireitaColuna][entidadeTopoLinha];
-                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[entidadeDireitaColuna][entidadeBaseLinha];
+                numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeDireitaColuna][entidadeTopoLinha];
+                numeroDoBloco2 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeDireitaColuna][entidadeBaseLinha];
                 
                 if(painel.gerenciadorDeBlocos.blocos[numeroDoBloco1].temColisao == true ||
                     painel.gerenciadorDeBlocos.blocos[numeroDoBloco2].temColisao == true) {
@@ -76,15 +76,15 @@ public class ColisaoChecked {
         
         int indice = 999;
 
-        for (int i = 0; i < painel.Obj.length; i++) {
-            if (painel.Obj[i] != null) {
+        for (int i = 0; i < painel.Obj[1].length; i++) {
+            if (painel.Obj[painel.mapaAtual][i] != null) {
 
                 // Lógica de colisão
                 entidade.areaSolida.x = entidade.mundoX + entidade.areaSolida.x;
                 entidade.areaSolida.y = entidade.mundoY + entidade.areaSolida.y;
 
-                painel.Obj[i].areaSolida.x = painel.Obj[i].mundoX + painel.Obj[i].areaSolida.x;
-                painel.Obj[i].areaSolida.y = painel.Obj[i].mundoY + painel.Obj[i].areaSolida.y;
+                painel.Obj[painel.mapaAtual][i].areaSolida.x = painel.Obj[painel.mapaAtual][i].mundoX + painel.Obj[painel.mapaAtual][i].areaSolida.x;
+                painel.Obj[painel.mapaAtual][i].areaSolida.y = painel.Obj[painel.mapaAtual][i].mundoY + painel.Obj[painel.mapaAtual][i].areaSolida.y;
 
                 switch (entidade.direcao) {
                     case "cima": entidade.areaSolida.y -= entidade.velocidade; break;
@@ -93,34 +93,34 @@ public class ColisaoChecked {
                     case "direita": entidade.areaSolida.x += entidade.velocidade; break;
                 }
 
-                if (entidade.areaSolida.intersects(painel.Obj[i].areaSolida)) {
-                    if (painel.Obj[i].temColisao) entidade.colisaoComBloco = true;
+                if (entidade.areaSolida.intersects(painel.Obj[painel.mapaAtual][i].areaSolida)) {
+                    if (painel.Obj[painel.mapaAtual][i].temColisao) entidade.colisaoComBloco = true;
                     if (jogador) indice = i;
                 }
 
                 //Reset seguro
                 entidade.areaSolida.x = entidade.areaSolidaPadraoX; 
                 entidade.areaSolida.y = entidade.areaSolidaPadraoY;
-                painel.Obj[i].areaSolida.x = painel.Obj[i].areaSolidaPadraoX;
-                painel.Obj[i].areaSolida.y = painel.Obj[i].areaSolidaPadraoY;
+                painel.Obj[painel.mapaAtual][i].areaSolida.x = painel.Obj[painel.mapaAtual][i].areaSolidaPadraoX;
+                painel.Obj[painel.mapaAtual][i].areaSolida.y = painel.Obj[painel.mapaAtual][i].areaSolidaPadraoY;
             }
         }
         return indice; // Retorna o índice do objeto se houver colisão, ou 999 se não houver
     }
 
     //verificar colisão de NPC ou mostros
-    public int verificarEntidade(Entidade entidade, Entidade[] target){
+    public int verificarEntidade(Entidade entidade, Entidade[][] alvo){
         int indice = 999;
 
-        for (int i = 0; i < target.length; i++) {
-            if (target[i] != null) {
+        for (int i = 0; i < alvo[1].length; i++) {
+            if (alvo[painel.mapaAtual][i] != null) {
 
                 // Lógica de colisão
                 entidade.areaSolida.x = entidade.mundoX + entidade.areaSolida.x;
                 entidade.areaSolida.y = entidade.mundoY + entidade.areaSolida.y;
 
-                target[i].areaSolida.x = target[i].mundoX + target[i].areaSolida.x;
-                target[i].areaSolida.y = target[i].mundoY + target[i].areaSolida.y;
+                alvo[painel.mapaAtual][i].areaSolida.x = alvo[painel.mapaAtual][i].mundoX + alvo[painel.mapaAtual][i].areaSolida.x;
+                alvo[painel.mapaAtual][i].areaSolida.y = alvo[painel.mapaAtual][i].mundoY + alvo[painel.mapaAtual][i].areaSolida.y;
 
                 switch (entidade.direcao) {
                     case "cima":
@@ -138,8 +138,8 @@ public class ColisaoChecked {
                         break;
                 }
 
-                if (entidade.areaSolida.intersects(target[i].areaSolida)) {
-                    if(target[i] != entidade){
+                if (entidade.areaSolida.intersects(alvo[painel.mapaAtual][i].areaSolida)) {
+                    if(alvo[painel.mapaAtual][i] != entidade){
                         entidade.colisaoComBloco = true;
                         indice = i;
                     }
@@ -149,8 +149,8 @@ public class ColisaoChecked {
                 //Reset seguro
                 entidade.areaSolida.x = entidade.areaSolidaPadraoX; 
                 entidade.areaSolida.y = entidade.areaSolidaPadraoY;
-                target[i].areaSolida.x = target[i].areaSolidaPadraoX;
-                target[i].areaSolida.y = target[i].areaSolidaPadraoY;
+                alvo[painel.mapaAtual][i].areaSolida.x = alvo[painel.mapaAtual][i].areaSolidaPadraoX;
+                alvo[painel.mapaAtual][i].areaSolida.y = alvo[painel.mapaAtual][i].areaSolidaPadraoY;
             }
         }
         return indice; // Retorna o índice do objeto se houver colisão, ou 999 se não houver

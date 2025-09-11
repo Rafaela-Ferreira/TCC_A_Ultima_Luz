@@ -55,6 +55,11 @@ public class Teclado implements KeyListener {
             opcaoEstado(code);
         }
 
+        //estado de game over
+        else if(painel.estadoDoJogo == painel.estadoGameOver){
+            estadoGameOver(code);
+        }
+
     }
 
     public void estadoTitilo(int code){
@@ -158,7 +163,11 @@ public class Teclado implements KeyListener {
             }
         }
         if(code == KeyEvent.VK_R){
-            painel.gerenciadorDeBlocos.carregarMapa("/mapas/mapaV2.txt");
+            switch (painel.mapaAtual) {
+                case 0: painel.gerenciadorDeBlocos.carregarMapa("/mapas/mapaV3.txt", 0); break;
+                case 1: painel.gerenciadorDeBlocos.carregarMapa("/mapas/interior01.txt", 1); break;
+            }
+            
         }
 
     }
@@ -210,6 +219,45 @@ public class Teclado implements KeyListener {
             painel.jogador.selecionarItem();
         }
     }
+
+
+
+
+
+    public void estadoGameOver(int code){
+        if(code == KeyEvent.VK_W){
+            painel.interfaceDoUsuario.numeroDoComando--;
+            if(painel.interfaceDoUsuario.numeroDoComando < 0){
+                painel.interfaceDoUsuario.numeroDoComando = 1;
+            }
+            painel.iniciarEfeitoSonoro(9);
+        }
+        if(code == KeyEvent.VK_S){
+            painel.interfaceDoUsuario.numeroDoComando++;
+            if(painel.interfaceDoUsuario.numeroDoComando > 1){
+                painel.interfaceDoUsuario.numeroDoComando = 0;
+            }
+            painel.iniciarEfeitoSonoro(9);
+        }
+
+        if(code == KeyEvent.VK_ENTER){
+            if(painel.interfaceDoUsuario.numeroDoComando == 0){
+                painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                painel.tenteNovamente();
+                painel.iniciarMusica(0);
+
+            }else if(painel.interfaceDoUsuario.numeroDoComando == 1){
+                painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0; // voltar para o menu inicial (0 é a tela inicial, 1 é a escolha de classe)
+                painel.estadoDoJogo = painel.tituloEstado;
+                painel.reiniciar();
+            }
+            
+
+        }
+    }
+
+
+
     public void opcaoEstado(int code){
         if(code == KeyEvent.VK_ESCAPE){
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;

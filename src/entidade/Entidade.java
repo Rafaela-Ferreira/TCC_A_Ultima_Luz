@@ -121,11 +121,11 @@ public class Entidade {
     public void verificarDrop(){}
 
     public void droparItem(Entidade droparItem){
-        for(int i = 0; i < painel.Obj.length; i++){
-            if(painel.Obj[i] == null){
-                painel.Obj[i] = droparItem;
-                painel.Obj[i].mundoX = mundoX;
-                painel.Obj[i].mundoY = mundoY;
+        for(int i = 0; i < painel.Obj[1].length; i++){
+            if(painel.Obj[painel.mapaAtual][i] == null){
+                painel.Obj[painel.mapaAtual][i] = droparItem;
+                painel.Obj[painel.mapaAtual][i].mundoX = mundoX;
+                painel.Obj[painel.mapaAtual][i].mundoY = mundoY;
                 break;
             }
         }

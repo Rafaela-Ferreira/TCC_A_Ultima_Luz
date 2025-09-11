@@ -16,18 +16,20 @@ public class GerenciadorDeBlocos {
     public Bloco[] blocos; // Array de tiles
 
     //caregar o artivo de txt
-    public int numerosDoMapa[][]; //usado tbm na verificação de colisão
-    //int[][] numerosDoMapa; ????
+    //primeira dimensão da matriz para armazenar o numero de mapas
+    public int numerosDoMapa[][][]; //usado tbm na verificação de colisão
+    
 
 
     public GerenciadorDeBlocos(PainelDoJogo painel) {
         this.painel = painel;
 
         blocos = new Bloco[50]; // Inicializa o array de blocos com tamanho 50
-        numerosDoMapa = new int[painel.maxColunasMundo][painel.maxLinhasMundo]; 
+        numerosDoMapa = new int [painel.maxMapa][painel.maxColunasMundo][painel.maxLinhasMundo]; //matriz tridimencional
         
         carregarImagensDosBlocos();
-        carregarMapa("/mapas/mapaV2.txt");
+        carregarMapa("/mapas/mapaV3.txt", 0);
+        carregarMapa("/mapas/interior01.txt", 1);
     }
 
     public void carregarImagensDosBlocos() {
@@ -80,6 +82,9 @@ public class GerenciadorDeBlocos {
         setup(39, "earth", false);
         setup(40, "wall", true);
         setup(41, "tree", true);
+        setup(42, "hut", false);
+        setup(43, "floor01", false);
+        setup(44, "table01", true);
        
     }
 
@@ -98,7 +103,7 @@ public class GerenciadorDeBlocos {
 
     }
 
-    public void carregarMapa( String caminhoDoArquivo) {
+    public void carregarMapa( String caminhoDoArquivo, int mapa) {
         // Método para carregar o mapa a partir de um arquivo de texto
         // Aqui você pode implementar a lógica para ler o arquivo e preencher o mapaTileNum
         // Exemplo: cada número no arquivo representa um tipo de tile
@@ -118,9 +123,9 @@ public class GerenciadorDeBlocos {
             for (coluna = 0; coluna < painel.maxColunasMundo; coluna++) {
                 if (coluna < numeros.length) {
                     int num = Integer.parseInt(numeros[coluna]);
-                    numerosDoMapa[coluna][linha] = num;
+                    numerosDoMapa[mapa][coluna][linha] = num;
                 } else {
-                    numerosDoMapa[coluna][linha] = 0; // fallback
+                    numerosDoMapa[mapa][coluna][linha] = 0; // fallback
                 }
             }
 
@@ -140,7 +145,7 @@ public class GerenciadorDeBlocos {
 
     while (colunaDoMundo < painel.maxColunasMundo && linhaDoMundo < painel.maxLinhasMundo) {
        
-        int numeroDoBloco = numerosDoMapa[colunaDoMundo][linhaDoMundo];
+        int numeroDoBloco = numerosDoMapa[painel.mapaAtual][colunaDoMundo][linhaDoMundo];
 
         int mundoX = colunaDoMundo * painel.tamanhoDoTile; 
         int mundoY = linhaDoMundo * painel.tamanhoDoTile; 

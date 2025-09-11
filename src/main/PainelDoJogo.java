@@ -34,6 +34,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     //world settings
     public final int maxColunasMundo = 50; // Número máximo de colunas no mundo
     public final int maxLinhasMundo = 50; // Número máximo de linhas no mundo
+    public final int maxMapa = 10; //qtd de mapas - ajustar conforme necessidade
+    public int mapaAtual = 0;
    
     //tela cheia
     int larguraTela2 = larguraTela;
@@ -55,14 +57,15 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public CriarObjetos criarObjetos = new CriarObjetos(this);
     public InterfaceDoUsuario interfaceDoUsuario = new InterfaceDoUsuario(this);
     public ManipuladorDeEventos mEventos = new ManipuladorDeEventos(this);
+    Config config = new Config(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
     //Entidades e objetos do jogo
     public Jogador jogador = new Jogador(this, teclado); 
-    public Entidade Obj[] = new Entidade[20]; //20 objs ao mesmo tempo
-    public Entidade npc[] = new Entidade[10]; //10 objs ao mesmo tempo
-    public Entidade inimigo[] = new Entidade[20]; //20 inimigo ao mesmo tempo
-    public BlocosInterativos blocosI[] = new BlocosInterativos[50];
+    public Entidade Obj[][] = new Entidade[maxMapa][20]; //20 objs ao mesmo tempo
+    public Entidade npc[][] = new Entidade[maxMapa][10]; //10 objs ao mesmo tempo
+    public Entidade inimigo[][] = new Entidade[maxMapa][20]; //20 inimigo ao mesmo tempo
+    public BlocosInterativos blocosI[][] = new BlocosInterativos[maxMapa][50];
     public ArrayList<Entidade> listaProjetil = new ArrayList<>();
     public ArrayList<Entidade> listaParticula = new ArrayList<>();
     ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
@@ -76,6 +79,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoDoDialogo = 3;
     public final int estadoPersonagem = 4; 
     public final int estadoOpcoes = 5; 
+    public final int estadoGameOver = 6;
 
 
 
@@ -100,7 +104,28 @@ public class PainelDoJogo extends JPanel implements Runnable {
         telaTemporaria = new BufferedImage(larguraTela, alturaTela, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D)telaTemporaria.getGraphics();
 
-        //setTelaCheia();
+        if(telaCheiaAtiva == true){
+            setTelaCheia();
+        }
+        
+    }
+    public void tenteNovamente(){
+        jogador.setPosicaoPadrao();
+        jogador.restaltarVidaE_Mana();
+        criarObjetos.setNpc();
+        criarObjetos.setInimigos();
+    }
+
+    public void reiniciar(){
+        jogador.setDefaultValues();
+        jogador.setPosicaoPadrao();
+        jogador.restaltarVidaE_Mana();
+        jogador.setItens();
+
+        criarObjetos.setarObjetos(); 
+        criarObjetos.setNpc();
+        criarObjetos.setInimigos();
+        criarObjetos.setBlocosInterativos();
     }
 
     public void setTelaCheia(){
@@ -205,21 +230,21 @@ public class PainelDoJogo extends JPanel implements Runnable {
             jogador.atualizar(); 
 
             // Atualiza o estado do NPC
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    npc[i].atualizar();
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[mapaAtual][i] != null){
+                    npc[mapaAtual][i].atualizar();
                 }
             }
 
             //atualizar o estado do inimigo
-            for(int i = 0; i < inimigo.length; i++){
-                if(inimigo[i] != null){
-                    if(inimigo[i].vivo == true && inimigo[i].morrendo== false){
-                        inimigo[i].atualizar();
+            for(int i = 0; i < inimigo[1].length; i++){
+                if(inimigo[mapaAtual][i] != null){
+                    if(inimigo[mapaAtual][i].vivo == true && inimigo[mapaAtual][i].morrendo== false){
+                        inimigo[mapaAtual][i].atualizar();
                     }
-                    if(inimigo[i].vivo == false){
-                        inimigo[i].verificarDrop();  //dropar item
-                        inimigo[i] = null;
+                    if(inimigo[mapaAtual][i].vivo == false){
+                        inimigo[mapaAtual][i].verificarDrop();  //dropar item
+                        inimigo[mapaAtual][i] = null;
                     }
                     
                 }
@@ -251,9 +276,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
-            for(int i = 0; i < blocosI.length; i++){
-                if(blocosI[i] != null){
-                    blocosI[i].atualizar();
+            for(int i = 0; i < blocosI[1].length; i++){
+                if(blocosI[mapaAtual][i] != null){
+                    blocosI[mapaAtual][i].atualizar();
                 }
             }
 
@@ -282,29 +307,29 @@ public class PainelDoJogo extends JPanel implements Runnable {
             gerenciadorDeBlocos.desenhar(g2);
             
             // Desenha os tiles-blocos interativos
-            for(int i = 0; i < blocosI.length; i++){
-                if(blocosI[i] != null){
-                    blocosI[i].desenhar(g2);
+            for(int i = 0; i < blocosI[1].length; i++){
+                if(blocosI[mapaAtual][i] != null){
+                    blocosI[mapaAtual][i].desenhar(g2);
                 }
             }
 
             listaEntidade.add(jogador);
 
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    listaEntidade.add(npc[i]);
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[mapaAtual][i] != null){
+                    listaEntidade.add(npc[mapaAtual][i]);
                 }
             }
 
-            for(int i = 0; i < Obj.length; i++){
-                if(Obj[i] != null){
-                    listaEntidade.add(Obj[i]);
+            for(int i = 0; i < Obj[1].length; i++){
+                if(Obj[mapaAtual][i] != null){
+                    listaEntidade.add(Obj[mapaAtual][i]);
                 }
             }
 
-            for(int i = 0; i < inimigo.length; i++){
-                if(inimigo[i] != null){
-                    listaEntidade.add(inimigo[i]);
+            for(int i = 0; i < inimigo[1].length; i++){
+                if(inimigo[mapaAtual][i] != null){
+                    listaEntidade.add(inimigo[mapaAtual][i]);
                 }
             }
 

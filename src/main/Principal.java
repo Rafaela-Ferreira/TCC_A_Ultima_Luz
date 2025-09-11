@@ -9,10 +9,15 @@ public class Principal {
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setResizable(false);
         janela.setTitle("RPG 2D de Aventura");
-        //janela.setUndecorated(true);
+        
 
         PainelDoJogo painelDoJogo = new PainelDoJogo();
         janela.add(painelDoJogo);
+
+        painelDoJogo.config.carregarConfiguracoes();
+        if(painelDoJogo.telaCheiaAtiva == true){
+            janela.setUndecorated(true);
+        }
 
         janela.pack(); // Ajusta o tamanho da janela com base no painel
 

@@ -27,7 +27,7 @@ public class Projetil extends Entidade{
 
             if(indiceInimigo != 999){
                 painel.jogador.danoDoInimigo(indiceInimigo, ataque);
-                geradorParticula(usuario.projetil, painel.inimigo[indiceInimigo]);
+                geradorParticula(usuario.projetil, painel.inimigo[painel.mapaAtual][indiceInimigo]);
                 vivo = false;
             }
         }
