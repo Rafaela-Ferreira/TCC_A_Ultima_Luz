@@ -8,7 +8,7 @@ public class NpcVelho extends Entidade{
         super(painel);
 
         direcao = "baixo";
-        velocidade = 1;
+        velocidade = 2;
 
         getImagem();
         setDialogo();
@@ -37,27 +37,40 @@ public class NpcVelho extends Entidade{
 
     public void setAcao(){
 
-        contadorDeBloqueioDeAcao++;
+        if(pastaAtiva == true){
+            //para o NPC ter um objetivo
+            //int metaColuna = 10;
+            //int metaLinha = 9;
 
-        //esperar 120 (2 segundos) para mudar de direção
-        if(contadorDeBloqueioDeAcao == 120){
-            Random random = new Random();
-            int i = random.nextInt(100) + 1; //0 - 100
+            //para o NPC seguir o jogador
+            int metaColuna = (painel.jogador.mundoX + painel.jogador.areaSolida.x) / painel.tamanhoDoTile;
+            int metaLinha = (painel.jogador.mundoY + painel.jogador.areaSolida.y) / painel.tamanhoDoTile;
 
-            if(i <= 25){
-                direcao = "cima";
-            }
-            if(i > 25 && i <= 50){
-                direcao = "baixo";
-            }
-            if(i > 50 && i <= 75){
-                direcao = "esquerda";
-            }
-            if(i > 75 && i <= 100){
-                direcao = "direita";
-            }
+            procurarCaminho(metaColuna, metaLinha);
 
-            contadorDeBloqueioDeAcao = 0;
+        }else{
+            contadorDeBloqueioDeAcao++;
+
+            //esperar 120 (2 segundos) para mudar de direção
+            if(contadorDeBloqueioDeAcao == 120){
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; //0 - 100
+
+                if(i <= 25){
+                    direcao = "cima";
+                }
+                if(i > 25 && i <= 50){
+                    direcao = "baixo";
+                }
+                if(i > 50 && i <= 75){
+                    direcao = "esquerda";
+                }
+                if(i > 75 && i <= 100){
+                    direcao = "direita";
+                }
+
+                contadorDeBloqueioDeAcao = 0;
+            }
         }
         
     }
@@ -65,6 +78,8 @@ public class NpcVelho extends Entidade{
     public void falar(){
         //usado para personalizar as falas do npc
        super.falar();
+
+       pastaAtiva = true;
     }
 
     

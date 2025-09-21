@@ -13,7 +13,7 @@ public class ObjEscudoAzul extends Entidade{
         baixo1 = setup("/img/objetos/shield_blue", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorDefesa = 2;
         descricao = "[" + nome + "]\nFabricado de aço.";
-        
+        preco = 250;
     }
     
 }

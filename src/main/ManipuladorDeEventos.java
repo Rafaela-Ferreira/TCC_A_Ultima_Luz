@@ -1,11 +1,14 @@
 package main;
 
+import entidade.Entidade;
+
 public class ManipuladorDeEventos {
     PainelDoJogo painel;
     EventoRetangulo eventoRetangulo[][][];
 
     int eventoAnteriorX, eventoAnteriorY;
     boolean podeTocarEvento = true;
+    int mapaTemporario, colunaTemporaria, linhaTemporaria;
 
     public ManipuladorDeEventos(PainelDoJogo painel){
         this.painel = painel;
@@ -69,6 +72,9 @@ public class ManipuladorDeEventos {
             }
             else if(bater (1, 12,13, "any") == true){
                 teleporteMapa(0, 10,31);
+            }
+            else if(bater(1, 12, 9, "cima") == true ){
+                falar(painel.npc[1][0]);
             }
 
         }
@@ -138,12 +144,20 @@ public class ManipuladorDeEventos {
 
     //usado para teleporte entre mapas
     public void teleporteMapa(int mapa, int coluna, int linha){
-        painel.mapaAtual = mapa;
-        painel.jogador.mundoX = painel.tamanhoDoTile*coluna;
-        painel.jogador.mundoY = painel.tamanhoDoTile*linha;
-        eventoAnteriorX = painel.jogador.mundoX;
-        eventoAnteriorY = painel.jogador.mundoY;
+
+        painel.estadoDoJogo = painel.estadoDeTransicao;
+        mapaTemporario = mapa;
+        colunaTemporaria = coluna;
+        linhaTemporaria = linha;
         podeTocarEvento = false;
         painel.iniciarEfeitoSonoro(13);
+    }
+
+    public void falar(Entidade entidade){
+        if(painel.teclado.precionarEnter == true){
+            painel.estadoDoJogo = painel.estadoDoDialogo;
+            painel.jogador.cancelarAtaque = true;
+            entidade.falar();
+        }
     }
 }

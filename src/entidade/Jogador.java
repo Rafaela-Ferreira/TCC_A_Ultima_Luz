@@ -31,12 +31,6 @@ public class Jogador extends Entidade {
 
     public boolean cancelarAtaque = false;
 
-    //inventario
-    public ArrayList<Entidade> inventario = new ArrayList<>();
-    public final int tamanhoMaximoInventario = 20;
-    
-
-
 
     public Jogador(PainelDoJogo painel, Teclado teclado) {
         super(painel); //estamos chamando o construtor da superClass desta class (Entidade)
@@ -66,7 +60,9 @@ public class Jogador extends Entidade {
         mundoX = painel.tamanhoDoTile * 23; 
         mundoY = painel.tamanhoDoTile * 21;
         //mundoX = painel.tamanhoDoTile * 12; 
-        //mundoY = painel.tamanhoDoTile * 13;
+        //mundoY = painel.tamanhoDoTile * 12;
+        //painel.mapaAtual = 1;
+
 
         velocidade = 4;
         direcao = "baixo"; // Direção inicial do jogador
@@ -413,7 +409,7 @@ public class Jogador extends Entidade {
     }
 
     public void selecionarItem(){
-        int indeceItem = painel.interfaceDoUsuario.pegarItemSelecionado();
+        int indeceItem = painel.interfaceDoUsuario.pegarItemSelecionado(painel.interfaceDoUsuario.jogadorEspacoColuna, painel.interfaceDoUsuario.jogadorEspacoLinha);
 
         if(indeceItem < inventario.size()){
 

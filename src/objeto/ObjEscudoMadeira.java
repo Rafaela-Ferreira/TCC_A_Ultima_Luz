@@ -13,6 +13,7 @@ public class ObjEscudoMadeira  extends Entidade{
         baixo1 = setup("/img/objetos/shield_wood", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorDefesa = 1;
         descricao = "[" + nome + "]\nFabricado de madeira.";
+        preco = 100;
         
     }
     

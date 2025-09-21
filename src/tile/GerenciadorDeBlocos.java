@@ -1,5 +1,6 @@
 package tile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,9 +19,11 @@ public class GerenciadorDeBlocos {
     //caregar o artivo de txt
     //primeira dimensão da matriz para armazenar o numero de mapas
     public int numerosDoMapa[][][]; //usado tbm na verificação de colisão
+    public int[][][] numeroBloco;
+    boolean desenharCaminho = true;
     
 
-
+    //OBS: tileManager
     public GerenciadorDeBlocos(PainelDoJogo painel) {
         this.painel = painel;
 
@@ -143,31 +146,45 @@ public class GerenciadorDeBlocos {
         // Método para desenhar os tiles no painel
         int colunaDoMundo = 0, linhaDoMundo = 0;
 
-    while (colunaDoMundo < painel.maxColunasMundo && linhaDoMundo < painel.maxLinhasMundo) {
-       
-        int numeroDoBloco = numerosDoMapa[painel.mapaAtual][colunaDoMundo][linhaDoMundo];
+        while (colunaDoMundo < painel.maxColunasMundo && linhaDoMundo < painel.maxLinhasMundo) {
+        
+            int numeroDoBloco = numerosDoMapa[painel.mapaAtual][colunaDoMundo][linhaDoMundo];
 
-        int mundoX = colunaDoMundo * painel.tamanhoDoTile; 
-        int mundoY = linhaDoMundo * painel.tamanhoDoTile; 
-        int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
-        int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
+            int mundoX = colunaDoMundo * painel.tamanhoDoTile; 
+            int mundoY = linhaDoMundo * painel.tamanhoDoTile; 
+            int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
+            int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
-        // Verifica se o bloco está dentro da área visível do jogador
-        if (mundoX + painel.tamanhoDoTile > painel.jogador.mundoX - painel.jogador.telaX && 
-            mundoX - painel.tamanhoDoTile < painel.jogador.mundoX + painel.jogador.telaX &&
-            mundoY + painel.tamanhoDoTile > painel.jogador.mundoY - painel.jogador.telaY &&
-            mundoY - painel.tamanhoDoTile < painel.jogador.mundoY + painel.jogador.telaY) {
-            
-            g2.drawImage(blocos[numeroDoBloco].imagem, telaX, telaY,  null);
+            // Verifica se o bloco está dentro da área visível do jogador
+            if (mundoX + painel.tamanhoDoTile > painel.jogador.mundoX - painel.jogador.telaX && 
+                mundoX - painel.tamanhoDoTile < painel.jogador.mundoX + painel.jogador.telaX &&
+                mundoY + painel.tamanhoDoTile > painel.jogador.mundoY - painel.jogador.telaY &&
+                mundoY - painel.tamanhoDoTile < painel.jogador.mundoY + painel.jogador.telaY) {
+                
+                g2.drawImage(blocos[numeroDoBloco].imagem, telaX, telaY,  null);
+            }
+
+            colunaDoMundo++;
+
+            if (colunaDoMundo == painel.maxColunasMundo) {
+                colunaDoMundo = 0;
+                linhaDoMundo++;
+            }
         }
 
-        colunaDoMundo++;
+        if(desenharCaminho == true){
+            g2.setColor(new Color(255,0,0,70));
 
-        if (colunaDoMundo == painel.maxColunasMundo) {
-            colunaDoMundo = 0;
-            linhaDoMundo++;
+            for(int i = 0; i < painel.localizarCaminhos.listaCaminho.size(); i++){
+
+                int mundoX = painel.localizarCaminhos.listaCaminho.get(i).coluna * painel.tamanhoDoTile;
+                int mundoY = painel.localizarCaminhos.listaCaminho.get(i).linha * painel.tamanhoDoTile; 
+                int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
+                int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
+
+                g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
+            }
         }
-    }
         
     }
 }

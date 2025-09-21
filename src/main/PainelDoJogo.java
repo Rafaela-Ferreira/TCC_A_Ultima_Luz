@@ -1,6 +1,7 @@
 package main;
 import javax.swing.JPanel;
 
+import IA.LocalizarCaminhos;
 import entidade.Entidade;
 import entidade.Jogador;
 import tile.GerenciadorDeBlocos;
@@ -47,7 +48,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     //FPS
     int FPS= 60;
 
-    GerenciadorDeBlocos gerenciadorDeBlocos = new GerenciadorDeBlocos(this);
+    public GerenciadorDeBlocos gerenciadorDeBlocos = new GerenciadorDeBlocos(this);
 
     public Teclado teclado = new Teclado(this); 
     Som musica = new Som(); 
@@ -58,6 +59,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public InterfaceDoUsuario interfaceDoUsuario = new InterfaceDoUsuario(this);
     public ManipuladorDeEventos mEventos = new ManipuladorDeEventos(this);
     Config config = new Config(this);
+    public LocalizarCaminhos localizarCaminhos = new LocalizarCaminhos(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
     //Entidades e objetos do jogo
@@ -80,6 +82,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoPersonagem = 4; 
     public final int estadoOpcoes = 5; 
     public final int estadoGameOver = 6;
+    public final int estadoDeTransicao = 7;
+    public final int trocaDeEstado = 8;
+    public boolean desenharCaminho;
 
 
 
@@ -89,6 +94,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // Melhora a performance de renderização
         this.addKeyListener(teclado); // Adiciona o KeyListener para capturar eventos de teclado
         this.setFocusable(true); // Permite que o painel receba foco para capturar eventos de teclado
+        
     }
 
     public void setarObjetos() {

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -46,6 +47,9 @@ public class Entidade {
     public int contadorDeTiro = 0;
     int contadorMorrendo = 0;
     int contadorBarraDeVida = 0;
+
+    //IA
+    public boolean pastaAtiva = false;
     
     //Atributos do jogador
     public String nome;
@@ -68,11 +72,15 @@ public class Entidade {
     public Projetil projetil;
 
     //atributos dos Itens
+    //inventario
+    public ArrayList<Entidade> inventario = new ArrayList<>();
+    public final int tamanhoMaximoInventario = 20;
     public int valor;
     public int valorAtaque;
     public int valorDefesa;
     public String descricao = "";
     public int usarConsumivel;
+    public int preco;
 
     //Tipo de entidade
     public int tipo; //0 -> jogador, 1 -> npc, 2 -> inimigo....
@@ -165,9 +173,8 @@ public class Entidade {
         painel.listaParticula.add(p4);
     }
 
-    public void atualizar(){
-        setAcao();
-
+    public void verificarColisao(){
+        
         colisaoComBloco = false;
         painel.colisaoChecked.verificarColisao(this);
         painel.colisaoChecked.verificarObjeto(this, false);
@@ -180,6 +187,14 @@ public class Entidade {
         if(this.tipo == tipoInimigo && contatoComJogador == true){
             danoJogador(ataque);
         }
+    }
+
+
+
+    public void atualizar(){
+        setAcao();
+
+        verificarColisao();
 
         //se colição for false,
         if(colisaoComBloco == false) {
@@ -197,7 +212,7 @@ public class Entidade {
             
             // Controle de animação do sprite
             contadorDeSprite++;
-            if(contadorDeSprite  > 12) { // A cada 10 atualizações, troca o sprite
+            if(contadorDeSprite  > 24) { // A cada 10 atualizações, troca o sprite
                 if(numeroDoSprite  == 1) {
                     numeroDoSprite  = 2; // Alterna para o segundo sprite
                 } else if(numeroDoSprite  == 2) {
@@ -338,5 +353,89 @@ public class Entidade {
         }
 
         return imagem;
+    }
+
+    public void procurarCaminho(int metaColuna, int metaLinha){
+
+        int iniciarColuna = (mundoX + areaSolida.x) / painel.tamanhoDoTile;
+        int iniciarLinha = (mundoY + areaSolida.y) / painel.tamanhoDoTile;
+
+        painel.localizarCaminhos.setNos(iniciarColuna, iniciarLinha, metaColuna, metaLinha, this);
+
+        if(painel.localizarCaminhos.procurar() == true){
+            
+            //next worldX e worldY
+            int proximoX = painel.localizarCaminhos.listaCaminho.get(0).coluna * painel.tamanhoDoTile;
+            int proximoY = painel.localizarCaminhos.listaCaminho.get(0).linha * painel.tamanhoDoTile;
+
+            //entity's solidArea position
+            int entidadeEsquerdaX = mundoX + areaSolida.x;
+            int entidadeDireitaX = mundoX + areaSolida.x + areaSolida.width;
+
+            int entidadeCimaY = mundoY + areaSolida.y;
+            int entidadeBaixoY = mundoY + areaSolida.y + areaSolida.height;
+
+            if (entidadeCimaY > proximoY && entidadeEsquerdaX >= proximoX && entidadeDireitaX < proximoX + painel.tamanhoDoTile){
+                direcao  = "cima";
+            }
+
+            else if (entidadeCimaY < proximoY && entidadeEsquerdaX >= proximoX && entidadeDireitaX < proximoX + painel.tamanhoDoTile){
+                direcao  = "baixo";
+            }
+            else if(entidadeCimaY >= proximoY && entidadeBaixoY < proximoY + painel.tamanhoDoTile){
+                //esquerda ou direita
+                if(entidadeEsquerdaX > proximoX){
+                    direcao  = "esquerda";
+                }
+                if(entidadeEsquerdaX < proximoX){
+                    direcao  = "direita";
+                }
+            }
+            else if(entidadeCimaY > proximoY && entidadeEsquerdaX > proximoX){
+                // cima ou esquerda
+                direcao = "cima";
+                verificarColisao();
+                if(colisaoComBloco == true){
+                    direcao = "esquerda";
+                }
+            }
+            else if(entidadeCimaY > proximoY && entidadeEsquerdaX < proximoX){
+                //cima ou direita
+                direcao = "cima";
+                verificarColisao();
+                if(colisaoComBloco == true){
+                    direcao = "direita";
+                }
+            }
+            else if(entidadeCimaY < proximoY && entidadeEsquerdaX > proximoX){
+                //baixo ou esquerda
+                direcao = "baixo";
+                verificarColisao();
+                if(colisaoComBloco == true){
+                    direcao = "esquerda";
+                }
+            }
+
+            else if(entidadeCimaY < proximoY && entidadeEsquerdaX < proximoX){
+                //baixo ou direita
+                direcao = "baixo";
+                verificarColisao();
+                if(colisaoComBloco == true){
+                    direcao = "direita";
+                }
+            }
+
+            //Se o jogador for o objetivo - desabilitar/comentar esse trecho
+            //if reaches the goal, stop the search
+            /*
+            int proximaColuna = painel.localizarCaminhos.listaCaminho.get(0).coluna;
+            int proximaLinha = painel.localizarCaminhos.listaCaminho.get(0).linha;
+            if(proximaColuna == metaColuna && proximaLinha == metaLinha){
+                pastaAtiva = false;
+            } 
+            */
+            
+        }
+
     }
 }

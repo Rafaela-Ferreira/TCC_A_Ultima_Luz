@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import entidade.Entidade;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
+import objeto.ObjMoedaBronze;
 
 
 
@@ -23,7 +24,7 @@ public class InterfaceDoUsuario {
     PainelDoJogo painel;
     Font maruMonica, purisaB;
     Graphics2D g2;
-    BufferedImage vidaMaxima, vidaMeio, vidaBranco, cristalCompleto, cristalVazio;
+    BufferedImage vidaMaxima, vidaMeio, vidaBranco, cristalCompleto, cristalVazio, moeda;
     public boolean mensagemAtiva = false;
     //public String mensagem = "";
     //int contadorDeMensagens = 0;
@@ -36,10 +37,14 @@ public class InterfaceDoUsuario {
     public int estadoDeRolagemTitulo = 0;
 
     //inventario
-    public int espacoColuna = 0;
-    public int espacoLinha = 0;
+    public int jogadorEspacoColuna = 0;
+    public int jogadorEspacoLinha = 0;
+    public int npcEspacoColuna = 0;
+    public int npcEspacoLinha = 0;
     int subEstado = 0;
-    
+    int contador = 0;
+    public Entidade npc;
+
 
 
     public InterfaceDoUsuario(PainelDoJogo painel) {
@@ -66,9 +71,13 @@ public class InterfaceDoUsuario {
         vidaMaxima = coracao.imagem;
         vidaMeio = coracao.imagem2;
         vidaBranco = coracao.imagem3;
+
         Entidade cristal = new ObjMana(painel);
         cristalCompleto = cristal.imagem;
         cristalVazio = cristal.imagem2;
+
+        Entidade moedaDeBronze = new ObjMoedaBronze(painel);
+        moeda = moedaDeBronze.baixo1;
         
     }
     public void adicionarMensagem(String texto) {
@@ -100,14 +109,14 @@ public class InterfaceDoUsuario {
 
         //DIALOGO
         if(painel.estadoDoJogo == painel.estadoDoDialogo){
-            desenharVidaDoJogador();
+            //desenharVidaDoJogador();
             desenharDialogoNaTela();
         }
 
         //estado do personagem
         if(painel.estadoDoJogo == painel.estadoPersonagem){
             desenharPersonagemTela();
-            desenhaInventario();
+            desenhaInventario( painel.jogador, true);
         }
 
         //estado de opção
@@ -118,6 +127,16 @@ public class InterfaceDoUsuario {
         //estado de game over
         if(painel.estadoDoJogo == painel.estadoGameOver){
             desenharTelaDeGameOver();
+        }
+        
+        //estado de trasição
+        if(painel.estadoDoJogo == painel.estadoDeTransicao){
+            desenharTransicao();
+        }
+
+        //estado de troca
+        if(painel.estadoDoJogo == painel.trocaDeEstado){
+            desenharTelaDeTroca();
         }
         
     }
@@ -351,9 +370,9 @@ public class InterfaceDoUsuario {
 
     public void desenharDialogoNaTela(){
         //janela
-        int x = painel.tamanhoDoTile*2;
+        int x = painel.tamanhoDoTile*3;
         int y = painel.tamanhoDoTile/2;
-        int largura = painel.larguraTela - (painel.tamanhoDoTile *4);
+        int largura = painel.larguraTela - (painel.tamanhoDoTile *6);
         int altura = painel.tamanhoDoTile *4;
 
         desenharSubJanela(x, y, largura, altura);
@@ -423,52 +442,52 @@ public class InterfaceDoUsuario {
         String valor;
 
         valor = String.valueOf(painel.jogador.nivel);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.vida + "/" + painel.jogador.vidaMaxima);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.mana+ "/" + painel.jogador.manaMaxima);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.forca);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.destreza);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.ataque);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.defesa);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.exp);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.proximoNivelExp);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.moeda);
-        textoX = obterTextoXEsquerda(valor, bordaX);
+        textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
@@ -477,11 +496,36 @@ public class InterfaceDoUsuario {
         g2.drawImage(painel.jogador.EscudoAtual.baixo1, bordaX - painel.tamanhoDoTile, textoY-24, null);
    
     }
-    public void desenhaInventario(){
-        int frameX = painel.tamanhoDoTile*12;
-        int frameY = painel.tamanhoDoTile;
-        int frameLargura = painel.tamanhoDoTile*6;
-        int frameAltura = painel.tamanhoDoTile*5;
+    public void desenhaInventario(Entidade entidade, boolean cursor){
+
+        int frameX = 0;
+        int frameY = 0;
+        int frameLargura = 0;
+        int frameAltura = 0;
+        int espacoColuna = 0;
+        int espacoLinha = 0;
+
+        if(entidade == painel.jogador){
+
+            frameX = painel.tamanhoDoTile*12;
+            frameY = painel.tamanhoDoTile;
+            frameLargura = painel.tamanhoDoTile*6;
+            frameAltura = painel.tamanhoDoTile*5;
+
+            espacoColuna = jogadorEspacoColuna;
+            espacoLinha = jogadorEspacoLinha;
+
+        }else{
+            
+            frameX = painel.tamanhoDoTile*2;
+            frameY = painel.tamanhoDoTile;
+            frameLargura = painel.tamanhoDoTile*6;
+            frameAltura = painel.tamanhoDoTile*5;
+
+            espacoColuna = npcEspacoColuna;
+            espacoLinha = npcEspacoLinha;
+        }
+        
 
         desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
 
@@ -493,16 +537,16 @@ public class InterfaceDoUsuario {
         int tamanhoEspaco = painel.tamanhoDoTile+3;
 
         //desenhar itens
-        for(int i = 0; i < painel.jogador.inventario.size(); i++){
+        for(int i = 0; i < entidade.inventario.size(); i++){
             //equipar arma (cursor)
-            if(painel.jogador.inventario.get(i) == painel.jogador.armaAtual ||
-               painel.jogador.inventario.get(i) == painel.jogador.EscudoAtual){
+            if(entidade.inventario.get(i) == entidade.armaAtual ||
+                entidade.inventario.get(i) == entidade.EscudoAtual){
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
 
             }
                
-            g2.drawImage(painel.jogador.inventario.get(i).baixo1, espacoX, espacoY, null);
+            g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
 
             espacoX += tamanhoEspaco;
             if( i == 4 || i == 9 || i == 14){
@@ -520,36 +564,41 @@ public class InterfaceDoUsuario {
         int cursorAltura = painel.tamanhoDoTile;
 
         //desenhar cursor
-        g2.setColor(Color.white);
-        g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura , 10, 10);
+        if(cursor == true){
+            g2.setColor(Color.white);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura , 10, 10);
 
-        //frame de descrição
-        int DframeX = frameX;
-        int DframeY = frameY + frameAltura;
-        int DframeLargura = frameLargura;
-        int DframeAltura = painel.tamanhoDoTile*3;
-        
-        
-        //desehar a descrição do item
-        int tentoX = DframeX + 20;
-        int textoY = DframeY + 40;
-        g2.setFont(g2.getFont().deriveFont(28F));
-
-        //pegar o item selecionado
-        int itemSelecionado = pegarItemSelecionado();
-        if(itemSelecionado < painel.jogador.inventario.size()){
-            desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
+            //frame de descrição
+            int DframeX = frameX;
+            int DframeY = frameY + frameAltura;
+            int DframeLargura = frameLargura;
+            int DframeAltura = painel.tamanhoDoTile*3;
             
-            for(String linha : painel.jogador.inventario.get(itemSelecionado).descricao.split("\n")){
-                g2.drawString(linha, tentoX, textoY);
-                textoY += 32;
+            
+            //desehar a descrição do item
+            int tentoX = DframeX + 20;
+            int textoY = DframeY + 40;
+            g2.setFont(g2.getFont().deriveFont(28F));
+
+            //pegar o item selecionado
+            int itemSelecionado = pegarItemSelecionado(espacoColuna, espacoLinha);
+            if(itemSelecionado < entidade.inventario.size()){
+                desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
+                
+                for(String linha : entidade.inventario.get(itemSelecionado).descricao.split("\n")){
+                    g2.drawString(linha, tentoX, textoY);
+                    textoY += 32;
+                }
+                
+
             }
-            
-
         }
+        
 
     }
+
+
     public void desenharTelaDeOpcoes(){
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
@@ -778,8 +827,200 @@ public class InterfaceDoUsuario {
         }
     }
 
+    public void desenharTransicao(){
+        contador++;
+        g2.setColor(new Color(0,0,0, contador*5));
+        g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 
-    public int pegarItemSelecionado(){
+        if(contador == 50){
+            contador = 0;
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            painel.mapaAtual = painel.mEventos.mapaTemporario;
+            painel.jogador.mundoX = painel.tamanhoDoTile * painel.mEventos.colunaTemporaria;
+            painel.jogador.mundoY = painel.tamanhoDoTile * painel.mEventos.linhaTemporaria;
+            painel.mEventos.eventoAnteriorX = painel.jogador.mundoX;
+            painel.mEventos.eventoAnteriorY = painel.jogador.mundoY;
+
+            
+        }
+    }
+
+    public void desenharTelaDeTroca(){
+        
+        switch (subEstado) {
+            case 0: selecionarTroca(); break;
+            case 1: comprarTroca(); break;
+            case 2: venderTroca(); break;
+               
+        }
+        painel.teclado.precionarEnter = false;
+
+    }
+    public void selecionarTroca(){
+        desenharDialogoNaTela();
+        //desenhar janela
+        int x = painel.tamanhoDoTile * 15;
+        int y = painel.tamanhoDoTile * 4;
+        int width = painel.tamanhoDoTile * 4;
+        int height = (int)(painel.tamanhoDoTile * 3.5);
+        desenharSubJanela(x, y, width, height);
+
+        //desenha textos
+        x += painel.tamanhoDoTile;
+        y += painel.tamanhoDoTile;
+        g2.drawString("Comprar", x, y);
+        if(numeroDoComando == 0) {
+            g2.drawString(">", x - 24, y);
+            if(painel.teclado.precionarEnter == true){
+                subEstado = 1;
+            }
+        }
+
+        y += painel.tamanhoDoTile;
+        g2.drawString("Vender", x, y);
+        if(numeroDoComando == 1) {
+            g2.drawString(">", x - 24, y);
+            if(painel.teclado.precionarEnter == true){
+                subEstado = 2;
+            }
+        }
+
+        y += painel.tamanhoDoTile;
+        g2.drawString("Sair", x, y);
+        if(numeroDoComando == 2){
+            g2.drawString(">", x-24, y);
+            if(painel.teclado.precionarEnter == true){
+                numeroDoComando = 0;
+                painel.estadoDoJogo = painel.estadoDoDialogo;
+                dialogoAtual = "Volte sempre, hehe!";
+            }
+        } 
+
+    }
+    public void comprarTroca(){
+        //desentar inventario do player
+        desenhaInventario(painel.jogador, false);
+
+        //desentar inventario do NPC
+        desenhaInventario(npc, true);
+
+        //desenhar janela de dica
+        int x = painel.tamanhoDoTile *2;
+        int y = painel.tamanhoDoTile *9;
+        int width = painel.tamanhoDoTile *6;
+        int height = painel.tamanhoDoTile *2;
+        desenharSubJanela(x, y, width, height);
+        g2.drawString("[ESC] Voltar", x+24, y+60);
+
+        //desenhar janela de moeda do jogador
+        x = painel.tamanhoDoTile *12;
+        y = painel.tamanhoDoTile *9;
+        width = painel.tamanhoDoTile *6;
+        height = painel.tamanhoDoTile *2;
+        desenharSubJanela(x, y, width, height);
+        g2.drawString("Moedas: " + painel.jogador.moeda , x+24, y+60);
+
+        //desenhar preço
+        int indeceItem = pegarItemSelecionado(npcEspacoColuna, npcEspacoLinha);
+        if(indeceItem < npc.inventario.size()){
+            x = (int)(painel.tamanhoDoTile*5.5);
+            y = (int)(painel.tamanhoDoTile*5.5);
+            width = (int)(painel.tamanhoDoTile*2.5);
+            height = painel.tamanhoDoTile;
+            desenharSubJanela(x, y, width, height);
+            g2.drawImage(moeda, x+10, y+8, 32, 32,null);
+
+            int preco = npc.inventario.get(indeceItem).preco;
+            String texto = "" + preco;
+            x = obterTextoXDireita(texto, painel.tamanhoDoTile*8-20);
+            g2.drawString(texto, x, y+34);
+        }
+
+        //comprar item
+        if(painel.teclado.precionarEnter == true){
+            if(npc.inventario.get(indeceItem).preco > painel.jogador.moeda){
+                subEstado = 0;
+                painel.estadoDoJogo = painel.estadoDoDialogo;
+                dialogoAtual = "Você precisa de mais moedas para comprá-los!";
+                desenharDialogoNaTela();
+            }
+            else if(painel.jogador.inventario.size() == painel.jogador.tamanhoMaximoInventario){
+                subEstado = 0;
+                painel.estadoDoJogo = painel.estadoDoDialogo;
+                dialogoAtual = "Você não pode carregar mais nada!";
+            }
+            else{
+                painel.jogador.moeda -= npc.inventario.get(indeceItem).preco;
+                painel.jogador.inventario.add(npc.inventario.get(indeceItem));
+            }
+        }
+
+    }
+    public void venderTroca(){
+        //desenhar o invetario do jogador
+        desenhaInventario(painel.jogador, true);
+
+        int x;
+        int y;
+        int width;
+        int height;
+
+        //desenhar janela de dica
+        x = painel.tamanhoDoTile *2;
+        y = painel.tamanhoDoTile *9;
+        width = painel.tamanhoDoTile *6;
+        height = painel.tamanhoDoTile *2;
+        desenharSubJanela(x, y, width, height);
+        g2.drawString("[ESC] Voltar", x+24, y+60);
+
+        //desenhar janela de moeda do jogador
+        x = painel.tamanhoDoTile *12;
+        y = painel.tamanhoDoTile *9;
+        width = painel.tamanhoDoTile *6;
+        height = painel.tamanhoDoTile *2;
+        desenharSubJanela(x, y, width, height);
+        g2.drawString("Moedas: " + painel.jogador.moeda , x+24, y+60);
+
+        //desenhar preço
+        int indeceItem = pegarItemSelecionado(jogadorEspacoColuna, jogadorEspacoLinha);
+        if(indeceItem < painel.jogador.inventario.size()){
+            x = (int)(painel.tamanhoDoTile*15.5);
+            y = (int)(painel.tamanhoDoTile*5.5);
+            width = (int)(painel.tamanhoDoTile*2.5);
+            height = painel.tamanhoDoTile;
+            desenharSubJanela(x, y, width, height);
+            g2.drawImage(moeda, x+10, y+8, 32, 32,null);
+
+            int preco = painel.jogador.inventario.get(indeceItem).preco/2;
+            String texto = "" + preco;
+            x = obterTextoXDireita(texto, painel.tamanhoDoTile*18-20);
+            g2.drawString(texto, x, y+34);
+
+            //vender item
+            if(painel.teclado.precionarEnter == true){
+                if(painel.jogador.inventario.get(indeceItem) == painel.jogador.armaAtual ||
+                    painel.jogador.inventario.get(indeceItem) == painel.jogador.EscudoAtual)    {
+                    
+                    numeroDoComando = 0;
+                    subEstado = 0;
+                    painel.estadoDoJogo = painel.estadoDoDialogo;
+                    dialogoAtual = "Você não pode vender um item equipado!";
+                }
+                else{
+                    painel.jogador.inventario.remove(indeceItem);
+                    painel.jogador.moeda += preco;
+                    
+
+                }
+            }
+        }
+
+        
+
+    }
+
+
+    public int pegarItemSelecionado(int espacoColuna, int espacoLinha){
         int itemSelecionado = espacoColuna + (espacoLinha * 5);
         return itemSelecionado;
     }
@@ -815,7 +1056,7 @@ public class InterfaceDoUsuario {
         return x;
     }
 
-    public int obterTextoXEsquerda(String texto, int  bordaX){
+    public int obterTextoXDireita(String texto, int  bordaX){
         int length = (int) g2.getFontMetrics().getStringBounds(texto, g2).getWidth();
         int x = bordaX - length;
         return x;

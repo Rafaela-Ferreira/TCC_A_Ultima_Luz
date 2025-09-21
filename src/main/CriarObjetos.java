@@ -1,5 +1,6 @@
 package main;
 
+import entidade.NpcComerciante;
 import entidade.NpcVelho;
 import main.inimigo.lodoVerde;
 import objeto.ObjChave;
@@ -99,7 +100,8 @@ public class CriarObjetos {
 
         //mapa 1
         numeroMapa = 1;
-        painel.npc[numeroMapa][i] = new NpcVelho(painel);
+        i =0;
+        painel.npc[numeroMapa][i] = new NpcComerciante(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*7;
         i++;

@@ -27,6 +27,5 @@ public class Principal {
         painelDoJogo.setarObjetos();
         painelDoJogo.iniciarThreadDoJogo(); // Inicia o loop do jogo
     
-
     }
 }

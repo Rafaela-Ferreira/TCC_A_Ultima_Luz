@@ -14,7 +14,7 @@ public class ObjChave  extends Entidade {
         baixo1 = setup("/img/itens/key", painel.tamanhoDoTile, painel.tamanhoDoTile);
 
         descricao = "[" + nome + "]\npara abrir uma porta.";
-    
+        preco = 100;
     
     }
 

@@ -60,6 +60,11 @@ public class Teclado implements KeyListener {
             estadoGameOver(code);
         }
 
+        //estado de troca - inventario do npc
+        else if(painel.estadoDoJogo == painel.trocaDeEstado){
+            trocarEstado(code);
+        }
+
     }
 
     public void estadoTitilo(int code){
@@ -189,35 +194,12 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_C) {
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
         }
-        if(code == KeyEvent.VK_W){
-            if(painel.interfaceDoUsuario.espacoLinha != 0){
-                painel.interfaceDoUsuario.espacoLinha--;
-                painel.iniciarEfeitoSonoro(9);
-            }
-        }
-        if(code == KeyEvent.VK_A){
-            if(painel.interfaceDoUsuario.espacoColuna != 0){
-                painel.interfaceDoUsuario.espacoColuna--;
-                painel.iniciarEfeitoSonoro(9);
-            }
-        }
-        if(code == KeyEvent.VK_S){
-            if(painel.interfaceDoUsuario.espacoLinha != 3){
-                painel.interfaceDoUsuario.espacoLinha++;
-                painel.iniciarEfeitoSonoro(9);
-
-            }
-        }
-        if(code == KeyEvent.VK_D){
-            if(painel.interfaceDoUsuario.espacoColuna != 4){
-                painel.interfaceDoUsuario.espacoColuna++;
-                painel.iniciarEfeitoSonoro(9);
-            }
-           
-        }
+        
         if(code == KeyEvent.VK_ENTER){
             painel.jogador.selecionarItem();
         }
+        
+        invetarioJogador(code);
     }
 
 
@@ -316,6 +298,98 @@ public class Teclado implements KeyListener {
         }
 
         
+    }
+
+    public void trocarEstado(int code){
+        if(code == KeyEvent.VK_ENTER){
+            precionarEnter = true;
+        }
+        if(code == KeyEvent.VK_W){
+            painel.interfaceDoUsuario.numeroDoComando--;
+            if(painel.interfaceDoUsuario.numeroDoComando < 0){
+                painel.interfaceDoUsuario.numeroDoComando = 2;
+            }
+            painel.iniciarEfeitoSonoro(9);
+        }
+
+        if(code == KeyEvent.VK_S){
+            painel.interfaceDoUsuario.numeroDoComando++;
+            if(painel.interfaceDoUsuario.numeroDoComando > 2){
+                painel.interfaceDoUsuario.numeroDoComando = 0;
+            }
+            painel.iniciarEfeitoSonoro(9);
+        }
+        if(painel.interfaceDoUsuario.subEstado == 1){
+            invetarioNpc(code);
+            if(code == KeyEvent.VK_ESCAPE){
+                painel.interfaceDoUsuario.subEstado = 0;
+            }
+        }
+
+        if(painel.interfaceDoUsuario.subEstado == 2){
+            invetarioJogador(code);
+            if(code == KeyEvent.VK_ESCAPE){
+                painel.interfaceDoUsuario.subEstado = 0;
+            }
+        }
+    }
+
+    public void invetarioJogador(int code){
+        if(code == KeyEvent.VK_W){
+            if(painel.interfaceDoUsuario.jogadorEspacoLinha != 0){
+                painel.interfaceDoUsuario.jogadorEspacoLinha--;
+                painel.iniciarEfeitoSonoro(9);
+            }
+        }
+        if(code == KeyEvent.VK_A){
+            if(painel.interfaceDoUsuario.jogadorEspacoColuna != 0){
+                painel.interfaceDoUsuario.jogadorEspacoColuna--;
+                painel.iniciarEfeitoSonoro(9);
+            }
+        }
+        if(code == KeyEvent.VK_S){
+            if(painel.interfaceDoUsuario.jogadorEspacoLinha != 3){
+                painel.interfaceDoUsuario.jogadorEspacoLinha++;
+                painel.iniciarEfeitoSonoro(9);
+
+            }
+        }
+        if(code == KeyEvent.VK_D){
+            if(painel.interfaceDoUsuario.jogadorEspacoColuna != 4){
+                painel.interfaceDoUsuario.jogadorEspacoColuna++;
+                painel.iniciarEfeitoSonoro(9);
+            }
+           
+        }
+    }
+
+    public void invetarioNpc(int code){
+        if(code == KeyEvent.VK_W){
+            if(painel.interfaceDoUsuario.npcEspacoLinha != 0){
+                painel.interfaceDoUsuario.npcEspacoLinha--;
+                painel.iniciarEfeitoSonoro(9);
+            }
+        }
+        if(code == KeyEvent.VK_A){
+            if(painel.interfaceDoUsuario.npcEspacoColuna != 0){
+                painel.interfaceDoUsuario.npcEspacoColuna--;
+                painel.iniciarEfeitoSonoro(9);
+            }
+        }
+        if(code == KeyEvent.VK_S){
+            if(painel.interfaceDoUsuario.npcEspacoLinha != 3){
+                painel.interfaceDoUsuario.npcEspacoLinha++;
+                painel.iniciarEfeitoSonoro(9);
+
+            }
+        }
+        if(code == KeyEvent.VK_D){
+            if(painel.interfaceDoUsuario.npcEspacoColuna != 4){
+                painel.interfaceDoUsuario.npcEspacoColuna++;
+                painel.iniciarEfeitoSonoro(9);
+            }
+           
+        }
     }
 
 

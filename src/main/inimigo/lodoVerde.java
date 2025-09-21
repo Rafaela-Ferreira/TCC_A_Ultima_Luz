@@ -50,44 +50,79 @@ public class lodoVerde extends Entidade{
         direita2 = setup("/img/inimigo/greenslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
+    public void atualizar(){
+        super.atualizar();
+
+        int Xdistancia = Math.abs(mundoX - painel.jogador.mundoX);
+        int Ydistancia = Math.abs(mundoY - painel.jogador.mundoY);
+        int tamanhoDistancia = (Xdistancia + Ydistancia) / painel.tamanhoDoTile;
+
+        if(pastaAtiva == false && tamanhoDistancia < 5){
+            int i = new Random().nextInt(100)+1;
+            if(i > 50){
+                pastaAtiva = true;
+            }
+        }
+        //desiste de perseguir o jogador
+        if(pastaAtiva == true && tamanhoDistancia > 20){
+            pastaAtiva = false;
+        }
+    }
+
     public void setAcao(){
-        contadorDeBloqueioDeAcao++;
-
-        //esperar 120 (2 segundos) para mudar de direção
-        if(contadorDeBloqueioDeAcao == 120){
-            Random random = new Random();
-            int i = random.nextInt(100) + 1; //0 - 100
-
-            if(i <= 25){
-                direcao = "cima";
-            }
-            if(i > 25 && i <= 50){
-                direcao = "baixo";
-            }
-            if(i > 50 && i <= 75){
-                direcao = "esquerda";
-            }
-            if(i > 75 && i <= 100){
-                direcao = "direita";
-            }
-
-            contadorDeBloqueioDeAcao = 0;
-        }
-
-        int i = new Random().nextInt(100)+1;
-
-        if(i > 99 && projetil.vivo == false && contadorDeTiro == 30){
+        if(pastaAtiva == true){
             
-            projetil.setAcao(mundoX, mundoY, direcao, true, this);
-            painel.listaProjetil.add(projetil);
-            contadorDeTiro = 0;
+            //para o inimigo seguir o jogador
+            int metaColuna = (painel.jogador.mundoX + painel.jogador.areaSolida.x) / painel.tamanhoDoTile;
+            int metaLinha = (painel.jogador.mundoY + painel.jogador.areaSolida.y) / painel.tamanhoDoTile;
+
+            procurarCaminho(metaColuna, metaLinha);
+
+            //começa a atirar pedra
+            int i = new Random().nextInt(200)+1;
+
+            if(i > 197 && projetil.vivo == false && contadorDeTiro == 30){
+                
+                projetil.setAcao(mundoX, mundoY, direcao, true, this);
+                painel.listaProjetil.add(projetil);
+                contadorDeTiro = 0;
+            }
+
+        }else{
+            contadorDeBloqueioDeAcao++;
+
+            //esperar 120 (2 segundos) para mudar de direção
+            if(contadorDeBloqueioDeAcao == 120){
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; //0 - 100
+
+                if(i <= 25){
+                    direcao = "cima";
+                }
+                if(i > 25 && i <= 50){
+                    direcao = "baixo";
+                }
+                if(i > 50 && i <= 75){
+                    direcao = "esquerda";
+                }
+                if(i > 75 && i <= 100){
+                    direcao = "direita";
+                }
+
+                contadorDeBloqueioDeAcao = 0;
+            }
         }
+
+        
     }
 
     public void acaoAoDano(){
         contadorDeBloqueioDeAcao = 0;
-        direcao = painel.jogador.direcao;
+        //direcao = painel.jogador.direcao;
+        pastaAtiva = true;
     }
+
+
     public void verificarDrop(){
         //lançar um dado
         int i = new Random().nextInt(100)+1;

@@ -16,6 +16,8 @@ public class ObjPocaoVermelha  extends Entidade{
         valor = 5;
         baixo1 = setup("/img/objetos/potion_red", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[" + nome + "]\ncura sua vida em " + valor + ".";
+        preco = 25;
+        
     }
 
     public void usar(Entidade entidade){
