@@ -20,7 +20,8 @@ public class lodoVerde extends Entidade{
         
         tipo = tipoInimigo;
         nome ="Lodo Verde";
-        velocidade = 1;
+        velocidadePadrao = 1;
+        velocidade = velocidadePadrao;
         vidaMaxima = 4;
         vida = vidaMaxima;
         ataque = 5;
@@ -84,7 +85,16 @@ public class lodoVerde extends Entidade{
             if(i > 197 && projetil.vivo == false && contadorDeTiro == 30){
                 
                 projetil.setAcao(mundoX, mundoY, direcao, true, this);
-                painel.listaProjetil.add(projetil);
+                //painel.listaProjetil.add(projetil);
+
+                //verificar vaga
+                for(int ii = 0; ii < painel.projetavel[1].length; ii++){
+                    if(painel.projetavel[painel.mapaAtual][ii] == null){
+                        painel.projetavel[painel.mapaAtual][ii] = projetil;
+                        break;
+                    }
+                }
+
                 contadorDeTiro = 0;
             }
 

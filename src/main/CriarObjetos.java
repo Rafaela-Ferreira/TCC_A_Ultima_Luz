@@ -3,13 +3,16 @@ package main;
 import entidade.NpcComerciante;
 import entidade.NpcVelho;
 import main.inimigo.lodoVerde;
+import objeto.ObjBau;
 import objeto.ObjChave;
 import objeto.ObjCoracao;
 import objeto.ObjEscudoAzul;
+import objeto.ObjLanterna;
 import objeto.ObjMachado;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
 import objeto.ObjPocaoVermelha;
+import objeto.ObjPorta;
 import tile.blocosInterativos.ArvoreSeca;
 
 
@@ -63,6 +66,36 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*22;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*31;
         i++;
+
+        painel.Obj[numeroMapa][i] = new ObjPorta(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*14;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*28;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjPorta(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*10;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*12;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjBau(painel, new ObjChave(painel));
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*30;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*29;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjPocaoVermelha(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*20;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjPocaoVermelha(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*17;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjLanterna(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*18;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
+        i++;
     }
 
     public void setBlocosInterativos(){
@@ -80,9 +113,6 @@ public class CriarObjetos {
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 25,16); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 34,21); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 34,22); i++;
-        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 20,20); i++;
-        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 20,21); i++;
-        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 20,22); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 22,24); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 23,24); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 24,24); i++;

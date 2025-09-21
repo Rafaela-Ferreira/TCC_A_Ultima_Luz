@@ -19,10 +19,12 @@ public class ObjMana extends Entidade{
         imagem2 = setup("/img/objetos/manacrystal_blank", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
     }
-    public void usar(Entidade entidade){
+    public boolean usar(Entidade entidade){
         painel.iniciarEfeitoSonoro(2);
         painel.interfaceDoUsuario.adicionarMensagem("Mana +" + valor);
         entidade.mana += valor;
+
+        return true;
     }
     
 }

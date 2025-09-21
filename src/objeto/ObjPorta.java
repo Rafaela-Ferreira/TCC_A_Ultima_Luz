@@ -5,11 +5,14 @@ import main.PainelDoJogo;
 
 public class ObjPorta extends Entidade {
     
+    PainelDoJogo painel;
 
     public ObjPorta(PainelDoJogo painel) {
 
         super(painel);
-        
+        this.painel = painel;
+
+        tipo = tipoObstaculo;
         nome = "Porta";
         baixo1 = setup("/img/itens/door", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
@@ -22,5 +25,10 @@ public class ObjPorta extends Entidade {
         areaSolidaPadraoX = areaSolida.x;
         areaSolidaPadraoY = areaSolida.y;
     
+    }
+
+    public void interagir(){
+        painel.estadoDoJogo = painel.estadoDoDialogo;
+        painel.interfaceDoUsuario.dialogoAtual = "Você precisa de uma chave para abrir isto!";
     }
 }

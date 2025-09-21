@@ -39,6 +39,7 @@ public class Entidade {
     public boolean vivo = true;
     public boolean morrendo = false;
     boolean barraDeVidaAtiva = false;
+    public boolean empurrao = false;
 
     //contador
     public int contadorDeSprite = 0;
@@ -47,12 +48,14 @@ public class Entidade {
     public int contadorDeTiro = 0;
     int contadorMorrendo = 0;
     int contadorBarraDeVida = 0;
+    int contadoEmpurrao = 0;
 
     //IA
     public boolean pastaAtiva = false;
     
     //Atributos do jogador
     public String nome;
+    public int velocidadePadrao;
     public int velocidade;
     public int vidaMaxima;
     public int vida;
@@ -69,6 +72,7 @@ public class Entidade {
     public int moeda;
     public Entidade armaAtual;
     public Entidade EscudoAtual;
+    public Entidade luzAtual;
     public Projetil projetil;
 
     //atributos dos Itens
@@ -81,6 +85,10 @@ public class Entidade {
     public String descricao = "";
     public int usarConsumivel;
     public int preco;
+    public int poderDoEmpurrao = 0;
+    public boolean empilhavel = false;
+    public int quantidade = 1;
+    public int raioDeLuz;
 
     //Tipo de entidade
     public int tipo; //0 -> jogador, 1 -> npc, 2 -> inimigo....
@@ -92,11 +100,39 @@ public class Entidade {
     public final int tipoEscudo = 5;
     public final int tipoConsumivel = 6;
     public final int tipoRetirada = 7; //type_pickupOnly
+    public final int tipoObstaculo = 8;
+    public final int tipoIliminacao = 9;
 
 
     public Entidade(PainelDoJogo painel){
         this.painel = painel;
     }
+
+
+    public int getEsquerdaX(){
+        return mundoX + areaSolida.x;
+    }
+
+    public int getDireitaX(){
+        return mundoX + areaSolida.x + areaSolida.width;
+    }
+
+    public int getCimaY(){
+        return mundoY + areaSolida.y;
+    }
+
+    public int getBaixoY(){
+        return mundoY + areaSolida.y + areaSolida.height;
+    }
+
+    public int getColuna(){
+        return (mundoX + areaSolida.x) / painel.tamanhoDoTile;
+    }
+
+    public int getLinha(){
+        return (mundoY + areaSolida.y) / painel.tamanhoDoTile;
+    }
+
     public void setAcao(){ }
 
     public void acaoAoDano(){ }
@@ -124,7 +160,12 @@ public class Entidade {
                 break;
         }
     }
-    public void usar(Entidade entidade){}
+    public void interagir(){
+
+    }
+
+
+    public boolean usar(Entidade entidade){ return false; }
 
     public void verificarDrop(){}
 
@@ -192,34 +233,69 @@ public class Entidade {
 
 
     public void atualizar(){
-        setAcao();
+        
+        if(empurrao == true){
 
-        verificarColisao();
+            verificarColisao();
 
-        //se colição for false,
-        if(colisaoComBloco == false) {
-            // Atualiza a posição do jogador
-            switch (direcao) {
-                case "cima":
-                    mundoY -= velocidade; break;
-                case "baixo":
-                    mundoY += velocidade;break;
-                case "esquerda":
-                    mundoX -= velocidade; break;
-                case "direita":
-                    mundoX += velocidade; break;
+            if(colisaoComBloco == true){
+                contadoEmpurrao = 0;
+                empurrao = false;
+                velocidade = velocidadePadrao;
             }
-            
-            // Controle de animação do sprite
-            contadorDeSprite++;
-            if(contadorDeSprite  > 24) { // A cada 10 atualizações, troca o sprite
-                if(numeroDoSprite  == 1) {
-                    numeroDoSprite  = 2; // Alterna para o segundo sprite
-                } else if(numeroDoSprite  == 2) {
-                    numeroDoSprite  = 1; // Alterna para o primeiro sprite
+            else if(colisaoComBloco == false){
+                switch (direcao) {
+                    case "cima":
+                        mundoY -= velocidade; break;
+                    case "baixo":
+                        mundoY += velocidade;break;
+                    case "esquerda":
+                        mundoX -= velocidade; break;
+                    case "direita":
+                        mundoX += velocidade; break;
                 }
-                contadorDeSprite  = 0; // Reseta o contador de sprites
             }
+
+            contadoEmpurrao++;
+            if(contadoEmpurrao == 10){
+                contadoEmpurrao = 0;
+                empurrao = false;
+                velocidade = velocidadePadrao;
+            }
+
+        }else{
+            setAcao();
+
+            verificarColisao();
+
+            //se colição for false,
+            if(colisaoComBloco == false) {
+                // Atualiza a posição do jogador
+                switch (direcao) {
+                    case "cima":
+                        mundoY -= velocidade; break;
+                    case "baixo":
+                        mundoY += velocidade;break;
+                    case "esquerda":
+                        mundoX -= velocidade; break;
+                    case "direita":
+                        mundoX += velocidade; break;
+                }  
+                
+            }
+        }
+        
+        
+        
+        // Controle de animação do sprite
+        contadorDeSprite++;
+        if(contadorDeSprite  > 24) { // A cada 10 atualizações, troca o sprite
+            if(numeroDoSprite  == 1) {
+                numeroDoSprite  = 2; // Alterna para o segundo sprite
+            } else if(numeroDoSprite  == 2) {
+                numeroDoSprite  = 1; // Alterna para o primeiro sprite
+            }
+            contadorDeSprite  = 0; // Reseta o contador de sprites
         }
 
         if(invencivel == true){
@@ -436,6 +512,40 @@ public class Entidade {
             */
             
         }
+
+    }
+
+    public int getDetectar(Entidade usar, Entidade alvo[][], String nomeDoAlvo){
+        int indice = 999;
+
+        //check the surrounding object
+    
+        int prixmoMundoX = usar.getEsquerdaX();
+        int prixmoMundoY = usar.getCimaY();
+        
+        switch (usar.direcao) {
+            case "cima": prixmoMundoY = usar.getCimaY()-1; break;
+            case "baixo": prixmoMundoY = usar.getBaixoY()+1; break;
+            case "esquerda": prixmoMundoX = usar.getEsquerdaX()-1; break;
+            case "direita": prixmoMundoX = usar.getDireitaX()+1; break;
+
+        }
+        int coluna = prixmoMundoX/painel.tamanhoDoTile;
+        int linha = prixmoMundoY/ painel.tamanhoDoTile;
+
+
+        for(int i = 0; i < alvo[1].length; i++){
+            if(alvo[painel.mapaAtual][i] != null){
+                if(alvo[painel.mapaAtual][i].getColuna() == coluna && 
+                        alvo[painel.mapaAtual][i].getLinha() == linha &&
+                        alvo[painel.mapaAtual][i].nome.equals(nomeDoAlvo)){
+                    
+                        indice = i;
+                        break;
+                }
+            }
+        }
+        return indice;
 
     }
 }

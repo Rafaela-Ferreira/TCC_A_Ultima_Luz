@@ -17,9 +17,11 @@ public class ObjMoedaBronze extends Entidade{
         baixo1 = setup("/img/objetos/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
     
-    public void usar(Entidade entidade){
+    public boolean usar(Entidade entidade){
         painel.iniciarEfeitoSonoro(1);
         painel.interfaceDoUsuario.adicionarMensagem("Moeda +" + valor);
         painel.jogador.moeda += valor;
+
+        return true;
     }
 }

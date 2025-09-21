@@ -30,6 +30,7 @@ public class Jogador extends Entidade {
     int contadorDePixels = 0;
 
     public boolean cancelarAtaque = false;
+    public boolean equiparLanterna = false;
 
 
     public Jogador(PainelDoJogo painel, Teclado teclado) {
@@ -64,7 +65,8 @@ public class Jogador extends Entidade {
         //painel.mapaAtual = 1;
 
 
-        velocidade = 4;
+        velocidadePadrao = 4;
+        velocidade = velocidadePadrao;
         direcao = "baixo"; // Direção inicial do jogador
 
         //estado do jogador
@@ -254,12 +256,23 @@ public class Jogador extends Entidade {
                 
                 //definir coordenadas, direção e usuário padrão
                 projetil.setAcao(mundoX, mundoY, direcao, true, this);
-
-                //adicionar o projetil na lista de projetil
-                painel.listaProjetil.add(projetil);
-
+                
                 // subtrai o consumo (mana, munição, etc.)
                 projetil.subtrairRecursos(this);
+
+                //adicionar o projetil na lista de projetil
+                //painel.listaProjetil.add(projetil);
+                
+                
+                //verificar vaga
+                for(int i = 0; i < painel.projetavel[1].length; i++){
+                    if(painel.projetavel[painel.mapaAtual][i] == null){
+                        painel.projetavel[painel.mapaAtual][i] = projetil;
+                        break;
+                    }
+                }
+
+                
 
                 contadorDeTiro = 0;
 
@@ -324,10 +337,13 @@ public class Jogador extends Entidade {
             areaSolida.height = areaAtaque.height;
 
             int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
-            danoDoInimigo(indiceInimigo, ataque);
+            danoDoInimigo(indiceInimigo, ataque, armaAtual.poderDoEmpurrao);
 
             int indiceBlocosI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
             danoNoBlocoInterativo(indiceBlocosI);
+
+            int indiceProjetavel = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
+            danoDoProjetavel(indiceProjetavel);
 
             mundoX = AtualMundoX;
             mundoY = AtualMundoY;
@@ -349,17 +365,26 @@ public class Jogador extends Entidade {
       se tiver, a quantidade de chaves diminui */
     public void pegarObjeto(int indice){
         if (indice != 999) {
+
             //itens somente para retirada
             if(painel.Obj[painel.mapaAtual][indice].tipo == tipoRetirada){
                 painel.Obj[painel.mapaAtual][indice].usar(this);
                 painel.Obj[painel.mapaAtual][indice]= null;
             }
+            //Obstaculo
+            else if(painel.Obj[painel.mapaAtual][indice].tipo == tipoObstaculo){
+                if(teclado.precionarEnter == true){
+                    cancelarAtaque = true;
+                    painel.Obj[painel.mapaAtual][indice].interagir();
+                }
+            }
+
+
             //itens do invetario
             else{
                 String texto;
 
-                if(inventario.size() != tamanhoMaximoInventario){
-                    inventario.add(painel.Obj[painel.mapaAtual][indice]);
+                if(podeObterItem(painel.Obj[painel.mapaAtual][indice]) == true){
                     painel.iniciarEfeitoSonoro(1);
                     texto = "Tenho uma " + painel.Obj[painel.mapaAtual][indice].nome + "!";
                 }else{
@@ -425,9 +450,27 @@ public class Jogador extends Entidade {
                 EscudoAtual = itemSelecionado;
                 defesa = getDefesa();
             }
+            if(itemSelecionado.tipo == tipoIliminacao){
+                if(luzAtual == itemSelecionado){
+                    luzAtual = null;
+                }
+                else{
+                    luzAtual = itemSelecionado;
+                }
+                equiparLanterna = true;
+            }
+
             if(itemSelecionado.tipo == tipoConsumivel){
-                itemSelecionado.usar(this);
-                inventario.remove(indeceItem);
+                if(itemSelecionado.usar(this) == true){
+                    if(itemSelecionado.quantidade > 1){
+                        itemSelecionado.quantidade--;
+                    }
+                    else{
+                        inventario.remove(indeceItem);
+                    }
+
+                }
+                
             }
 
             
@@ -452,11 +495,21 @@ public class Jogador extends Entidade {
             
         }
     }
-    public void danoDoInimigo(int indice, int ataque){
+
+    
+
+
+    public void danoDoInimigo(int indice, int ataque, int poderDoEmpurrao){
         if(indice != 999){
 
             if(painel.inimigo[painel.mapaAtual][indice].invencivel == false){
                 painel.iniciarEfeitoSonoro(5);
+
+                if(poderDoEmpurrao > 0){
+                    empurrao(painel.inimigo[painel.mapaAtual][indice], poderDoEmpurrao);
+                }
+
+               
 
                 int dano = ataque - painel.inimigo[painel.mapaAtual][indice].defesa;
                 if(dano < 0){
@@ -481,6 +534,12 @@ public class Jogador extends Entidade {
         }
     }
 
+    public void empurrao(Entidade entidade, int poderDoEmpurrao){
+        entidade.direcao = direcao;
+        entidade.velocidade += poderDoEmpurrao;
+        entidade.empurrao = true;
+    }
+
     public void danoNoBlocoInterativo(int i ){
         if(i!= 999 && painel.blocosI[painel.mapaAtual][i].destruir == true 
             && painel.blocosI[painel.mapaAtual][i].itemCorreto(this) == true && painel.blocosI[painel.mapaAtual][i].invencivel == false){
@@ -498,6 +557,58 @@ public class Jogador extends Entidade {
             
         }
     }
+
+    public void  danoDoProjetavel(int i){
+        if(i != 999){
+            Entidade projetavel = painel.projetavel[painel.mapaAtual][i];
+            projetavel.vivo = false;
+            geradorParticula(projetavel, projetavel);
+        }
+    }
+
+    public int procurarItemNoInventario(String nomeDoItem){
+
+        int indiceItem = 999;
+
+        for(int i = 0; i < inventario.size(); i++){
+            if(inventario.get(i).nome.equals(nomeDoItem)){
+                indiceItem = i;
+                break;
+            }
+        }
+        return indiceItem;
+    }
+
+    public boolean podeObterItem(Entidade item){
+
+        boolean podeObter = false;
+
+        //Verificar se é empilhavel
+        if(item.empilhavel == true){
+
+            int indice = procurarItemNoInventario(item.nome);
+
+            if(indice != 999){
+                inventario.get(indice).quantidade++;
+                podeObter = true;
+            }
+            else {
+                if(inventario.size() != tamanhoMaximoInventario){
+                    inventario.add(item);
+                    podeObter = true;
+                }
+            }
+        }
+        //não empilhável, então verifique a vaga
+        else{
+            if(inventario.size() != tamanhoMaximoInventario){
+                inventario.add(item);
+                podeObter = true;
+            }
+        }
+        return podeObter;
+    }
+
         
     public void desenhar(Graphics2D g2) {
         //g2.setColor(Color.WHITE);

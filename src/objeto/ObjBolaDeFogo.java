@@ -21,6 +21,7 @@ public class ObjBolaDeFogo extends Projetil{
         vidaMaxima = 80;
         vida = vidaMaxima;
         ataque = 2;
+        poderDoEmpurrao = 0;
         usarConsumivel = 1; //quantidade de mana gasta
         vivo = false;
         //descricao = "Uma bola de fogo que incendeia tudo o que toca.";

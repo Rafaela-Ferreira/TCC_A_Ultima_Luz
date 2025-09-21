@@ -14,6 +14,7 @@ public class ObjEscudoMadeira  extends Entidade{
         valorDefesa = 1;
         descricao = "[" + nome + "]\nFabricado de madeira.";
         preco = 100;
+        poderDoEmpurrao = 2;
         
     }
     

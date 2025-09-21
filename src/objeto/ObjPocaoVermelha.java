@@ -17,14 +17,17 @@ public class ObjPocaoVermelha  extends Entidade{
         baixo1 = setup("/img/objetos/potion_red", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[" + nome + "]\ncura sua vida em " + valor + ".";
         preco = 25;
+        empilhavel = true;
         
     }
 
-    public void usar(Entidade entidade){
+    public boolean usar(Entidade entidade){
         painel.estadoDoJogo = painel.estadoDoDialogo;
         painel.interfaceDoUsuario.dialogoAtual = "Voce bebeu uma " + nome + ".\nSua vida foi restaurada em " + valor + ".";
         entidade.vida += valor;
         painel.iniciarEfeitoSonoro(2);
+
+        return true;
     }
     
 }

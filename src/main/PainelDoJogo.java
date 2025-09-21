@@ -2,6 +2,7 @@ package main;
 import javax.swing.JPanel;
 
 import IA.LocalizarCaminhos;
+import ambiente.GerenciadorDeAmbientes;
 import entidade.Entidade;
 import entidade.Jogador;
 import tile.GerenciadorDeBlocos;
@@ -60,6 +61,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public ManipuladorDeEventos mEventos = new ManipuladorDeEventos(this);
     Config config = new Config(this);
     public LocalizarCaminhos localizarCaminhos = new LocalizarCaminhos(this);
+    GerenciadorDeAmbientes gerenciadorDeAmbientes = new GerenciadorDeAmbientes(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
     //Entidades e objetos do jogo
@@ -68,7 +70,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public Entidade npc[][] = new Entidade[maxMapa][10]; //10 objs ao mesmo tempo
     public Entidade inimigo[][] = new Entidade[maxMapa][20]; //20 inimigo ao mesmo tempo
     public BlocosInterativos blocosI[][] = new BlocosInterativos[maxMapa][50];
-    public ArrayList<Entidade> listaProjetil = new ArrayList<>();
+    public Entidade projetavel[][] = new Entidade[maxMapa][20];
+    //public ArrayList<Entidade> listaProjetil = new ArrayList<>();
     public ArrayList<Entidade> listaParticula = new ArrayList<>();
     ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
 
@@ -97,11 +100,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
         
     }
 
+    //setupGame
     public void setarObjetos() {
         criarObjetos.setarObjetos(); 
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
         criarObjetos.setBlocosInterativos();
+        gerenciadorDeAmbientes.setup();
 
         //iniciarMusica(0);// Inicia a música de fundo
         //pararMusica();
@@ -257,13 +262,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
             }
 
             //atualizar o estado do projetil - bola de fogo
-            for(int i = 0; i < listaProjetil.size(); i++){
-                if(listaProjetil.get(i) != null){
-                    if(listaProjetil.get(i).vivo == true){
-                        listaProjetil.get(i).atualizar();
+            for(int i = 0; i < projetavel[1].length; i++){
+                if(projetavel[mapaAtual][i] != null){
+                    if(projetavel[mapaAtual][i].vivo == true){
+                        projetavel[mapaAtual][i].atualizar();
                     }
-                    if(listaProjetil.get(i).vivo == false){
-                        listaProjetil.remove(i);
+                    if(projetavel[mapaAtual][i].vivo == false){
+                        projetavel[mapaAtual][i] = null;
                     }
                     
                 }
@@ -287,6 +292,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     blocosI[mapaAtual][i].atualizar();
                 }
             }
+            gerenciadorDeAmbientes.atualizar();
 
 
         }
@@ -339,9 +345,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
-            for(int i = 0; i < listaProjetil.size(); i++){
-                if(listaProjetil.get(i) != null){
-                    listaEntidade.add(listaProjetil.get(i));
+            for(int i = 0; i < projetavel[1].length; i++){
+                if(projetavel[mapaAtual][i] != null){
+                    listaEntidade.add(projetavel[mapaAtual][i]);
                 }
             }
 
@@ -370,6 +376,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
             //remover da lista de entidades
             listaEntidade.clear();
         
+            //Ambiente de iliminação
+            gerenciadorDeAmbientes.desenhar(g2);
 
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);

@@ -23,9 +23,11 @@ public class ObjCoracao extends Entidade{
         imagem3 = setup("/img/vida/vidaBranco", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }  
     
-    public void usar(Entidade entidade){
+    public boolean usar(Entidade entidade){
         painel.iniciarEfeitoSonoro(2);
         painel.interfaceDoUsuario.adicionarMensagem("Vida +" + valor);
         entidade.vida += valor;
+
+        return true;
     }
 }

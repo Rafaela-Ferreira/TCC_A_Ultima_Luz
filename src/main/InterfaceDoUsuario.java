@@ -538,15 +538,38 @@ public class InterfaceDoUsuario {
 
         //desenhar itens
         for(int i = 0; i < entidade.inventario.size(); i++){
+            
             //equipar arma (cursor)
             if(entidade.inventario.get(i) == entidade.armaAtual ||
-                entidade.inventario.get(i) == entidade.EscudoAtual){
+                    entidade.inventario.get(i) == entidade.EscudoAtual ||
+                    entidade.inventario.get(i) == entidade.luzAtual){
+                
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
 
             }
                
             g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
+
+            //display quantidade
+            if(entidade == painel.jogador && entidade.inventario.get(i).quantidade > 1){
+                g2.setFont(g2.getFont().deriveFont(32f));
+                int quantidadeX;
+                int quantidadeY;
+
+                String s = "" + entidade.inventario.get(i).quantidade;
+                quantidadeX = obterTextoXDireita(s, espacoX + 44);
+                quantidadeY = espacoY + painel.tamanhoDoTile;
+
+
+                //sombra
+                g2.setColor(new Color(60,60,60));
+                g2.drawString(s, quantidadeX, quantidadeY);
+
+                //numero
+                g2.setColor(Color.white);
+                g2.drawString(s, quantidadeX -3 , quantidadeY -3);
+            }
 
             espacoX += tamanhoEspaco;
             if( i == 4 || i == 9 || i == 14){
@@ -944,14 +967,15 @@ public class InterfaceDoUsuario {
                 dialogoAtual = "Você precisa de mais moedas para comprá-los!";
                 desenharDialogoNaTela();
             }
-            else if(painel.jogador.inventario.size() == painel.jogador.tamanhoMaximoInventario){
-                subEstado = 0;
-                painel.estadoDoJogo = painel.estadoDoDialogo;
-                dialogoAtual = "Você não pode carregar mais nada!";
-            }
             else{
-                painel.jogador.moeda -= npc.inventario.get(indeceItem).preco;
-                painel.jogador.inventario.add(npc.inventario.get(indeceItem));
+                if(painel.jogador.podeObterItem(npc.inventario.get(indeceItem)) == true){
+                    painel.jogador.moeda -= npc.inventario.get(indeceItem).preco;
+                }
+                else{
+                   subEstado = 0;
+                    painel.estadoDoJogo = painel.estadoDoDialogo;
+                    dialogoAtual = "Você não pode carregar mais nada!"; 
+                }
             }
         }
 
@@ -1007,7 +1031,13 @@ public class InterfaceDoUsuario {
                     dialogoAtual = "Você não pode vender um item equipado!";
                 }
                 else{
-                    painel.jogador.inventario.remove(indeceItem);
+                    if(painel.jogador.inventario.get(indeceItem).quantidade > 1){
+                        painel.jogador.inventario.get(indeceItem).quantidade--;
+                    }
+                    else{
+                        painel.jogador.inventario.remove(indeceItem);
+                    }
+
                     painel.jogador.moeda += preco;
                     
 
