@@ -3,6 +3,7 @@ package main;
 import entidade.NpcComerciante;
 import entidade.NpcVelho;
 import main.inimigo.lodoVerde;
+import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjChave;
 import objeto.ObjCoracao;
@@ -73,7 +74,7 @@ public class CriarObjetos {
         i++;
 
         painel.Obj[numeroMapa][i] = new ObjPorta(painel);
-        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*10;
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*12;
         i++;
 
@@ -94,6 +95,11 @@ public class CriarObjetos {
 
         painel.Obj[numeroMapa][i] = new ObjLanterna(painel);
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*18;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjBarraca(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*19;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
     }

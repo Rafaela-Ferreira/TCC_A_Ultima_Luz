@@ -6,7 +6,7 @@ import main.PainelDoJogo;
 
 public class GerenciadorDeAmbientes {
     PainelDoJogo painel;
-    Iluminacao iluminacao;
+    public Iluminacao iluminacao;
 
     public GerenciadorDeAmbientes(PainelDoJogo painel){
         this.painel = painel;

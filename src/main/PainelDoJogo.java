@@ -34,8 +34,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int alturaTela = tamanhoDoTile * maxLinhasTela; // 576 pixels
 
     //world settings
-    public final int maxColunasMundo = 50; // Número máximo de colunas no mundo
-    public final int maxLinhasMundo = 50; // Número máximo de linhas no mundo
+    public  int maxColunasMundo; // Número máximo de colunas no mundo
+    public  int maxLinhasMundo; // Número máximo de linhas no mundo
     public final int maxMapa = 10; //qtd de mapas - ajustar conforme necessidade
     public int mapaAtual = 0;
    
@@ -87,7 +87,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoGameOver = 6;
     public final int estadoDeTransicao = 7;
     public final int trocaDeEstado = 8;
+    public final int estadoDormir = 9;
+    
     public boolean desenharCaminho;
+
+
 
 
 

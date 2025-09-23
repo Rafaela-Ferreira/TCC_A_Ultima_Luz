@@ -1,5 +1,6 @@
 package ambiente;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
@@ -10,6 +11,16 @@ import main.PainelDoJogo;
 public class Iluminacao {
     PainelDoJogo painel;
     BufferedImage filtroDeEscuridao;
+
+    public int contadorDia;
+    public float filtroAlpha = 0f;
+
+    //estados do dia
+    public final int dia = 0;
+    public final int anoitecer = 1; //dusk
+    public final int noite = 2;
+    public final int amanhecer = 3; //dawn
+    public int estadoDia = dia;
 
 
     public Iluminacao(PainelDoJogo painel){
@@ -26,7 +37,7 @@ public class Iluminacao {
 
 
         if(painel.jogador.luzAtual == null){
-            g2.setColor(new Color(0,0,0,0.98f));
+            g2.setColor(new Color(0,0,0.1f,0.98f));
         }
         else{
             //obtenha o centro x e y do círculo de luz
@@ -40,18 +51,18 @@ public class Iluminacao {
             Color cor[] = new Color[12];
             float fracao[] = new float[12];
 
-            cor[0] = new Color(0, 0, 0, 0.1f);
-            cor[1] = new Color(0, 0, 0, 0.42f);
-            cor[2] = new Color(0, 0, 0, 0.52f);
-            cor[3] = new Color(0, 0, 0, 0.61f);
-            cor[4] = new Color(0, 0, 0, 0.69f);
-            cor[5] = new Color(0, 0, 0, 0.76f);
-            cor[6] = new Color(0, 0, 0, 0.82f);
-            cor[7] = new Color(0, 0, 0, 0.87f);
-            cor[8] = new Color(0, 0, 0, 0.91f);
-            cor[9] = new Color(0, 0, 0, 0.94f);
-            cor[10] = new Color(0, 0, 0, 0.96f);
-            cor[11] = new Color(0, 0, 0, 0.98f);
+            cor[0] = new Color(0, 0, 0.1f, 0.1f);
+            cor[1] = new Color(0, 0, 0.1f, 0.42f);
+            cor[2] = new Color(0, 0, 0.1f, 0.52f);
+            cor[3] = new Color(0, 0, 0.1f, 0.61f);
+            cor[4] = new Color(0, 0, 0.1f, 0.69f);
+            cor[5] = new Color(0, 0, 0.1f, 0.76f);
+            cor[6] = new Color(0, 0, 0.1f, 0.82f);
+            cor[7] = new Color(0, 0, 0.1f, 0.87f);
+            cor[8] = new Color(0, 0, 0.1f, 0.91f);
+            cor[9] = new Color(0, 0, 0.1f, 0.94f);
+            cor[10] = new Color(0, 0, 0.1f, 0.96f);
+            cor[11] = new Color(0, 0, 0.1f, 0.98f);
 
             fracao[0] = 0f;
             fracao[1] = 0.4f;
@@ -83,8 +94,61 @@ public class Iluminacao {
             setFonteDeLuz();
             painel.jogador.equiparLanterna = false;
         }
+
+        //verificar o estados do dia
+        if(estadoDia == dia){
+            contadorDia++;
+
+            //36.000 = 10 minutos para anoitecer
+            if(contadorDia > 600){
+                estadoDia = anoitecer;
+                contadorDia= 0;
+            }
+        }
+        if(estadoDia == anoitecer){
+            filtroAlpha += 0.001f;
+
+            if(filtroAlpha > 1f){
+                filtroAlpha = 1f;
+                estadoDia = noite;
+            }
+        }
+        if(estadoDia == noite){
+            contadorDia++;
+
+            //36.000 = 10 minutos para amanhecer
+            if(contadorDia > 600){
+                estadoDia = amanhecer;
+                contadorDia = 0;
+            }
+        }
+        if(estadoDia == amanhecer){
+            filtroAlpha -= 0.001f;
+
+            if(filtroAlpha < 0){
+                filtroAlpha = 0;
+                estadoDia = dia;
+            }
+        }
     }
     public void desenhar(Graphics2D g2){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtroAlpha));
         g2.drawImage(filtroDeEscuridao, 0,0, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
+        //debgu
+        String situacao = "";
+
+        switch (estadoDia) {
+            case dia: situacao = "dia"; break;
+            case anoitecer: situacao = "anoitecer"; break;
+            case noite: situacao = "noite"; break;
+            case amanhecer: situacao = "amanhecer"; break;
+ 
+        }
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(50f));
+        g2.drawString(situacao, 700, 500);
     }
 }

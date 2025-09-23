@@ -61,7 +61,7 @@ public class Jogador extends Entidade {
         mundoX = painel.tamanhoDoTile * 23; 
         mundoY = painel.tamanhoDoTile * 21;
         //mundoX = painel.tamanhoDoTile * 12; 
-        //mundoY = painel.tamanhoDoTile * 12;
+        //mundoY = painel.tamanhoDoTile * 14;
         //painel.mapaAtual = 1;
 
 
@@ -127,6 +127,17 @@ public class Jogador extends Entidade {
         esquerda2 = setup("/img/spritesjogador/boy_left_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
         direita1 = setup("/img/spritesjogador/boy_right_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
         direita2 = setup("/img/spritesjogador/boy_right_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+    }
+
+    public void getImagemDormindo(BufferedImage imagem){
+        cima1 = imagem;
+        cima2 = imagem;
+        baixo1 = imagem;
+        baixo2 = imagem;
+        esquerda1 = imagem;
+        esquerda2 = imagem;
+        direita1 = imagem;
+        direita2 = imagem;
     }
 
     public void getImagemDeAtaque(){

@@ -138,6 +138,11 @@ public class InterfaceDoUsuario {
         if(painel.estadoDoJogo == painel.trocaDeEstado){
             desenharTelaDeTroca();
         }
+
+        //estado de dormir 
+        if(painel.estadoDoJogo == painel.estadoDormir){
+            desenharTelaDeDormir();
+        }
         
     }
 
@@ -1047,6 +1052,29 @@ public class InterfaceDoUsuario {
 
         
 
+    }
+
+    public void desenharTelaDeDormir(){
+        contador++;
+
+        if(contador < 120){
+            painel.gerenciadorDeAmbientes.iluminacao.filtroAlpha += 0.01f;
+            if(painel.gerenciadorDeAmbientes.iluminacao.filtroAlpha > 1f){
+                painel.gerenciadorDeAmbientes.iluminacao.filtroAlpha = 1f;
+            }
+        }
+        if(contador >= 120){
+            painel.gerenciadorDeAmbientes.iluminacao.filtroAlpha -= 0.01f;
+            if(painel.gerenciadorDeAmbientes.iluminacao.filtroAlpha <= 0f){
+                painel.gerenciadorDeAmbientes.iluminacao.filtroAlpha = 0f;
+                contador = 0;
+                painel.gerenciadorDeAmbientes.iluminacao.estadoDia = painel.gerenciadorDeAmbientes.iluminacao.dia;
+                painel.gerenciadorDeAmbientes.iluminacao.contadorDia = 0;
+                painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                painel.jogador.getImagem();
+            }
+
+        }
     }
 
 

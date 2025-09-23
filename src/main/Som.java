@@ -30,6 +30,7 @@ public class Som {
         somURL[11] = getClass().getResource("/Sons/cuttree.wav");
         somURL[12] = getClass().getResource("/Sons/gameover.wav");
         somURL[13] = getClass().getResource("/Sons/stairs.wav");
+        somURL[14] = getClass().getResource("/Sons/sleep.wav");
     }
 
     public void setArquivo(int indice){
