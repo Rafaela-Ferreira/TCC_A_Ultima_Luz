@@ -22,7 +22,7 @@ import objeto.ObjMoedaBronze;
 public class InterfaceDoUsuario {
     
     PainelDoJogo painel;
-    Font maruMonica, purisaB;
+    public Font maruMonica, purisaB;
     Graphics2D g2;
     BufferedImage vidaMaxima, vidaMeio, vidaBranco, cristalCompleto, cristalVazio, moeda;
     public boolean mensagemAtiva = false;

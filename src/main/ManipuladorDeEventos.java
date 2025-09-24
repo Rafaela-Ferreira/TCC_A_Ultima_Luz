@@ -66,13 +66,14 @@ public class ManipuladorDeEventos {
             }
 
             //teleporte entre mapas
-            else if(bater (0, 10,31, "any") == true){
-                //teleporteMapa(1, 12, 13);
+            else if(bater (0, 10,39, "any") == true){
+                teleporteMapa(1, 12, 13);
                 
             }
             else if(bater (1, 12,13, "any") == true){
-                //teleporteMapa(0, 10,31);
+                teleporteMapa(0, 10,39);
             }
+            
             else if(bater(1, 12, 9, "cima") == true ){
                 falar(painel.npc[1][0]);
             }

@@ -64,8 +64,18 @@ public class Teclado implements KeyListener {
         else if(painel.estadoDoJogo == painel.trocaDeEstado){
             trocarEstado(code);
         }
+        //estado do mapa
+        else if(painel.estadoDoJogo == painel.estadoMapa){
+            estadoMapa(code);
+        }
 
     }
+
+
+
+
+
+
 
     public void estadoTitilo(int code){
         //tela inicial
@@ -159,6 +169,19 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             painel.estadoDoJogo = painel.estadoOpcoes;
         }
+        if (code == KeyEvent.VK_M) {
+            painel.estadoDoJogo = painel.estadoMapa;
+        }
+
+        if (code == KeyEvent.VK_X) {
+            if(painel.mapa.miniMapaAtivo == false){
+                painel.mapa.miniMapaAtivo = true;
+            }
+            else{
+                painel.mapa.miniMapaAtivo = false;
+            }
+        }
+
         //debug
         if(code == KeyEvent.VK_T){
             if(mostrarTextoDebug == false){
@@ -167,13 +190,15 @@ public class Teclado implements KeyListener {
                 mostrarTextoDebug = false;
             }
         }
+        
         if(code == KeyEvent.VK_R){
             switch (painel.mapaAtual) {
                 case 0: painel.gerenciadorDeBlocos.carregarMapa("/mapas/mapaV3.txt", 0); break;
-                case 1: painel.gerenciadorDeBlocos.carregarMapa("/mapas/interior01.txt", 1); break;
+                case 1: painel.gerenciadorDeBlocos.carregarMapa("/mapas/interior02.txt", 1); break;
             }
             
         }
+            
 
     }
 
@@ -333,6 +358,13 @@ public class Teclado implements KeyListener {
             }
         }
     }
+
+    public void estadoMapa(int code){
+        if(code == KeyEvent.VK_M){
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+        }
+    }
+
 
     public void invetarioJogador(int code){
         if(code == KeyEvent.VK_W){

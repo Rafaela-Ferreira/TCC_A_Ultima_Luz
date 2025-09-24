@@ -6,6 +6,7 @@ import ambiente.GerenciadorDeAmbientes;
 import entidade.Entidade;
 import entidade.Jogador;
 import tile.GerenciadorDeBlocos;
+import tile.Mapa;
 import tile.blocosInterativos.BlocosInterativos;
 
 import java.awt.Color;
@@ -62,6 +63,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     Config config = new Config(this);
     public LocalizarCaminhos localizarCaminhos = new LocalizarCaminhos(this);
     GerenciadorDeAmbientes gerenciadorDeAmbientes = new GerenciadorDeAmbientes(this);
+    Mapa mapa = new Mapa(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
     //Entidades e objetos do jogo
@@ -88,6 +90,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoDeTransicao = 7;
     public final int trocaDeEstado = 8;
     public final int estadoDormir = 9;
+    public final int estadoMapa = 10;
     
     public boolean desenharCaminho;
 
@@ -318,6 +321,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
             interfaceDoUsuario.desenhar(g2);
         
         }
+        //tela do mapa
+        else if(estadoDoJogo == estadoMapa){
+            mapa.desenharMapaCompleto(g2);
+        }
         else{
             // Desenha os tiles-blocos de imagem
             gerenciadorDeBlocos.desenhar(g2);
@@ -382,6 +389,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
         
             //Ambiente de iliminação
             gerenciadorDeAmbientes.desenhar(g2);
+
+            //mini mapa
+            mapa.desenharMiniMapa(g2);
 
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);

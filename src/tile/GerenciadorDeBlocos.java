@@ -71,6 +71,7 @@ public class GerenciadorDeBlocos {
         }
 
         carregarMapa("/mapas/sample.txt", 0);
+        carregarMapa("/mapas/interior02.txt", 1);
         
         //carregarMapa("/mapas/mapaV3.txt", 0);
         //carregarMapa("/mapas/interior01.txt", 1);
