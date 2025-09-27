@@ -43,6 +43,7 @@ public class Mapa extends GerenciadorDeBlocos{
                     linha++;
                 }
             }
+            g2.dispose();
         }
     }
 

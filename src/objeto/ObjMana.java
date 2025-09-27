@@ -6,13 +6,14 @@ import main.PainelDoJogo;
 public class ObjMana extends Entidade{
 
     PainelDoJogo painel;
+    public static final String objNome = "Mana";
 
     public ObjMana(PainelDoJogo painel) {
         super(painel);
         this.painel = painel;
 
         tipo = tipoRetirada;
-        nome= "Mana";
+        nome= objNome;
         valor = 1;
         baixo1 = setup("/img/objetos/manacrystal_full", painel.tamanhoDoTile, painel.tamanhoDoTile);
         imagem = setup("/img/objetos/manacrystal_full", painel.tamanhoDoTile, painel.tamanhoDoTile);

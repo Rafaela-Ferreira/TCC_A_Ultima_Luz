@@ -6,7 +6,7 @@ public class Teclado implements KeyListener {
 
     PainelDoJogo painel;
 
-    public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, precionarEnter, teclaDeTiroPressionada;
+    public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, precionarEnter, teclaDeTiroPressionada, precionarEspaco;
     
     //debug
     boolean mostrarTextoDebug = false;
@@ -94,11 +94,13 @@ public class Teclado implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER) {
                 if(painel.interfaceDoUsuario.numeroDoComando == 0){
-                    painel.interfaceDoUsuario.estadoDeRolagemTitulo = 1;
+                    painel.interfaceDoUsuario.estadoDeRolagemTitulo = 1; //tela de escolha de classe
                     painel.iniciarMusica(0);
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 1){
-                    //add mais tarde
+                    painel.salvarE_Carregar.carregar();
+                    painel.estadoDoJogo = painel.iniciarEstadoDoJogo;//tela do jogo
+                    painel.iniciarMusica(0);
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 2){
                     System.exit(0);
@@ -181,6 +183,9 @@ public class Teclado implements KeyListener {
                 painel.mapa.miniMapaAtivo = false;
             }
         }
+        if (code == KeyEvent.VK_SPACE) {
+           precionarEspaco = true;
+        }
 
         //debug
         if(code == KeyEvent.VK_T){
@@ -210,7 +215,8 @@ public class Teclado implements KeyListener {
 
     public void dialogoEstado(int code){
         if (code == KeyEvent.VK_ENTER) {
-            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            //painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            precionarEnter = true;
         }
     }
 
@@ -250,13 +256,13 @@ public class Teclado implements KeyListener {
         if(code == KeyEvent.VK_ENTER){
             if(painel.interfaceDoUsuario.numeroDoComando == 0){
                 painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                painel.tenteNovamente();
+                painel.reiniciarJogo(false);
                 painel.iniciarMusica(0);
 
             }else if(painel.interfaceDoUsuario.numeroDoComando == 1){
                 painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0; // voltar para o menu inicial (0 é a tela inicial, 1 é a escolha de classe)
                 painel.estadoDoJogo = painel.tituloEstado;
-                painel.reiniciar();
+                painel.reiniciarJogo(true);
             }
             
 
@@ -432,17 +438,27 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_W){
            // System.out.println("Movendo para cima");
             precionarCima = false;
-        } else if (code == KeyEvent.VK_S) {
+        }
+        if (code == KeyEvent.VK_S) {
             //System.out.println("Movendo para baixo");
             precionarBaixo = false;
-        } else if (code == KeyEvent.VK_A) {
+        }
+        if (code == KeyEvent.VK_A) {
             //System.out.println("Movendo para a esquerda");
             precionarEsquerda = false;
-        } else if (code == KeyEvent.VK_D) {
+        }
+        if (code == KeyEvent.VK_D) {
             //System.out.println("Movendo para a direita");
             precionarDireita = false;
-        }else if (code == KeyEvent.VK_F) {
+        }
+        if (code == KeyEvent.VK_F) {
             teclaDeTiroPressionada = false;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            precionarEnter = false;
+        }
+        if (code == KeyEvent.VK_SPACE) {
+            precionarEspaco = false;
         }
     }
     

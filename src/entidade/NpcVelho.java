@@ -1,4 +1,5 @@
 package entidade;
+import java.awt.Rectangle;
 import java.util.Random;
 
 import main.PainelDoJogo;
@@ -8,11 +9,22 @@ public class NpcVelho extends Entidade{
         super(painel);
 
         direcao = "baixo";
-        velocidade = 2;
+        velocidade = 1;
+
+
+        areaSolida = new Rectangle();
+        areaSolida.x = 8;
+        areaSolida.x = 16;
+        areaSolidaPadraoX = areaSolida.x;
+        areaSolidaPadraoY = areaSolida.y;
+        areaSolida.width = 30;
+        areaSolida.height = 30;
+
+        setDialogo = -1;
 
         getImagem();
         setDialogo();
-        //caso queira definir uma area solida, pode definir aqui, como na classe jogador.
+        
     }
 
     public void getImagem(){
@@ -28,10 +40,16 @@ public class NpcVelho extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0] = "Olá, rapaz!";
-        dialogo[1] = "Então você veio a esta ilha para encontrar\n o tesouro?";
-        dialogo[2] = "Eu costumava ser um grande mago, \nmas agora... estou um pouco velho demais \npara me aventurar.";
-        dialogo[3] = "Bem, eu te pego de surpresa.";
+        dialogo[0][0] = "Olá, rapaz!";
+        dialogo[0][1] = "Então você veio a esta ilha para encontrar\n o tesouro?";
+        dialogo[0][2] = "Eu costumava ser um grande mago, \nmas agora... estou um pouco velho demais \npara me aventurar.";
+        dialogo[0][3] = "Bem, eu te pego de surpresa.";
+
+        dialogo[1][0] = "Se você ficar cansado, descanse na água!";
+        dialogo[1][1] = "No entanto, os monstros reaparecem se você descansar.\nNão sei por que, mas é assim que funciona.";
+        dialogo[1][2] = "De qualquer forma, não se esforce demais.";
+
+        dialogo[2][0] = "Eu queria saber como abrir aquela porta...";
 
     }
 
@@ -76,10 +94,25 @@ public class NpcVelho extends Entidade{
     }
 
     public void falar(){
-        //usado para personalizar as falas do npc
-       super.falar();
 
-       pastaAtiva = true;
+        faceJogador();
+        iniciarDialogo(this, setDialogo);
+
+        setDialogo++;
+
+        if(dialogo[setDialogo][0] == null){
+            setDialogo--;
+        }
+
+        //segue o objetivo: jogador
+        pastaAtiva = true;
+
+
+        /* exibir dialogo caso a vida do jogador estiver baixa
+        if(painel.jogador.vida < painel.jogador.vidaMaxima/3){
+            setDialogo = 1;
+        }
+        */
     }
 
     

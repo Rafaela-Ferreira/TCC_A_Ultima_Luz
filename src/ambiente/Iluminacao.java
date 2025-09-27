@@ -22,6 +22,8 @@ public class Iluminacao {
     public final int amanhecer = 3; //dawn
     public int estadoDia = dia;
 
+    public boolean atualizarLuz = false;
+
 
     public Iluminacao(PainelDoJogo painel){
         this.painel = painel;
@@ -87,6 +89,12 @@ public class Iluminacao {
         g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 
         g2.dispose();
+    }
+
+
+    public void reiniciarDia(){
+        estadoDia = dia;
+        filtroAlpha = 0f;
     }
 
     public void atualizar(){

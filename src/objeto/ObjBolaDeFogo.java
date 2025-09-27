@@ -10,18 +10,19 @@ import main.PainelDoJogo;
 public class ObjBolaDeFogo extends Projetil{
 
     PainelDoJogo painel;
+    public static final String objNome = "Bola de Fogo";
 
     public ObjBolaDeFogo(PainelDoJogo painel) {
         super(painel);
 
         this.painel = painel;
 
-        nome = "Bola de Fogo";
+        nome = objNome;
         velocidade = 5;
         vidaMaxima = 80;
         vida = vidaMaxima;
         ataque = 2;
-        poderDoEmpurrao = 0;
+        poderDoEmpurrao = 5;
         usarConsumivel = 1; //quantidade de mana gasta
         vivo = false;
         //descricao = "Uma bola de fogo que incendeia tudo o que toca.";

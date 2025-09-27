@@ -51,79 +51,27 @@ public class lodoVerde extends Entidade{
         direita2 = setup("/img/inimigo/greenslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
-    public void atualizar(){
-        super.atualizar();
-
-        int Xdistancia = Math.abs(mundoX - painel.jogador.mundoX);
-        int Ydistancia = Math.abs(mundoY - painel.jogador.mundoY);
-        int tamanhoDistancia = (Xdistancia + Ydistancia) / painel.tamanhoDoTile;
-
-        if(pastaAtiva == false && tamanhoDistancia < 5){
-            int i = new Random().nextInt(100)+1;
-            if(i > 50){
-                pastaAtiva = true;
-            }
-        }
-        //desiste de perseguir o jogador
-        if(pastaAtiva == true && tamanhoDistancia > 20){
-            pastaAtiva = false;
-        }
-    }
-
     public void setAcao(){
+
+
         if(pastaAtiva == true){
-            
+
+            verificarSeParouDePerseguir_ou_nao(painel.jogador, 15,100);
+
+            //procurar a direção para ir
             //para o inimigo seguir o jogador
-            int metaColuna = (painel.jogador.mundoX + painel.jogador.areaSolida.x) / painel.tamanhoDoTile;
-            int metaLinha = (painel.jogador.mundoY + painel.jogador.areaSolida.y) / painel.tamanhoDoTile;
+            procurarCaminho(getColunaAtual(painel.jogador), getLinhaAtual(painel.jogador));
 
-            procurarCaminho(metaColuna, metaLinha);
-
-            //começa a atirar pedra
-            int i = new Random().nextInt(200)+1;
-
-            if(i > 197 && projetil.vivo == false && contadorDeTiro == 30){
-                
-                projetil.setAcao(mundoX, mundoY, direcao, true, this);
-                //painel.listaProjetil.add(projetil);
-
-                //verificar vaga
-                for(int ii = 0; ii < painel.projetavel[1].length; ii++){
-                    if(painel.projetavel[painel.mapaAtual][ii] == null){
-                        painel.projetavel[painel.mapaAtual][ii] = projetil;
-                        break;
-                    }
-                }
-
-                contadorDeTiro = 0;
-            }
-
-        }else{
-            contadorDeBloqueioDeAcao++;
-
-            //esperar 120 (2 segundos) para mudar de direção
-            if(contadorDeBloqueioDeAcao == 120){
-                Random random = new Random();
-                int i = random.nextInt(100) + 1; //0 - 100
-
-                if(i <= 25){
-                    direcao = "cima";
-                }
-                if(i > 25 && i <= 50){
-                    direcao = "baixo";
-                }
-                if(i > 50 && i <= 75){
-                    direcao = "esquerda";
-                }
-                if(i > 75 && i <= 100){
-                    direcao = "direita";
-                }
-
-                contadorDeBloqueioDeAcao = 0;
-            }
+            //verifique se ele atira um projétil
+            verificarSeAtirou_ou_nao(200, 30);
         }
+        else{
+            //verifique se ele começa a perseguir
+            verificarSeComecouAPerseguir_ou_nao(painel.jogador, 5, 100);
 
-        
+            getDirecaoAleatoria();
+        }
+  
     }
 
     public void acaoAoDano(){

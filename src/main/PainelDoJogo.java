@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 
 import IA.LocalizarCaminhos;
 import ambiente.GerenciadorDeAmbientes;
+import dados.SalvarE_Carregar;
 import entidade.Entidade;
 import entidade.Jogador;
 import tile.GerenciadorDeBlocos;
@@ -64,6 +65,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public LocalizarCaminhos localizarCaminhos = new LocalizarCaminhos(this);
     GerenciadorDeAmbientes gerenciadorDeAmbientes = new GerenciadorDeAmbientes(this);
     Mapa mapa = new Mapa(this);
+    SalvarE_Carregar salvarE_Carregar = new SalvarE_Carregar(this);
+    public GeradorDeEntidade geradorDeEntidade = new GeradorDeEntidade(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
     //Entidades e objetos do jogo
@@ -127,23 +130,21 @@ public class PainelDoJogo extends JPanel implements Runnable {
         }
         
     }
-    public void tenteNovamente(){
+    public void  reiniciarJogo(boolean reiniciar){
+        
         jogador.setPosicaoPadrao();
-        jogador.restaltarVidaE_Mana();
+        jogador.restaltarStatus();
+        jogador.reiniciarContador();
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
-    }
 
-    public void reiniciar(){
-        jogador.setDefaultValues();
-        jogador.setPosicaoPadrao();
-        jogador.restaltarVidaE_Mana();
-        jogador.setItens();
-
-        criarObjetos.setarObjetos(); 
-        criarObjetos.setNpc();
-        criarObjetos.setInimigos();
-        criarObjetos.setBlocosInterativos();
+        if(reiniciar == true){
+            jogador.setDefaultValues();
+            criarObjetos.setarObjetos(); 
+            criarObjetos.setBlocosInterativos();
+            gerenciadorDeAmbientes.iluminacao.reiniciarDia();
+        }
+        
     }
 
     public void setTelaCheia(){

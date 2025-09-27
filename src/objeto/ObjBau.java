@@ -7,18 +7,17 @@ import main.PainelDoJogo;
 public class ObjBau extends Entidade {
     
     PainelDoJogo painel;
-    Entidade saque;
-    boolean aberto = false;
 
-    public ObjBau(PainelDoJogo painel, Entidade saque) {
+    public static final String objNome = "Bau";
+
+    public ObjBau(PainelDoJogo painel) {
 
         super(painel);
         this.painel = painel;
-        this.saque = saque;
 
 
         tipo = tipoObstaculo;
-        nome = "Bau";
+        nome = objNome;
         imagem = setup("/img/itens/chest", painel.tamanhoDoTile, painel.tamanhoDoTile);
         imagem2 = setup("/img/objetos/chest_opened", painel.tamanhoDoTile, painel.tamanhoDoTile);
         baixo1 = imagem;
@@ -34,28 +33,36 @@ public class ObjBau extends Entidade {
         
 
     }
+    public void setSaque(Entidade saque){
+        this.saque = saque;
+        
+        setDialogo();
+    }
+
+    public void setDialogo(){
+        dialogo[0][0] = "Você abre o baú e encontra um " + saque.nome + "\n...Mas você não pode carregar mais nada!";
+        dialogo[1][0] = "Você abre o baú e encontra um " + saque.nome + "\nVocê obteve um " + saque.nome + "!";
+        dialogo[2][0] = "Está vazio";
+    
+    }
     
     public void interagir(){
-        painel.estadoDoJogo = painel.estadoDoDialogo;
 
         if(aberto == false){
             painel.iniciarEfeitoSonoro(3);
 
-            StringBuffer sb = new StringBuffer();
-            sb.append("Você abre o baú e encontra um " + saque.nome + "1");
-
             if(painel.jogador.podeObterItem(saque) == false){
-                sb.append("\n...Mas você não pode carregar mais nada!");
+                iniciarDialogo(this, 0);
 
             }else{
-                sb.append("\nVocê obteve um " + saque.nome + "!");
+                iniciarDialogo(this, 1);
                 baixo1 = imagem2;
                 aberto = true;
             }
-            painel.interfaceDoUsuario.dialogoAtual = sb.toString();
+
         }
         else{
-            painel.interfaceDoUsuario.dialogoAtual = "Está vazio";
+            iniciarDialogo(this, 2);
         }
     }
 

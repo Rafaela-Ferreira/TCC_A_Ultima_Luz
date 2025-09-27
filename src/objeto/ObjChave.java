@@ -6,6 +6,7 @@ import main.PainelDoJogo;
 public class ObjChave  extends Entidade {
 
     PainelDoJogo painel;
+    public static final String objNome =  "Chave";
 
     public ObjChave(PainelDoJogo painel) {
 
@@ -13,7 +14,7 @@ public class ObjChave  extends Entidade {
         this.painel = painel;
 
         tipo = tipoConsumivel;
-        nome = "Chave";
+        nome = objNome;
         baixo1 = setup("/img/itens/key", painel.tamanhoDoTile, painel.tamanhoDoTile);
 
         descricao = "[" + nome + "]\npara abrir uma porta.";
@@ -22,22 +23,26 @@ public class ObjChave  extends Entidade {
     
     }
 
+    public void setDialogo(){
+        dialogo[0][0] = "You use the " + nome + "and open the door";
+
+        dialogo[1][0] = "What are you doing?";
+    }
+
     public boolean usar(Entidade entidade){
-        painel.estadoDoJogo = painel.estadoDoDialogo;
 
         int indiceObjeto = getDetectar(entidade, painel.Obj, "Porta");
 
         if(indiceObjeto != 999){
-            painel.interfaceDoUsuario.dialogoAtual = "You use the " + nome + "and open the door";
+            iniciarDialogo(this, 0);
             painel.iniciarEfeitoSonoro(3);
             painel.Obj[painel.mapaAtual][indiceObjeto] = null;
             return true; // se usar a chave
         }
         else{
-            painel.interfaceDoUsuario.dialogoAtual = "What are you doing?";
+            iniciarDialogo(this, 1);
+            return false;
         }
-
-        return false;
     }
 
 }

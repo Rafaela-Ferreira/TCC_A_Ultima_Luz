@@ -8,6 +8,7 @@ import main.PainelDoJogo;
 public class ObjCoracao extends Entidade{
     
     PainelDoJogo painel;
+    public static final String objNome =  "Coracao";
 
     public ObjCoracao(PainelDoJogo painel) {
 
@@ -15,7 +16,7 @@ public class ObjCoracao extends Entidade{
         this.painel = painel;
         
         tipo = tipoRetirada;
-        nome = "Coracao";
+        nome = objNome;
         valor = 2;
         baixo1 = setup("/img/vida/vidaCompleta", painel.tamanhoDoTile, painel.tamanhoDoTile);
         imagem = setup("/img/vida/vidaCompleta", painel.tamanhoDoTile, painel.tamanhoDoTile);

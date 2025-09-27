@@ -2,6 +2,7 @@ package main;
 
 import entidade.NpcComerciante;
 import entidade.NpcVelho;
+import main.inimigo.InimigoOrc;
 import main.inimigo.lodoVerde;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
@@ -78,9 +79,23 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*12;
         i++;
 
-        painel.Obj[numeroMapa][i] = new ObjBau(painel, new ObjChave(painel));
+        //saquear bau - esse bau dropa uma chave
+        painel.Obj[numeroMapa][i] = new ObjBau(painel);
+        painel.Obj[numeroMapa][i].setSaque(new ObjChave(painel));
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*30;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*29;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjBau(painel);
+        painel.Obj[numeroMapa][i].setSaque(new ObjBarraca(painel));
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*14;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjBau(painel);
+        painel.Obj[numeroMapa][i].setSaque(new ObjPocaoVermelha(painel));
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*13;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
 
         painel.Obj[numeroMapa][i] = new ObjPocaoVermelha(painel);
@@ -165,6 +180,11 @@ public class CriarObjetos {
         painel.inimigo[numeroMapa][i] = new lodoVerde(painel);
         painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*38;
         painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*42;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new InimigoOrc(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*33;
         i++;
 
         /* diferentes inimigos em diferentes mapas

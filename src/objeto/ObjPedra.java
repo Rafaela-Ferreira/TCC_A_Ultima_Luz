@@ -8,13 +8,14 @@ import main.PainelDoJogo;
 
 public class ObjPedra extends Projetil{
     PainelDoJogo painel;
+    public static final String objNome = "Pedra";
 
     public ObjPedra(PainelDoJogo painel) {
         super(painel);
 
         this.painel = painel;
 
-        nome = "Pedra";
+        nome = objNome;
         velocidade = 8;
         vidaMaxima = 80;
         vida = vidaMaxima;

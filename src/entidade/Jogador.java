@@ -53,9 +53,7 @@ public class Jogador extends Entidade {
         
 
         setDefaultValues();
-        getImagem();
-        getImagemDeAtaque();
-        setItens();
+        
     }
     public void setDefaultValues() {
         mundoX = painel.tamanhoDoTile * 23; 
@@ -83,11 +81,18 @@ public class Jogador extends Entidade {
         moeda = 0;
         armaAtual = new ObjEspadaNormal(painel);
         //armaAtual = new ObjMachado(painel);
-        EscudoAtual = new ObjEscudoMadeira(painel);
+        escudoAtual = new ObjEscudoMadeira(painel);
+        luzAtual = null;
         projetil = new ObjBolaDeFogo(painel);
         //projetil = new ObjPedra(painel); //municao
         ataque = getAtaque();
         defesa = getDefesa();
+
+        getImagem();
+        getImagemDeAtaque();
+        getImagemDeDefesa();
+        setItens();
+        setDialogo();
     }
 
     public void setPosicaoPadrao(){
@@ -95,26 +100,60 @@ public class Jogador extends Entidade {
         mundoY = painel.tamanhoDoTile * 21;
         direcao = "baixo";
     }
-    public void restaltarVidaE_Mana(){
+
+    public void setDialogo(){
+        dialogo[0][0] = "Você subiu para o nível " + nivel + "!";
+    }
+
+
+    public void restaltarStatus(){
         vida = vidaMaxima;
         mana = manaMaxima;
+        velocidade = velocidadePadrao;
         invencivel = false;
+        transparente = false;
+        atacar = false;
+        defender = false;
+        empurrao = false;
+        equiparLanterna = true; //atualizar a luz
     }
 
     public void setItens(){
         inventario.clear(); //limpar o inventario - remover essa opção futuramente
-        inventario.add(EscudoAtual);
+        inventario.add(escudoAtual);
         inventario.add(armaAtual);
         inventario.add(new ObjChave(painel));
     }
 
     public int getAtaque(){
         areaAtaque = armaAtual.areaAtaque;
+        direcaoDoMovimento1  = armaAtual.direcaoDoMovimento1;
+        direcaoDoMovimento2  = armaAtual.direcaoDoMovimento2;
         return ataque = forca * armaAtual.valorAtaque;
     }
 
     public int getDefesa(){
-        return defesa = destreza * EscudoAtual.valorDefesa;
+        return defesa = destreza * escudoAtual.valorDefesa;
+    }
+
+    public int getEspacoArmaAtual(){
+        int espacoArmaAtual = 0;
+        for(int i = 0; i < inventario.size(); i++){
+            if(inventario.get(i) == armaAtual){
+                espacoArmaAtual = i;
+            }
+        }
+        return espacoArmaAtual;
+    }
+
+    public int getEspacoEscudoAtual(){
+        int espacoEscudoAtual = 0;
+        for(int i = 0; i < inventario.size(); i++){
+            if(inventario.get(i) == escudoAtual){
+                espacoEscudoAtual = i;
+            }
+        }
+        return espacoEscudoAtual;
     }
 
     public void getImagem(){
@@ -167,207 +206,213 @@ public class Jogador extends Entidade {
         
     }
 
+    public void getImagemDeDefesa(){
+        defesaCima = setup("/img/spritesjogador/defesa/boy_guard_up" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaBaixo = setup("/img/spritesjogador/defesa/boy_guard_down" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaEsquerda = setup("/img/spritesjogador/defesa/boy_guard_left" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaDireita = setup("/img/spritesjogador/defesa/boy_guard_right" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+    }
+
     
 
     public void atualizar(){
-        if(movimento = true){
+        //if(movimento = true){
 
-
-            if(atacar == true){
-                ataque();
-            }
-
-            else if(teclado.precionarCima == true || teclado.precionarBaixo == true || 
-                teclado.precionarEsquerda == true || teclado.precionarDireita == true || teclado.precionarEnter == true) {
-                // Se alguma tecla de movimento estiver pressionada, atualiza a direção
-            
-                // Verifica as teclas pressionadas e atualiza a posição do jogador
-
-                if(teclado.precionarCima) direcao = "cima";
-                    
-                else if(teclado.precionarBaixo == true) direcao = "baixo";
-                
-                else if(teclado.precionarEsquerda == true) direcao = "esquerda";
-                
-                else if(teclado.precionarDireita == true) direcao = "direita";
-
-                
-                    
-                // Verifica colisão com blocos
+            if(empurrao == true){
                 colisaoComBloco = false;
                 painel.colisaoChecked.verificarColisao(this);
+                painel.colisaoChecked.verificarObjeto(this, true);
+                painel.colisaoChecked.verificarEntidade(this, painel.npc);
+                painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+                painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
 
-                //verificar colisão com objetos
-                int objIndex = painel.colisaoChecked.verificarObjeto(this, true);
-                pegarObjeto (objIndex);
+                if(colisaoComBloco == true){
+                    contadoEmpurrao = 0;
+                    empurrao = false;
+                    velocidade = velocidadePadrao;
+                }
+            else if(colisaoComBloco == false){
+                switch (direcaoDoempurrao) {
+                    case "cima": mundoY -= velocidade; break;
+                    case "baixo": mundoY += velocidade;break;
+                    case "esquerda": mundoX -= velocidade; break;
+                    case "direita": mundoX += velocidade; break;
+                }
+            }
 
-                //verificar colisão com npc
-                int npcIndice = painel.colisaoChecked.verificarEntidade(this, painel.npc);
-                interacaoComNpc(npcIndice);
+            contadoEmpurrao++;
+            if(contadoEmpurrao == 10){
+                contadoEmpurrao = 0;
+                empurrao = false;
+                velocidade = velocidadePadrao;
+            }
 
-                //verifica colisão com inimigo
-                int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
-                contatoComInimigo(indiceInimigo);
+        }
+
+        else if(atacar == true){
+            ataque();
+        }
+        else if(teclado.precionarEspaco == true){
+            defender = true;
+            contadorDeGuarda++;
+        }
+
+        else if(teclado.precionarCima == true || teclado.precionarBaixo == true || 
+            teclado.precionarEsquerda == true || teclado.precionarDireita == true || teclado.precionarEnter == true) {
+            // Se alguma tecla de movimento estiver pressionada, atualiza a direção
+        
+            // Verifica as teclas pressionadas e atualiza a posição do jogador
+
+            if(teclado.precionarCima) direcao = "cima";    
+            else if(teclado.precionarBaixo == true) direcao = "baixo";
+            else if(teclado.precionarEsquerda == true) direcao = "esquerda";
+            else if(teclado.precionarDireita == true) direcao = "direita";
+
                 
-                //verificar colisão com blocos interativos
-                int indiceBlocosI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+            // Verifica colisão com blocos
+            colisaoComBloco = false;
+            painel.colisaoChecked.verificarColisao(this);
+
+            //verificar colisão com objetos
+            int objIndex = painel.colisaoChecked.verificarObjeto(this, true);
+            pegarObjeto (objIndex);
+
+            //verificar colisão com npc
+            int npcIndice = painel.colisaoChecked.verificarEntidade(this, painel.npc);
+            interacaoComNpc(npcIndice);
+
+            //verifica colisão com inimigo
+            int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+            contatoComInimigo(indiceInimigo);
+            
+            //verificar colisão com blocos interativos
+            painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
 
 
-                //verificar evento
-                painel.mEventos.verificarEvento();
+            //verificar evento
+            painel.mEventos.verificarEvento();
 
-                //se colição for false,
-                if(colisaoComBloco == false && teclado.precionarEnter == false) {
-                    // Atualiza a posição do jogador
-                    switch (direcao) {
-                        case "cima":
-                            mundoY -= velocidade; break;
-                        case "baixo":
-                            mundoY += velocidade;break;
-                        case "esquerda":
-                            mundoX -= velocidade; break;
-                        case "direita":
-                            mundoX += velocidade; break;
-                    }
-
-                    // Controle de animação do sprite
-                    contadorDeSprite++;
-                    if(contadorDeSprite  > 12) { // A cada 10 atualizações, troca o sprite
-                        if(numeroDoSprite  == 1) {
-                            numeroDoSprite  = 2; // Alterna para o segundo sprite
-                        } else if(numeroDoSprite  == 2) {
-                            numeroDoSprite  = 1; // Alterna para o primeiro sprite
-                        }
-                        contadorDeSprite  = 0; // Reseta o contador de sprites
-                    }
+            //se colição for false,
+            if(colisaoComBloco == false && teclado.precionarEnter == false) {
+                // Atualiza a posição do jogador
+                switch (direcao) {
+                    case "cima":
+                        mundoY -= velocidade; break;
+                    case "baixo":
+                        mundoY += velocidade;break;
+                    case "esquerda":
+                        mundoX -= velocidade; break;
+                    case "direita":
+                        mundoX += velocidade; break;
                 }
-                else {
-                    numeroDoSprite = 1;  
-                }
-
-                if(teclado.precionarEnter == true && cancelarAtaque == false){
-                    painel.iniciarEfeitoSonoro(7);
-                    atacar = true;
-                    contadorDeSprite = 0;
-                }
-                cancelarAtaque = false;
-                painel.teclado.precionarEnter = false;
 
             }
             else {
-                auxCounter++;
-                if(auxCounter == 20){
-                    numeroDoSprite = 1;
-                    auxCounter = 0;
-                }
-                
-            }
-            if(painel.teclado.teclaDeTiroPressionada == true && projetil.vivo == false 
-                && contadorDeTiro == 30 && projetil.temRecursos(this) == true){
-                
-                //definir coordenadas, direção e usuário padrão
-                projetil.setAcao(mundoX, mundoY, direcao, true, this);
-                
-                // subtrai o consumo (mana, munição, etc.)
-                projetil.subtrairRecursos(this);
-
-                //adicionar o projetil na lista de projetil
-                //painel.listaProjetil.add(projetil);
-                
-                
-                //verificar vaga
-                for(int i = 0; i < painel.projetavel[1].length; i++){
-                    if(painel.projetavel[painel.mapaAtual][i] == null){
-                        painel.projetavel[painel.mapaAtual][i] = projetil;
-                        break;
-                    }
-                }
-
-                
-
-                contadorDeTiro = 0;
-
-                painel.iniciarEfeitoSonoro(10);
+                numeroDoSprite = 1;  
             }
 
+            if(teclado.precionarEnter == true && cancelarAtaque == false){
+                painel.iniciarEfeitoSonoro(7);
+                atacar = true;
+                contadorDeSprite = 0;
 
-            if(invencivel == true){
-                invencivelContador++;
-                if(invencivelContador > 60){
-                    invencivel = false;
-                    invencivelContador = 0;
-                }
-            }   
 
-            if(contadorDeTiro < 30){
-                contadorDeTiro++;
+                //diminuir a durabilidade
+                armaAtual.durabilidade--;
             }
-            if(vida > vidaMaxima){
-                vida = vidaMaxima;
-            }
+
+            cancelarAtaque = false;
+            painel.teclado.precionarEnter = false;
+            defender = false;
+            contadorDeGuarda = 0;
             
-            if(mana > manaMaxima){
-                mana = manaMaxima;
+            // Controle de animação do sprite
+            contadorDeSprite++;
+            if(contadorDeSprite  > 12) { // A cada 10 atualizações, troca o sprite
+                if(numeroDoSprite  == 1) {
+                    numeroDoSprite  = 2; // Alterna para o segundo sprite
+                } else if(numeroDoSprite  == 2) {
+                    numeroDoSprite  = 1; // Alterna para o primeiro sprite
+                }
+                contadorDeSprite  = 0; // Reseta o contador de sprites
             }
-            if(vida <= 0){
-                painel.estadoDoJogo = painel.estadoGameOver;
-                painel.interfaceDoUsuario.numeroDoComando = -1;
-                painel.pararMusica();
-                painel.iniciarEfeitoSonoro(12);
+
+        }
+        else {
+            auxCounter++;
+            if(auxCounter == 20){
+                numeroDoSprite = 1;
+                auxCounter = 0;
             }
+            defender = false;
+            contadorDeGuarda = 0;
+
+            
+        }
+        if(painel.teclado.teclaDeTiroPressionada == true && projetil.vivo == false 
+            && contadorDeTiro == 30 && projetil.temRecursos(this) == true){
+            
+            //definir coordenadas, direção e usuário padrão
+            projetil.setAcao(mundoX, mundoY, direcao, true, this);
+            
+            // subtrai o consumo (mana, munição, etc.)
+            projetil.subtrairRecursos(this);
+
+            //adicionar o projetil na lista de projetil
+            //painel.listaProjetil.add(projetil);
+            
+            
+            //verificar vaga
+            for(int i = 0; i < painel.projetavel[1].length; i++){
+                if(painel.projetavel[painel.mapaAtual][i] == null){
+                    painel.projetavel[painel.mapaAtual][i] = projetil;
+                    break;
+                }
+            }
+
+            
+
+            contadorDeTiro = 0;
+
+            painel.iniciarEfeitoSonoro(10);
+        }
+
+
+        if(invencivel == true){
+            invencivelContador++;
+            if(invencivelContador > 60){
+                invencivel = false;
+                transparente = false;
+                invencivelContador = 0;
+            }
+        }   
+
+        if(contadorDeTiro < 30){
+            contadorDeTiro++;
+        }
+        if(vida > vidaMaxima){
+            vida = vidaMaxima;
+        }
+        
+        if(mana > manaMaxima){
+            mana = manaMaxima;
+        }
+        
+        /* 
+        if(vida <= 0){
+            painel.estadoDoJogo = painel.estadoGameOver;
+            painel.interfaceDoUsuario.numeroDoComando = -1;
+            painel.pararMusica();
+            painel.iniciarEfeitoSonoro(12);
+        }
+        */
+    } 
+        
+        
+    //}
+
+
     
-    
-        } 
-    }
-
-
-    public void ataque(){
-        contadorDeSprite++;
-
-        if(contadorDeSprite <= 5){
-            numeroDoSprite = 1;
-        }
-        if(contadorDeSprite > 5 && contadorDeSprite <= 25){
-            numeroDoSprite = 2;
-
-            //save the current worldX, worldY, solidArea
-            int AtualMundoX = mundoX;
-            int AtualMundoY = mundoY;
-            int areaSolidaLargura = areaSolida.width;
-            int areaSolidaAltura = areaSolida.height;
-
-            //adjust player's worldX/Y for the attackArea
-            switch (direcao) {
-                case "cima": mundoX -= areaAtaque.height; break;
-                case "baixo": mundoX += areaAtaque.height; break;
-                case "esquerda": mundoX -= areaAtaque.width; break;
-                case "direita": mundoX += areaAtaque.width; break;
-            }
-
-            areaSolida.width = areaAtaque.width;
-            areaSolida.height = areaAtaque.height;
-
-            int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
-            danoDoInimigo(indiceInimigo, ataque, armaAtual.poderDoEmpurrao);
-
-            int indiceBlocosI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
-            danoNoBlocoInterativo(indiceBlocosI);
-
-            int indiceProjetavel = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
-            danoDoProjetavel(indiceProjetavel);
-
-            mundoX = AtualMundoX;
-            mundoY = AtualMundoY;
-            areaSolida.width = areaSolidaAltura;
-            areaSolida.height = areaSolidaLargura;
-
-        }
-        if(contadorDeSprite > 25){
-            numeroDoSprite = 1;
-            contadorDeSprite = 0;
-            atacar = false;
-        }
-    }
     
 
     /*para abrir a porta é necessário ter uma chave
@@ -410,11 +455,10 @@ public class Jogador extends Entidade {
 
     public void interacaoComNpc(int indice){
 
-        if(painel.teclado.precionarEnter == true){
+        if(indice != 999){
 
-            if (indice != 999) { 
+            if (painel.teclado.precionarEnter == true) { 
                 cancelarAtaque = true;  
-                painel.estadoDoJogo = painel.estadoDoDialogo;
                 painel.npc[painel.mapaAtual][indice].falar();
 
             }
@@ -439,8 +483,10 @@ public class Jogador extends Entidade {
             defesa = getDefesa();
             painel.iniciarEfeitoSonoro(8);
             painel.estadoDoJogo = painel.estadoDoDialogo;
-            painel.interfaceDoUsuario.dialogoAtual = "Você subiu para o nível " + nivel + "!";
 
+            //dialogo[0][0] = "Você subiu para o nível " + nivel + "!";
+            setDialogo();
+            iniciarDialogo(this, 0);
         }
     }
 
@@ -458,7 +504,7 @@ public class Jogador extends Entidade {
 
             }
             if(itemSelecionado.tipo == tipoEscudo){
-                EscudoAtual = itemSelecionado;
+                escudoAtual = itemSelecionado;
                 defesa = getDefesa();
             }
             if(itemSelecionado.tipo == tipoIliminacao){
@@ -496,12 +542,13 @@ public class Jogador extends Entidade {
                 painel.iniciarEfeitoSonoro(6);
 
                 int dano = painel.inimigo[painel.mapaAtual][i].ataque - defesa;
-                if(dano < 0){
-                    dano = 0;
+                if(dano < 1){
+                    dano = 1;
 
                 }
                 vida -= dano; //dano do inimigo
                 invencivel = true;
+                transparente = true;
             }
             
         }
@@ -510,23 +557,25 @@ public class Jogador extends Entidade {
     
 
 
-    public void danoDoInimigo(int indice, int ataque, int poderDoEmpurrao){
+    public void danoDoInimigo(int indice, Entidade atacante, int ataque, int poderDoEmpurrao){
         if(indice != 999){
 
             if(painel.inimigo[painel.mapaAtual][indice].invencivel == false){
                 painel.iniciarEfeitoSonoro(5);
 
                 if(poderDoEmpurrao > 0){
-                    empurrao(painel.inimigo[painel.mapaAtual][indice], poderDoEmpurrao);
+                    setEmpurrao(painel.inimigo[painel.mapaAtual][indice], atacante, poderDoEmpurrao);
                 }
 
-               
+                if(painel.inimigo[painel.mapaAtual][indice].equilibrioDesativar == true){
+                    ataque *= 5;
+                }
 
                 int dano = ataque - painel.inimigo[painel.mapaAtual][indice].defesa;
                 if(dano < 0){
                     dano = 0;
-
                 }
+
                 painel.inimigo[painel.mapaAtual][indice].vida -= dano;
                 painel.interfaceDoUsuario.adicionarMensagem(dano + " de dano!");
                 painel.inimigo[painel.mapaAtual][indice].invencivel = true;
@@ -545,11 +594,7 @@ public class Jogador extends Entidade {
         }
     }
 
-    public void empurrao(Entidade entidade, int poderDoEmpurrao){
-        entidade.direcao = direcao;
-        entidade.velocidade += poderDoEmpurrao;
-        entidade.empurrao = true;
-    }
+    
 
     public void danoNoBlocoInterativo(int i ){
         if(i!= 999 && painel.blocosI[painel.mapaAtual][i].destruir == true 
@@ -594,10 +639,12 @@ public class Jogador extends Entidade {
 
         boolean podeObter = false;
 
-        //Verificar se é empilhavel
-        if(item.empilhavel == true){
+        Entidade novoItem = painel.geradorDeEntidade.getObjeto(item.nome);
 
-            int indice = procurarItemNoInventario(item.nome);
+        //Verificar se é empilhavel
+        if(novoItem.empilhavel == true){
+
+            int indice = procurarItemNoInventario(novoItem.nome);
 
             if(indice != 999){
                 inventario.get(indice).quantidade++;
@@ -605,7 +652,7 @@ public class Jogador extends Entidade {
             }
             else {
                 if(inventario.size() != tamanhoMaximoInventario){
-                    inventario.add(item);
+                    inventario.add(novoItem);
                     podeObter = true;
                 }
             }
@@ -613,7 +660,7 @@ public class Jogador extends Entidade {
         //não empilhável, então verifique a vaga
         else{
             if(inventario.size() != tamanhoMaximoInventario){
-                inventario.add(item);
+                inventario.add(novoItem);
                 podeObter = true;
             }
         }
@@ -640,6 +687,9 @@ public class Jogador extends Entidade {
                     if(numeroDoSprite  == 1){ imagem = ataqueCima1; }
                     if(numeroDoSprite  == 2){ imagem = ataqueCima2; }
                 }
+                if(defender == true){
+                    imagem = defesaCima;
+                }
                 
             break;
             case "baixo":
@@ -650,6 +700,9 @@ public class Jogador extends Entidade {
                 if(atacar == true){
                     if(numeroDoSprite  == 1){ imagem = ataqueBaixo1; }
                     if(numeroDoSprite  == 2){ imagem = ataqueBaixo2; }
+                }
+                if(defender == true){
+                    imagem = defesaBaixo;
                 }
             break;
             case "esquerda":
@@ -662,6 +715,9 @@ public class Jogador extends Entidade {
                     if(numeroDoSprite  == 1){ imagem = ataqueEsquerda1; }
                     if(numeroDoSprite  == 2){ imagem = ataqueEsquerda2; }
                 }
+                 if(defender == true){
+                    imagem = defesaEsquerda;
+                }
                 
             break;
             case "direita":
@@ -673,10 +729,13 @@ public class Jogador extends Entidade {
                 if(numeroDoSprite  == 1){ imagem = ataqueDireita1; }
                 if(numeroDoSprite  == 2){ imagem = ataqueDireita2; }
             }
+            if(defender == true){
+                imagem = defesaDireita;
+            }
             break;
         }
 
-        if(invencivel == true){
+        if(transparente == true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
 

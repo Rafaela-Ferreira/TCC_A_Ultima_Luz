@@ -23,7 +23,15 @@ public class ColisaoChecked {
 
         int numeroDoBloco1, numeroDoBloco2;
 
-        switch (entidade.direcao) {
+        //use uma direção tamporal quando estiver sendo empurrado para trás
+        String direcao = entidade.direcao;
+        if(entidade.empurrao == true){
+         direcao = entidade.direcaoDoempurrao;
+
+        }
+
+
+        switch (direcao) {
             case "cima":
                 entidadeTopoLinha = (entidadeTopoMundoY - entidade.velocidade) / painel.tamanhoDoTile;
                 numeroDoBloco1 = painel.gerenciadorDeBlocos.numerosDoMapa[painel.mapaAtual][entidadeEsquerdaColuna][entidadeTopoLinha];
@@ -112,6 +120,13 @@ public class ColisaoChecked {
     public int verificarEntidade(Entidade entidade, Entidade[][] alvo){
         int indice = 999;
 
+        //use uma direção tamporal quando estiver sendo empurrado para trás
+        String direcao = entidade.direcao;
+        if(entidade.empurrao == true){
+         direcao = entidade.direcaoDoempurrao;
+
+        }
+
         for (int i = 0; i < alvo[1].length; i++) {
             if (alvo[painel.mapaAtual][i] != null) {
 
@@ -122,7 +137,7 @@ public class ColisaoChecked {
                 alvo[painel.mapaAtual][i].areaSolida.x = alvo[painel.mapaAtual][i].mundoX + alvo[painel.mapaAtual][i].areaSolida.x;
                 alvo[painel.mapaAtual][i].areaSolida.y = alvo[painel.mapaAtual][i].mundoY + alvo[painel.mapaAtual][i].areaSolida.y;
 
-                switch (entidade.direcao) {
+                switch (direcao) {
                     case "cima":
                         entidade.areaSolida.y -= entidade.velocidade; 
                         break;

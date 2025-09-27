@@ -44,6 +44,8 @@ public class InterfaceDoUsuario {
     int subEstado = 0;
     int contador = 0;
     public Entidade npc;
+    int indicePersonagem = 0;
+    String combinandoTexto = "";
 
 
 
@@ -386,6 +388,38 @@ public class InterfaceDoUsuario {
         x += painel.tamanhoDoTile;
         y += painel.tamanhoDoTile;
 
+        if(npc.dialogo[npc.setDialogo][npc.indiceDoDialogo] != null){
+            //dialogoAtual = npc.dialogo[npc.setDialogo][npc.indiceDoDialogo];
+
+            char personagem[] = npc.dialogo[npc.setDialogo][npc.indiceDoDialogo].toCharArray();
+
+            if(indicePersonagem < personagem.length){
+                painel.iniciarEfeitoSonoro(17);
+                String s = String.valueOf(personagem[indicePersonagem]);
+                combinandoTexto = combinandoTexto + s;
+                dialogoAtual = combinandoTexto;
+                indicePersonagem++;
+            }
+
+            if(painel.teclado.precionarEnter == true){
+                indicePersonagem = 0;
+                combinandoTexto = "";
+
+                if(painel.estadoDoJogo == painel.estadoDoDialogo){
+                    
+                    npc.indiceDoDialogo++;
+                    painel.teclado.precionarEnter = false;
+                }
+            }
+        }
+        else{
+            npc.indiceDoDialogo = 0;
+
+            if(painel.estadoDoJogo == painel.estadoDoDialogo){
+                painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            }
+        }
+
         // desenha cada índice do array dialogo[]
         
         for(String linha : dialogoAtual.split("\n")){
@@ -498,7 +532,7 @@ public class InterfaceDoUsuario {
 
         g2.drawImage(painel.jogador.armaAtual.baixo1, bordaX - painel.tamanhoDoTile, textoY-24, null);
         textoY += painel.tamanhoDoTile;
-        g2.drawImage(painel.jogador.EscudoAtual.baixo1, bordaX - painel.tamanhoDoTile, textoY-24, null);
+        g2.drawImage(painel.jogador.escudoAtual.baixo1, bordaX - painel.tamanhoDoTile, textoY-24, null);
    
     }
     public void desenhaInventario(Entidade entidade, boolean cursor){
@@ -546,7 +580,7 @@ public class InterfaceDoUsuario {
             
             //equipar arma (cursor)
             if(entidade.inventario.get(i) == entidade.armaAtual ||
-                    entidade.inventario.get(i) == entidade.EscudoAtual ||
+                    entidade.inventario.get(i) == entidade.escudoAtual ||
                     entidade.inventario.get(i) == entidade.luzAtual){
                 
                 g2.setColor(new Color(240,190,90));
@@ -621,6 +655,8 @@ public class InterfaceDoUsuario {
                 
 
             }
+            //durabilidade - fazer uma verificação para atribuir a todos os objetos
+            g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, tentoX, textoY+20);
         }
         
 
@@ -837,6 +873,7 @@ public class InterfaceDoUsuario {
                 subEstado = 0;
                 painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0;
                 painel.estadoDoJogo = painel.tituloEstado;
+                painel.reiniciarJogo(true);
             }
         }
 
@@ -885,6 +922,9 @@ public class InterfaceDoUsuario {
 
     }
     public void selecionarTroca(){
+        
+        npc.setDialogo = 0;
+
         desenharDialogoNaTela();
         //desenhar janela
         int x = painel.tamanhoDoTile * 15;
@@ -919,8 +959,7 @@ public class InterfaceDoUsuario {
             g2.drawString(">", x-24, y);
             if(painel.teclado.precionarEnter == true){
                 numeroDoComando = 0;
-                painel.estadoDoJogo = painel.estadoDoDialogo;
-                dialogoAtual = "Volte sempre, hehe!";
+                npc.iniciarDialogo(npc, 1);
             }
         } 
 
@@ -968,9 +1007,7 @@ public class InterfaceDoUsuario {
         if(painel.teclado.precionarEnter == true){
             if(npc.inventario.get(indeceItem).preco > painel.jogador.moeda){
                 subEstado = 0;
-                painel.estadoDoJogo = painel.estadoDoDialogo;
-                dialogoAtual = "Você precisa de mais moedas para comprá-los!";
-                desenharDialogoNaTela();
+                npc.iniciarDialogo(npc, 2);
             }
             else{
                 if(painel.jogador.podeObterItem(npc.inventario.get(indeceItem)) == true){
@@ -978,8 +1015,7 @@ public class InterfaceDoUsuario {
                 }
                 else{
                    subEstado = 0;
-                    painel.estadoDoJogo = painel.estadoDoDialogo;
-                    dialogoAtual = "Você não pode carregar mais nada!"; 
+                    npc.iniciarDialogo(npc, 3);
                 }
             }
         }
@@ -1028,12 +1064,11 @@ public class InterfaceDoUsuario {
             //vender item
             if(painel.teclado.precionarEnter == true){
                 if(painel.jogador.inventario.get(indeceItem) == painel.jogador.armaAtual ||
-                    painel.jogador.inventario.get(indeceItem) == painel.jogador.EscudoAtual)    {
+                    painel.jogador.inventario.get(indeceItem) == painel.jogador.escudoAtual)    {
                     
                     numeroDoComando = 0;
                     subEstado = 0;
-                    painel.estadoDoJogo = painel.estadoDoDialogo;
-                    dialogoAtual = "Você não pode vender um item equipado!";
+                    npc.iniciarDialogo(npc, 4);
                 }
                 else{
                     if(painel.jogador.inventario.get(indeceItem).quantidade > 1){

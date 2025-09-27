@@ -6,6 +6,7 @@ import main.PainelDoJogo;
 public class ObjPorta extends Entidade {
     
     PainelDoJogo painel;
+    public static final String objNome = "Porta";
 
     public ObjPorta(PainelDoJogo painel) {
 
@@ -13,7 +14,7 @@ public class ObjPorta extends Entidade {
         this.painel = painel;
 
         tipo = tipoObstaculo;
-        nome = "Porta";
+        nome = objNome;
         baixo1 = setup("/img/itens/door", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
         temColisao = true; // Define que a porta tem colisão
@@ -24,11 +25,14 @@ public class ObjPorta extends Entidade {
         areaSolida.height = 32;
         areaSolidaPadraoX = areaSolida.x;
         areaSolidaPadraoY = areaSolida.y;
+        setDialogo();
     
+    }
+    public void setDialogo(){
+        dialogo[0][0] = "Você precisa de uma chave para abrir isto!";
     }
 
     public void interagir(){
-        painel.estadoDoJogo = painel.estadoDoDialogo;
-        painel.interfaceDoUsuario.dialogoAtual = "Você precisa de uma chave para abrir isto!";
+       iniciarDialogo(this, 0);
     }
 }

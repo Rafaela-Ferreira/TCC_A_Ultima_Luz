@@ -31,6 +31,9 @@ public class Som {
         somURL[12] = getClass().getResource("/Sons/gameover.wav");
         somURL[13] = getClass().getResource("/Sons/stairs.wav");
         somURL[14] = getClass().getResource("/Sons/sleep.wav");
+        somURL[15] = getClass().getResource("/Sons/blocked.wav");
+        somURL[16] = getClass().getResource("/Sons/parry.wav");
+        somURL[17] = getClass().getResource("/Sons/speak.wav");
     }
 
     public void setArquivo(int indice){

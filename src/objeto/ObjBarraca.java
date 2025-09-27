@@ -8,13 +8,15 @@ import main.PainelDoJogo;
 public class ObjBarraca  extends Entidade{
     PainelDoJogo painel;
 
+    public static final String objNome = "Barraca";
+
     public ObjBarraca(PainelDoJogo painel) {
         super(painel);
         this.painel = painel;
 
 
         tipo = tipoConsumivel;
-        nome = "Barraca";
+        nome = objNome;
         baixo1 = setup("/img/objetos/tent", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[Barraca]\nVocê pode dormir até\na manhã seguinte.";
         preco = 300;

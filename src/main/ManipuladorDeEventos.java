@@ -1,10 +1,12 @@
 package main;
 
+
 import entidade.Entidade;
 
 public class ManipuladorDeEventos {
     PainelDoJogo painel;
     EventoRetangulo eventoRetangulo[][][];
+    Entidade eventoMestre;
 
     int eventoAnteriorX, eventoAnteriorY;
     boolean podeTocarEvento = true;
@@ -12,6 +14,8 @@ public class ManipuladorDeEventos {
 
     public ManipuladorDeEventos(PainelDoJogo painel){
         this.painel = painel;
+
+        eventoMestre = new Entidade(painel);
 
         eventoRetangulo = new EventoRetangulo[painel.maxMapa][painel.maxColunasMundo][painel.maxLinhasMundo];
 
@@ -40,7 +44,16 @@ public class ManipuladorDeEventos {
             }
         }
         
+        setDialogo();
+    }
+    public void setDialogo(){
+        eventoMestre.dialogo[0][0] = "Você cai no buraco";
 
+        eventoMestre.dialogo[1][0] = "Você tomou água de cura!\nSua vida e sua mana foi renovada.\nO seu progresso salvo foi salvo!";
+        eventoMestre.dialogo[1][1] = "Esta é uma boa água.";
+        
+        eventoMestre.dialogo[2][0] = "Teletransportado!";
+    
     }
 
     public void verificarEvento(){
@@ -65,13 +78,18 @@ public class ManipuladorDeEventos {
                 piscinaDeCura(painel.estadoDoDialogo);
             }
 
-            //teleporte entre mapas
+            //teleporte entre mapas do 0 para o 1
             else if(bater (0, 10,39, "any") == true){
-                teleporteMapa(1, 12, 13);
-                
+                teleporteMapa(1, 12, 13);    
             }
+            //teleporte entre mapas do 1 para o 0
             else if(bater (1, 12,13, "any") == true){
                 teleporteMapa(0, 10,39);
+            }
+
+            //armadilha: teletransporte no mesmo mapa
+            else if(bater (0, 18,16, "any") == true){
+                teleporteMapa(0, 38,9);
             }
             
             else if(bater(1, 12, 9, "cima") == true ){
@@ -116,7 +134,7 @@ public class ManipuladorDeEventos {
     public void buracoDeDano(int estadoDoJogo){
         painel.estadoDoJogo = estadoDoJogo;
         painel.iniciarEfeitoSonoro(7);
-        painel.interfaceDoUsuario.dialogoAtual = "Você cai no buraco";
+        eventoMestre.iniciarDialogo(eventoMestre, 0);
         painel.jogador.vida -=1;
         //eventoRetangulo[coluna][linha].eventoJaAconteceu = true;
         podeTocarEvento = false;
@@ -127,10 +145,13 @@ public class ManipuladorDeEventos {
             painel.estadoDoJogo = estadoDoJogo;
             painel.jogador.cancelarAtaque = true;
             painel.iniciarEfeitoSonoro(2);
-            painel.interfaceDoUsuario.dialogoAtual = "Você tomou água de cura!\nSua vida e sua mana foi renovada.";
+            eventoMestre.iniciarDialogo(eventoMestre, 1);
             painel.jogador.vida = painel.jogador.vidaMaxima;
             painel.jogador.mana = painel.jogador.manaMaxima;
             painel.criarObjetos.setInimigos();
+
+            //ponto de salvamento
+            painel.salvarE_Carregar.salvar();
         }
         
     }
@@ -138,7 +159,7 @@ public class ManipuladorDeEventos {
     //pode ser usado para armadilhas
     public void teletransporte(int coluna, int linha, int estadoDoJogo){
         painel.estadoDoJogo = estadoDoJogo;
-        painel.interfaceDoUsuario.dialogoAtual = "Teletransportado!";
+        eventoMestre.iniciarDialogo(eventoMestre, 2);
         painel.jogador.mundoX = painel.tamanhoDoTile*37;
         painel.jogador.mundoY = painel.tamanhoDoTile*10;
     }
