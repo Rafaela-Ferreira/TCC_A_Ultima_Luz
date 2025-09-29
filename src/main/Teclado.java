@@ -10,6 +10,7 @@ public class Teclado implements KeyListener {
     
     //debug
     boolean mostrarTextoDebug = false;
+    public boolean modoDebugAtivo = false;
     
 
     public Teclado(PainelDoJogo painel){
@@ -196,12 +197,21 @@ public class Teclado implements KeyListener {
             }
         }
         
-        if(code == KeyEvent.VK_R){
+        /*if(code == KeyEvent.VK_R){
             switch (painel.mapaAtual) {
                 case 0: painel.gerenciadorDeBlocos.carregarMapa("/mapas/mapaV3.txt", 0); break;
                 case 1: painel.gerenciadorDeBlocos.carregarMapa("/mapas/interior02.txt", 1); break;
             }
             
+        }
+        */
+
+        if(code == KeyEvent.VK_G){
+            if(modoDebugAtivo == false){
+                modoDebugAtivo = true;
+            } else if(modoDebugAtivo == true){
+                modoDebugAtivo = false;
+            }
         }
             
 

@@ -80,20 +80,38 @@ public class ManipuladorDeEventos {
 
             //teleporte entre mapas do 0 para o 1
             else if(bater (0, 10,39, "any") == true){
-                teleporteMapa(1, 12, 13);    
+                teleporteMapa(1, 12, 13, painel.interior);    
             }
             //teleporte entre mapas do 1 para o 0
             else if(bater (1, 12,13, "any") == true){
-                teleporteMapa(0, 10,39);
+                teleporteMapa(0, 10,39, painel.fora);
             }
 
             //armadilha: teletransporte no mesmo mapa
             else if(bater (0, 18,16, "any") == true){
-                teleporteMapa(0, 38,9);
+                teleporteMapa(0, 38,9, painel.fora);
             }
             
             else if(bater(1, 12, 9, "cima") == true ){
                 falar(painel.npc[1][0]);
+            }
+
+            //teleporte entre mapas do 0 para o 2
+            else if(bater (0, 12,9, "any") == true){
+                teleporteMapa(2, 9, 41, painel.masmorra);    
+            }
+            //teleporte entre mapas do 2 para o 0
+            else if(bater (2, 9,41, "any") == true){
+                teleporteMapa(0, 12,9, painel.fora);
+            }
+
+            //teleporte entre mapas do 0 para o 2
+            else if(bater (2, 8,7, "any") == true){
+                teleporteMapa(3, 26, 41, painel.masmorra);    
+            }
+            //teleporte entre mapas do 2 para o 0
+            else if(bater (3, 26,41, "any") == true){
+                teleporteMapa(2, 8,7, painel.masmorra);
             }
 
         }
@@ -165,9 +183,10 @@ public class ManipuladorDeEventos {
     }
 
     //usado para teleporte entre mapas
-    public void teleporteMapa(int mapa, int coluna, int linha){
+    public void teleporteMapa(int mapa, int coluna, int linha, int area){
 
         painel.estadoDoJogo = painel.estadoDeTransicao;
+        painel.proximaArea = area;
         mapaTemporario = mapa;
         colunaTemporaria = coluna;
         linhaTemporaria = linha;

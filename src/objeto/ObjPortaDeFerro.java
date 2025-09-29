@@ -3,19 +3,20 @@ package objeto;
 import entidade.Entidade;
 import main.PainelDoJogo;
 
-public class ObjPorta extends Entidade {
-    
-    PainelDoJogo painel;
-    public static final String objNome = "Porta";
+//para abrir essa porta é necessario fazer algo especifico!
+public class ObjPortaDeFerro extends Entidade{
 
-    public ObjPorta(PainelDoJogo painel) {
+    PainelDoJogo painel;
+    public static final String objNome = "Porta de Ferro";
+
+    public ObjPortaDeFerro(PainelDoJogo painel) {
 
         super(painel);
         this.painel = painel;
 
         tipo = tipoObstaculo;
         nome = objNome;
-        baixo1 = setup("/img/objetos/door", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/img/objetos/door_iron", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
         temColisao = true; // Define que a porta tem colisão
 
@@ -29,10 +30,11 @@ public class ObjPorta extends Entidade {
     
     }
     public void setDialogo(){
-        dialogo[0][0] = "Você precisa de uma chave para abrir isto!";
+        dialogo[0][0] = "Item necessario!";
     }
 
     public void interagir(){
        iniciarDialogo(this, 0);
     }
+    
 }

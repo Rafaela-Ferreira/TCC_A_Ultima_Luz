@@ -128,7 +128,7 @@ public class SalvarE_Carregar {
                         painel.Obj[numMapa][i].mundoY = dados.objDoMapaMundoY[numMapa][i];
                         
                         if(dados.nomeDosObjDeSaque[numMapa][i] != null) {
-                            painel.Obj[numMapa][i].saque = painel.geradorDeEntidade.getObjeto(dados.nomeDosObjDeSaque[numMapa][i]);
+                            painel.Obj[numMapa][i].setSaque(painel.geradorDeEntidade.getObjeto(dados.nomeDosObjDeSaque[numMapa][i])); 
                         }
 
                         painel.Obj[numMapa][i].aberto = dados.objDoMapaBauAberto[numMapa][i];

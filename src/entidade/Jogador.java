@@ -96,6 +96,7 @@ public class Jogador extends Entidade {
     }
 
     public void setPosicaoPadrao(){
+        painel.mapaAtual = 0;
         mundoX = painel.tamanhoDoTile * 23; 
         mundoY = painel.tamanhoDoTile * 21;
         direcao = "baixo";
@@ -201,6 +202,18 @@ public class Jogador extends Entidade {
             ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_axe_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
             ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_axe_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
             ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_axe_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+
+        }
+
+        if(armaAtual.tipo == tipoPicareta){
+            ataqueCima1 = setup("/img/spritesjogador/ataques/boy_pick_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/img/spritesjogador/ataques/boy_pick_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_pick_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_pick_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_pick_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_pick_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_pick_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_pick_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
         
@@ -398,14 +411,17 @@ public class Jogador extends Entidade {
             mana = manaMaxima;
         }
         
-        /* 
-        if(vida <= 0){
-            painel.estadoDoJogo = painel.estadoGameOver;
-            painel.interfaceDoUsuario.numeroDoComando = -1;
-            painel.pararMusica();
-            painel.iniciarEfeitoSonoro(12);
+        if(teclado.modoDebugAtivo == false){
+            if(vida <= 0){
+                painel.estadoDoJogo = painel.estadoGameOver;
+                painel.interfaceDoUsuario.numeroDoComando = -1;
+                painel.pararMusica();
+                painel.iniciarEfeitoSonoro(12);
+            }
         }
-        */
+        
+        
+        
     } 
         
         
@@ -462,10 +478,13 @@ public class Jogador extends Entidade {
                 painel.npc[painel.mapaAtual][indice].falar();
 
             }
+
             /*else{
                 painel.iniciarEfeitoSonoro(7);
                 atacar = true;
             }*/
+            
+            painel.npc[painel.mapaAtual][indice].mover(direcao);
         }
 
         
@@ -497,7 +516,7 @@ public class Jogador extends Entidade {
 
             Entidade itemSelecionado = inventario.get(indeceItem);
 
-            if(itemSelecionado.tipo == tipoEspada || itemSelecionado.tipo == tipoMachado){
+            if(itemSelecionado.tipo == tipoEspada || itemSelecionado.tipo == tipoMachado || itemSelecionado.tipo == tipoPicareta){
                 armaAtual = itemSelecionado;
                 ataque = getAtaque();
                 getImagemDeAtaque();
@@ -608,6 +627,7 @@ public class Jogador extends Entidade {
             geradorParticula(painel.blocosI[painel.mapaAtual][i], painel.blocosI[painel.mapaAtual][i]);
             
             if(painel.blocosI[painel.mapaAtual][i].vida == 0){
+                //painel.blocosI[painel.mapaAtual][i].verificarDrop(); caso queira dropar itens das paredes
                 painel.blocosI[painel.mapaAtual][i]= painel.blocosI[painel.mapaAtual][i].getDestruir();
             }
             

@@ -95,9 +95,16 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoDormir = 9;
     public final int estadoMapa = 10;
     
+    //IA
     public boolean desenharCaminho;
 
 
+    //AREA
+    public int areaAtual;
+    public int proximaArea;
+    public final int fora = 50; 
+    public final int interior = 51;
+    public final int masmorra = 52;
 
 
 
@@ -121,6 +128,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
         //iniciarMusica(0);// Inicia a música de fundo
         //pararMusica();
         estadoDoJogo = tituloEstado;
+        areaAtual = fora;
 
         telaTemporaria = new BufferedImage(larguraTela, alturaTela, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D)telaTemporaria.getGraphics();
@@ -132,6 +140,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     }
     public void  reiniciarJogo(boolean reiniciar){
         
+        areaAtual = fora; // não queremos retornar a posição padrão, queremos retornar no ultimo ponto salvo
         jogador.setPosicaoPadrao();
         jogador.restaltarStatus();
         jogador.reiniciarContador();
@@ -223,6 +232,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 //repaint();
                 desenharTelaTemporaria();
                 desenharTela();
+
                 delta--; 
                 quadrosDesenhados++;
             }
@@ -311,6 +321,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     }
 
     public void desenharTelaTemporaria(){
+
         //debug
         long desenhoInicio = 0;
         if(teclado.mostrarTextoDebug == true){
@@ -410,13 +421,15 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 g2.drawString("mundoY" + jogador.mundoY, x, y); y += linhaAltura;
                 g2.drawString("Coluna" + (jogador.mundoX + jogador.areaSolida.x) / tamanhoDoTile, x, y); y += linhaAltura;
                 g2.drawString("Linha" + (jogador.mundoY + jogador.areaSolida.y) / tamanhoDoTile, x, y); y += linhaAltura;
-
-                g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y);
+                g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y); y += linhaAltura;
+                g2.drawString("Modo de DeBug: " + teclado.modoDebugAtivo, x, y);
                 
 
             }
+
         
         }
+        
     }
 
     /*
@@ -538,5 +551,31 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public void iniciarEfeitoSonoro(int i){
         efeitoSonoro.setArquivo(i); 
         efeitoSonoro.iniciar(); 
+    }
+
+    public void alterarArea(){
+
+        if(proximaArea != areaAtual){
+            pararMusica();
+
+            if(proximaArea == fora){
+                iniciarMusica(0);
+            }
+
+            if(proximaArea == interior){
+                iniciarMusica(18);
+            }
+            
+            if(proximaArea == masmorra){
+                iniciarMusica(19);
+            }
+
+            criarObjetos.setNpc();
+        }
+        
+        areaAtual = proximaArea;
+        //aSetter- criarObjetos
+        criarObjetos.setInimigos();
+
     }
 }

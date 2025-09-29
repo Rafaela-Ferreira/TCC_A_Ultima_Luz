@@ -30,6 +30,7 @@ public class Entidade {
     public boolean colisaoComBloco = false; // Variável para verificar colisão com blocos
     public String dialogo[][] = new String[20][20];
     public Entidade atacante;
+    public Entidade entidadeVinculada; //Ex: vincular a pedraGrande a uma PlacaDeMetal
     
     
     //Estado
@@ -52,6 +53,7 @@ public class Entidade {
     //saquear bau
     public Entidade saque;
     public boolean aberto = false;
+    public boolean furia = false;
 
 
     //contador
@@ -120,6 +122,7 @@ public class Entidade {
     public final int tipoRetirada = 7; //type_pickupOnly
     public final int tipoObstaculo = 8;
     public final int tipoIliminacao = 9;
+    public final int tipoPicareta = 10;
 
 
 
@@ -151,14 +154,22 @@ public class Entidade {
     public int getLinha(){
         return (mundoY + areaSolida.y) / painel.tamanhoDoTile;
     }
+    public int getCentroX(){
+        int centroX = mundoX + esquerda1.getWidth()/2;
+        return centroX;
+    }
+    public int getCentroY(){
+        int centroY = mundoY + cima1.getHeight()/2;
+        return centroY;
+    }
 
     public int getDistaciaX(Entidade alvo){
-        int Xdistancia = Math.abs(mundoX - alvo.mundoX);
+        int Xdistancia = Math.abs(getCentroX() - alvo.getCentroX());
         return Xdistancia;
     }
 
     public int getDistaciaY(Entidade alvo){
-        int Ydistancia = Math.abs(mundoY - alvo.mundoY);
+        int Ydistancia = Math.abs(getCentroY() - alvo.getCentroY());
         return Ydistancia;   
     }
 
@@ -189,9 +200,11 @@ public class Entidade {
         contadorDeEquilibrioDesativar = 0; //offBalanceCounter
     }
 
-    public void setSaque(Entidade saque){}
+    public void setSaque(Entidade saque){ }
 
     public void setAcao(){ }
+
+    public void mover(String direcao){ }
 
     public void acaoAoDano(){ }
 
@@ -408,25 +421,25 @@ public class Entidade {
 
         switch (direcao) {
             case "cima": 
-                if(painel.jogador.mundoY < mundoY && Ydistancia < direta && Xdistancia < horizontal){
+                if(painel.jogador.getCentroY() < getCentroY() && Ydistancia < direta && Xdistancia < horizontal){
                     alcanceDoAlvo = true;
                 } 
             break;
 
             case "baixo": 
-                if(painel.jogador.mundoY > mundoY && Ydistancia < direta && Xdistancia < horizontal){
+                if(painel.jogador.getCentroY() > getCentroY() && Ydistancia < direta && Xdistancia < horizontal){
                     alcanceDoAlvo = true;
                 } 
             break;
 
             case "esquerda": 
-                if(painel.jogador.mundoX < mundoX && Xdistancia < direta && Ydistancia < horizontal){
+                if(painel.jogador.getCentroX() < getCentroX() && Xdistancia < direta && Ydistancia < horizontal){
                     alcanceDoAlvo = true;
                 } 
             break;
 
             case "direita": 
-                if(painel.jogador.mundoX > mundoX && Xdistancia < direta && Ydistancia < horizontal){
+                if(painel.jogador.getCentroX() > getCentroX() && Xdistancia < direta && Ydistancia < horizontal){
                     alcanceDoAlvo = true;
                 } 
             break;
@@ -462,12 +475,12 @@ public class Entidade {
         }
     }
 
-    public void getDirecaoAleatoria(){
+    public void getDirecaoAleatoria(int intervalo){
         //obter uma direção aleatória
             contadorDeBloqueioDeAcao++;
 
             //esperar 120 (2 segundos) para mudar de direção
-            if(contadorDeBloqueioDeAcao == 120){
+            if(contadorDeBloqueioDeAcao > intervalo){
                 Random random = new Random();
                 int i = random.nextInt(100) + 1; //0 - 100
 
@@ -478,6 +491,34 @@ public class Entidade {
 
                 contadorDeBloqueioDeAcao = 0;
             }
+    }
+
+    public void moverEmDirecaoAoJogador(int intervalo){
+        contadorDeBloqueioDeAcao++;
+
+        if(contadorDeBloqueioDeAcao > intervalo){
+            if(getDistaciaX(painel.jogador) > getDistaciaY(painel.jogador)){
+                
+                if(painel.jogador.getCentroX() < getCentroX()){
+                    direcao = "esquerda";
+                }
+                else{
+                    direcao = "direita";
+                }
+            }
+            else if(getDistaciaX(painel.jogador) < getDistaciaY(painel.jogador)){
+                if(painel.jogador.getCentroY() < getCentroY()){
+                    direcao = "cima";
+                }
+                else{
+                    direcao = "baixo";
+                }
+            }
+
+            contadorDeBloqueioDeAcao = 0;
+
+        }
+
     }
 
     public String getDirecaoOposta(String direcao){
@@ -614,9 +655,9 @@ public class Entidade {
         int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
         // Verifica se o bloco está dentro da área visível do jogador
-        if (mundoX + painel.tamanhoDoTile > painel.jogador.mundoX - painel.jogador.telaX && 
+        if (mundoX + painel.tamanhoDoTile*5 > painel.jogador.mundoX - painel.jogador.telaX && 
             mundoX - painel.tamanhoDoTile < painel.jogador.mundoX + painel.jogador.telaX &&
-            mundoY + painel.tamanhoDoTile > painel.jogador.mundoY - painel.jogador.telaY &&
+            mundoY + painel.tamanhoDoTile*5 > painel.jogador.mundoY - painel.jogador.telaY &&
             mundoY - painel.tamanhoDoTile < painel.jogador.mundoY + painel.jogador.telaY) {
 
             int telaTemporariaX = telaX;
@@ -629,7 +670,7 @@ public class Entidade {
                         if(numeroDoSprite  == 2){ imagem = cima2; }
                     }
                     if(atacar == true){
-                        telaTemporariaY = telaY - painel.tamanhoDoTile;
+                        telaTemporariaY = telaY - cima1.getHeight();
                         if(numeroDoSprite  == 1){ imagem = ataqueCima1; }
                         if(numeroDoSprite  == 2){ imagem = ataqueCima2; }
                     }
@@ -651,7 +692,7 @@ public class Entidade {
                         if(numeroDoSprite  == 2){ imagem = esquerda2; }
                     }
                     if(atacar == true){
-                        telaTemporariaX = telaX - painel.tamanhoDoTile;
+                        telaTemporariaX = telaX - esquerda1.getWidth();
                         if(numeroDoSprite  == 1){ imagem = ataqueEsquerda1; }
                         if(numeroDoSprite  == 2){ imagem = ataqueEsquerda2; }
                     }

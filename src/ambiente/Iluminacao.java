@@ -39,7 +39,7 @@ public class Iluminacao {
 
 
         if(painel.jogador.luzAtual == null){
-            g2.setColor(new Color(0,0,0.1f,0.98f));
+            g2.setColor(new Color(0, 0, 0.1f, 0.90f)); //escuridão
         }
         else{
             //obtenha o centro x e y do círculo de luz
@@ -62,9 +62,9 @@ public class Iluminacao {
             cor[6] = new Color(0, 0, 0.1f, 0.82f);
             cor[7] = new Color(0, 0, 0.1f, 0.87f);
             cor[8] = new Color(0, 0, 0.1f, 0.91f);
-            cor[9] = new Color(0, 0, 0.1f, 0.94f);
-            cor[10] = new Color(0, 0, 0.1f, 0.96f);
-            cor[11] = new Color(0, 0, 0.1f, 0.98f);
+            cor[9] = new Color(0, 0, 0.1f, 0.92f);
+            cor[10] = new Color(0, 0, 0.1f, 0.93f);
+            cor[11] = new Color(0, 0, 0.1f, 0.94f);
 
             fracao[0] = 0f;
             fracao[1] = 0.4f;
@@ -140,8 +140,16 @@ public class Iluminacao {
         }
     }
     public void desenhar(Graphics2D g2){
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtroAlpha));
-        g2.drawImage(filtroDeEscuridao, 0,0, null);
+
+        if(painel.areaAtual == painel.fora){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtroAlpha));
+        }
+        
+        if(painel.areaAtual == painel.fora || painel.areaAtual == painel.masmorra){
+            g2.drawImage(filtroDeEscuridao, 0,0, null);
+        }
+
+
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 
@@ -149,12 +157,13 @@ public class Iluminacao {
         String situacao = "";
 
         switch (estadoDia) {
-            case dia: situacao = "dia"; break;
-            case anoitecer: situacao = "anoitecer"; break;
-            case noite: situacao = "noite"; break;
-            case amanhecer: situacao = "amanhecer"; break;
+            case dia: situacao = "Dia"; break;
+            case anoitecer: situacao = "Anoitecer"; break;
+            case noite: situacao = "Noite"; break;
+            case amanhecer: situacao = "Amanhecer"; break;
  
         }
+        
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));
         g2.drawString(situacao, 700, 500);

@@ -653,10 +653,10 @@ public class InterfaceDoUsuario {
                     textoY += 32;
                 }
                 
-
+                //durabilidade - fazer uma verificação para atribuir a todos os objetos
+                g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, tentoX, textoY+20);
             }
-            //durabilidade - fazer uma verificação para atribuir a todos os objetos
-            g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, tentoX, textoY+20);
+            
         }
         
 
@@ -897,7 +897,7 @@ public class InterfaceDoUsuario {
         g2.setColor(new Color(0,0,0, contador*5));
         g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 
-        if(contador == 50){
+        if(contador == 50){ //fazer a transição
             contador = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
             painel.mapaAtual = painel.mEventos.mapaTemporario;
@@ -905,7 +905,7 @@ public class InterfaceDoUsuario {
             painel.jogador.mundoY = painel.tamanhoDoTile * painel.mEventos.linhaTemporaria;
             painel.mEventos.eventoAnteriorX = painel.jogador.mundoX;
             painel.mEventos.eventoAnteriorY = painel.jogador.mundoY;
-
+            painel.alterarArea();
             
         }
     }

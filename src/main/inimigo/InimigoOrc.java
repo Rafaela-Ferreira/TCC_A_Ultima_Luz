@@ -82,7 +82,7 @@ public class InimigoOrc extends Entidade{
             //verifique se ele começa a perseguir
             verificarSeComecouAPerseguir_ou_nao(painel.jogador, 5, 100);
 
-            getDirecaoAleatoria();
+            getDirecaoAleatoria(120);
         }
 
         //verifique se ele atacou

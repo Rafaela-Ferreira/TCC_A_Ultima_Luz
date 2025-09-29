@@ -9,24 +9,24 @@ import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
 import objeto.ObjPedra;
 
-public class LodoVerde extends Entidade{
+public class LodoVermelho  extends Entidade{
 
     PainelDoJogo painel;
 
-    public LodoVerde(PainelDoJogo painel) {
+    public LodoVermelho(PainelDoJogo painel) {
         super(painel);
-
         this.painel = painel;
-        
+
+
         tipo = tipoInimigo;
-        nome ="Lodo Verde";
-        velocidadePadrao = 1;
+        nome ="Lodo Vermelho";
+        velocidadePadrao = 2;
         velocidade = velocidadePadrao;
-        vidaMaxima = 4;
+        vidaMaxima = 8;
         vida = vidaMaxima;
-        ataque = 5;
+        ataque = 7;
         defesa = 0;
-        exp = 2;
+        exp = 5;
 
         projetil = new ObjPedra(painel);
 
@@ -41,14 +41,14 @@ public class LodoVerde extends Entidade{
     }
     
     public void getImagem(){
-        cima1 = setup("/img/inimigo/greenslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/img/inimigo/greenslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/inimigo/greenslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/img/inimigo/greenslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/img/inimigo/greenslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/img/inimigo/greenslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/img/inimigo/greenslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/img/inimigo/greenslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setAcao(){
@@ -62,8 +62,8 @@ public class LodoVerde extends Entidade{
             //para o inimigo seguir o jogador
             procurarCaminho(getColunaAtual(painel.jogador), getLinhaAtual(painel.jogador));
 
-            //verifique se ele atira um projétil - apenas o vermelho atira pedra
-            //verificarSeAtirou_ou_nao(200, 30);
+            //verifique se ele atira um projétil
+            verificarSeAtirou_ou_nao(200, 30);
         }
         else{
             //verifique se ele começa a perseguir
@@ -97,3 +97,5 @@ public class LodoVerde extends Entidade{
         }
     }
 }
+
+

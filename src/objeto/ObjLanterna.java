@@ -14,7 +14,7 @@ public class ObjLanterna  extends Entidade{
         baixo1 = setup("/img/objetos/lantern", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[Lanterna]\nIlumina os arredores.";
         preco = 200;
-        raioDeLuz = 200;
+        raioDeLuz = 350;
     }
     
 

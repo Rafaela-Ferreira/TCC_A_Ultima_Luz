@@ -17,8 +17,8 @@ public class NpcVelho extends Entidade{
         areaSolida.x = 16;
         areaSolidaPadraoX = areaSolida.x;
         areaSolidaPadraoY = areaSolida.y;
-        areaSolida.width = 30;
-        areaSolida.height = 30;
+        areaSolida.width = 32;
+        areaSolida.height = 32;
 
         setDialogo = -1;
 

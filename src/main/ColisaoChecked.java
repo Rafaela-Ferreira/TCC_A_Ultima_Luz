@@ -84,6 +84,13 @@ public class ColisaoChecked {
         
         int indice = 999;
 
+        //use uma direção tamporal quando estiver sendo empurrado para trás
+        String direcao = entidade.direcao;
+        if(entidade.empurrao == true){
+         direcao = entidade.direcaoDoempurrao;
+
+        }
+
         for (int i = 0; i < painel.Obj[1].length; i++) {
             if (painel.Obj[painel.mapaAtual][i] != null) {
 
@@ -94,7 +101,7 @@ public class ColisaoChecked {
                 painel.Obj[painel.mapaAtual][i].areaSolida.x = painel.Obj[painel.mapaAtual][i].mundoX + painel.Obj[painel.mapaAtual][i].areaSolida.x;
                 painel.Obj[painel.mapaAtual][i].areaSolida.y = painel.Obj[painel.mapaAtual][i].mundoY + painel.Obj[painel.mapaAtual][i].areaSolida.y;
 
-                switch (entidade.direcao) {
+                switch (direcao) {
                     case "cima": entidade.areaSolida.y -= entidade.velocidade; break;
                     case "baixo": entidade.areaSolida.y += entidade.velocidade; break;
                     case "esquerda": entidade.areaSolida.x -= entidade.velocidade; break;

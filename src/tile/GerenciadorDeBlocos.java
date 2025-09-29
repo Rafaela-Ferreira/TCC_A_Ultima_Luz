@@ -67,11 +67,13 @@ public class GerenciadorDeBlocos {
             br.close();
 
         }catch(IOException e){
-            System.out.println("Exceção!");
+            System.out.println("Exceção! Mapa não encontrado!");
         }
 
         carregarMapa("/mapas/sample.txt", 0);
         carregarMapa("/mapas/interior02.txt", 1);
+        carregarMapa("/mapas/masmorra01.txt", 2);
+        carregarMapa("/mapas/masmorra02.txt", 3);
         
         //carregarMapa("/mapas/mapaV3.txt", 0);
         //carregarMapa("/mapas/interior01.txt", 1);
