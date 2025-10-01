@@ -758,8 +758,11 @@ public class Jogador extends Entidade {
         if(transparente == true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
+        if(desenho == true){
+            g2.drawImage(imagem, telaTemporariaX, telaTemporariaY, null);
+        }
 
-        g2.drawImage(imagem, telaTemporariaX, telaTemporariaY, null);
+        
         //verificar colisão com blocos
         //g2.setColor(Color.red);
         //g2.drawRect(telaX + areaSolida.x, telaY + areaSolida.y, areaSolida.width, areaSolida.height);

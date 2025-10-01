@@ -2,11 +2,13 @@ package main.inimigo.chefao;
 
 import java.util.Random;
 
+import dados.Progresso;
 import entidade.Entidade;
 import main.PainelDoJogo;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
+import objeto.ObjPortaDeFerro;
 
 public class SenhorEsqueleto extends Entidade{
 
@@ -19,6 +21,7 @@ public class SenhorEsqueleto extends Entidade{
         this.painel = painel;
         
         tipo = tipoInimigo;
+        chefe = true;
         nome = nomeBoss;
         velocidadePadrao = 1;
         velocidade = velocidadePadrao;
@@ -28,6 +31,7 @@ public class SenhorEsqueleto extends Entidade{
         defesa = 2;
         exp = 50;
         poderDoEmpurrao = 5;
+        dormir = true;
 
 
         int tamanho = painel.tamanhoDoTile*5;
@@ -44,6 +48,7 @@ public class SenhorEsqueleto extends Entidade{
 
         getImagem();
         getImagemAtaque();
+        setDialogo();
     }
     
     //32x32 - 5x maior que o jogador - 240x240
@@ -86,10 +91,11 @@ public class SenhorEsqueleto extends Entidade{
             ataqueCima2 = setup("/img/inimigo/skeletonlord_attack_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
             ataqueBaixo1 = setup("/img/inimigo/skeletonlord_attack_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
             ataqueBaixo2 = setup("/img/inimigo/skeletonlord_attack_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueEsquerda1 = setup("/img/inimigo/skeletonlord_attack_left_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueEsquerda2 = setup("/img/inimigo/skeletonlord_attack_left_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueDireita1 = setup("/img/inimigo/skeletonlord_attack_right_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueDireita2 = setup("/img/inimigo/skeletonlord_attack_right_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+
+            ataqueEsquerda1 = setup("/img/inimigo/skeletonlord_attack_left_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueEsquerda2 = setup("/img/inimigo/skeletonlord_attack_left_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita1 = setup("/img/inimigo/skeletonlord_attack_right_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita2 = setup("/img/inimigo/skeletonlord_attack_right_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
         }
 
         if(furia == true){
@@ -97,14 +103,21 @@ public class SenhorEsqueleto extends Entidade{
             ataqueCima2 = setup("/img/inimigo/skeletonlord_phase2_attack_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
             ataqueBaixo1 = setup("/img/inimigo/skeletonlord_phase2_attack_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
             ataqueBaixo2 = setup("/img/inimigo/skeletonlord_phase2_attack_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueEsquerda1 = setup("/img/inimigo/skeletonlord_phase2_attack_left_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueEsquerda2 = setup("/img/inimigo/skeletonlord_phase2_attack_left_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueDireita1 = setup("/img/inimigo/skeletonlord_phase2_attack_right_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueDireita2 = setup("/img/inimigo/skeletonlord_phase2_attack_right_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+
+            ataqueEsquerda1 = setup("/img/inimigo/skeletonlord_phase2_attack_left_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueEsquerda2 = setup("/img/inimigo/skeletonlord_phase2_attack_left_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita1 = setup("/img/inimigo/skeletonlord_phase2_attack_right_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita2 = setup("/img/inimigo/skeletonlord_phase2_attack_right_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
         }
         
     }
 
+    public void setDialogo(){
+        dialogo[0][0] = "Ninguém pode roubar meu tesouro!";
+        dialogo[0][1] = "Você vai morrer aqui!";
+        dialogo[0][2] = "BEM-VINDO À SUA DESTRUIÇÃO!";
+    }
+    
     public void setAcao(){
 
         if(furia == false && vida < vidaMaxima/2){
@@ -136,6 +149,22 @@ public class SenhorEsqueleto extends Entidade{
 
 
     public void verificarDrop(){
+
+        painel.batalhaComChefeAtiva = false;
+        Progresso.senhorEsqueletoPadrao = true;
+
+        //restore the previous music
+        painel.pararMusica();
+        painel.iniciarMusica(19);
+
+        //remove the iron doors
+        for(int i = 0; i < painel.Obj[1].length; i++){
+            if(painel.Obj[painel.mapaAtual][i] != null && painel.Obj[painel.mapaAtual][i].nome.equals(ObjPortaDeFerro.objNome)){
+                painel.iniciarEfeitoSonoro(21);
+                painel.Obj[painel.mapaAtual][i] = null;
+            }
+        }
+
         //lançar um dado
         int i = new Random().nextInt(100)+1;
 

@@ -11,7 +11,7 @@ public class NpcVelho extends Entidade{
         direcao = "baixo";
         velocidade = 1;
 
-
+        
         areaSolida = new Rectangle();
         areaSolida.x = 8;
         areaSolida.x = 16;

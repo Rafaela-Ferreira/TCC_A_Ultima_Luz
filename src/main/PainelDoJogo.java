@@ -67,6 +67,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     Mapa mapa = new Mapa(this);
     SalvarE_Carregar salvarE_Carregar = new SalvarE_Carregar(this);
     public GeradorDeEntidade geradorDeEntidade = new GeradorDeEntidade(this);
+    public GerenciadorDeCutscene gerenciadorDeCutscene = new GerenciadorDeCutscene(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
     //Entidades e objetos do jogo
@@ -94,7 +95,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int trocaDeEstado = 8;
     public final int estadoDormir = 9;
     public final int estadoMapa = 10;
+    public final int estadoCutscene = 11;
     
+    //outros estados
+    public boolean batalhaComChefeAtiva = false;
+
     //IA
     public boolean desenharCaminho;
 
@@ -139,8 +144,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
         
     }
     public void  reiniciarJogo(boolean reiniciar){
-        
+        pararMusica();
         areaAtual = fora; // não queremos retornar a posição padrão, queremos retornar no ultimo ponto salvo
+        removerTempDaEntidade();
+        batalhaComChefeAtiva = false;
         jogador.setPosicaoPadrao();
         jogador.restaltarStatus();
         jogador.reiniciarContador();
@@ -405,6 +412,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
             //mini mapa
             mapa.desenharMiniMapa(g2);
 
+            //Cutscene
+            gerenciadorDeCutscene.desenhar(g2);
+
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);
 
@@ -574,8 +584,20 @@ public class PainelDoJogo extends JPanel implements Runnable {
         }
         
         areaAtual = proximaArea;
-        //aSetter- criarObjetos
-        criarObjetos.setInimigos();
+        criarObjetos.setInimigos(); //aSetter- criarObjetos
 
     }
+
+    public void removerTempDaEntidade(){
+
+        for(int numeroMapa = 0; numeroMapa < maxMapa; numeroMapa++){
+            
+            for(int i =0; i < Obj[1].length; i++){
+                if(Obj[numeroMapa][i] != null && Obj[numeroMapa][i].temp == true){
+                    Obj[numeroMapa][i] = null;
+                }
+            }
+        }
+    }
+
 }

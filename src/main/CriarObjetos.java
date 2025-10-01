@@ -1,5 +1,6 @@
 package main;
 
+import dados.Progresso;
 import entidade.NpcComerciante;
 import entidade.NpcPedraGrande;
 import entidade.NpcVelho;
@@ -12,6 +13,7 @@ import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjChave;
 import objeto.ObjCoracao;
+import objeto.ObjDiamente;
 import objeto.ObjEscudoAzul;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
@@ -157,6 +159,23 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*23;
         i++;
 
+        //Mapa: masmorra - arena do chefe
+        numeroMapa = 3;
+        i = 0;
+
+        //condição para não perier que crie o boss novamente apos derrota-ló
+        if(Progresso.senhorEsqueletoPadrao == false){
+            painel.Obj[numeroMapa][i] = new ObjPortaDeFerro(painel);
+            painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+            painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+            i++;
+        }
+
+        painel.Obj[numeroMapa][i] = new ObjDiamente(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
+        i++;
+        
         
     }
 

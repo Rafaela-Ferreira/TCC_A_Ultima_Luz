@@ -1,6 +1,7 @@
 package main;
 
 
+import dados.Progresso;
 import entidade.Entidade;
 
 public class ManipuladorDeEventos {
@@ -114,6 +115,9 @@ public class ManipuladorDeEventos {
                 teleporteMapa(2, 8,7, painel.masmorra);
             }
 
+            //evento cutscene - boss 01
+            else if(bater (3, 25,27, "any") == true){ senhorEsqueleto(); }
+
         }
 
         
@@ -199,6 +203,13 @@ public class ManipuladorDeEventos {
             painel.estadoDoJogo = painel.estadoDoDialogo;
             painel.jogador.cancelarAtaque = true;
             entidade.falar();
+        }
+    }
+
+    public void senhorEsqueleto(){
+        if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao == false){
+            painel.estadoDoJogo = painel.estadoCutscene;
+            painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
         }
     }
 }

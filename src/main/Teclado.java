@@ -43,7 +43,7 @@ public class Teclado implements KeyListener {
         }
         
         //dialogo
-        else if(painel.estadoDoJogo == painel.estadoDoDialogo){
+        else if(painel.estadoDoJogo == painel.estadoDoDialogo || painel.estadoDoJogo == painel.estadoCutscene){
             dialogoEstado(code);
         } 
 

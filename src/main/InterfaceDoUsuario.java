@@ -98,9 +98,10 @@ public class InterfaceDoUsuario {
             desenharTituloNaTela();
         }
 
-        //INICIAR
+        //Estado jogador
         if(painel.estadoDoJogo == painel.iniciarEstadoDoJogo){
-            desenharVidaDoJogador();
+            desenharVidaDoJogador(); //mudar para um barra, igual a do inimigo
+            desenhaVidaDoInimigo();
             desenharMensagem();
         }
         //PAUSAR
@@ -195,12 +196,21 @@ public class InterfaceDoUsuario {
         int x = painel.tamanhoDoTile/2;
         int y = painel.tamanhoDoTile/2;
         int i = 0;
+        int tamanhoDoIcone = 32;
+        int inicioDaManaX = (painel.tamanhoDoTile/2) -5;
+        int inicioDaManaY = 0;
 
         //desenhar vida maxima
         while(i < painel.jogador.vidaMaxima/2){
-            g2.drawImage(vidaBranco, x, y, null);
+            g2.drawImage(vidaBranco, x, y, tamanhoDoIcone, tamanhoDoIcone, null);
             i++;
-            x += painel.tamanhoDoTile;
+            x += tamanhoDoIcone;
+            inicioDaManaY = y + 32;
+
+            if(i % 8 == 0){
+                x = painel.tamanhoDoTile/2;
+                y += tamanhoDoIcone;
+            }
         }
 
         //reiniciar
@@ -239,6 +249,58 @@ public class InterfaceDoUsuario {
             i++;
             x +=35;
         }
+    }
+
+    public void desenhaVidaDoInimigo(){
+        for(int i = 0; i < painel.inimigo[1].length; i++){
+            Entidade inimigo = painel.inimigo[painel.mapaAtual][i];
+
+            if(inimigo != null && inimigo.camera() == true){
+
+
+                if(inimigo.barraDeVidaAtiva == true && inimigo.chefe == false){
+                    
+                    double umaEscala = (double)painel.tamanhoDoTile/inimigo.vidaMaxima;
+                    double valorBarraDeVida = umaEscala * inimigo.vida; 
+
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(inimigo.getTelaX()-1, inimigo.getTelaY() - 16, painel.tamanhoDoTile+2, 12);
+
+                    g2.setColor(new Color(255,0,30));
+                    g2.fillRect(inimigo.getTelaX(), inimigo.getTelaY() - 15, (int)valorBarraDeVida, 10);
+
+
+                    inimigo.contadorBarraDeVida++;
+
+                    if(inimigo.contadorBarraDeVida > 600){
+                        inimigo.contadorBarraDeVida=0;
+                       inimigo.barraDeVidaAtiva = false;
+                    }
+                }
+                else if(inimigo.chefe == true){
+                    double umaEscala = (double)painel.tamanhoDoTile*8/inimigo.vidaMaxima;
+                    double valorBarraDeVida = umaEscala * inimigo.vida; 
+                    
+                    int x = painel.larguraTela/2 - painel.tamanhoDoTile*4;
+                    int y = painel.tamanhoDoTile*10;
+
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(x-1, y-1, painel.tamanhoDoTile * 8 +2, 22);
+
+                    g2.setColor(new Color(255,0,30));
+                    g2.fillRect( x, y, (int)valorBarraDeVida, 20);
+
+                    //nome
+                    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24f));
+                    g2.setColor(Color.white);
+                    g2.drawString(inimigo.nome, x + 4 , y - 10);
+                }
+            }
+        }
+    
+
+
+        
     }
 
     public void desenharMensagem(){
@@ -405,7 +467,7 @@ public class InterfaceDoUsuario {
                 indicePersonagem = 0;
                 combinandoTexto = "";
 
-                if(painel.estadoDoJogo == painel.estadoDoDialogo){
+                if(painel.estadoDoJogo == painel.estadoDoDialogo || painel.estadoDoJogo == painel.estadoCutscene){
                     
                     npc.indiceDoDialogo++;
                     painel.teclado.precionarEnter = false;
@@ -417,6 +479,9 @@ public class InterfaceDoUsuario {
 
             if(painel.estadoDoJogo == painel.estadoDoDialogo){
                 painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            }
+            if(painel.estadoDoJogo == painel.estadoCutscene){
+                painel.gerenciadorDeCutscene.faseDaCena++;
             }
         }
 

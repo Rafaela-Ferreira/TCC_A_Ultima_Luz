@@ -21,7 +21,7 @@ public class ObjBolaDeFogo extends Projetil{
         velocidade = 5;
         vidaMaxima = 80;
         vida = vidaMaxima;
-        ataque = 2;
+        ataque = 1;
         poderDoEmpurrao = 5;
         usarConsumivel = 1; //quantidade de mana gasta
         vivo = false;

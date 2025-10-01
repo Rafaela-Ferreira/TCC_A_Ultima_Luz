@@ -26,7 +26,8 @@ public class Projetil extends Entidade{
             int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
 
             if(indiceInimigo != 999){
-                painel.jogador.danoDoInimigo(indiceInimigo, this, ataque, poderDoEmpurrao);
+                //quanto mais forte você fica maior é o dano do ataque!
+                painel.jogador.danoDoInimigo(indiceInimigo, this, ataque*(painel.jogador.nivel/2), poderDoEmpurrao);
                 geradorParticula(usuario.projetil, painel.inimigo[painel.mapaAtual][indiceInimigo]);
                 vivo = false;
             }
