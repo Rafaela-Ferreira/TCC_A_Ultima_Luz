@@ -17,6 +17,7 @@ import main.PainelDoJogo;
 //Essa é uma classe abstrata, não tem instacia - sempre instaciamos como classe jogador ou npc ou inimigo.
 
 public class Entidade {
+    
     //classe pai para a classe player, inimigo, npcs, etc.
     PainelDoJogo painel;
     public BufferedImage cima1, cima2, baixo1, baixo2, esquerda1, esquerda2, direita1, direita2;
@@ -126,7 +127,7 @@ public class Entidade {
     public final int tipoObstaculo = 8;
     public final int tipoIliminacao = 9;
     public final int tipoPicareta = 10;
-
+    public final int tipoChuva = 11;
 
 
     public Entidade(PainelDoJogo painel){

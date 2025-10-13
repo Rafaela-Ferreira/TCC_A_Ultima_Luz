@@ -28,10 +28,11 @@ public class GerenciadorDeCutscene {
         this.painel = painel;
 
         creditosFinais = "Programação/Musica/Arte\n"
-        +"RyiSnow"
+        +"Rafaela"
+        +"Nancy"
         +"\n\n\n\n\n\n\n\n\n\n\n\n\n"
         +"Agradecimentos especiais\n"
-        +"Alguém\n"
+        +"Isabela\n"
         +"Alguém\n"
         +"Alguém\n"
         +"Alguém\n\n\n\n\n\n"

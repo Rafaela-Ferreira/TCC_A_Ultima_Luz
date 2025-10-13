@@ -56,8 +56,8 @@ public class Jogador extends Entidade {
         
     }
     public void setDefaultValues() {
-        mundoX = painel.tamanhoDoTile * 23; 
-        mundoY = painel.tamanhoDoTile * 21;
+        mundoX = painel.tamanhoDoTile * 10; 
+        mundoY = painel.tamanhoDoTile * 12;
         //mundoX = painel.tamanhoDoTile * 12; 
         //mundoY = painel.tamanhoDoTile * 14;
         //painel.mapaAtual = 1;
@@ -229,21 +229,20 @@ public class Jogador extends Entidade {
     
 
     public void atualizar(){
-        //if(movimento = true){
 
-            if(empurrao == true){
-                colisaoComBloco = false;
-                painel.colisaoChecked.verificarColisao(this);
-                painel.colisaoChecked.verificarObjeto(this, true);
-                painel.colisaoChecked.verificarEntidade(this, painel.npc);
-                painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
-                painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+        if(empurrao == true){
+            colisaoComBloco = false;
+            painel.colisaoChecked.verificarColisao(this);
+            painel.colisaoChecked.verificarObjeto(this, true);
+            painel.colisaoChecked.verificarEntidade(this, painel.npc);
+            painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+            painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
 
-                if(colisaoComBloco == true){
-                    contadoEmpurrao = 0;
-                    empurrao = false;
-                    velocidade = velocidadePadrao;
-                }
+            if(colisaoComBloco == true){
+                contadoEmpurrao = 0;
+                empurrao = false;
+                velocidade = velocidadePadrao;
+            }
             else if(colisaoComBloco == false){
                 switch (direcaoDoempurrao) {
                     case "cima": mundoY -= velocidade; break;
@@ -275,12 +274,11 @@ public class Jogador extends Entidade {
             // Se alguma tecla de movimento estiver pressionada, atualiza a direção
         
             // Verifica as teclas pressionadas e atualiza a posição do jogador
-
+            
             if(teclado.precionarCima) direcao = "cima";    
             else if(teclado.precionarBaixo == true) direcao = "baixo";
             else if(teclado.precionarEsquerda == true) direcao = "esquerda";
             else if(teclado.precionarDireita == true) direcao = "direita";
-
                 
             // Verifica colisão com blocos
             colisaoComBloco = false;
@@ -312,14 +310,15 @@ public class Jogador extends Entidade {
                     case "cima":
                         mundoY -= velocidade; break;
                     case "baixo":
-                        mundoY += velocidade;break;
+                        mundoY += velocidade; break;
                     case "esquerda":
                         mundoX -= velocidade; break;
                     case "direita":
                         mundoX += velocidade; break;
                 }
-
+                
             }
+            
             else {
                 numeroDoSprite = 1;  
             }
@@ -423,9 +422,7 @@ public class Jogador extends Entidade {
         
         
     } 
-        
-        
-    //}
+
 
 
     

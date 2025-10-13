@@ -10,6 +10,7 @@ import objeto.ObjCoracao;
 import objeto.ObjEscudoAzul;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
+import objeto.ObjTocha;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
 import objeto.ObjMana;
@@ -51,6 +52,7 @@ public class GeradorDeEntidade {
             case ObjPortaDeFerro.objNome : objeto = new ObjPortaDeFerro(painel); break;
             case ObjBau.objNome : objeto = new ObjBau(painel); break;
             case ObjMoedaBronze.objNome : objeto = new ObjMoedaBronze(painel); break;
+            case ObjTocha.objNome : objeto = new ObjTocha(painel); break;
 
             //iluminação
             case ObjLanterna.objNome : objeto = new ObjLanterna(painel); break;

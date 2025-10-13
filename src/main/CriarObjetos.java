@@ -15,6 +15,7 @@ import objeto.ObjChave;
 import objeto.ObjCoracao;
 import objeto.ObjDiamente;
 import objeto.ObjEscudoAzul;
+import objeto.ObjTocha;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
 import objeto.ObjMana;
@@ -24,6 +25,7 @@ import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
 import tile.blocosInterativos.ArvoreSeca;
+import tile.blocosInterativos.Fogueira;
 import tile.blocosInterativos.ParedeDestrutivel;
 import tile.blocosInterativos.PlacaDeMetal;
 
@@ -35,6 +37,17 @@ public class CriarObjetos {
     }
 
     public void setarObjetos() {
+
+
+        int numeroMapa = 0;
+        int i = 0;
+        painel.Obj[numeroMapa][i] = new ObjTocha(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+        i++;
+
+
+        /* 
         //como adicionar objetos ao array de objetos
         int numeroMapa = 0;
         int i = 0;
@@ -127,6 +140,8 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
 
+        
+
         //Mapa: masmorra
         numeroMapa = 2;
         i = 0;
@@ -176,10 +191,18 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
         i++;
         
-        
+        */
     }
 
     public void setBlocosInterativos(){
+
+
+        int numeroMapa = 0;
+        int i = 0;
+
+        painel.blocosI[numeroMapa][i] = new Fogueira(painel, 10,9); i++;
+
+        /* 
         int numeroMapa = 0;
         int i = 0;
 
@@ -224,9 +247,11 @@ public class CriarObjetos {
         painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 8, 17); i++;
         painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 39,31); i++;
 
+        */
     }
 
     public void setNpc(){
+        
         int numeroMapa = 0;
         int i = 0;
 
@@ -236,7 +261,7 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
         i++;
 
-
+        /* 
         //mapa 1: Sala do comerciante
         numeroMapa = 1;
         i = 0;
@@ -265,10 +290,12 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*14;
         i++;
-        
+        */
     }
 
     public void setInimigos(){
+
+        /* 
         int numeroMapa = 0;
         int i = 0;
         painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
@@ -311,13 +338,13 @@ public class CriarObjetos {
         painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
         i++;
 
-        /* diferentes inimigos em diferentes mapas
-        numeroMapa = 1;
-        painel.inimigo[numeroMapa][i] = new lodoVerde(painel);
-        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*38;
-        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*42;
-        i++;
-         */
+        // diferentes inimigos em diferentes mapas
+        // numeroMapa = 1;
+        // painel.inimigo[numeroMapa][i] = new lodoVerde(painel);
+        // painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*38;
+        // painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*42;
+        //i++;
+        
 
         numeroMapa = 2;
         i = 0;
@@ -355,6 +382,6 @@ public class CriarObjetos {
         painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*16;
         i++;
 
-        
+        */
     }
 }

@@ -6,6 +6,7 @@ import ambiente.GerenciadorDeAmbientes;
 import dados.SalvarE_Carregar;
 import entidade.Entidade;
 import entidade.Jogador;
+import objeto.ObjChuva;
 import tile.GerenciadorDeBlocos;
 import tile.Mapa;
 import tile.blocosInterativos.BlocosInterativos;
@@ -57,6 +58,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     Som musica = new Som(); 
     Som efeitoSonoro = new Som();
 
+ 
     public ColisaoChecked colisaoChecked = new ColisaoChecked(this);
     public CriarObjetos criarObjetos = new CriarObjetos(this);
     public InterfaceDoUsuario interfaceDoUsuario = new InterfaceDoUsuario(this);
@@ -80,6 +82,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     //public ArrayList<Entidade> listaProjetil = new ArrayList<>();
     public ArrayList<Entidade> listaParticula = new ArrayList<>();
     ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
+   
 
 
     //Estado do jogo
@@ -96,6 +99,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoDormir = 9;
     public final int estadoMapa = 10;
     public final int estadoCutscene = 11;
+
+    public ObjChuva chuva;
     
     //outros estados
     public boolean batalhaComChefeAtiva = false;
@@ -111,8 +116,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int interior = 51;
     public final int masmorra = 52;
 
-
-
+    
     public PainelDoJogo(){
         this.setPreferredSize(new Dimension(larguraTela, alturaTela));
         this.setBackground(Color.black);
@@ -129,7 +133,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
         criarObjetos.setInimigos();
         criarObjetos.setBlocosInterativos();
         gerenciadorDeAmbientes.setup();
-
         //iniciarMusica(0);// Inicia a música de fundo
         //pararMusica();
         estadoDoJogo = tituloEstado;
@@ -141,8 +144,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
         if(telaCheiaAtiva == true){
             setTelaCheia();
         }
+
+        chuva = new ObjChuva(this);
+        chuva.setAtiva(areaAtual == fora);
+        
         
     }
+    
     public void  reiniciarJogo(boolean reiniciar){
         pararMusica();
         areaAtual = fora; // não queremos retornar a posição padrão, queremos retornar no ultimo ponto salvo
@@ -160,6 +168,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
             criarObjetos.setBlocosInterativos();
             gerenciadorDeAmbientes.iluminacao.reiniciarDia();
         }
+
+        
         
     }
 
@@ -325,6 +335,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
         }
         
+        
     }
 
     public void desenharTelaTemporaria(){
@@ -387,6 +398,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
+            
+
             //organizar
             Collections.sort(listaEntidade, new Comparator<Entidade>(){
 
@@ -405,6 +418,14 @@ public class PainelDoJogo extends JPanel implements Runnable {
             }
             //remover da lista de entidades
             listaEntidade.clear();
+
+ 
+            
+            // Desenhar chuva
+            if (chuva != null) {
+                chuva.atualizar();
+                chuva.desenhar(g2);
+            }
         
             //Ambiente de iliminação
             gerenciadorDeAmbientes.desenhar(g2);
@@ -414,6 +435,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             //Cutscene
             gerenciadorDeCutscene.desenhar(g2);
+
+            
 
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);
@@ -437,7 +460,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             }
 
-        
+           
         }
         
     }
@@ -563,6 +586,18 @@ public class PainelDoJogo extends JPanel implements Runnable {
         efeitoSonoro.iniciar(); 
     }
 
+    //para a chuva
+    public void iniciarEfeitoSonoroLoop(int i) {
+        efeitoSonoro.setArquivo(i);  // carrega o arquivo no Clip
+        efeitoSonoro.iniciar();       // toca uma vez
+        efeitoSonoro.repetir(); 
+    }
+
+    public void pararEfeitoSonoro() {
+        efeitoSonoro.parar();
+    }
+    
+
     public void alterarArea(){
 
         if(proximaArea != areaAtual){
@@ -570,7 +605,14 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             if(proximaArea == fora){
                 iniciarMusica(0);
+                
+                if (proximaArea == fora) {
+                    chuva.setAtiva(true);
+                } else {
+                    chuva.setAtiva(false);
+                }
             }
+            
 
             if(proximaArea == interior){
                 iniciarMusica(18);

@@ -16,7 +16,7 @@ public class Som {
     float volume;
 
     public Som(){
-        somURL[0] = getClass().getResource("/Sons/BlueBoyAdventure.wav");
+        somURL[0] = getClass().getResource("/Sons/ApocalypticEchoes.wav");
         somURL[1] = getClass().getResource("/Sons/coin.wav");
         somURL[2] = getClass().getResource("/Sons/powerup.wav");
         somURL[3] = getClass().getResource("/Sons/unlock.wav");
@@ -39,6 +39,12 @@ public class Som {
         somURL[20] = getClass().getResource("/Sons/chipwall.wav");
         somURL[21] = getClass().getResource("/Sons/dooropen.wav");
         somURL[22] = getClass().getResource("/Sons/FinalBattle.wav");
+        
+        somURL[23] = getClass().getResource("/Sons/correr.wav");
+        somURL[24] = getClass().getResource("/Sons/chuva.wav");
+        somURL[25] = getClass().getResource("/Sons/trovao.wav");
+        somURL[25] = getClass().getResource("/Sons/vento.wav");
+
     }
 
     public void setArquivo(int indice){

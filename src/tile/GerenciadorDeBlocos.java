@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-
 import main.CaixaDeFerramentas;
 import main.PainelDoJogo;
 
@@ -53,7 +51,7 @@ public class GerenciadorDeBlocos {
         carregarImagensDosBlocos();
 
         //get the maxmundoCol e row
-        is = getClass().getResourceAsStream("/mapas/sample.txt");//mapas de 50x50, 100x100, ou 250x250...
+        is = getClass().getResourceAsStream("/mapas/mapa1.txt");//mapas de 50x50, 100x100, ou 250x250...
         br = new BufferedReader(new InputStreamReader(is));
 
         try{
@@ -70,10 +68,17 @@ public class GerenciadorDeBlocos {
             System.out.println("Exceção! Mapa não encontrado!");
         }
 
-        carregarMapa("/mapas/sample.txt", 0);
-        carregarMapa("/mapas/interior02.txt", 1);
-        carregarMapa("/mapas/masmorra01.txt", 2);
-        carregarMapa("/mapas/masmorra02.txt", 3);
+        carregarMapa("/mapas/mapa0.txt", 0); //1º fogueira - Altar da aurora partida
+        carregarMapa("/mapas/mapa1.txt", 1); //2º fogueira - praça do despertar
+        carregarMapa("/mapas/mapa2.txt", 2); //3º fogueira - Camera das corrente
+        carregarMapa("/mapas/mapa3.txt", 3); //4º fogueira - Sala do espelho carmesim
+        carregarMapa("/mapas/mapa4.txt", 4); //5º fogueira - Salão do banquete eterno
+        
+        //carregarMapa("/mapas/mapa6.txt", 8); //6º fogueira - Salão do banquete eterno
+
+        //carregarMapa("/mapas/interior02.txt", 1); //Excluir
+        //carregarMapa("/mapas/masmorra01.txt", 2); //Excluir
+       // carregarMapa("/mapas/masmorra02.txt", 3); //Excluir
         
         //carregarMapa("/mapas/mapaV3.txt", 0);
         //carregarMapa("/mapas/interior01.txt", 1);

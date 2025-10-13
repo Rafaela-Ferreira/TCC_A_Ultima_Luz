@@ -6,7 +6,8 @@ public class Teclado implements KeyListener {
 
     PainelDoJogo painel;
 
-    public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, precionarEnter, teclaDeTiroPressionada, precionarEspaco;
+    public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, 
+        precionarEnter, teclaDeTiroPressionada, precionarEspaco;
     
     //debug
     boolean mostrarTextoDebug = false;
@@ -107,10 +108,12 @@ public class Teclado implements KeyListener {
                     System.exit(0);
                 }
             }
+            
         }
 
         //tela de escolha de classe
         else if(painel.interfaceDoUsuario.estadoDeRolagemTitulo == 1){
+            
             if (code == KeyEvent.VK_W){
                 painel.interfaceDoUsuario.numeroDoComando--;
                 if( painel.interfaceDoUsuario.numeroDoComando < 0 ){
@@ -126,7 +129,7 @@ public class Teclado implements KeyListener {
 
             if (code == KeyEvent.VK_ENTER) {
                 if(painel.interfaceDoUsuario.numeroDoComando == 0){
-                    System.out.println("Você escolheu Lutador");
+                    //System.out.println("Você escolheu Lutador");
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
                     //painel.iniciarMusica(0);
                 }
@@ -142,6 +145,8 @@ public class Teclado implements KeyListener {
                     painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0;
                 }
             }
+            
+            
         }
     }
     public void iniciarEstadoDoJogo(int code){
@@ -158,10 +163,11 @@ public class Teclado implements KeyListener {
             precionarDireita = true;
         }
         if (code == KeyEvent.VK_P) {
-            painel.estadoDoJogo = painel.pausarEstadoDoJogo;
+            //painel.estadoDoJogo = painel.pausarEstadoDoJogo;
         }
         if(code == KeyEvent.VK_C){ 
             painel.estadoDoJogo = painel.estadoPersonagem;
+            
         }
         if (code == KeyEvent.VK_ENTER) {
             precionarEnter = true;
@@ -196,8 +202,8 @@ public class Teclado implements KeyListener {
                 mostrarTextoDebug = false;
             }
         }
-        
-        /*if(code == KeyEvent.VK_R){
+        /* 
+        if(code == KeyEvent.VK_R){
             switch (painel.mapaAtual) {
                 case 0: painel.gerenciadorDeBlocos.carregarMapa("/mapas/mapaV3.txt", 0); break;
                 case 1: painel.gerenciadorDeBlocos.carregarMapa("/mapas/interior02.txt", 1); break;
@@ -206,6 +212,7 @@ public class Teclado implements KeyListener {
         }
         */
 
+
         if(code == KeyEvent.VK_G){
             if(modoDebugAtivo == false){
                 modoDebugAtivo = true;
@@ -213,13 +220,18 @@ public class Teclado implements KeyListener {
                 modoDebugAtivo = false;
             }
         }
+
+        if(code == KeyEvent.VK_L){
+            painel.interfaceDoUsuario.adicionarMensagem("Você morreu...");
+        }
+
             
 
     }
 
     public void pausarEstadoDoJogo(int code){
         if (code == KeyEvent.VK_P) {
-            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            //painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
         }
     }
 
@@ -470,6 +482,7 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             precionarEspaco = false;
         }
+     
     }
     
 }

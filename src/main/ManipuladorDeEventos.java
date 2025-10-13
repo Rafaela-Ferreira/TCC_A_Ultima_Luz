@@ -1,6 +1,5 @@
 package main;
 
-
 import dados.Progresso;
 import entidade.Entidade;
 
@@ -54,6 +53,16 @@ public class ManipuladorDeEventos {
         eventoMestre.dialogo[1][1] = "Esta é uma boa água.";
         
         eventoMestre.dialogo[2][0] = "Teletransportado!";
+
+        eventoMestre.dialogo[3][0] = "Altar da Aurora Partida\nO seu progresso salvo foi salvo!";
+        eventoMestre.dialogo[4][0] = "Escadaria Ruída\nO seu progresso salvo foi salvo!";
+        eventoMestre.dialogo[5][0] = "Ladeira Dos Pilares Quegrados\nO seu progresso salvo foi salvo!";
+        eventoMestre.dialogo[6][0] = "Praça Do Despertar\nO seu progresso salvo foi salvo!";
+        eventoMestre.dialogo[7][0] = "Portão Silencioso\nO seu progresso salvo foi salvo!";
+
+        eventoMestre.dialogo[8][0] = "Porta bloqueada\nNecessário: Chave de prata";
+        eventoMestre.dialogo[9][0] = "Porta bloqueada\nVolte mais tarde!";
+        eventoMestre.dialogo[10][0] = "Entrada para Luxúria...";
     
     }
 
@@ -67,7 +76,8 @@ public class ManipuladorDeEventos {
             podeTocarEvento = true;   
         }
         if(podeTocarEvento == true){
-            //criação dos eventos
+            
+            //criação dos eventos -- apagar depois
             if(bater (0, 27,16, "direita") == true){
                 buracoDeDano(painel.estadoDoDialogo);
             }
@@ -75,10 +85,69 @@ public class ManipuladorDeEventos {
                 buracoDeDano(painel.estadoDoDialogo);
             }
 
-            else if(bater(0, 23,12, "cima") == true){
-                piscinaDeCura(painel.estadoDoDialogo);
+            //mapa 1 - Altar da aurora partida
+
+            //fogueira - Altar da aurora partida
+            else if(bater(0, 10,8, "any") == true){
+                fogueira(painel.estadoDoDialogo);
+            }
+            //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
+            else if(bater(0, 40,44, "any") == true){
+                teleporteMapa(1, 10,39, painel.fora);
+
+            }
+            //teleporte entre mapas do 1 para o 0 - Altar da aurora partida - volta
+            else if(bater(1, 10,39, "any") == true){
+                teleporteMapa(0, 40,44, painel.fora);
             }
 
+            //mapa 2 - Praça do Despertar
+
+            //fogueira - Praça do Despertar
+            else if(bater(1, 11,37, "any") == true){
+                //teleporteMapa(4, 10,39, painel.fora);
+                fogueira(painel.estadoDoDialogo);
+            }
+            
+            else if(bater(1, 8,5, "any") == true){
+                fogueira(painel.estadoDoDialogo);//mapa 1 - 1.5 Câmara das correntes - porta bloqueada
+            }
+            else if(bater(1, 23,3, "any") == true){
+                fogueira(painel.estadoDoDialogo);//mapa 1 - 1.6 Escadaria Ruida (Gula) - porta bloqueada
+            }
+            else if(bater(1, 44,3, "any") == true){
+                fogueira(painel.estadoDoDialogo);//mapa  1- 1.7 Entrada Para Luxúria - caminho livre
+            }
+
+
+            //teleporte entre mapas do 1 para o 3 - 1.7 Sala do espelho Carmesim (Luxúria) - ida mapa 3
+            else if(bater(1, 45,7, "any") == true){
+                teleporteMapa(3, 10,10, painel.fora);
+
+            }
+            //teleporte entre mapas do 3 para o 1 - 1.7 Sala do espelho Carmesim (Luxúria) - volta
+            else if(bater(3, 10,10, "any") == true){
+                teleporteMapa(1, 45,7, painel.fora);
+            }
+
+            //teleporte entre mapas do 1 para o 4 - 1.6 Escadaria ruida (Gula) - ida mapa 4
+            else if(bater(1, 24,4, "any") == true){
+                teleporteMapa(4, 10,10, painel.fora);
+            }
+            //teleporte entre mapas do 4 para o 1 - 1.6 Escadaria ruida (Gula) - volta
+            else if(bater(4, 10,10, "any") == true){
+                teleporteMapa(1, 24,4, painel.fora);
+            }
+
+
+            
+
+
+
+
+
+
+            /* 
             //teleporte entre mapas do 0 para o 1
             else if(bater (0, 10,39, "any") == true){
                 teleporteMapa(1, 12, 13, painel.interior);    
@@ -117,7 +186,8 @@ public class ManipuladorDeEventos {
 
             //evento cutscene - boss 01
             else if(bater (3, 25,27, "any") == true){ senhorEsqueleto(); }
-
+            
+            */
         }
 
         
@@ -162,12 +232,13 @@ public class ManipuladorDeEventos {
         podeTocarEvento = false;
     }
 
-    public void  piscinaDeCura(int estadoDoJogo){
+    public void  fogueira(int estadoDoJogo){
         if(painel.teclado.precionarEnter == true){
             painel.estadoDoJogo = estadoDoJogo;
             painel.jogador.cancelarAtaque = true;
             painel.iniciarEfeitoSonoro(2);
-            eventoMestre.iniciarDialogo(eventoMestre, 1);
+            //eventoMestre.iniciarDialogo(eventoMestre, 1);
+            eventoMestre.iniciarDialogo(eventoMestre, 3);
             painel.jogador.vida = painel.jogador.vidaMaxima;
             painel.jogador.mana = painel.jogador.manaMaxima;
             painel.criarObjetos.setInimigos();
@@ -205,6 +276,11 @@ public class ManipuladorDeEventos {
             entidade.falar();
         }
     }
+
+
+    
+
+
 
     public void senhorEsqueleto(){
         if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao == false){

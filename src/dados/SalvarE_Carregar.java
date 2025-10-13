@@ -18,6 +18,7 @@ public class SalvarE_Carregar {
 
     public void salvar(){
         try{
+            
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("salvar.dat")));
         
             ArmazenamentoDeDados dados = new ArmazenamentoDeDados();

@@ -9,7 +9,7 @@ public class Principal {
         janela = new JFrame();
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setResizable(false);
-        janela.setTitle("Titulo do jogo");
+        janela.setTitle("A Última Luz");
         new Principal().setIcone();
 
         PainelDoJogo painelDoJogo = new PainelDoJogo();
@@ -31,7 +31,9 @@ public class Principal {
     }
 
     public void setIcone(){
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("img/spritesjogador/boy_down_1.png"));
+        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("img/logoAultimaLuz.jpg")); 
         janela.setIconImage(icone.getImage());
+       
+        
     }
 }
