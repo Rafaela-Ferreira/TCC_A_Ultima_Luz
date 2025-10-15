@@ -79,12 +79,14 @@ public class Iluminacao {
             fracao[10] = 0.95f;
             fracao[11] = 1f;
 
+
             //crie uma configuração de pintura de gradação para o círculo de luz
             RadialGradientPaint gradiente = new RadialGradientPaint(centroX, centroY, painel.jogador.luzAtual.raioDeLuz, fracao, cor);
 
             //defina os dados de gradiente em g2
             g2.setPaint(gradiente);
         }
+        
 
         g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 

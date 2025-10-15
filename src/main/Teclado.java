@@ -357,6 +357,12 @@ public class Teclado implements KeyListener {
         if(code == KeyEvent.VK_ENTER){
             precionarEnter = true;
         }
+        
+        if(code == KeyEvent.VK_SPACE){
+            precionarEspaco = true;
+        }
+
+
         if(code == KeyEvent.VK_W){
             painel.interfaceDoUsuario.numeroDoComando--;
             if(painel.interfaceDoUsuario.numeroDoComando < 0){

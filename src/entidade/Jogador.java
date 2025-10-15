@@ -13,6 +13,7 @@ import objeto.ObjBolaDeFogo;
 import objeto.ObjChave;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
+import tile.blocosInterativos.Fogueira;
 
 
 
@@ -73,12 +74,14 @@ public class Jogador extends Entidade {
         vida = vidaMaxima;
         manaMaxima = 4;
         mana = manaMaxima;
+        staminaMaxima = 100;
+        stamina = staminaMaxima;
         municao = 10;
         forca = 1; //quanto mais força ele tem, mais dano ele dá.
         destreza = 1; //quanto mais destreza ele tem, menos dano ele recebe.
         exp =0;
         proximoNivelExp = 5;
-        moeda = 0;
+        alma = 100;
         armaAtual = new ObjEspadaNormal(painel);
         //armaAtual = new ObjMachado(painel);
         escudoAtual = new ObjEscudoMadeira(painel);
@@ -103,7 +106,7 @@ public class Jogador extends Entidade {
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "Você subiu para o nível " + nivel + "!";
+        //dialogo[0][0] = "Você subiu para o nível " + nivel + "!";
     }
 
 
@@ -410,6 +413,7 @@ public class Jogador extends Entidade {
             mana = manaMaxima;
         }
         
+        
         if(teclado.modoDebugAtivo == false){
             if(vida <= 0){
                 painel.estadoDoJogo = painel.estadoGameOver;
@@ -487,7 +491,8 @@ public class Jogador extends Entidade {
         
     }
 
-    
+    /* 
+    //subir de nivel
     public void verificarNivelAcima(){
         if(exp >= proximoNivelExp){
             nivel++;
@@ -505,6 +510,7 @@ public class Jogador extends Entidade {
             iniciarDialogo(this, 0);
         }
     }
+    */
 
     public void selecionarItem(){
         int indeceItem = painel.interfaceDoUsuario.pegarItemSelecionado(painel.interfaceDoUsuario.jogadorEspacoColuna, painel.interfaceDoUsuario.jogadorEspacoLinha);
@@ -602,7 +608,7 @@ public class Jogador extends Entidade {
                     painel.interfaceDoUsuario.adicionarMensagem("Você derrotou " + painel.inimigo[painel.mapaAtual][indice].nome + "!");
                     painel.interfaceDoUsuario.adicionarMensagem("Você ganhou " + painel.inimigo[painel.mapaAtual][indice].exp + " de experiência!");
                     exp += painel.inimigo[painel.mapaAtual][indice].exp;
-                    verificarNivelAcima();
+                    //verificarNivelAcima();
                 }
             }
             

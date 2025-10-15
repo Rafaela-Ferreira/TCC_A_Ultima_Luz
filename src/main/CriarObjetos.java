@@ -2,6 +2,8 @@ package main;
 
 import dados.Progresso;
 import entidade.NpcComerciante;
+import entidade.NpcFantasma;
+import entidade.NpcGuardiaDosNiveis;
 import entidade.NpcPedraGrande;
 import entidade.NpcVelho;
 import main.inimigo.InimigoMorcego;
@@ -9,6 +11,7 @@ import main.inimigo.InimigoOrc;
 import main.inimigo.LodoVerde;
 import main.inimigo.LodoVermelho;
 import main.inimigo.chefao.SenhorEsqueleto;
+import objeto.ObjAlma;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjChave;
@@ -28,6 +31,7 @@ import tile.blocosInterativos.ArvoreSeca;
 import tile.blocosInterativos.Fogueira;
 import tile.blocosInterativos.ParedeDestrutivel;
 import tile.blocosInterativos.PlacaDeMetal;
+import tile.blocosInterativos.Tocha;
 
 public class CriarObjetos {
     PainelDoJogo painel;
@@ -38,14 +42,17 @@ public class CriarObjetos {
 
     public void setarObjetos() {
 
-
         int numeroMapa = 0;
         int i = 0;
         painel.Obj[numeroMapa][i] = new ObjTocha(painel);
-        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
-        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*8;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*10;
         i++;
 
+        painel.Obj[numeroMapa][i] = new ObjAlma(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*10;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+        i++;
 
         /* 
         //como adicionar objetos ao array de objetos
@@ -202,6 +209,8 @@ public class CriarObjetos {
 
         painel.blocosI[numeroMapa][i] = new Fogueira(painel, 10,9); i++;
 
+        painel.blocosI[numeroMapa][i] = new Tocha(painel, 15,9); i++;
+        
         /* 
         int numeroMapa = 0;
         int i = 0;
@@ -259,6 +268,17 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i] = new NpcVelho(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
+        i++;
+
+        painel.npc[numeroMapa][i] = new NpcFantasma(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*11;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*11;
+        i++;
+
+
+        painel.npc[numeroMapa][i] = new NpcGuardiaDosNiveis(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*15;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*11;
         i++;
 
         /* 

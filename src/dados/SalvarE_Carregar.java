@@ -32,7 +32,7 @@ public class SalvarE_Carregar {
             dados.destreza = painel.jogador.destreza;
             dados.exp = painel.jogador.exp;
             dados.proximoNivelExp = painel.jogador.proximoNivelExp;
-            dados.moeda = painel.jogador.moeda;
+            dados.moeda = painel.jogador.alma;
 
             //inventario do jogador
             for(int i =0; i < painel.jogador.inventario.size(); i++){
@@ -99,7 +99,7 @@ public class SalvarE_Carregar {
             painel.jogador.destreza = dados.destreza;
             painel.jogador.exp = dados.exp;
             painel.jogador.proximoNivelExp = dados.proximoNivelExp;
-            painel.jogador.moeda = dados.moeda;
+            painel.jogador.alma = dados.moeda;
 
             //inventario do jogador
             painel.jogador.inventario.clear();

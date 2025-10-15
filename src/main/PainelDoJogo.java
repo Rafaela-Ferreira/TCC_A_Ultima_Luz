@@ -328,6 +328,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
             gerenciadorDeAmbientes.atualizar();
+            
 
 
         }
@@ -418,8 +419,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
             }
             //remover da lista de entidades
             listaEntidade.clear();
-
- 
+            
             
             // Desenhar chuva
             if (chuva != null) {
@@ -430,11 +430,22 @@ public class PainelDoJogo extends JPanel implements Runnable {
             //Ambiente de iliminação
             gerenciadorDeAmbientes.desenhar(g2);
 
+            //Desenha o foco de luz nas tochas
+            for (int i = 0; i < blocosI[1].length; i++) {
+                if (blocosI[mapaAtual][i] instanceof tile.blocosInterativos.Tocha tocha) {
+                    int telaX = tocha.mundoX - jogador.mundoX + jogador.telaX;
+                    int telaY = tocha.mundoY - jogador.mundoY + jogador.telaY;
+                    tocha.desenharLuz(g2, telaX, telaY);
+                }
+            }
+
             //mini mapa
             mapa.desenharMiniMapa(g2);
 
             //Cutscene
             gerenciadorDeCutscene.desenhar(g2);
+
+            
 
             
 

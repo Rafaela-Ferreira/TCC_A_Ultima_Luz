@@ -81,6 +81,8 @@ public class Entidade {
     public int vida;
     public int manaMaxima;
     public int mana;
+    public int stamina;
+    public int staminaMaxima;
     public int municao;
     public int nivel;
     public int forca;
@@ -89,7 +91,7 @@ public class Entidade {
     public int defesa;
     public int exp;
     public int proximoNivelExp;
-    public int moeda;
+    public int alma;
     public int direcaoDoMovimento1; //orc - ataque padrão
     public int direcaoDoMovimento2; //orc - ataque pesado
     public Entidade armaAtual;
@@ -133,6 +135,7 @@ public class Entidade {
     public Entidade(PainelDoJogo painel){
         this.painel = painel;
     }
+
 
     public int getTelaX(){
         int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
@@ -736,6 +739,7 @@ public class Entidade {
                 }
                 break;
             }
+            
 
             
             //deixa transparente
@@ -746,6 +750,12 @@ public class Entidade {
             }
             if(morrendo == true){
                 animacaoMorrendo(g2);
+            }
+            
+            //Define a transparência para o fantasma
+            if (this instanceof NpcFantasma) {
+                NpcFantasma f = (NpcFantasma) this;
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, f.opacidade));
             }
 
             g2.drawImage(imagem, telaTemporariaX, telaTemporariaY, null);

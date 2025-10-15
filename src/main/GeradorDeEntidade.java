@@ -1,6 +1,7 @@
 package main;
 
 import entidade.Entidade;
+import objeto.ObjAlma;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjBolaDeFogo;
@@ -52,6 +53,7 @@ public class GeradorDeEntidade {
             case ObjPortaDeFerro.objNome : objeto = new ObjPortaDeFerro(painel); break;
             case ObjBau.objNome : objeto = new ObjBau(painel); break;
             case ObjMoedaBronze.objNome : objeto = new ObjMoedaBronze(painel); break;
+            case ObjAlma.objNome : objeto = new ObjAlma(painel); break;
             case ObjTocha.objNome : objeto = new ObjTocha(painel); break;
 
             //iluminação

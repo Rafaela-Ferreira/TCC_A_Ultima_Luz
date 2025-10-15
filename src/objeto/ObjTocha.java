@@ -10,13 +10,18 @@ public class ObjTocha extends Entidade {
     public ObjTocha(PainelDoJogo painel) {
         super(painel);
 
+        tipo = tipoIliminacao;
         nome = objNome;
         baixo1 = setup("/img/fogueira/tocha0", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
+        descricao = "[Lanterna]\nIlumina os arredores.";
+        preco = 500;
+        raioDeLuz = 450;
     }
+}
 
-    //implementar algum tipo de iluminação
-
+    
+    
 
        
-}
+

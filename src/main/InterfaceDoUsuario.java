@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import entidade.Entidade;
+import entidade.NpcGuardiaDosNiveis;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
@@ -46,14 +47,12 @@ public class InterfaceDoUsuario {
     public int npcEspacoColuna = 0;
     public int npcEspacoLinha = 0;
     int subEstado = 0;
+    int subEstadoGuardia = 0;
+    int estadoSubirNivel = 0;
     int contador = 0;
     public Entidade npc;
     int indicePersonagem = 0;
     String combinandoTexto = "";
-
-
-
-    
 
 
 
@@ -77,6 +76,7 @@ public class InterfaceDoUsuario {
         //é uma interface que exibe informações relevantes para o jogador, 
         //como vida, munição, mapa, etc., diretamente na tela, sobrepondo-se à imagem do jogo
        
+        
         Entidade coracao = new ObjCoracao(painel);
         vidaMaxima = coracao.imagem;
         vidaMeio = coracao.imagem2;
@@ -89,6 +89,9 @@ public class InterfaceDoUsuario {
 
         Entidade moedaDeBronze = new ObjMoedaBronze(painel);
         moeda = moedaDeBronze.baixo1;
+
+        //desenharVidaDoJogador();
+        //desenharManaDoJogador();
         
     }
 
@@ -154,7 +157,11 @@ public class InterfaceDoUsuario {
 
         //estado de troca
         if(painel.estadoDoJogo == painel.trocaDeEstado){
-            desenharTelaDeTroca();
+            if (painel.interfaceDoUsuario.npc instanceof NpcGuardiaDosNiveis) {
+                desenharTelaDeTrocaGuardia(); // Só a guardiã
+            } else {
+                desenharTelaDeTroca(); // Comerciante ou outros NPCs
+            }
         }
 
         //estado de dormir 
@@ -203,6 +210,7 @@ public class InterfaceDoUsuario {
         }
     }
 
+    /* 
     public void desenharVidaDoJogador(){
 
         //painel.jogador.vida = 4;
@@ -265,6 +273,56 @@ public class InterfaceDoUsuario {
             x +=35;
         }
     }
+    */
+    public void desenharVidaDoJogador() {
+        int x = 20;
+        int y = 20;
+        int larguraBase = 200;
+        int altura = 20;
+
+        // A barra cresce um pouco a cada nível (+10 px por nível)
+        int largura = larguraBase + (painel.jogador.nivel * 10);
+
+        // barra da VIDA 
+        double proporcaoVida = (double) painel.jogador.vida / painel.jogador.vidaMaxima;
+        int larguraVida = (int) (largura * proporcaoVida);
+
+        // Fundo
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(x - 1, y - 1, largura + 2, altura + 2);
+
+        // Barra de vida
+        g2.setColor(new Color(255, 0, 30)); // vermelho
+        g2.fillRect(x, y, larguraVida, altura);
+
+        // barra da MANA =====
+        int yMana = y + altura + 10; // 10px abaixo da barra de vida
+        double proporcaoMana = (double) painel.jogador.mana / painel.jogador.manaMaxima;
+        int larguraMana = (int) (largura * proporcaoMana);
+
+        // Fundo da mana
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(x - 1, yMana - 1, largura + 2, altura + 2);
+
+        // Barra azul
+        g2.setColor(new Color(30, 144, 255));
+        g2.fillRect(x, yMana, larguraMana, altura);
+
+        // ===== STAMINA =====
+        int yStamina = yMana + altura + 10;
+        double proporcaoStamina = (double) painel.jogador.stamina / painel.jogador.staminaMaxima;
+        int larguraStamina = (int) (largura * proporcaoStamina);
+
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(x - 1, yStamina - 1, largura + 2, altura + 2);
+
+        g2.setColor(new Color(0, 200, 0)); // verde
+        g2.fillRect(x, yStamina, larguraStamina, altura);
+
+        
+    }
+
+    
 
     public void desenhaVidaDoInimigo(){
         for(int i = 0; i < painel.inimigo[1].length; i++){
@@ -689,7 +747,7 @@ public class InterfaceDoUsuario {
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
-        valor = String.valueOf(painel.jogador.moeda);
+        valor = String.valueOf(painel.jogador.alma);
         textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
@@ -699,6 +757,7 @@ public class InterfaceDoUsuario {
         g2.drawImage(painel.jogador.escudoAtual.baixo1, bordaX - painel.tamanhoDoTile, textoY-24, null);
    
     }
+
     public void desenhaInventario(Entidade entidade, boolean cursor){
 
         int frameX = 0;
@@ -1151,7 +1210,7 @@ public class InterfaceDoUsuario {
         width = painel.tamanhoDoTile *6;
         height = painel.tamanhoDoTile *2;
         desenharSubJanela(x, y, width, height);
-        g2.drawString("Moedas: " + painel.jogador.moeda , x+24, y+60);
+        g2.drawString("Almas: " + painel.jogador.alma , x+24, y+60);
 
         //desenhar preço
         int indeceItem = pegarItemSelecionado(npcEspacoColuna, npcEspacoLinha);
@@ -1171,13 +1230,13 @@ public class InterfaceDoUsuario {
 
         //comprar item
         if(painel.teclado.precionarEnter == true){
-            if(npc.inventario.get(indeceItem).preco > painel.jogador.moeda){
+            if(npc.inventario.get(indeceItem).preco > painel.jogador.alma){
                 subEstado = 0;
                 npc.iniciarDialogo(npc, 2);
             }
             else{
                 if(painel.jogador.podeObterItem(npc.inventario.get(indeceItem)) == true){
-                    painel.jogador.moeda -= npc.inventario.get(indeceItem).preco;
+                    painel.jogador.alma -= npc.inventario.get(indeceItem).preco;
                 }
                 else{
                    subEstado = 0;
@@ -1211,7 +1270,7 @@ public class InterfaceDoUsuario {
         width = painel.tamanhoDoTile *6;
         height = painel.tamanhoDoTile *2;
         desenharSubJanela(x, y, width, height);
-        g2.drawString("Moedas: " + painel.jogador.moeda , x+24, y+60);
+        g2.drawString("Almas: " + painel.jogador.alma , x+24, y+60);
 
         //desenhar preço
         int indeceItem = pegarItemSelecionado(jogadorEspacoColuna, jogadorEspacoLinha);
@@ -1245,7 +1304,7 @@ public class InterfaceDoUsuario {
                         painel.jogador.inventario.remove(indeceItem);
                     }
 
-                    painel.jogador.moeda += preco;
+                    painel.jogador.alma += preco;
                     
 
                 }
@@ -1255,6 +1314,131 @@ public class InterfaceDoUsuario {
         
 
     }
+
+
+    //inventarido da gurdiã - subir de nivel
+    public void desenharTelaDeTrocaGuardia() {
+        // Garante que o contexto gráfico está ativo
+        g2.setFont(maruMonica);
+        g2.setColor(Color.white);
+        
+        switch (subEstadoGuardia) {
+            case 0:
+                selecionarTrocaGuardia();
+                break;
+            case 1:
+                subirNivelTroca();
+                break;
+        }
+
+        painel.teclado.precionarEnter = false;
+        painel.teclado.precionarEspaco = false;
+    }
+
+    public void selecionarTrocaGuardia() {
+
+        int x = painel.tamanhoDoTile * 15;
+        int y = painel.tamanhoDoTile * 5;
+        int width = painel.tamanhoDoTile * 4;
+        int height = painel.tamanhoDoTile * 5;
+
+        desenharSubJanela(x, y, width, height);
+        
+        // Define fonte e cor antes de desenhar o texto
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        g2.setColor(Color.white);
+
+        y += painel.tamanhoDoTile;
+        g2.drawString("Subir Nível", x + 30, y);
+        if (numeroDoComando == 0) {
+            g2.drawString(">", x+10, y);
+            if (painel.teclado.precionarEnter) {
+                subEstadoGuardia = 1; // Abre a tela de subir nível
+            }
+        }
+
+        y += painel.tamanhoDoTile;
+        g2.drawString("Sair", x + 30, y);
+        if (numeroDoComando == 1) {
+            g2.drawString(">", x+10, y);
+            if (painel.teclado.precionarEnter) {
+                numeroDoComando = 0;
+                npc.iniciarDialogo(npc, 1);
+                painel.estadoDoJogo = painel.estadoDoDialogo;
+            }
+        }
+
+        if (painel.teclado.precionarCima) {
+            numeroDoComando--;
+            painel.teclado.precionarCima = false;
+        }
+        if (painel.teclado.precionarBaixo) {
+            numeroDoComando++;
+            painel.teclado.precionarBaixo = false;
+        }
+        if (numeroDoComando < 0) numeroDoComando = 1;
+        if (numeroDoComando > 1) numeroDoComando = 0;
+    }
+
+    public void subirNivelTroca() {
+
+        int x = painel.tamanhoDoTile * 10;
+        int y = painel.tamanhoDoTile * 7;
+        int width = painel.tamanhoDoTile * 6;
+        int height = painel.tamanhoDoTile * 4;
+
+        // Janela principal
+        desenharSubJanela(x, y, width, height);
+
+        // Fonte e cor
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        g2.setColor(Color.white);
+
+        String titulo = "Subir de Nível";
+        int textoY = y + 40;
+        int textoX = x + 48;
+
+        g2.drawString(titulo, textoX, textoY);
+
+        // Custo dinâmico
+        int custo = 0;
+        if (npc instanceof NpcGuardiaDosNiveis guardia) {
+            custo = guardia.calcularCustoParaSubirNivel();
+        }
+
+        String textoInfo =
+            "Custo: " + custo + " Alma" + (custo > 1 ? "s" : "") + "\n" +
+            "[ENTER] Confirmar\n" +
+            "[ESPACO] Voltar";
+
+        // Desenhar o texto quebrado linha por linha
+        textoY += 40; // move um pouco pra baixo
+        for (String linha : textoInfo.split("\n")) {
+            g2.drawString(linha, textoX, textoY);
+            textoY += 40; // espaçamento entre as linhas
+        }
+
+        // Confirmar subida de nível
+        if (painel.teclado.precionarEnter) {
+            if (npc instanceof NpcGuardiaDosNiveis guardia) {
+                guardia.tentarSubirNivel();
+            }
+            subEstadoGuardia = 0; // volta para o menu principal
+            painel.teclado.precionarEnter = false;
+        }
+
+        // Voltar para o menu sem subir de nível
+        if (painel.teclado.precionarEspaco) {
+            subEstadoGuardia = 0;
+            painel.teclado.precionarEspaco = false;
+        }
+    }
+    
+
+
+
+
+
 
     public void desenharTelaDeDormir(){
         contador++;

@@ -12,6 +12,8 @@ public class ManipuladorDeEventos {
     boolean podeTocarEvento = true;
     int mapaTemporario, colunaTemporaria, linhaTemporaria;
 
+    String nomeDaFogueira = "";
+
     public ManipuladorDeEventos(PainelDoJogo painel){
         this.painel = painel;
 
@@ -47,6 +49,8 @@ public class ManipuladorDeEventos {
         setDialogo();
     }
     public void setDialogo(){
+        
+
         eventoMestre.dialogo[0][0] = "Você cai no buraco";
 
         eventoMestre.dialogo[1][0] = "Você tomou água de cura!\nSua vida e sua mana foi renovada.\nO seu progresso salvo foi salvo!";
@@ -59,6 +63,7 @@ public class ManipuladorDeEventos {
         eventoMestre.dialogo[5][0] = "Ladeira Dos Pilares Quegrados\nO seu progresso salvo foi salvo!";
         eventoMestre.dialogo[6][0] = "Praça Do Despertar\nO seu progresso salvo foi salvo!";
         eventoMestre.dialogo[7][0] = "Portão Silencioso\nO seu progresso salvo foi salvo!";
+
 
         eventoMestre.dialogo[8][0] = "Porta bloqueada\nNecessário: Chave de prata";
         eventoMestre.dialogo[9][0] = "Porta bloqueada\nVolte mais tarde!";
@@ -88,8 +93,9 @@ public class ManipuladorDeEventos {
             //mapa 1 - Altar da aurora partida
 
             //fogueira - Altar da aurora partida
-            else if(bater(0, 10,8, "any") == true){
-                fogueira(painel.estadoDoDialogo);
+            else if(bater(0, 11,10, "any") == true){
+                //nomeDaFogueira = "[Altar da Aurora Partida]";
+                fogueira(3, painel.estadoDoDialogo);
             }
             //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
             else if(bater(0, 40,44, "any") == true){
@@ -106,17 +112,17 @@ public class ManipuladorDeEventos {
             //fogueira - Praça do Despertar
             else if(bater(1, 11,37, "any") == true){
                 //teleporteMapa(4, 10,39, painel.fora);
-                fogueira(painel.estadoDoDialogo);
+                fogueira(4, painel.estadoDoDialogo);
             }
             
             else if(bater(1, 8,5, "any") == true){
-                fogueira(painel.estadoDoDialogo);//mapa 1 - 1.5 Câmara das correntes - porta bloqueada
+                fogueira(5, painel.estadoDoDialogo);//mapa 1 - 1.5 Câmara das correntes - porta bloqueada
             }
             else if(bater(1, 23,3, "any") == true){
-                fogueira(painel.estadoDoDialogo);//mapa 1 - 1.6 Escadaria Ruida (Gula) - porta bloqueada
+                fogueira(6, painel.estadoDoDialogo);//mapa 1 - 1.6 Escadaria Ruida (Gula) - porta bloqueada
             }
             else if(bater(1, 44,3, "any") == true){
-                fogueira(painel.estadoDoDialogo);//mapa  1- 1.7 Entrada Para Luxúria - caminho livre
+                fogueira(7, painel.estadoDoDialogo);//mapa  1- 1.7 Entrada Para Luxúria - caminho livre
             }
 
 
@@ -232,13 +238,13 @@ public class ManipuladorDeEventos {
         podeTocarEvento = false;
     }
 
-    public void  fogueira(int estadoDoJogo){
+    public void  fogueira(int indiceDialogo, int estadoDoJogo){
         if(painel.teclado.precionarEnter == true){
             painel.estadoDoJogo = estadoDoJogo;
             painel.jogador.cancelarAtaque = true;
             painel.iniciarEfeitoSonoro(2);
             //eventoMestre.iniciarDialogo(eventoMestre, 1);
-            eventoMestre.iniciarDialogo(eventoMestre, 3);
+            eventoMestre.iniciarDialogo(eventoMestre, indiceDialogo);
             painel.jogador.vida = painel.jogador.vidaMaxima;
             painel.jogador.mana = painel.jogador.manaMaxima;
             painel.criarObjetos.setInimigos();
