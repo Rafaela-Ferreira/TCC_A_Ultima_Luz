@@ -113,6 +113,8 @@ public class GerenciadorDeBlocos {
         try {
             blocos[indice] = new Bloco();
             blocos[indice].imagem = ImageIO.read(getClass().getResourceAsStream("/img/num/" + nomeDaImagem));
+            //String caminho = "/img/num/" + nomeDaImagem;
+            //System.out.println("Carregando: " + caminho);
             blocos[indice].imagem = ferramentas.escalaImage(blocos[indice].imagem, painel.tamanhoDoTile, painel.tamanhoDoTile); // Define se o bloco tem colisão
              blocos[indice].temColisao = temColisao; 
         } catch (IOException e) {
