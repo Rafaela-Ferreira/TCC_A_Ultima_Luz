@@ -23,6 +23,8 @@ public class GerenciadorDeCutscene {
     public final int NA = 0;
     public final int senhorEsqueleto = 1;
     public final int cenaFinal = 2;
+    public final int cenaInicial = 3;
+
 
     public GerenciadorDeCutscene(PainelDoJogo painel){
         this.painel = painel;
@@ -30,10 +32,17 @@ public class GerenciadorDeCutscene {
         creditosFinais = "Programação/Musica/Arte\n"
         +"Rafaela"
         +"Nancy"
+        +"Isabela"
         +"\n\n\n\n\n\n\n\n\n\n\n\n\n"
         +"Agradecimentos especiais\n"
         +"Isabela\n"
-        +"Alguém\n"
+        +"Vinicius\n"
+        +"Augusto\n"
+        +"Antonio\n"
+        +"Fabio\n"
+        +"Glauber\n"
+        +"Zady\n"
+        +"Sovat\n"
         +"Alguém\n"
         +"Alguém\n\n\n\n\n\n"
         + "Obrigado por jogar!";
@@ -45,9 +54,67 @@ public class GerenciadorDeCutscene {
         switch (numeroDaCena) {
             case senhorEsqueleto: cenaSenhorEsqueleto(); break;
             case cenaFinal : cenaFinal(); break;
-
+            case cenaInicial: cenaInicial(); break;
         }
 
+    }
+
+    public void cenaInicial() {
+
+        if (faseDaCena == 0) {
+            alpha = 0f;
+            contador = 0;
+            faseDaCena++;
+        }
+
+        if (faseDaCena == 1) {
+            alpha += 0.01f;
+            if (alpha > 1f) alpha = 1f;
+
+            String texto = "Em um mundo esquecido pelas luzes,\n"
+                        + "um menino desperta no coração da escuridão.\n"
+                        + "Sua jornada pela última chama está prestes a começar...";
+
+            desenharFundoPreto(1f);
+            desenharString(alpha, 36f, painel.alturaTela / 2 - 100, texto, 45);
+
+            if (contadorAlcancado(800)) {
+                faseDaCena++;
+                alpha = 0f; 
+                contador = 0;
+            }
+        }
+
+        if (faseDaCena == 2) {
+            float velocidadeFade = 0.01f;
+
+            if (contador == 0) {
+                alpha += velocidadeFade;
+                alpha = Math.min(alpha, 1f); 
+                desenharFundoPreto(alpha);
+
+                if (alpha >= 1f) {
+                    contador = 1; 
+                }
+            } 
+            else if (contador == 1) {
+                alpha -= velocidadeFade;
+                alpha = Math.max(alpha, 0f); 
+                desenharFundoPreto(alpha);
+
+                if (alpha <= 0f) {
+                    faseDaCena++;
+                    alpha = 0f;
+                    contador = 0;
+                }
+            }
+        }
+
+        if (faseDaCena == 3) {
+            numeroDaCena = NA;
+            faseDaCena = 0;
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+        }
     }
 
     public void  cenaSenhorEsqueleto(){
@@ -184,6 +251,7 @@ public class GerenciadorDeCutscene {
                 alpha = 1f;
             }
 
+            //alterar texto
             String texto = "Após a batalha feroz com o Senhor Esqueleto, \n"
                             + "o menino azul finalmente encontrou o tesouro lendário. \n"
                             + "Mas este não é o fim de sua jornada. \n"
@@ -198,7 +266,7 @@ public class GerenciadorDeCutscene {
     }
         if(faseDaCena == 6){
             desenharFundoPreto(1f);
-            desenharString(1f, 120f, painel.alturaTela/2, "Nome do jogo", 40);
+            desenharString(1f, 120f, painel.alturaTela/2, "A Última Luz", 40);
             
             
             if(contadorAlcancado(480) == true){

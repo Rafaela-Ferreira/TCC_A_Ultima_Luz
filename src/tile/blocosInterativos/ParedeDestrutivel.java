@@ -19,13 +19,13 @@ public class ParedeDestrutivel extends BlocosInterativos{
 
         baixo1 = setup("/img/tiles/interativos/destructiblewall", painel.tamanhoDoTile, painel.tamanhoDoTile);
         destruir = true;
-        vida = 3;
+        vida = 1;
     }
     public boolean itemCorreto(Entidade entidade){
         boolean itemCorreto = false;
 
         //é necessario usar um machado para cortar uma árvore
-        if(entidade.armaAtual.tipo == tipoPicareta){
+        if(entidade.armaAtual.tipo == tipoPicareta || entidade.armaAtual.tipo == tipoMachado || entidade.armaAtual.tipo == tipoEspada){
             itemCorreto = true;
         }
 

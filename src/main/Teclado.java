@@ -129,19 +129,43 @@ public class Teclado implements KeyListener {
 
             if (code == KeyEvent.VK_ENTER) {
                 if(painel.interfaceDoUsuario.numeroDoComando == 0){
-                    //System.out.println("Você escolheu Lutador");
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                    //painel.iniciarMusica(0);
+                    
+                    if (painel.interfaceDoUsuario.numeroDoComando == 0){
+                        painel.estadoDoJogo = painel.estadoCutscene;
+                        painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.cenaInicial;
+                        painel.gerenciadorDeCutscene.faseDaCena = 0;
+                    }
+                    
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 1){
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                    //painel.iniciarMusica(0);
+                    
+                    if (painel.interfaceDoUsuario.numeroDoComando == 1){
+                        painel.estadoDoJogo = painel.estadoCutscene;
+                        painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.cenaInicial;
+                        painel.gerenciadorDeCutscene.faseDaCena = 0;
+                    }
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 2){
                     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-                    //painel.iniciarMusica(0);
+                    
+                    if (painel.interfaceDoUsuario.numeroDoComando == 2){
+                        painel.estadoDoJogo = painel.estadoCutscene;
+                        painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.cenaInicial;
+                        painel.gerenciadorDeCutscene.faseDaCena = 0;
+                    }
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 3){
+                    painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    
+                    if (painel.interfaceDoUsuario.numeroDoComando == 3){
+                        painel.estadoDoJogo = painel.estadoCutscene;
+                        painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.cenaInicial;
+                        painel.gerenciadorDeCutscene.faseDaCena = 0;
+                    }
+                }
+                if(painel.interfaceDoUsuario.numeroDoComando == 4){
                     painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0;
                 }
             }
@@ -149,6 +173,7 @@ public class Teclado implements KeyListener {
             
         }
     }
+    
     public void iniciarEstadoDoJogo(int code){
         if (code == KeyEvent.VK_W){
             precionarCima = true;
@@ -167,7 +192,7 @@ public class Teclado implements KeyListener {
         }
         if(code == KeyEvent.VK_C){ 
             painel.estadoDoJogo = painel.estadoPersonagem;
-            
+  
         }
         if (code == KeyEvent.VK_ENTER) {
             precionarEnter = true;
@@ -221,12 +246,7 @@ public class Teclado implements KeyListener {
             }
         }
 
-        if(code == KeyEvent.VK_L){
-            painel.interfaceDoUsuario.adicionarMensagem("Você morreu...");
-        }
-
-            
-
+    
     }
 
     public void pausarEstadoDoJogo(int code){

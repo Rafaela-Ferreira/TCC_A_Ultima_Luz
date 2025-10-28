@@ -9,10 +9,13 @@ import java.awt.image.BufferedImage;
 
 import main.PainelDoJogo;
 import main.Teclado;
+import objeto.ObjAlma;
 import objeto.ObjBolaDeFogo;
 import objeto.ObjChave;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
+import objeto.ObjMachado;
+import objeto.ObjPicareta;
 import tile.blocosInterativos.Fogueira;
 
 
@@ -34,6 +37,23 @@ public class Jogador extends Entidade {
     public boolean equiparLanterna = false;
 
 
+    // Último ponto salvo (checkpoint)
+    public int mundoXSalvo;
+    public int mundoYSalvo;
+    public int mapaSalvo;
+    public String direcaoSalva;
+
+    public Entidade[] itensRapidos = new Entidade[4];
+    public int slotSelecionado = 0; // slot atualmente selecionado
+
+
+    // ===== SISTEMA DE ALMAS =====
+    public int totalAlmas = 0;
+    public int almasPerdidas = 0;
+    public boolean almasNoChao = false;
+    public int almaX, almaY;
+
+
     public Jogador(PainelDoJogo painel, Teclado teclado) {
         super(painel); //estamos chamando o construtor da superClass desta class (Entidade)
         
@@ -51,11 +71,48 @@ public class Jogador extends Entidade {
         areaSolida.width = 32; 
         areaSolida.height = 32; 
 
-        
+        // exemplo de inicialização
+        itensRapidos[0] = inventario.size() > 0 ? inventario.get(0) : null;
+        itensRapidos[1] = inventario.size() > 1 ? inventario.get(1) : null;
+        itensRapidos[2] = null;
+        itensRapidos[3] = null;
+
+        alma = 100;
 
         setDefaultValues();
         
     }
+
+    public void alternarSlot(boolean proximo) {
+        if(proximo) {
+            slotSelecionado = (slotSelecionado + 1) % itensRapidos.length;
+        } else {
+            slotSelecionado = (slotSelecionado - 1 + itensRapidos.length) % itensRapidos.length;
+        }
+    }
+
+    // Salva o ponto atual do jogador
+    public void salvarPonto() {
+        mapaSalvo = painel.mapaAtual;
+        mundoXSalvo = mundoX;
+        mundoYSalvo = mundoY;
+        direcaoSalva = direcao;
+    }
+
+    // Renasce no último ponto salvo
+    public void renascerNoUltimoPonto() {
+        if (mundoXSalvo != 0 && mundoYSalvo != 0) {
+            painel.mapaAtual = mapaSalvo;
+            mundoX = mundoXSalvo;
+            mundoY = mundoYSalvo;
+            direcao = direcaoSalva;
+        } else {
+            // Caso não tenha nenhum ponto salvo, usa a posição padrão
+            setPosicaoPadrao();
+        }
+        restaltarStatus(); // recupera vida/mana
+    }
+
     public void setDefaultValues() {
         mundoX = painel.tamanhoDoTile * 10; 
         mundoY = painel.tamanhoDoTile * 12;
@@ -74,14 +131,21 @@ public class Jogador extends Entidade {
         vida = vidaMaxima;
         manaMaxima = 4;
         mana = manaMaxima;
-        staminaMaxima = 100;
-        stamina = staminaMaxima;
+        resistenciaMaxima = 100;
+        resistencia = resistenciaMaxima;
         municao = 10;
         forca = 1; //quanto mais força ele tem, mais dano ele dá.
         destreza = 1; //quanto mais destreza ele tem, menos dano ele recebe.
-        exp =0;
-        proximoNivelExp = 5;
-        alma = 100;
+        exp = 0;
+        proximoNivelExp = 1;
+        proximoNivelExp = proximoNivelExp+nivel;
+
+        fragmentoDaEspada = 0;
+
+        if (!almasNoChao) {
+            alma = 100;
+        }
+
         armaAtual = new ObjEspadaNormal(painel);
         //armaAtual = new ObjMachado(painel);
         escudoAtual = new ObjEscudoMadeira(painel);
@@ -113,6 +177,7 @@ public class Jogador extends Entidade {
     public void restaltarStatus(){
         vida = vidaMaxima;
         mana = manaMaxima;
+        resistencia = resistenciaMaxima;
         velocidade = velocidadePadrao;
         invencivel = false;
         transparente = false;
@@ -126,7 +191,11 @@ public class Jogador extends Entidade {
         inventario.clear(); //limpar o inventario - remover essa opção futuramente
         inventario.add(escudoAtual);
         inventario.add(armaAtual);
+
         inventario.add(new ObjChave(painel));
+        inventario.add(new ObjMachado(painel));
+        inventario.add(new ObjPicareta(painel));
+
     }
 
     public int getAtaque(){
@@ -416,19 +485,48 @@ public class Jogador extends Entidade {
         
         if(teclado.modoDebugAtivo == false){
             if(vida <= 0){
+                deixarAlmasNoChao();
                 painel.estadoDoJogo = painel.estadoGameOver;
                 painel.interfaceDoUsuario.numeroDoComando = -1;
                 painel.pararMusica();
                 painel.iniciarEfeitoSonoro(12);
+                
             }
+            
         }
-        
-        
         
     } 
 
 
+    public void deixarAlmasNoChao() {
+        if (almasNoChao) {
+            System.out.println("As almas antigas foram perdidas permanentemente!");
+            almasPerdidas = 0;
+            almasNoChao = false;
+        } else {
+            System.out.println("Almas deixadas no chão!");
+            almasPerdidas = alma;
+            alma = 0;
+            almaX = mundoX;
+            almaY = mundoY;
+            almasNoChao = true;
+        }
+    }
 
+    public void verificarRecuperacaoDeAlmas() {
+        if (almasNoChao) {
+            int distanciaX = Math.abs(mundoX - almaX);
+            int distanciaY = Math.abs(mundoY - almaY);
+
+            if (distanciaX < 40 && distanciaY < 40) { // distância para coletar
+                alma += almasPerdidas;
+                almasPerdidas = 0;
+                almasNoChao = false;
+
+                painel.iniciarEfeitoSonoro(8);
+            }
+        }
+    }
     
     
 
@@ -571,11 +669,69 @@ public class Jogador extends Entidade {
                 vida -= dano; //dano do inimigo
                 invencivel = true;
                 transparente = true;
+
+                // Verificação de morte
+                if (vida <= 0) {
+                    morrer();
+                }
             }
             
         }
     }
 
+     
+    public void morrer() {
+       //if (painel.estadoDoJogo == painel.estadoGameOver) return;
+
+        System.out.println("Jogador morreu. Almas antes: " + alma);
+
+        // Verifica se já havia almas no chão e não foram recuperadas
+        if (almasNoChao) {
+            System.out.println("Almas não recuperadas foram perdidas permanentemente!");
+            painel.interfaceDoUsuario.adicionarMensagem("Almas não recuperadas foram perdidas!");
+            // Remove as almas antigas do mapa
+            for (int i = 0; i < painel.Obj[painel.mapaAtual].length; i++) {
+                if (painel.Obj[painel.mapaAtual][i] != null &&
+                    painel.Obj[painel.mapaAtual][i].nome.equals(ObjAlma.objNome)) {
+                    painel.Obj[painel.mapaAtual][i] = null;
+                }
+            }
+            almasPerdidas = 0;
+            almasNoChao = false;
+        }
+
+        // Sempre perde todas as almas do jogador
+        int almasDeixadas = alma;
+        alma = 0;
+
+        // Cria o objeto de alma no chão
+        ObjAlma almaDrop = new ObjAlma(painel);
+        almaDrop.mundoX = mundoX;
+        almaDrop.mundoY = mundoY;
+        almaDrop.valor = almasDeixadas;
+
+        // Adiciona ao mapa
+        for (int i = 0; i < painel.Obj[painel.mapaAtual].length; i++) {
+            if (painel.Obj[painel.mapaAtual][i] == null) {
+                painel.Obj[painel.mapaAtual][i] = almaDrop;
+                break;
+            }
+        }
+
+        // Marca que há almas no chão
+        almasNoChao = true;
+        almaX = mundoX;
+        almaY = mundoY;
+        almasPerdidas = almasDeixadas;
+
+        painel.interfaceDoUsuario.adicionarMensagem("Você deixou " + almasDeixadas + " almas no chão!");
+
+        // Sons e estado do jogo
+        painel.pararMusica();
+        painel.iniciarEfeitoSonoro(12);
+        painel.estadoDoJogo = painel.estadoGameOver;
+    }
+    
     
 
 

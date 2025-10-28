@@ -194,6 +194,9 @@ public class ManipuladorDeEventos {
             else if(bater (3, 25,27, "any") == true){ senhorEsqueleto(); }
             
             */
+
+            //else if(bater (0, 25,27, "any") == true){ senhorEsqueleto(); }
+            //else if(bater (1, 25,27, "any") == true){ senhorEsqueleto2(); }
         }
 
         
@@ -250,6 +253,9 @@ public class ManipuladorDeEventos {
             painel.criarObjetos.setInimigos();
 
             //ponto de salvamento
+            painel.jogador.salvarPonto();
+
+            
             painel.salvarE_Carregar.salvar();
         }
         
@@ -294,4 +300,14 @@ public class ManipuladorDeEventos {
             painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
         }
     }
+
+
+    /* 
+    public void senhorEsqueleto2(){
+        if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao2 == false){
+            painel.estadoDoJogo = painel.estadoCutscene;
+            painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
+        }
+    }
+        */
 }

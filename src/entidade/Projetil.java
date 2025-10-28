@@ -7,7 +7,6 @@ public class Projetil extends Entidade{
 
     public Projetil(PainelDoJogo painel) {
         super(painel);
-        
     }
 
     public void setAcao(int mundoX, int mundoY, String direcao, boolean vivo, Entidade usuario){

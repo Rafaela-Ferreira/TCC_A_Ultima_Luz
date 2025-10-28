@@ -29,7 +29,7 @@ public class GerenciadorDeBlocos {
         this.painel = painel;
 
         //ler arquivo de dados do bloco
-        InputStream is = getClass().getResourceAsStream("/mapas/tileData.txt");
+        InputStream is = getClass().getResourceAsStream("/mapas/bancoDeDados.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //obtendo informações de blocos e colisão do arquivo
@@ -51,7 +51,7 @@ public class GerenciadorDeBlocos {
         carregarImagensDosBlocos();
 
         //get the maxmundoCol e row
-        is = getClass().getResourceAsStream("/mapas/mapa1.txt");//mapas de 50x50, 100x100, ou 250x250...
+        is = getClass().getResourceAsStream("/mapas/santuario.txt");//mapas de 50x50, 100x100, ou 250x250...
         br = new BufferedReader(new InputStreamReader(is));
 
         try{
@@ -68,11 +68,12 @@ public class GerenciadorDeBlocos {
             System.out.println("Exceção! Mapa não encontrado!");
         }
 
-        carregarMapa("/mapas/mapa0.txt", 0); //1º fogueira - Altar da aurora partida
-        carregarMapa("/mapas/mapa1.txt", 1); //2º fogueira - praça do despertar
-        carregarMapa("/mapas/mapa2.txt", 2); //3º fogueira - Camera das corrente
-        carregarMapa("/mapas/mapa3.txt", 3); //4º fogueira - Sala do espelho carmesim
-        carregarMapa("/mapas/mapa4.txt", 4); //5º fogueira - Salão do banquete eterno
+        carregarMapa("/mapas/santuario.txt", 0); //1º fogueira - Altar da aurora partida
+        //carregarMapa("/mapas/mapa0.txt", 0); //1º fogueira - Altar da aurora partida
+        //carregarMapa("/mapas/mapa1.txt", 1); //2º fogueira - praça do despertar
+        //carregarMapa("/mapas/mapa2.txt", 2); //3º fogueira - Camera das corrente
+        //carregarMapa("/mapas/mapa3.txt", 3); //4º fogueira - Sala do espelho carmesim
+        //carregarMapa("/mapas/mapa4.txt", 4); //5º fogueira - Salão do banquete eterno
         
         //carregarMapa("/mapas/mapa6.txt", 8); //6º fogueira - Salão do banquete eterno
 

@@ -9,6 +9,7 @@ import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import entidade.Entidade;
-import entidade.NpcGuardiaDosNiveis;
+import entidade.NpcSacerdotizaCega;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
@@ -29,7 +30,7 @@ public class InterfaceDoUsuario {
     PainelDoJogo painel;
     public Font maruMonica, purisaB;
     Graphics2D g2;
-    BufferedImage vidaMaxima, vidaMeio, vidaBranco, cristalCompleto, cristalVazio, moeda; //almas
+    BufferedImage vidaMaxima, vidaMeio, vidaBranco, cristalCompleto, cristalVazio, alma; //almas
     public boolean mensagemAtiva = false;
     //public String mensagem = "";
     //int contadorDeMensagens = 0;
@@ -53,6 +54,7 @@ public class InterfaceDoUsuario {
     public Entidade npc;
     int indicePersonagem = 0;
     String combinandoTexto = "";
+    private float alphaGameOver = 0f; // Controle da transparência (0 a 1)
 
 
 
@@ -88,7 +90,7 @@ public class InterfaceDoUsuario {
         
 
         Entidade moedaDeBronze = new ObjMoedaBronze(painel);
-        moeda = moedaDeBronze.baixo1;
+        alma = moedaDeBronze.baixo1;
 
         //desenharVidaDoJogador();
         //desenharManaDoJogador();
@@ -120,7 +122,7 @@ public class InterfaceDoUsuario {
         if(painel.estadoDoJogo == painel.iniciarEstadoDoJogo){
             desenharVidaDoJogador(); //mudar para um barra, igual a do inimigo
             desenhaVidaDoInimigo();
-            desenharMensagem();
+            //desenharMensagem();
         }
         //PAUSAR
         if(painel.estadoDoJogo == painel.pausarEstadoDoJogo){
@@ -157,7 +159,7 @@ public class InterfaceDoUsuario {
 
         //estado de troca
         if(painel.estadoDoJogo == painel.trocaDeEstado){
-            if (painel.interfaceDoUsuario.npc instanceof NpcGuardiaDosNiveis) {
+            if (painel.interfaceDoUsuario.npc instanceof NpcSacerdotizaCega) {
                 desenharTelaDeTrocaGuardia(); // Só a guardiã
             } else {
                 desenharTelaDeTroca(); // Comerciante ou outros NPCs
@@ -172,41 +174,57 @@ public class InterfaceDoUsuario {
     }
 
     public void desenharTelaDeGameOver(){
-        g2.setColor(new Color(0, 0,0, 150));
+        // Fundo escuro translúcido
+        g2.setColor(new Color(0, 0, 0, 100));
         g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 
-        int x, y;
-        String texto;
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110F));
-        
-        texto = "Game Over";
-        //sombra
-        g2.setColor(Color.black);
-        x = obterTextoXCentralizado(texto);
-        y = painel.tamanhoDoTile*4;
-        g2.drawString(texto, x, y);
+        // Texto principal estilo Dark Souls
+        String texto = "VOCÊ MORREU";
 
-        //main
-        g2.setColor(Color.white);
-        g2.drawString(texto, x-4, y-4);
+        // Aumenta a fonte e aplica o estilo pesado
+        g2.setFont(new Font("Serif", Font.BOLD, 100));
+        int x = obterTextoXCentralizado(texto);
+        int y = painel.alturaTela / 2;
 
-        //reiniciar
-        g2.setFont(g2.getFont().deriveFont(50F));
-        texto = "Reiniciar";
-        x = obterTextoXCentralizado(texto);
-        y += painel.tamanhoDoTile*4;
-        g2.drawString(texto, x, y);
-        if(numeroDoComando == 0){
-            g2.drawString(">", x-40, y);
+        // Faz o fade-in do texto
+        if (alphaGameOver < 1f) {
+        alphaGameOver += 0.01f;
+        }
+        if (alphaGameOver > 1f) {
+            alphaGameOver = 1f; // evita valores acima de 1.0
         }
 
-        //voltar a tela inicial
-        texto = "Sair";
-        x = obterTextoXCentralizado(texto);
-        y += 55;
+        // Cria uma cor vermelha intensa com transparência
+        Color corVermelha = new Color(150, 0, 0, (int) (255 * alphaGameOver));
+        g2.setColor(corVermelha);
+
+        // Desenha leve sombra
+        g2.drawString(texto, x + 3, y + 3);
+        g2.setColor(new Color(255, 0, 0, (int) (255 * alphaGameOver)));
         g2.drawString(texto, x, y);
-        if(numeroDoComando == 1){
-            g2.drawString(">", x-40, y);
+
+        // Exibe as opções após o fade
+        if (alphaGameOver >= 1f) {
+            g2.setFont(new Font("Serif", Font.BOLD, 40));
+
+            // Reiniciar
+            texto = "Reiniciar";
+            x = obterTextoXCentralizado(texto);
+            y += painel.tamanhoDoTile * 3;
+            g2.setColor(Color.WHITE);
+            g2.drawString(texto, x, y);
+            if (numeroDoComando == 0) {
+                g2.drawString(">", x - 50, y);
+            }
+
+            // Sair
+            texto = "Sair";
+            x = obterTextoXCentralizado(texto);
+            y += 60;
+            g2.drawString(texto, x, y);
+            if (numeroDoComando == 1) {
+                g2.drawString(">", x - 50, y);
+            }
         }
     }
 
@@ -274,6 +292,7 @@ public class InterfaceDoUsuario {
         }
     }
     */
+    
     public void desenharVidaDoJogador() {
         int x = 20;
         int y = 20;
@@ -283,43 +302,90 @@ public class InterfaceDoUsuario {
         // A barra cresce um pouco a cada nível (+10 px por nível)
         int largura = larguraBase + (painel.jogador.nivel * 10);
 
-        // barra da VIDA 
+        // VIDA 
         double proporcaoVida = (double) painel.jogador.vida / painel.jogador.vidaMaxima;
         int larguraVida = (int) (largura * proporcaoVida);
 
-        // Fundo
         g2.setColor(new Color(35, 35, 35));
         g2.fillRect(x - 1, y - 1, largura + 2, altura + 2);
 
-        // Barra de vida
         g2.setColor(new Color(255, 0, 30)); // vermelho
         g2.fillRect(x, y, larguraVida, altura);
 
-        // barra da MANA =====
+        // MANA
         int yMana = y + altura + 10; // 10px abaixo da barra de vida
         double proporcaoMana = (double) painel.jogador.mana / painel.jogador.manaMaxima;
         int larguraMana = (int) (largura * proporcaoMana);
 
-        // Fundo da mana
         g2.setColor(new Color(35, 35, 35));
         g2.fillRect(x - 1, yMana - 1, largura + 2, altura + 2);
 
-        // Barra azul
         g2.setColor(new Color(30, 144, 255));
         g2.fillRect(x, yMana, larguraMana, altura);
 
-        // ===== STAMINA =====
+        // STAMINA 
         int yStamina = yMana + altura + 10;
-        double proporcaoStamina = (double) painel.jogador.stamina / painel.jogador.staminaMaxima;
+        double proporcaoStamina = (double) painel.jogador.resistencia / painel.jogador.resistenciaMaxima;
         int larguraStamina = (int) (largura * proporcaoStamina);
 
         g2.setColor(new Color(35, 35, 35));
         g2.fillRect(x - 1, yStamina - 1, largura + 2, altura + 2);
 
-        g2.setColor(new Color(0, 200, 0)); // verde
+        g2.setColor(new Color(0, 200, 0));
         g2.fillRect(x, yStamina, larguraStamina, altura);
 
-        
+        //ESPAÇOS DE INVENTÁRIO RÁPIDO
+        int slotTamanho = 40;
+        int margem = 40;
+        int centroX = margem + slotTamanho;;
+        int centroY = painel.alturaTela - margem - slotTamanho * 2;
+
+        int[][] posicoes = {
+            {0, -slotTamanho}, // CIMA - projetaveis (magia, piromansias, etc...)
+            {0, slotTamanho},  // BAIXO - consumiveis(adiconar mais de um)
+            {-slotTamanho, 0}, // ESQUERDA - escudo
+            {slotTamanho, 0},  // DIREITA - arma
+            {0, 0}             // CENTRO
+        };
+
+        g2.setColor(new Color(0, 0, 0, 0));
+        g2.fillRoundRect(
+            centroX - slotTamanho - 10,
+            centroY - slotTamanho - 10,
+            slotTamanho * 3 + 20,
+            slotTamanho * 3 + 20,
+            20, 20
+        );
+
+        // Desenhar espaços
+        for (int i = 0; i < painel.jogador.itensRapidos.length && i < posicoes.length; i++) {
+            int xs = centroX + posicoes[i][0];
+            int ys = centroY + posicoes[i][1];
+
+            g2.setColor(new Color(70, 70, 70, 100));
+            g2.fillRoundRect(xs, ys, slotTamanho, slotTamanho, 10, 10);
+
+            // Destaque do espaco selecionado
+            if (i == painel.jogador.slotSelecionado) {
+                g2.setColor(new Color(255, 255, 255));
+                g2.setStroke(new BasicStroke(3));
+                g2.drawRoundRect(xs - 2, ys - 2, slotTamanho + 4, slotTamanho + 4, 10, 10);
+            }
+        }
+
+        // ALMAS
+        g2.setFont(new Font("Serif", Font.BOLD, 36));
+        String textoAlmas = String.format("%,d", painel.jogador.alma);
+
+        int larguraTexto = g2.getFontMetrics().stringWidth(textoAlmas);
+        int xTexto = painel.larguraTela - margem - larguraTexto;
+        int yTexto = painel.alturaTela - margem;
+
+        g2.setColor(new Color(0, 0, 0, 150));
+        g2.drawString(textoAlmas, xTexto + 2, yTexto + 2);
+
+        g2.setColor(new Color(255, 255, 255));
+        g2.drawString(textoAlmas, xTexto, yTexto);
     }
 
     
@@ -363,7 +429,6 @@ public class InterfaceDoUsuario {
                     g2.setColor(new Color(255,0,30));
                     g2.fillRect( x, y, (int)valorBarraDeVida, 20);
 
-                    //nome
                     g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24f));
                     g2.setColor(Color.white);
                     g2.drawString(inimigo.nome, x + 4 , y - 10);
@@ -385,19 +450,15 @@ public class InterfaceDoUsuario {
             String msg = mensagens.get(i);
 
             if(msg != null){
-                // === Configuração da caixa ===
                 int larguraCaixa = 500;
                 int alturaCaixa = 80;
 
-                // Centraliza na tela
                 int x = painel.larguraTela/2 - larguraCaixa/2;
-                int y = painel.alturaTela - 200; // aparece mais embaixo
+                int y = painel.alturaTela - 200;
 
-                // Vida da mensagem
                 int contador = contadorDeMensagens.get(i) + 1;
                 contadorDeMensagens.set(i, contador);
 
-                // === Fading ===
                 float alpha = 1.0f;
                 if(contador > 150){ // últimos 30 frames somem
                     alpha = 1.0f - ((contador - 150) / 30f);
@@ -410,15 +471,12 @@ public class InterfaceDoUsuario {
                 );
                 g2.setComposite(ac);
 
-                // Fundo translúcido
                 g2.setColor(new Color(0, 0, 0, 180));
                 g2.fillRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
 
-                // Borda
                 g2.setColor(new Color(200, 200, 200, 200));
                 g2.drawRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
 
-                // Texto centralizado
                 FontMetrics fm = g2.getFontMetrics();
                 int larguraTexto = fm.stringWidth(msg);
                 int alturaTexto = fm.getHeight();
@@ -428,14 +486,12 @@ public class InterfaceDoUsuario {
                 g2.setColor(Color.white);
                 g2.drawString(msg, textoX, textoY);
 
-                // Reseta alpha para o resto do HUD
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
-                // Remove quando acabar
                 if(contador > 180){
                     mensagens.remove(i);
                     contadorDeMensagens.remove(i);
-                    i--; // não pular próximo item
+                    i--;
                 }
             }
         }
@@ -444,7 +500,6 @@ public class InterfaceDoUsuario {
 
     public void desenharTituloNaTela() {
 
-        // Fundo escuro com gradiente leve
         GradientPaint fundo = new GradientPaint(
             0, 0, new Color(10, 10, 10),
             0, painel.alturaTela, new Color(30, 30, 30)
@@ -454,28 +509,24 @@ public class InterfaceDoUsuario {
 
 
         if (estadoDeRolagemTitulo == 0) {
-            // === TELA INICIAL ===
-
+            // TELA INICIAL 
             g2.setFont(new Font("Serif", Font.BOLD, 84));
             String texto = "A ÚLTIMA LUZ";
             int x = obterTextoXCentralizado(texto);
             int y = painel.tamanhoDoTile * 6;
 
-            // sombra profunda
             g2.setColor(new Color(20, 20, 20));
             g2.drawString(texto, x + 6, y + 6);
 
-            // Título branco com leve brilho
             g2.setColor(new Color(235, 235, 235));
             g2.drawString(texto, x, y);
             
-            // === EFEITO DE RISCO NO TÍTULO ===
             g2.setStroke(new BasicStroke(2));
             g2.setColor(new Color(235, 235, 235, 100));
             int riscoY = y - 25;
             g2.drawLine(x - 30, riscoY, x + g2.getFontMetrics().stringWidth(texto) + 30, riscoY);
 
-            // === MENU ===
+            // MENU 
             g2.setFont(new Font("Serif", Font.PLAIN, 20));
             g2.setColor(new Color(200, 200, 200));
 
@@ -486,7 +537,6 @@ public class InterfaceDoUsuario {
                 texto = opcoes[i];
                 x = obterTextoXCentralizado(texto);
 
-                // se selecionado, aplica brilho âmbar
                 if (numeroDoComando == i) {
                     g2.setColor(new Color(255, 140, 40));
                     g2.drawString(">", x - painel.tamanhoDoTile, y);
@@ -498,7 +548,6 @@ public class InterfaceDoUsuario {
                 y += painel.tamanhoDoTile;
             }
 
-            // pequenas cinzas caindo (efeito visual leve)
             g2.setColor(new Color(255, 255, 255, 60));
             for (int i = 0; i < 40; i++) {
                 int ax = (int) (Math.random() * painel.larguraTela);
@@ -507,7 +556,7 @@ public class InterfaceDoUsuario {
             }
 
         } else if (estadoDeRolagemTitulo == 1) {
-            // === TELA DE CLASSES ===
+            // TELA DE CLASSES
             RadialGradientPaint gradiente = new RadialGradientPaint(
                 new Point2D.Float(painel.larguraTela / 2f, painel.alturaTela / 2f),
                 painel.larguraTela / 1.2f,
@@ -517,7 +566,7 @@ public class InterfaceDoUsuario {
             g2.setPaint(gradiente);
             g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 
-            // === TÍTULO ===
+            // TÍTULO
             g2.setFont(new Font("Serif", Font.BOLD, 46));
             String titulo = "ESCOLHA SUA CLASSE";
             int xTitulo = obterTextoXCentralizado(titulo);
@@ -526,7 +575,6 @@ public class InterfaceDoUsuario {
             g2.setColor(new Color(230, 230, 230));
             g2.drawString(titulo, xTitulo, yTitulo);
 
-            //  Imagem do jogador
             if (painel.jogador.baixo1 != null) {
                 int imgX = painel.tamanhoDoTile * 3;
                 int imgY = painel.tamanhoDoTile * 5;
@@ -536,7 +584,7 @@ public class InterfaceDoUsuario {
             }
 
             g2.setFont(new Font("Serif", Font.PLAIN, 20));
-            String[] classes = {"Lutador", "Ladrão", "Feiticeiro", "Voltar"};
+            String[] classes = {"Guerreiro","Ladrão", "Mago", "Piromante", "Voltar"};
 
             int baseY = painel.tamanhoDoTile * 5;
             int margemDireita = painel.tamanhoDoTile * 5;
@@ -558,12 +606,13 @@ public class InterfaceDoUsuario {
                 g2.drawString(texto, x, y);
             }
 
-            // === DESCRIÇÃO ABAIXO DA LISTA ===
+            // DESCRIÇÃO
             g2.setFont(new Font("Serif", Font.ITALIC, 20));
             String descricao = switch (numeroDoComando) {
                 case 0 -> "Um guerreiro equilibrado, forte e resistente.";
                 case 1 -> "Rápido e furtivo, mestre em ataques precisos.";
                 case 2 -> "Manipula as forças arcanas com sabedoria e poder.";
+                case 3 -> "Consegue controlar o fogo e causar danos explosivos aos inimigos.";
                 default -> "";
             };
 
@@ -593,11 +642,11 @@ public class InterfaceDoUsuario {
         int y = painel.alturaTela - altura - painel.tamanhoDoTile;
 
         
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f)); // leve transparência
-        g2.setColor(new Color(0, 0, 0, 200)); // fundo preto translúcido
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+        g2.setColor(new Color(0, 0, 0, 200));
         g2.fillRoundRect(x, y, largura, altura, 25, 25);
 
-        g2.setColor(new Color(200, 200, 200, 180)); // borda cinza clara
+        g2.setColor(new Color(200, 200, 200, 180));
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(x, y, largura, altura, 25, 25);
 
@@ -654,9 +703,9 @@ public class InterfaceDoUsuario {
     public void desenharPersonagemTela(){
         //criar frames
         final int frameX = painel.tamanhoDoTile *2;
-        final int frameY = painel.tamanhoDoTile;
+        final int frameY = painel.tamanhoDoTile - 23;
         final int frameLargura = painel.tamanhoDoTile*5;
-        final int frameAltura = painel.tamanhoDoTile*10;
+        final int frameAltura = painel.tamanhoDoTile*12;
 
         desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
 
@@ -664,7 +713,7 @@ public class InterfaceDoUsuario {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
         
-        int textoX = frameX + 20;
+        int textoX = frameX + 30;
         int textoY = frameY  + painel.tamanhoDoTile;
         final int linhaAltura = 35;
 
@@ -674,6 +723,8 @@ public class InterfaceDoUsuario {
         g2.drawString("Vida", textoX, textoY);
         textoY += linhaAltura;
         g2.drawString("Mana", textoX, textoY);
+        textoY += linhaAltura;
+        g2.drawString("Resistência", textoX, textoY);//stamina ou energia
         textoY += linhaAltura;
         g2.drawString("Força", textoX, textoY);
         textoY += linhaAltura;
@@ -687,7 +738,9 @@ public class InterfaceDoUsuario {
         textoY += linhaAltura;
         g2.drawString("Proximo nivel", textoX, textoY);
         textoY += linhaAltura;
-        g2.drawString("Moeda", textoX, textoY);
+        g2.drawString("Fragmentos", textoX, textoY);
+        textoY += linhaAltura;
+        g2.drawString("Almas", textoX, textoY);
         textoY += linhaAltura +10;
         g2.drawString("Arma", textoX, textoY);
         textoY += linhaAltura +15;
@@ -707,12 +760,17 @@ public class InterfaceDoUsuario {
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
-        valor = String.valueOf(painel.jogador.vida + "/" + painel.jogador.vidaMaxima);
+        valor = String.valueOf(painel.jogador.vidaMaxima);
         textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
-        valor = String.valueOf(painel.jogador.mana+ "/" + painel.jogador.manaMaxima);
+        valor = String.valueOf(painel.jogador.manaMaxima);
+        textoX = obterTextoXDireita(valor, bordaX);
+        g2.drawString(valor, textoX, textoY);
+        textoY += linhaAltura;
+
+        valor = String.valueOf(painel.jogador.resistenciaMaxima);
         textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
@@ -743,6 +801,11 @@ public class InterfaceDoUsuario {
         textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.proximoNivelExp);
+        textoX = obterTextoXDireita(valor, bordaX);
+        g2.drawString(valor, textoX, textoY);
+        textoY += linhaAltura;
+
+        valor = String.valueOf(painel.jogador.fragmentoDaEspada);
         textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
@@ -860,11 +923,13 @@ public class InterfaceDoUsuario {
             int DframeLargura = frameLargura;
             int DframeAltura = painel.tamanhoDoTile*3;
             
-            
-            //desehar a descrição do item
-            int tentoX = DframeX + 20;
-            int textoY = DframeY + 40;
+            // definir cor do texto **após desenhar o fundo**
             g2.setFont(g2.getFont().deriveFont(28F));
+            g2.setColor(Color.white);
+
+            int textoX = DframeX + 20;
+            int textoY = DframeY + 40;
+           
 
             //pegar o item selecionado
             int itemSelecionado = pegarItemSelecionado(espacoColuna, espacoLinha);
@@ -872,12 +937,12 @@ public class InterfaceDoUsuario {
                 desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
                 
                 for(String linha : entidade.inventario.get(itemSelecionado).descricao.split("\n")){
-                    g2.drawString(linha, tentoX, textoY);
+                    g2.drawString(linha, textoX, textoY);
                     textoY += 32;
                 }
                 
                 //durabilidade - fazer uma verificação para atribuir a todos os objetos
-                g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, tentoX, textoY+20);
+                g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, textoX, textoY+20);
             }
             
         }
@@ -1044,10 +1109,10 @@ public class InterfaceDoUsuario {
 
         textoX = frameX + painel.tamanhoDoTile;
         textoY += painel.tamanhoDoTile;
-        g2.drawString("Move", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("Mover", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("Confirm/ataque", textoX, textoY); textoY+=painel.tamanhoDoTile;
-        g2.drawString("atirar/cast", textoX, textoY); textoY+=painel.tamanhoDoTile;
-        g2.drawString("chacarter screen", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("Projetável", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("Inventário", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("Pause", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("Opções", textoX, textoY); textoY+=painel.tamanhoDoTile;
 
@@ -1074,6 +1139,7 @@ public class InterfaceDoUsuario {
         }
 
     }
+
     public void opcao_sairConfirmarJogo(int frameX, int frameY){
         int textoX = frameX + painel.tamanhoDoTile;
         int textoY = frameY + painel.tamanhoDoTile*3;
@@ -1145,6 +1211,7 @@ public class InterfaceDoUsuario {
 
     }
     
+    //inventario do npc comerciante
     public void selecionarTroca(){
         
         npc.setDialogo = 0;
@@ -1220,7 +1287,7 @@ public class InterfaceDoUsuario {
             width = (int)(painel.tamanhoDoTile*2.5);
             height = painel.tamanhoDoTile;
             desenharSubJanela(x, y, width, height);
-            g2.drawImage(moeda, x+10, y+8, 32, 32,null);
+            g2.drawImage(alma, x+10, y+8, 32, 32,null);
 
             int preco = npc.inventario.get(indeceItem).preco;
             String texto = "" + preco;
@@ -1280,7 +1347,7 @@ public class InterfaceDoUsuario {
             width = (int)(painel.tamanhoDoTile*2.5);
             height = painel.tamanhoDoTile;
             desenharSubJanela(x, y, width, height);
-            g2.drawImage(moeda, x+10, y+8, 32, 32,null);
+            g2.drawImage(alma, x+10, y+8, 32, 32,null);
 
             int preco = painel.jogador.inventario.get(indeceItem).preco/2;
             String texto = "" + preco;
@@ -1402,7 +1469,7 @@ public class InterfaceDoUsuario {
 
         // Custo dinâmico
         int custo = 0;
-        if (npc instanceof NpcGuardiaDosNiveis guardia) {
+        if (npc instanceof NpcSacerdotizaCega guardia) {
             custo = guardia.calcularCustoParaSubirNivel();
         }
 
@@ -1420,7 +1487,7 @@ public class InterfaceDoUsuario {
 
         // Confirmar subida de nível
         if (painel.teclado.precionarEnter) {
-            if (npc instanceof NpcGuardiaDosNiveis guardia) {
+            if (npc instanceof NpcSacerdotizaCega guardia) {
                 guardia.tentarSubirNivel();
             }
             subEstadoGuardia = 0; // volta para o menu principal
@@ -1474,8 +1541,8 @@ public class InterfaceDoUsuario {
         
         // Fundo translúcido (leve degradê pra dar profundidade)
         GradientPaint gradiente = new GradientPaint(
-            x, y, new Color(0, 0, 0, 220), 
-            x, y + altura, new Color(20, 20, 20, 180)
+            x, y, new Color(0, 0, 0), 
+            x, y + altura, new Color(20, 20, 20)
         );
         g2.setPaint(gradiente);
         g2.fillRoundRect(x, y, largura, altura, 35, 35);
@@ -1485,6 +1552,8 @@ public class InterfaceDoUsuario {
         g2.setColor(borda);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(x + 5, y + 5, largura - 10, altura - 10, 25, 25);
+
+        g2.setPaint(null);
     }
 
     public void desenharTelaDePausa(){

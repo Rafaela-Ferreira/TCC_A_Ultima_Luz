@@ -31,12 +31,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
     
     public final int tamanhoDoTile = tamanhoOriginalDoTile * escala; // Tile de 48x48 pixels
     public final int maxColunasTela = 20;
-    public final int maxLinhasTela = 12;
+    public final int maxLinhasTela = 13;
 
     public final int larguraTela = tamanhoDoTile * maxColunasTela; // 960 pixels
     public final int alturaTela = tamanhoDoTile * maxLinhasTela; // 576 pixels
 
-    //world settings
+    //criar o mundo
     public  int maxColunasMundo; // Número máximo de colunas no mundo
     public  int maxLinhasMundo; // Número máximo de linhas no mundo
     public final int maxMapa = 10; //qtd de mapas - ajustar conforme necessidade
@@ -79,7 +79,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public Entidade inimigo[][] = new Entidade[maxMapa][20]; //20 inimigo ao mesmo tempo
     public BlocosInterativos blocosI[][] = new BlocosInterativos[maxMapa][50];
     public Entidade projetavel[][] = new Entidade[maxMapa][20];
-    //public ArrayList<Entidade> listaProjetil = new ArrayList<>();
     public ArrayList<Entidade> listaParticula = new ArrayList<>();
     ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
    
@@ -99,6 +98,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoDormir = 9;
     public final int estadoMapa = 10;
     public final int estadoCutscene = 11;
+
+    public boolean personagemAtivo = false;
+    public boolean mapaAtivo = false;
+    public boolean opcoesAtivas = false;
+    
 
     public ObjChuva chuva;
     
@@ -148,7 +152,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
         chuva = new ObjChuva(this);
         chuva.setAtiva(areaAtual == fora);
         
-        
     }
     
     public void  reiniciarJogo(boolean reiniciar){
@@ -156,8 +159,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
         areaAtual = fora; // não queremos retornar a posição padrão, queremos retornar no ultimo ponto salvo
         removerTempDaEntidade();
         batalhaComChefeAtiva = false;
-        jogador.setPosicaoPadrao();
+        //jogador.setPosicaoPadrao();
+        jogador.renascerNoUltimoPonto();
         jogador.restaltarStatus();
+
+        jogador.almasNoChao = false;
+        jogador.almasPerdidas = 0;
+
         jogador.reiniciarContador();
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
@@ -332,6 +340,12 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
 
         }
+
+        if (estadoDoJogo == estadoCutscene) {
+            gerenciadorDeCutscene.desenhar(g2);
+        }
+
+
         if(estadoDoJogo == pausarEstadoDoJogo){
 
         }
@@ -444,37 +458,55 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             //Cutscene
             gerenciadorDeCutscene.desenhar(g2);
-
             
 
-            
+            if (jogador.almasNoChao) {
+                int telaX = jogador.almaX - jogador.mundoX + jogador.telaX;
+                int telaY = jogador.almaY - jogador.mundoY + jogador.telaY;
 
+                // Efeito visual das almas
+                g2.setColor(new Color(100, 200, 255, 180));
+                g2.fillOval(telaX - 10, telaY - 10, 20, 20);
+                g2.setColor(new Color(255, 255, 255, 200));
+                g2.setFont(new Font("Serif", Font.BOLD, 18));
+                g2.drawString("✧", telaX - 5, telaY + 5);
+            }
+
+            
+            // Desenha inventário rápido
+            interfaceDoUsuario.desenharVidaDoJogador();
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);
+
+            
 
             //DEBUG
             if(teclado.mostrarTextoDebug == true){
                 long desenhoFinal = System.nanoTime();
                 long tempoDeDesenho = desenhoFinal - desenhoInicio;
-                g2.setFont(new Font("Arial", Font.PLAIN, 26));
+                g2.setFont(new Font("Serif", Font.BOLD, 26));
                 g2.setColor(Color.white);
                 int x = 10;
-                int y = 400;
+                int y = 270;
                 int linhaAltura = 20;
-                g2.drawString("mundoX" + jogador.mundoX, x, y); y += linhaAltura;
-                g2.drawString("mundoY" + jogador.mundoY, x, y); y += linhaAltura;
+                g2.drawString("MundoX" + jogador.mundoX, x, y); y += linhaAltura;
+                g2.drawString("MundoY" + jogador.mundoY, x, y); y += linhaAltura;
                 g2.drawString("Coluna" + (jogador.mundoX + jogador.areaSolida.x) / tamanhoDoTile, x, y); y += linhaAltura;
                 g2.drawString("Linha" + (jogador.mundoY + jogador.areaSolida.y) / tamanhoDoTile, x, y); y += linhaAltura;
                 g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y); y += linhaAltura;
-                g2.drawString("Modo de DeBug: " + teclado.modoDebugAtivo, x, y);
+                g2.drawString("Modo de DEBUG: " + teclado.modoDebugAtivo, x, y);
                 
 
             }
+
+
 
            
         }
         
     }
+
+    
 
     /*
     public void paintComponent(Graphics g) {

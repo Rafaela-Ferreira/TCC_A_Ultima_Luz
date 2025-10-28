@@ -81,8 +81,8 @@ public class Entidade {
     public int vida;
     public int manaMaxima;
     public int mana;
-    public int stamina;
-    public int staminaMaxima;
+    public int resistencia;
+    public int resistenciaMaxima;
     public int municao;
     public int nivel;
     public int forca;
@@ -92,6 +92,9 @@ public class Entidade {
     public int exp;
     public int proximoNivelExp;
     public int alma;
+    public boolean almasNoChao;
+    public int almasPerdidas;
+    public int almaX, almaY;
     public int direcaoDoMovimento1; //orc - ataque padrão
     public int direcaoDoMovimento2; //orc - ataque pesado
     public Entidade armaAtual;
@@ -99,6 +102,7 @@ public class Entidade {
     public Entidade luzAtual;
     public Projetil projetil;
     public boolean chefe;
+    public int fragmentoDaEspada;
 
     //atributos dos Itens
     //inventario
@@ -130,6 +134,8 @@ public class Entidade {
     public final int tipoIliminacao = 9;
     public final int tipoPicareta = 10;
     public final int tipoChuva = 11;
+    public final int tipoProjetil = 12;
+    public final int tipoFragmento = 13;
 
 
     public Entidade(PainelDoJogo painel){
