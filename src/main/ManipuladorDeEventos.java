@@ -90,26 +90,50 @@ public class ManipuladorDeEventos {
                 buracoDeDano(painel.estadoDoDialogo);
             }
 
-            //mapa 1 - Altar da aurora partida
 
+
+            //MAPA 0 - 1 Praça do despertar
+            //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
+            else if(bater(0, 37,8, "any") == true){
+                teleporteMapa(1, 37,8, painel.fora);
+
+            }
+            //teleporte entre mapas do 1 para o 0 - Altar da aurora partida - volta
+            else if(bater(1, 37,8, "any") == true){
+                teleporteMapa(0, 37,8, painel.fora);
+            }
+
+            //MAPA 1 - 1.1 Altar da aurora partida
             //fogueira - Altar da aurora partida
             else if(bater(0, 11,10, "any") == true){
                 //nomeDaFogueira = "[Altar da Aurora Partida]";
                 fogueira(3, painel.estadoDoDialogo);
             }
-            //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
-            else if(bater(0, 40,44, "any") == true){
-                teleporteMapa(1, 10,39, painel.fora);
+            //teleporte entre mapas do 1 para o 2 - Altar da aurora partida - ida
+            else if(bater(1, 35,40, "any") == true){
+                teleporteMapa(2, 10,39, painel.fora);
 
             }
-            //teleporte entre mapas do 1 para o 0 - Altar da aurora partida - volta
-            else if(bater(1, 10,39, "any") == true){
-                teleporteMapa(0, 40,44, painel.fora);
+            //teleporte entre mapas do 1 para o 0 - Escadaria Ruída - volta
+            else if(bater(2, 10,39, "any") == true){
+                teleporteMapa(1, 35,40, painel.fora);
             }
 
-            //mapa 2 - Praça do Despertar
+            //MAPA 2 - 1.2 Escadaria Ruída
+            //teleporte entre mapas do 1 para o 2 - Escadaria Ruída - ida
+            else if(bater(2, 35,40, "any") == true){
+                teleporteMapa(3, 35,40, painel.fora);
 
-            //fogueira - Praça do Despertar
+            }
+            //teleporte entre mapas do 1 para o 0 - Ladeira Dos Pilares Quebrados - volta
+            else if(bater(3, 35,40, "any") == true){
+                teleporteMapa(2, 35,40, painel.fora);
+            }
+
+
+            //MAPA 2 - 1.3 Ladeira Dos Pilares Quebrados
+
+            //fogueira 
             else if(bater(1, 11,37, "any") == true){
                 //teleporteMapa(4, 10,39, painel.fora);
                 fogueira(4, painel.estadoDoDialogo);

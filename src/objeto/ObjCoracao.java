@@ -6,7 +6,7 @@ import entidade.Entidade;
 import main.PainelDoJogo;
 
 public class ObjCoracao extends Entidade{
-    
+    //pagar esse objeto - usar poção de vida
     PainelDoJogo painel;
     public static final String objNome =  "Coracao";
 

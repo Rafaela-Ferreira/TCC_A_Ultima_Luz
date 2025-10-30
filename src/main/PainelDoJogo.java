@@ -474,7 +474,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             
             // Desenha inventário rápido
-            interfaceDoUsuario.desenharVidaDoJogador();
+            interfaceDoUsuario.desenharHUD_DoJogador();
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);
 

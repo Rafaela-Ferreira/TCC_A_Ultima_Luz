@@ -135,7 +135,6 @@ public class Entidade {
     public final int tipoPicareta = 10;
     public final int tipoChuva = 11;
     public final int tipoProjetil = 12;
-    public final int tipoFragmento = 13;
 
 
     public Entidade(PainelDoJogo painel){

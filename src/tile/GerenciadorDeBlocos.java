@@ -29,7 +29,7 @@ public class GerenciadorDeBlocos {
         this.painel = painel;
 
         //ler arquivo de dados do bloco
-        InputStream is = getClass().getResourceAsStream("/mapas/bancoDeDados.txt");
+        InputStream is = getClass().getResourceAsStream("/mapas/Banco.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //obtendo informações de blocos e colisão do arquivo
@@ -51,7 +51,7 @@ public class GerenciadorDeBlocos {
         carregarImagensDosBlocos();
 
         //get the maxmundoCol e row
-        is = getClass().getResourceAsStream("/mapas/santuario.txt");//mapas de 50x50, 100x100, ou 250x250...
+        is = getClass().getResourceAsStream("/mapas/PracaDoDespertar.txt");//mapas de 50x50, 100x100, ou 250x250...
         br = new BufferedReader(new InputStreamReader(is));
 
         try{
@@ -68,7 +68,14 @@ public class GerenciadorDeBlocos {
             System.out.println("Exceção! Mapa não encontrado!");
         }
 
-        carregarMapa("/mapas/santuario.txt", 0); //1º fogueira - Altar da aurora partida
+        carregarMapa("/mapas/PracaDoDespertar.txt", 0); // 1 Praça do despertar
+        carregarMapa("/mapas/AltarDaAuroraPartida.txt", 1); // 1.1 Altar Da Aurora Partida
+        carregarMapa("/mapas/EscadariaRuida.txt", 2); // 1.2 Escadaria Ruida
+        carregarMapa("/mapas/LadeiraDosPilaresQuebrados.txt", 3); // 1.3 Ladeira Dos Pilares Quebrados
+        carregarMapa("/mapas/PortaoSilencioso.txt", 4); // 1.4 Portão Silencioso (três possiveis caminhos, 1.5, 1.6 e 1.7)
+        
+        
+        
         //carregarMapa("/mapas/mapa0.txt", 0); //1º fogueira - Altar da aurora partida
         //carregarMapa("/mapas/mapa1.txt", 1); //2º fogueira - praça do despertar
         //carregarMapa("/mapas/mapa2.txt", 2); //3º fogueira - Camera das corrente

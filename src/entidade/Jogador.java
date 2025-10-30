@@ -139,8 +139,9 @@ public class Jogador extends Entidade {
         exp = 0;
         proximoNivelExp = 1;
         proximoNivelExp = proximoNivelExp+nivel;
-
+        
         fragmentoDaEspada = 0;
+
 
         if (!almasNoChao) {
             alma = 100;
@@ -500,11 +501,11 @@ public class Jogador extends Entidade {
 
     public void deixarAlmasNoChao() {
         if (almasNoChao) {
-            System.out.println("As almas antigas foram perdidas permanentemente!");
+            //System.out.println("As almas antigas foram perdidas permanentemente!");
             almasPerdidas = 0;
             almasNoChao = false;
         } else {
-            System.out.println("Almas deixadas no chão!");
+            //System.out.println("Almas deixadas no chão!");
             almasPerdidas = alma;
             alma = 0;
             almaX = mundoX;
@@ -542,6 +543,7 @@ public class Jogador extends Entidade {
                 painel.Obj[painel.mapaAtual][indice].usar(this);
                 painel.Obj[painel.mapaAtual][indice]= null;
             }
+
             //Obstaculo
             else if(painel.Obj[painel.mapaAtual][indice].tipo == tipoObstaculo){
                 if(teclado.precionarEnter == true){
@@ -557,7 +559,7 @@ public class Jogador extends Entidade {
 
                 if(podeObterItem(painel.Obj[painel.mapaAtual][indice]) == true){
                     painel.iniciarEfeitoSonoro(1);
-                    texto = "Tenho uma " + painel.Obj[painel.mapaAtual][indice].nome + "!";
+                    texto = "Item coletado " + painel.Obj[painel.mapaAtual][indice].nome + "!";
                 }else{
                     texto = "você não pode carregar mais nada!";
                 }
@@ -683,11 +685,11 @@ public class Jogador extends Entidade {
     public void morrer() {
        //if (painel.estadoDoJogo == painel.estadoGameOver) return;
 
-        System.out.println("Jogador morreu. Almas antes: " + alma);
+        //System.out.println("Jogador morreu. Almas antes: " + alma);
 
         // Verifica se já havia almas no chão e não foram recuperadas
         if (almasNoChao) {
-            System.out.println("Almas não recuperadas foram perdidas permanentemente!");
+            //System.out.println("Almas não recuperadas foram perdidas permanentemente!");
             painel.interfaceDoUsuario.adicionarMensagem("Almas não recuperadas foram perdidas!");
             // Remove as almas antigas do mapa
             for (int i = 0; i < painel.Obj[painel.mapaAtual].length; i++) {

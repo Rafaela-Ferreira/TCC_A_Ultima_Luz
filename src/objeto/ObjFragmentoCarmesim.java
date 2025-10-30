@@ -12,7 +12,7 @@ public class ObjFragmentoCarmesim extends Entidade{
         super(painel);
         this.painel = painel;
 
-        tipo = tipoFragmento;
+        tipo = tipoConsumivel;
         nome = objNome;
         valor = 1;
         baixo1 = setup("/img/objetos/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
@@ -21,9 +21,8 @@ public class ObjFragmentoCarmesim extends Entidade{
     
     public boolean usar(Entidade entidade){
         painel.iniciarEfeitoSonoro(1);
-        //painel.interfaceDoUsuario.adicionarMensagem("Fragmento da Espada +" + valor);
+        painel.interfaceDoUsuario.adicionarMensagem("Fragmento da Espada +" + valor);
         painel.jogador.fragmentoDaEspada += valor; 
-
         return true;
     }
 }

@@ -46,9 +46,6 @@ public class Iluminacao {
             int centroX = painel.jogador.telaX + (painel.tamanhoDoTile) / 2;
             int centroY = painel.jogador.telaY + (painel.tamanhoDoTile) / 2;
 
-            
-
-
             //crie um efeito de gradação dentro do círculo de luz
             Color cor[] = new Color[12];
             float fracao[] = new float[12];
@@ -110,7 +107,7 @@ public class Iluminacao {
             contadorDia++;
 
             //36.000 = 10 minutos para anoitecer
-            if(contadorDia > 600){
+            if(contadorDia > 36000){
                 estadoDia = anoitecer;
                 contadorDia= 0;
             }
@@ -127,7 +124,7 @@ public class Iluminacao {
             contadorDia++;
 
             //36.000 = 10 minutos para amanhecer
-            if(contadorDia > 600){
+            if(contadorDia > 36000){
                 estadoDia = amanhecer;
                 contadorDia = 0;
             }
@@ -155,7 +152,7 @@ public class Iluminacao {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 
-        //debgu
+        /*debug
         String situacao = "";
 
         switch (estadoDia) {
@@ -169,5 +166,6 @@ public class Iluminacao {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));
         g2.drawString(situacao, 700, 500);
+        */
     }
 }

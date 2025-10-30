@@ -5,6 +5,7 @@ import main.PainelDoJogo;
 
 public class ObjMana extends Entidade{
 
+    //pagar esse objeto - usar poção de mana
     PainelDoJogo painel;
     public static final String objNome = "Mana";
 

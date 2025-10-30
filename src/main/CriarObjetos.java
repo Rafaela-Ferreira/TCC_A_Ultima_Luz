@@ -2,17 +2,18 @@ package main;
 
 import dados.Progresso;
 import entidade.NpcComerciante;
+import entidade.NpcEstatuaRainhaAmelia;
 import entidade.NpcFantasma;
 
 import entidade.NpcPedraGrande;
-import entidade.NpcSacerdotizaCega;
+
 import entidade.NpcVelho;
 import main.inimigo.InimigoMorcego;
 import main.inimigo.InimigoOrc;
 import main.inimigo.LodoVerde;
 import main.inimigo.LodoVermelho;
 import main.inimigo.chefao.SenhorEsqueleto;
-import main.inimigo.chefao.SenhorEsqueleto2;
+
 import objeto.ObjAlma;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
@@ -20,12 +21,8 @@ import objeto.ObjChave;
 import objeto.ObjCoracao;
 import objeto.ObjDiamente;
 import objeto.ObjEscudoAzul;
-import objeto.ObjFragmentoCarmesim;
-import objeto.ObjFragmentoCoracaoDaLamina;
-import objeto.ObjFragmentoFaminto;
-import objeto.ObjFragmentoFlamejante;
-import objeto.ObjFragmentoOnirico;
-import objeto.ObjFragmentoSombrio;
+
+
 import objeto.ObjTocha;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
@@ -35,6 +32,7 @@ import objeto.ObjPicareta;
 import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
+
 import tile.blocosInterativos.ArvoreSeca;
 import tile.blocosInterativos.Fogueira;
 import tile.blocosInterativos.ParedeDestrutivel;
@@ -49,7 +47,7 @@ public class CriarObjetos {
     }
 
     public void setarObjetos() {
-
+        /* 
         int numeroMapa = 0;
         int i = 0;
         painel.Obj[numeroMapa][i] = new ObjTocha(painel);
@@ -97,6 +95,7 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*15;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
         i++;
+        */
 
         /* 
         //como adicionar objetos ao array de objetos
@@ -255,10 +254,30 @@ public class CriarObjetos {
 
         painel.blocosI[numeroMapa][i] = new Tocha(painel, 15,9); i++;
 
-        painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,9); i++;
-        painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,10); i++;
-        painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,11); i++;
-        painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,12); i++;
+        //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,9); i++;
+        //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,10); i++;
+        //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,11); i++;
+       // painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,12); i++;
+
+
+        //agua tranparente - retomar depois - fazer os blocos de terra novos, sem colisão.
+       // painel.blocosI[numeroMapa][i] = new Agua_01(painel, 30,15); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_02(painel, 31,15); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_02(painel, 32,15); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_02(painel, 33,15); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_03(painel, 34,15); i++;
+        
+       // painel.blocosI[numeroMapa][i] = new Agua_04(painel, 30,16); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_00(painel, 31,16); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_00(painel, 32,16); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_00(painel, 33,16); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_05(painel, 34,16); i++;
+        
+       // painel.blocosI[numeroMapa][i] = new Agua_06(painel, 30,17); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_07(painel, 31,17); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_07(painel, 32,17); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_07(painel, 33,17); i++;
+       // painel.blocosI[numeroMapa][i] = new Agua_08(painel, 34,17); i++;
         
         /* 
         int numeroMapa = 0;
@@ -310,6 +329,17 @@ public class CriarObjetos {
 
     public void setNpc(){
         
+        int numeroMapa = 1;
+        int i = 0;
+
+        // mapa 0: Tela Inicial do jogo
+        painel.npc[numeroMapa][i] = new NpcEstatuaRainhaAmelia(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
+        i++;
+
+
+        /* 
         int numeroMapa = 0;
         int i = 0;
 
@@ -319,16 +349,18 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
         i++;
 
+        //npc novo - fantasma
         painel.npc[numeroMapa][i] = new NpcFantasma(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*11;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*11;
         i++;
 
-
+        //npc novo - sacerdotiza cega
         painel.npc[numeroMapa][i] = new NpcSacerdotizaCega(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*15;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*11;
         i++;
+        */
 
         /* 
         //mapa 1: Sala do comerciante
@@ -363,7 +395,7 @@ public class CriarObjetos {
     }
 
     public void setInimigos(){
-
+        /* 
         int numeroMapa = 0;
         int i = 0;
         painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
@@ -371,12 +403,12 @@ public class CriarObjetos {
         painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
         i++;
         
-        /* 
+        
         painel.inimigo[numeroMapa][i] = new SenhorEsqueleto(painel);
         painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
         painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*16;
         i++;
-        */
+        
 
 
         numeroMapa = 1;

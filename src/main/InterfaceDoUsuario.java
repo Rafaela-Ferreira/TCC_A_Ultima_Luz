@@ -30,7 +30,7 @@ public class InterfaceDoUsuario {
     PainelDoJogo painel;
     public Font maruMonica, purisaB;
     Graphics2D g2;
-    BufferedImage vidaMaxima, vidaMeio, vidaBranco, cristalCompleto, cristalVazio, alma; //almas
+    BufferedImage vidaMaxima, vidaMeio,  alma; //almas
     public boolean mensagemAtiva = false;
     //public String mensagem = "";
     //int contadorDeMensagens = 0;
@@ -73,32 +73,8 @@ public class InterfaceDoUsuario {
         }catch(IOException e){
 
         }
-
-        //criar HUD Heads-Up Display 
-        //é uma interface que exibe informações relevantes para o jogador, 
-        //como vida, munição, mapa, etc., diretamente na tela, sobrepondo-se à imagem do jogo
        
-        
-        Entidade coracao = new ObjCoracao(painel);
-        vidaMaxima = coracao.imagem;
-        vidaMeio = coracao.imagem2;
-        vidaBranco = coracao.imagem3;
-
-        Entidade cristal = new ObjMana(painel);
-        cristalCompleto = cristal.imagem;
-        cristalVazio = cristal.imagem2;
-        
-
-        Entidade moedaDeBronze = new ObjMoedaBronze(painel);
-        alma = moedaDeBronze.baixo1;
-
-        //desenharVidaDoJogador();
-        //desenharManaDoJogador();
-        
     }
-
-    
-
 
 
     
@@ -120,25 +96,25 @@ public class InterfaceDoUsuario {
 
         //Estado jogador
         if(painel.estadoDoJogo == painel.iniciarEstadoDoJogo){
-            desenharVidaDoJogador(); //mudar para um barra, igual a do inimigo
+            desenharHUD_DoJogador(); 
             desenhaVidaDoInimigo();
-            //desenharMensagem();
+            desenharMensagem();
         }
         //PAUSAR
         if(painel.estadoDoJogo == painel.pausarEstadoDoJogo){
-            desenharVidaDoJogador();
-            desenharTelaDePausa();
+            //desenharHUD_DoJogador();
+           // desenharTelaDePausa();
         }
 
         //DIALOGO
         if(painel.estadoDoJogo == painel.estadoDoDialogo){
-            //desenharVidaDoJogador();
+            //desenharHUD_DoJogador();
             desenharDialogoNaTela();
         }
 
         //estado do personagem
         if(painel.estadoDoJogo == painel.estadoPersonagem){
-            desenharPersonagemTela();
+            desenharTelaStatusDoJogador();
             desenhaInventario( painel.jogador, true);
         }
 
@@ -293,7 +269,7 @@ public class InterfaceDoUsuario {
     }
     */
     
-    public void desenharVidaDoJogador() {
+    public void desenharHUD_DoJogador() {
         int x = 20;
         int y = 20;
         int larguraBase = 200;
@@ -454,7 +430,7 @@ public class InterfaceDoUsuario {
                 int alturaCaixa = 80;
 
                 int x = painel.larguraTela/2 - larguraCaixa/2;
-                int y = painel.alturaTela - 200;
+                int y = painel.alturaTela - 100;
 
                 int contador = contadorDeMensagens.get(i) + 1;
                 contadorDeMensagens.set(i, contador);
@@ -466,8 +442,8 @@ public class InterfaceDoUsuario {
 
                 // aplica alpha
                 AlphaComposite ac = AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER,
-                        Math.max(alpha, 0)
+                    AlphaComposite.SRC_OVER,
+                    Math.max(alpha, 0)
                 );
                 g2.setComposite(ac);
 
@@ -700,7 +676,7 @@ public class InterfaceDoUsuario {
         
     }
 
-    public void desenharPersonagemTela(){
+    public void desenharTelaStatusDoJogador(){
         //criar frames
         final int frameX = painel.tamanhoDoTile *2;
         final int frameY = painel.tamanhoDoTile - 23;
@@ -738,7 +714,7 @@ public class InterfaceDoUsuario {
         textoY += linhaAltura;
         g2.drawString("Proximo nivel", textoX, textoY);
         textoY += linhaAltura;
-        g2.drawString("Fragmentos", textoX, textoY);
+        g2.drawString("Fragmento", textoX, textoY);
         textoY += linhaAltura;
         g2.drawString("Almas", textoX, textoY);
         textoY += linhaAltura +10;
@@ -1501,10 +1477,6 @@ public class InterfaceDoUsuario {
         }
     }
     
-
-
-
-
 
 
     public void desenharTelaDeDormir(){
