@@ -6,6 +6,8 @@ import dados.Progresso;
 import entidade.Entidade;
 import main.PainelDoJogo;
 import objeto.ObjCoracao;
+import objeto.ObjFragmentoCarmesim;
+import objeto.ObjFragmentoFaminto;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
 import objeto.ObjPortaDeFerro;
@@ -13,7 +15,7 @@ import objeto.ObjPortaDeFerro;
 public class SenhorEsqueleto2 extends Entidade{
 
     PainelDoJogo painel;
-    public static final String nomeBoss = "Senhor Esqueleto2";
+    public static final String nomeBoss = "Senhor Esqueleto2"; // Gula
 
     public SenhorEsqueleto2(PainelDoJogo painel) {
         super(painel);
@@ -171,12 +173,15 @@ public class SenhorEsqueleto2 extends Entidade{
         //definir o drop do inimigo 
         if(i < 50){
             droparItem(new ObjMoedaBronze(painel));
+            droparItem(new ObjFragmentoFaminto(painel));
         }
         if(i >= 50 && i < 75){
             droparItem(new ObjCoracao(painel));
+            droparItem(new ObjFragmentoFaminto(painel));
         }
         if(i >= 75 && i < 100){
             droparItem(new ObjMana(painel));
+            droparItem(new ObjFragmentoFaminto(painel));
         }
     }
 }

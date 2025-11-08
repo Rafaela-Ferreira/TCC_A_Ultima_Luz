@@ -6,16 +6,18 @@ import dados.Progresso;
 import entidade.Entidade;
 import main.PainelDoJogo;
 import objeto.ObjCoracao;
+import objeto.ObjFragmentoDourado;
+import objeto.ObjFragmentoFaminto;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
 import objeto.ObjPortaDeFerro;
 
-public class SenhorEsqueleto extends Entidade{
+public class SenhorEsqueleto3 extends Entidade{
 
     PainelDoJogo painel;
-    public static final String nomeBoss = "Senhor Esqueleto"; // Tutorial
+    public static final String nomeBoss = "Senhor Esqueleto3"; // Avareza
 
-    public SenhorEsqueleto(PainelDoJogo painel) {
+    public SenhorEsqueleto3(PainelDoJogo painel) {
         super(painel);
 
         this.painel = painel;
@@ -151,13 +153,13 @@ public class SenhorEsqueleto extends Entidade{
     public void verificarDrop(){
 
         painel.batalhaComChefeAtiva = false;
-        Progresso.senhorEsqueletoPadrao = true;
+        Progresso.senhorEsqueletoPadrao3 = true;
 
         //restore the previous music
         painel.pararMusica();
         painel.iniciarMusica(19);
 
-        //remove the iron doors
+        //remove porta de ferro
         for(int i = 0; i < painel.Obj[1].length; i++){
             if(painel.Obj[painel.mapaAtual][i] != null && painel.Obj[painel.mapaAtual][i].nome.equals(ObjPortaDeFerro.objNome)){
                 painel.iniciarEfeitoSonoro(21);
@@ -171,12 +173,15 @@ public class SenhorEsqueleto extends Entidade{
         //definir o drop do inimigo 
         if(i < 50){
             droparItem(new ObjMoedaBronze(painel));
+            droparItem(new ObjFragmentoDourado(painel));
         }
         if(i >= 50 && i < 75){
             droparItem(new ObjCoracao(painel));
+            droparItem(new ObjFragmentoDourado(painel));
         }
         if(i >= 75 && i < 100){
             droparItem(new ObjMana(painel));
+            droparItem(new ObjFragmentoDourado(painel));
         }
     }
 }

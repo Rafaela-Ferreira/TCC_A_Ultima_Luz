@@ -369,10 +369,30 @@ public class ManipuladorDeEventos {
             
             
             //evento cutscene - boss tutorial
-            //else if(bater (1, 25,27, "any") == true){ senhorEsqueleto(); }
+            else if(bater (1, 25,27, "any") == true){ senhorEsqueleto(); }
             
             //evento cutscene - boss Gula
-            //else if(bater (4, 25,27, "any") == true){ senhorEsqueleto2(); }
+            else if(bater (4, 25,27, "any") == true){ senhorEsqueleto2(); }
+
+            //evento cutscene - boss Avareza
+            else if(bater (7, 25,27, "any") == true){ senhorEsqueleto3(); }
+
+
+            //evento cutscene - boss Inveja
+            //else if(bater (9, 25,27, "any") == true){ senhorEsqueleto4(); }
+            
+            //evento cutscene - boss Luxúria
+            //else if(bater (11, 25,27, "any") == true){ senhorEsqueleto5(); }
+
+            //evento cutscene - boss Orgulho
+            //else if(bater (14, 25,27, "any") == true){ senhorEsqueleto6(); }
+
+            //evento cutscene - boss Preguiça
+            //else if(bater (17, 25,27, "any") == true){ senhorEsqueleto7(); }
+
+            //evento cutscene - boss Ira
+            //else if(bater (20, 25,27, "any") == true){ senhorEsqueleto8(); }
+
         }
 
         
@@ -479,6 +499,14 @@ public class ManipuladorDeEventos {
 
     public void senhorEsqueleto2(){
         if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao2 == false){
+            painel.estadoDoJogo = painel.estadoCutscene;
+            painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
+        }
+    }
+
+
+    public void senhorEsqueleto3(){
+        if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao3 == false){
             painel.estadoDoJogo = painel.estadoCutscene;
             painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
         }

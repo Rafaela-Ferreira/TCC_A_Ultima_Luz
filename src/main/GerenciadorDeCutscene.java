@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 
 import entidade.jogadorManequim;
 import main.inimigo.chefao.SenhorEsqueleto;
+import main.inimigo.chefao.SenhorEsqueleto2;
+import main.inimigo.chefao.SenhorEsqueleto3;
 import objeto.ObjDiamente;
 import objeto.ObjPortaDeFerro;
 
@@ -163,7 +165,10 @@ public class GerenciadorDeCutscene {
             for(int i = 0; i < painel.inimigo[1].length; i++){
 
                 if(painel.inimigo[painel.mapaAtual][i] != null && 
-                    painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
+                    //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
+                    painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto.nomeBoss) ||
+                    painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto2.nomeBoss) ||
+                    painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto3.nomeBoss) ){
 
                     painel.inimigo[painel.mapaAtual][i].dormir = false;
                     painel.interfaceDoUsuario.npc = painel.inimigo[painel.mapaAtual][i];
@@ -173,16 +178,16 @@ public class GerenciadorDeCutscene {
             }
         } 
         if(faseDaCena == 3){
-            //the boss speaks
+            //o chefe fala
             painel.interfaceDoUsuario.desenharDialogoNaTela();
         }
         if(faseDaCena == 4){
-            //retunr to the player
+            //retornar ao jogador
             for(int i = 0; i < painel.npc[1].length; i++){
                 
                 if(painel.npc[painel.mapaAtual][i] != null &&
                     painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
-                    //restore the player position
+                    //restaurar a posição do jogador
                     painel.jogador.mundoX = painel.npc[painel.mapaAtual][i].mundoX;
                     painel.jogador.mundoY = painel.npc[painel.mapaAtual][i].mundoY;
 
@@ -192,10 +197,10 @@ public class GerenciadorDeCutscene {
                 }
 
             }
-            //start drawing the player
+            //comece a desenhar o jogador
             painel.jogador.desenho = true;
 
-            //reset
+            //reiniciar
             numeroDaCena = NA;
             faseDaCena = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
@@ -213,23 +218,23 @@ public class GerenciadorDeCutscene {
             faseDaCena++;
         }
         if(faseDaCena == 1){
-            //display dialogo
+            //exibir diálogo
             painel.interfaceDoUsuario.desenharDialogoNaTela();
         }
         if(faseDaCena == 2){
-            //play the fanfare
+            //tocar a fanfarra
             painel.iniciarEfeitoSonoro(4);
             faseDaCena++;
         }
         if(faseDaCena == 3){
-            //wait until the sound effect ends
+            //Aguarde até que o efeito sonoro termine.
             if(contadorAlcancado(300) == true){
                 faseDaCena++;
             }
         }
         if(faseDaCena == 4){
 
-            //the screen gets darks
+            //a tela fica escura
             alpha += 0.005f;
             if(alpha > 1f){
                 alpha = 1f;
@@ -244,7 +249,7 @@ public class GerenciadorDeCutscene {
         }
         if(faseDaCena == 5){
             desenharFundoPreto(1f);
-            //the screen gets darks
+            //a tela fica escura
             alpha += 0.005f;
             if(alpha > 1f){
                 alpha = 1f;
@@ -286,7 +291,7 @@ public class GerenciadorDeCutscene {
         if(faseDaCena == 8){
             desenharFundoPreto(1f);
 
-            //scrolling the credit
+            //rolando o créditos para cima
             y--;
             desenharString(1f, 38f, y, creditosFinais, 40);
         }

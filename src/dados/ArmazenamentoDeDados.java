@@ -14,7 +14,7 @@ public class ArmazenamentoDeDados implements Serializable{
     int destreza;
     int exp;
     int proximoNivelExp;
-    int moeda; //almas
+    int alma; //almas
 
 
     //inventario do jogador

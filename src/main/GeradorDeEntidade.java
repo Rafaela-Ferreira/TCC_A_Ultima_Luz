@@ -76,12 +76,13 @@ public class GeradorDeEntidade {
 
             //fragmentos da espada do eclipse
             case ObjFragmentoCarmesim.objNome : objeto = new objeto.ObjFragmentoCarmesim(painel); break; //Luxuria
-            case ObjFragmentoOnirico.objNome : objeto = new objeto.ObjFragmentoOnirico(painel); break; //Preguiça
             case ObjFragmentoFaminto.objNome : objeto = new objeto.ObjFragmentoFaminto(painel); break; // Gula
             case ObjFragmentoDourado.objNome : objeto = new objeto.ObjFragmentoDourado(painel); break; // Avareza
-            case ObjFragmentoFlamejante.objNome : objeto = new objeto.ObjFragmentoFlamejante(painel); break; // ira
             case ObjFragmentoSombrio.objNome : objeto = new objeto.ObjFragmentoSombrio(painel); break; // Inveja
             case ObjFragmentoCoracaoDaLamina.objNome : objeto = new objeto.ObjFragmentoCoracaoDaLamina(painel); break; // Orgulho
+            case ObjFragmentoOnirico.objNome : objeto = new objeto.ObjFragmentoOnirico(painel); break; //Preguiça
+            case ObjFragmentoFlamejante.objNome : objeto = new objeto.ObjFragmentoFlamejante(painel); break; // ira
+           
 
             
             
