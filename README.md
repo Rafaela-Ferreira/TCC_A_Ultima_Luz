@@ -72,5 +72,6 @@ As mecânicas e recursos visuais foram adaptados e expandidos para criar uma exp
 
 ## 🧑‍💻 Autoras
 Nancy Miyuki CP3025641 – Desenvolvedora e pesquisadora do projeto.
+
 Rafaela Ferreira CP3026353 – Desenvolvedora e pesquisadora do projeto.
 
