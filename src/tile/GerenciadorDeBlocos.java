@@ -18,6 +18,7 @@ public class GerenciadorDeBlocos {
     //caregar o artivo de txt
     //primeira dimensão da matriz para armazenar o numero de mapas
     public int numerosDoMapa[][][]; //usado tbm na verificação de colisão
+    
     public int[][][] numeroBloco;
     boolean desenharCaminho = true;
     ArrayList<String> nomeDoArquivos = new ArrayList<>();
@@ -28,6 +29,7 @@ public class GerenciadorDeBlocos {
     public GerenciadorDeBlocos(PainelDoJogo painel) {
         this.painel = painel;
 
+        
         //ler arquivo de dados do bloco
         InputStream is = getClass().getResourceAsStream("/mapas/Banco.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -51,7 +53,7 @@ public class GerenciadorDeBlocos {
         carregarImagensDosBlocos();
 
         //get the maxmundoCol e row
-        is = getClass().getResourceAsStream("/mapas/PracaDoDespertar.txt");//mapas de 50x50, 100x100, ou 250x250...
+        is = getClass().getResourceAsStream("/mapas/1_1PracaDoDespertar.txt");//mapas de 50x50, 100x100, ou 250x250...
         br = new BufferedReader(new InputStreamReader(is));
 
         try{
@@ -68,28 +70,48 @@ public class GerenciadorDeBlocos {
             System.out.println("Exceção! Mapa não encontrado!");
         }
 
-        carregarMapa("/mapas/PracaDoDespertar.txt", 0); // 1 Praça do despertar
-        carregarMapa("/mapas/AltarDaAuroraPartida.txt", 1); // 1.1 Altar Da Aurora Partida
-        carregarMapa("/mapas/EscadariaRuida.txt", 2); // 1.2 Escadaria Ruida
-        carregarMapa("/mapas/LadeiraDosPilaresQuebrados.txt", 3); // 1.3 Ladeira Dos Pilares Quebrados
-        carregarMapa("/mapas/PortaoSilencioso.txt", 4); // 1.4 Portão Silencioso (três possiveis caminhos, 1.5, 1.6 e 1.7)
-        
-        
-        
-        //carregarMapa("/mapas/mapa0.txt", 0); //1º fogueira - Altar da aurora partida
-        //carregarMapa("/mapas/mapa1.txt", 1); //2º fogueira - praça do despertar
-        //carregarMapa("/mapas/mapa2.txt", 2); //3º fogueira - Camera das corrente
-        //carregarMapa("/mapas/mapa3.txt", 3); //4º fogueira - Sala do espelho carmesim
-        //carregarMapa("/mapas/mapa4.txt", 4); //5º fogueira - Salão do banquete eterno
-        
-        //carregarMapa("/mapas/mapa6.txt", 8); //6º fogueira - Salão do banquete eterno
+        //Área 1 - Inicio do Jogo
+        carregarMapa("/mapas/1_1PracaDoDespertar.txt", 0);      // 1 Praça do despertar
+        carregarMapa("/mapas/1_2Arena.txt", 1);                 // 1_2 Arena Chefe Tutorial
 
-        //carregarMapa("/mapas/interior02.txt", 1); //Excluir
-        //carregarMapa("/mapas/masmorra01.txt", 2); //Excluir
-       // carregarMapa("/mapas/masmorra02.txt", 3); //Excluir
+        //Área 2 
+        carregarMapa("/mapas/2_1CapelaDaLuzInterior.txt", 2);   // 2_1 Capela Da Luz Interior - Bifurcação para Gula e Avareza
+
+        //Área 3 - Caminhos para o Boss Gula
+        carregarMapa("/mapas/3_1SalaoDoBanqueteEterno.txt", 3); // 3.1 Salão Do Banquete Eterno
+        carregarMapa("/mapas/3_2Arena.txt", 4);                 // 3.2 Arena - Chefe Gula
         
-        //carregarMapa("/mapas/mapaV3.txt", 0);
-        //carregarMapa("/mapas/interior01.txt", 1);
+        //Área 4 - Caminhos para o Boss Avareza
+        carregarMapa("/mapas/4_1PortaDeFerro.txt", 5);         // 4.1 Porta De Ferro
+        carregarMapa("/mapas/4_2CamaraDasCorrentes.txt", 6);   // 4.2 Câmara Das Correntes
+        carregarMapa("/mapas/4_3Arena.txt", 7);                // 4.3 Arena Chefe Avareza
+        
+
+
+        //Área 5 - Caminhos para o Boss Inveja
+        carregarMapa("/mapas/5_1JardimDasSombras.txt", 8);     // 5.1 Jardim Das Sombras
+        carregarMapa("/mapas/5_2Arena.txt", 9);                // 5.2 Arena Chefe Inveja
+
+        //Área 6 - Caminhos para o Boss Luxúria
+        carregarMapa("/mapas/6_1AuroraPartida.txt", 10);        // 6.1 Aurora Partida
+        carregarMapa("/mapas/6_2Arena.txt", 11);                // 6.2 Arena Chefe Luxúria
+
+        //Área 7 - Caminhos para o Boss Orgulho
+        carregarMapa("/mapas/7_1TronoDaLuz.txt", 12);           // 7.1 Trono Da Luz
+        carregarMapa("/mapas/7_2TronoCaido.txt", 13);           // 7.2 Trono Caído
+        carregarMapa("/mapas/7_3ArenaFinal.txt", 14);           // 7.3 Arena Final
+
+
+        //Área 8 - Caminhos para o Boss Preguiça
+        carregarMapa("/mapas/8_1SalaoDoSonoEterno.txt", 15);    // 8.1 Salão Do Sono Eterno
+        carregarMapa("/mapas/8_2LanternaDosSonhos.txt", 16);    // 8.2 Lanterna Dos Sonhos
+        carregarMapa("/mapas/8_3Arena.txt", 17);                // 8.3 Arena Chefe Preguiça
+
+        //Área 9 - Caminhos para o Boss Ira
+        carregarMapa("/mapas/9_1LaminasSanguinarias.txt", 18);   // 9.1 Lâminas Sanginárias
+        carregarMapa("/mapas/9_2OFogoRubro.txt", 19);           // 9.2 O Fogo Rubro
+        carregarMapa("/mapas/9_3Arena.txt", 20);                // 9.3 Arena Chefe Ira
+        
     }
 
     public void carregarImagensDosBlocos() {
@@ -138,6 +160,12 @@ public class GerenciadorDeBlocos {
 
         try {
         InputStream entrada = getClass().getResourceAsStream(caminhoDoArquivo);
+
+        if (entrada == null) {
+            //System.err.println("Erro: Arquivo de mapa não encontrado " + caminhoDoArquivo);
+            return;
+        }
+
         BufferedReader leitor  = new BufferedReader(new InputStreamReader(entrada));
 
         int linha = 0, coluna = 0;

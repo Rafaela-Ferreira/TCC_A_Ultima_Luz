@@ -6,14 +6,14 @@ import entidade.NpcEstatuaRainhaAmelia;
 import entidade.NpcFantasma;
 
 import entidade.NpcPedraGrande;
-
+import entidade.NpcSacerdotizaCega;
 import entidade.NpcVelho;
 import main.inimigo.InimigoMorcego;
 import main.inimigo.InimigoOrc;
 import main.inimigo.LodoVerde;
 import main.inimigo.LodoVermelho;
 import main.inimigo.chefao.SenhorEsqueleto;
-
+import main.inimigo.chefao.SenhorEsqueleto2;
 import objeto.ObjAlma;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
@@ -21,8 +21,12 @@ import objeto.ObjChave;
 import objeto.ObjCoracao;
 import objeto.ObjDiamente;
 import objeto.ObjEscudoAzul;
-
-
+import objeto.ObjFragmentoCarmesim;
+import objeto.ObjFragmentoCoracaoDaLamina;
+import objeto.ObjFragmentoFaminto;
+import objeto.ObjFragmentoFlamejante;
+import objeto.ObjFragmentoOnirico;
+import objeto.ObjFragmentoSombrio;
 import objeto.ObjTocha;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
@@ -32,7 +36,15 @@ import objeto.ObjPicareta;
 import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
-
+import tile.blocosInterativos.Agua_00;
+import tile.blocosInterativos.Agua_01;
+import tile.blocosInterativos.Agua_02;
+import tile.blocosInterativos.Agua_03;
+import tile.blocosInterativos.Agua_04;
+import tile.blocosInterativos.Agua_05;
+import tile.blocosInterativos.Agua_06;
+import tile.blocosInterativos.Agua_07;
+import tile.blocosInterativos.Agua_08;
 import tile.blocosInterativos.ArvoreSeca;
 import tile.blocosInterativos.Fogueira;
 import tile.blocosInterativos.ParedeDestrutivel;
@@ -47,6 +59,44 @@ public class CriarObjetos {
     }
 
     public void setarObjetos() {
+        
+        int numeroMapa = 4;
+        int i = 0;
+        painel.Obj[numeroMapa][i] = new ObjPortaDeFerro(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*26;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;
+        i++;
+
+        //condição para que não crie o boss novamente apos derrota-ló
+        if(Progresso.senhorEsqueletoPadrao == false){
+            painel.Obj[numeroMapa][i] = new ObjPortaDeFerro(painel);
+            painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+            painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+            i++;
+        }
+
+        /*MAPA 9
+        numeroMapa = 9;
+        i = 0;
+        painel.Obj[numeroMapa][i] = new ObjPortaDeFerro(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*26;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;
+        i++;
+
+        //condição para que não crie o boss novamente apos derrota-ló
+        if(Progresso.senhorEsqueletoPadrao == false){
+            painel.Obj[numeroMapa][i] = new ObjPortaDeFerro(painel);
+            painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+            painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+            i++;
+        }
+        //criar no mapa 9
+        painel.Obj[numeroMapa][i] = new ObjDiamente(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
+        i++;
+        */
+        
         /* 
         int numeroMapa = 0;
         int i = 0;
@@ -254,6 +304,14 @@ public class CriarObjetos {
 
         painel.blocosI[numeroMapa][i] = new Tocha(painel, 15,9); i++;
 
+        numeroMapa = 4;
+        i = 0;
+        painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 25,39); i++;
+
+        numeroMapa = 9;
+        i = 0;
+        painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 25,39); i++;
+
         //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,9); i++;
         //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,10); i++;
         //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,11); i++;
@@ -339,6 +397,22 @@ public class CriarObjetos {
         i++;
 
 
+        numeroMapa = 4;
+        i = 0;
+        painel.npc[numeroMapa][i] = new NpcPedraGrande(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*40;
+        i++;
+
+
+        numeroMapa = 9;
+        i = 0;
+        painel.npc[numeroMapa][i] = new NpcPedraGrande(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*40;
+        i++;
+
+
         /* 
         int numeroMapa = 0;
         int i = 0;
@@ -395,6 +469,24 @@ public class CriarObjetos {
     }
 
     public void setInimigos(){
+        
+        int numeroMapa = 4;
+        int i = 0;
+
+        painel.inimigo[numeroMapa][i] = new SenhorEsqueleto(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*16;
+        i++;
+
+
+        numeroMapa = 9;
+        i = 0;
+
+        painel.inimigo[numeroMapa][i] = new SenhorEsqueleto(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*16;
+        i++;
+        
         /* 
         int numeroMapa = 0;
         int i = 0;

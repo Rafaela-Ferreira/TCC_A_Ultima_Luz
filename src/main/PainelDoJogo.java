@@ -39,8 +39,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     //criar o mundo
     public  int maxColunasMundo; // Número máximo de colunas no mundo
     public  int maxLinhasMundo; // Número máximo de linhas no mundo
-    public final int maxMapa = 10; //qtd de mapas - ajustar conforme necessidade
-    public int mapaAtual = 0;
+    public final int maxMapa = 30; //qtd de mapas - ajustar conforme necessidade
+    public int mapaAtual = 8;  //mapa inicial
    
     //tela cheia
     int larguraTela2 = larguraTela;

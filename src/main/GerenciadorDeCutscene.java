@@ -30,22 +30,21 @@ public class GerenciadorDeCutscene {
         this.painel = painel;
 
         creditosFinais = "Programação/Musica/Arte\n"
-        +"Rafaela"
-        +"Nancy"
-        +"Isabela"
+        +"Rafaela\n"
+        +"Nancy\n"
+        +"Isabela\n"
         +"\n\n\n\n\n\n\n\n\n\n\n\n\n"
         +"Agradecimentos especiais\n"
         +"Isabela\n"
         +"Vinicius\n"
         +"Augusto\n"
-        +"Antonio\n"
         +"Fabio\n"
         +"Glauber\n"
         +"Zady\n"
         +"Sovat\n"
         +"Alguém\n"
         +"Alguém\n\n\n\n\n\n"
-        + "Obrigado por jogar!";
+        +"Obrigado por jogar!";
     }
 
     public void desenhar(Graphics2D g2){

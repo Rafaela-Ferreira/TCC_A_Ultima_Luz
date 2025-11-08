@@ -95,82 +95,226 @@ public class ManipuladorDeEventos {
             //MAPA 0 - 1 Praça do despertar
             //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
             else if(bater(0, 37,8, "any") == true){
-                teleporteMapa(1, 37,8, painel.fora);
+                teleporteMapa(1, 26,41, painel.fora);
 
             }
-            //teleporte entre mapas do 1 para o 0 - Altar da aurora partida - volta
-            else if(bater(1, 37,8, "any") == true){
+            //teleporte entre mapas do 1 para o 0  - volta
+            else if(bater(1, 26,41, "any") == true){
                 teleporteMapa(0, 37,8, painel.fora);
             }
 
-            //MAPA 1 - 1.1 Altar da aurora partida
-            //fogueira - Altar da aurora partida
-            else if(bater(0, 11,10, "any") == true){
-                //nomeDaFogueira = "[Altar da Aurora Partida]";
-                fogueira(3, painel.estadoDoDialogo);
-            }
-            //teleporte entre mapas do 1 para o 2 - Altar da aurora partida - ida
-            else if(bater(1, 35,40, "any") == true){
-                teleporteMapa(2, 10,39, painel.fora);
+            //MAPA 1 
+            //teleporte entre mapas do 1 para o 2 arena - ida
+            else if(bater(1, 25,8, "any") == true){
+                teleporteMapa(2, 23,37, painel.fora);
 
             }
-            //teleporte entre mapas do 1 para o 0 - Escadaria Ruída - volta
+            //teleporte entre mapas do 1 para 2 - volta
             else if(bater(2, 10,39, "any") == true){
-                teleporteMapa(1, 35,40, painel.fora);
+                teleporteMapa(1, 25,8, painel.fora);
             }
 
-            //MAPA 2 - 1.2 Escadaria Ruída
-            //teleporte entre mapas do 1 para o 2 - Escadaria Ruída - ida
+
+
+            //MAPA 2 
+            //teleporte entre mapas do 2 para o 3 - Reflexo - ida
             else if(bater(2, 35,40, "any") == true){
-                teleporteMapa(3, 35,40, painel.fora);
+                teleporteMapa(3, 30,37, painel.fora);
 
             }
-            //teleporte entre mapas do 1 para o 0 - Ladeira Dos Pilares Quebrados - volta
-            else if(bater(3, 35,40, "any") == true){
+            //teleporte entre mapas do 3 para o 2 - véu escarlate - volta
+            else if(bater(3, 30,37, "any") == true){
                 teleporteMapa(2, 35,40, painel.fora);
             }
 
+            //MAPA 3
+            //teleporte entre mapas do 3 para o 4 - ida
+            else if(bater(3, 31,33, "any") == true){
+                teleporteMapa(4, 26,41, painel.interior);
 
-            //MAPA 2 - 1.3 Ladeira Dos Pilares Quebrados
+            }
+            //teleporte entre mapas do 4 para o 3 - véu escarlate - volta
+            else if(bater(4, 30,40, "any") == true){
+                teleporteMapa(3, 30,40, painel.fora);
+            }
 
-            //fogueira 
-            else if(bater(1, 11,37, "any") == true){
-                //teleporteMapa(4, 10,39, painel.fora);
-                fogueira(4, painel.estadoDoDialogo);
+            //MAPA 4
+            //teleporte entre mapas do 3 para o 4 - Arena Chefe Luxúria - ida
+            else if(bater(4, 25,8, "any") == true){
+                teleporteMapa(5, 35,40, painel.fora);
+
+            }
+            //teleporte entre mapas do 4 para o 3 - Capela Da Luz Interior - volta
+            else if(bater(5, 35,40, "any") == true){
+                teleporteMapa(4, 25,8, painel.fora);
+            }
+
+            //MAPA 5
+            //teleporte entre mapas  5 para 6 - ida
+            else if(bater(5, 37,36, "any") == true){
+                teleporteMapa(6, 35,40, painel.fora);
+
+            }
+            //teleporte entre mapas  6 para o 5 - volta
+            else if(bater(6, 35,40, "any") == true){
+                teleporteMapa(5, 37,36, painel.fora);
+            }
+
+            //MAPA 6
+            // 3.1 Panelas Enferrujadas 
+            //teleporte entre mapas  6 para 7 - ida
+            else if(bater(6, 16,37, "any") == true){
+                teleporteMapa(7, 26,41, painel.interior);
+
+            }
+            //teleporte entre mapas  7 para o 6 - volta
+            else if(bater(7, 31,33, "any") == true){
+                teleporteMapa(6, 31,33, painel.fora);
+            }
+
+            //MAPA 7
+            // 3.2 Salão Do Banquete Eterno
+            //teleporte entre mapas  7 para 8 - ida
+            else if(bater(7, 25,8, "any") == true){
+                teleporteMapa(8, 35,40, painel.fora);
+
+            }
+            //teleporte entre mapas  8 para o 7 - volta
+            else if(bater(8, 35,40, "any") == true){
+                teleporteMapa(7, 25,8, painel.fora);
+            }
+
+            //MAPA 8 - 3.3 Mesa das Cinzas - BOSS GULA
+            //teleporte entre mapas  8 para 9 - ida
+            else if(bater(8, 39,37, "any") == true){
+                teleporteMapa(9, 26,41, painel.interior);           
+            }
+            //teleporte entre mapas  9 para 8 - Volta
+            else if(bater(9, 26,41, "any") == true){
+                teleporteMapa(8, 39,37, painel.fora);           
+            }
+
+            //MAPA 9 
+            //teleporte entre mapas  9 para 10 - ida
+            else if(bater(9, 25,8, "any") == true){
+               teleporteMapa(10, 35,40, painel.fora);           
+            }
+            else if(bater(10, 35,40, "any") == true){
+               teleporteMapa(9, 25,8, painel.fora);           
+            }
+
+            //MAPA 10 
+            //teleporte entre mapas 9 para 10 - ida
+            else if(bater(9, 25,8, "any") == true){
+               teleporteMapa(10, 35,40, painel.fora);           
+            }
+            else if(bater(10, 35,40, "any") == true){
+               teleporteMapa(9, 25,8, painel.fora);           
+            }
+
+            //MAPA 11 
+            //teleporte entre mapas 10 para 11 - ida
+            else if(bater(10, 24,35, "any") == true){
+               teleporteMapa(11, 26,41, painel.fora);           
+            }
+            else if(bater(11, 26,41, "any") == true){
+               teleporteMapa(10, 24,35, painel.fora);           
+            }
+
+            //MAPA 12 
+            //teleporte entre mapas 11 para 12 - ida
+            else if(bater(11, 25,8, "any") == true){
+               teleporteMapa(12, 30,30, painel.fora);           
+            }
+            else if(bater(12, 30,30, "any") == true){
+               teleporteMapa(11, 25,8, painel.fora);           
+            }
+
+
+            //MAPA 13 
+            //teleporte entre mapas 12 para 13 - ida
+            else if(bater(12, 26,27, "any") == true){
+               teleporteMapa(13, 30,30, painel.fora);           
+            }
+            else if(bater(13, 30,30, "any") == true){
+               teleporteMapa(12, 26,27, painel.fora);           
+            }
+
+            //MAPA 14 
+            //teleporte entre mapas 12 para 13 - ida
+            else if(bater(13, 26,27, "any") == true){
+               teleporteMapa(14, 26,41, painel.fora);           
+            }
+            else if(bater(14, 26,41, "any") == true){
+               teleporteMapa(13, 26,27, painel.fora);           
             }
             
-            else if(bater(1, 8,5, "any") == true){
-                fogueira(5, painel.estadoDoDialogo);//mapa 1 - 1.5 Câmara das correntes - porta bloqueada
+            
+            //Implementar eventos para areas escondidas (15, 16, 17, 18, 19 e 20)
+            //MAPA 15 - PREGUIÇA
+            //teleporte entre mapas 3 para 15 - ida
+            else if(bater(3, 14,15, "any") == true){
+               teleporteMapa(15, 13,37, painel.fora);           
             }
-            else if(bater(1, 23,3, "any") == true){
-                fogueira(6, painel.estadoDoDialogo);//mapa 1 - 1.6 Escadaria Ruida (Gula) - porta bloqueada
-            }
-            else if(bater(1, 44,3, "any") == true){
-                fogueira(7, painel.estadoDoDialogo);//mapa  1- 1.7 Entrada Para Luxúria - caminho livre
-            }
-
-
-            //teleporte entre mapas do 1 para o 3 - 1.7 Sala do espelho Carmesim (Luxúria) - ida mapa 3
-            else if(bater(1, 45,7, "any") == true){
-                teleporteMapa(3, 10,10, painel.fora);
-
-            }
-            //teleporte entre mapas do 3 para o 1 - 1.7 Sala do espelho Carmesim (Luxúria) - volta
-            else if(bater(3, 10,10, "any") == true){
-                teleporteMapa(1, 45,7, painel.fora);
+            else if(bater(15, 13,37, "any") == true){
+               teleporteMapa(3, 14,15, painel.fora);           
             }
 
-            //teleporte entre mapas do 1 para o 4 - 1.6 Escadaria ruida (Gula) - ida mapa 4
-            else if(bater(1, 24,4, "any") == true){
-                teleporteMapa(4, 10,10, painel.fora);
+            //MAPA 16
+            //teleporte entre mapas 15 para 16 - ida
+            else if(bater(15, 16,29, "any") == true){
+               teleporteMapa(16, 27,16, painel.fora);           
             }
-            //teleporte entre mapas do 4 para o 1 - 1.6 Escadaria ruida (Gula) - volta
-            else if(bater(4, 10,10, "any") == true){
-                teleporteMapa(1, 24,4, painel.fora);
+            else if(bater(16, 27,16, "any") == true){
+               teleporteMapa(15, 16,29, painel.fora);           
             }
 
+            //MAPA 17 - arena
+            //teleporte entre mapas 16 para 17 - ida
+            else if(bater(16, 25,11, "any") == true){
+               teleporteMapa(17, 26,41, painel.interior);           
+            }
+            else if(bater(17, 26,41, "any") == true){
+               teleporteMapa(16, 25,11, painel.fora);           
+            }
+            
+
+            //MAPA 18 - IRA
+            //teleporte entre mapas 0 para 18 - ida
+            else if(bater(8, 18,32, "any") == true){
+               teleporteMapa(18, 18,32, painel.fora);           
+            }
+            else if(bater(18, 18,32, "any") == true){
+               teleporteMapa(8, 18,32, painel.fora);           
+            }
+
+            //MAPA 19 - IRA
+            //teleporte entre mapas 0 para 18 - ida
+            else if(bater(18, 17,41, "any") == true){
+               teleporteMapa(19, 24,37, painel.fora);           
+            }
+            else if(bater(19, 24,37, "any") == true){
+               teleporteMapa(18, 17,41, painel.fora);           
+            }
+
+            //MAPA 20 - IRA
+            //teleporte entre mapas 0 para 18 - ida
+            else if(bater(19, 26,41, "any") == true){
+               teleporteMapa(20, 26,41, painel.interior);           
+            }
+            else if(bater(20, 26,41, "any") == true){
+               teleporteMapa(19, 26,41, painel.fora);           
+            }
+            
 
             
+
+
+            //FOGUEIRA - Portão Silencioso
+            else if(bater(0, 11,10, "any") == true){
+                //nomeDaFogueira = "[Portão Silencioso]";
+                fogueira(3, painel.estadoDoDialogo);
+            }
 
 
 
@@ -221,6 +365,14 @@ public class ManipuladorDeEventos {
 
             //else if(bater (0, 25,27, "any") == true){ senhorEsqueleto(); }
             //else if(bater (1, 25,27, "any") == true){ senhorEsqueleto2(); }
+            
+            
+            
+            //evento cutscene - boss tutorial
+            //else if(bater (1, 25,27, "any") == true){ senhorEsqueleto(); }
+            
+            //evento cutscene - boss Gula
+            //else if(bater (4, 25,27, "any") == true){ senhorEsqueleto2(); }
         }
 
         
@@ -325,13 +477,13 @@ public class ManipuladorDeEventos {
         }
     }
 
-
-    /* 
     public void senhorEsqueleto2(){
         if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao2 == false){
             painel.estadoDoJogo = painel.estadoCutscene;
             painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
         }
     }
-        */
+
+    
+
 }
