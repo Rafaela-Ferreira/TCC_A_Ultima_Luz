@@ -58,7 +58,8 @@ public class ManipuladorDeEventos {
         
         eventoMestre.dialogo[2][0] = "Teletransportado!";
 
-        eventoMestre.dialogo[3][0] = "Altar da Aurora Partida\nO seu progresso salvo foi salvo!";
+        eventoMestre.dialogo[3][0] = "Praça do Despertar.";
+        eventoMestre.dialogo[3][1] = "O seu progresso salvo foi salvo!";
         eventoMestre.dialogo[4][0] = "Escadaria Ruída\nO seu progresso salvo foi salvo!";
         eventoMestre.dialogo[5][0] = "Ladeira Dos Pilares Quegrados\nO seu progresso salvo foi salvo!";
         eventoMestre.dialogo[6][0] = "Praça Do Despertar\nO seu progresso salvo foi salvo!";
@@ -94,13 +95,13 @@ public class ManipuladorDeEventos {
 
             //MAPA 0 - 1 Praça do despertar
             //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
-            else if(bater(0, 37,8, "any") == true){
+            else if(bater(0, 79,56, "any") == true){
                 teleporteMapa(1, 26,41, painel.fora);
 
             }
             //teleporte entre mapas do 1 para o 0  - volta
             else if(bater(1, 26,41, "any") == true){
-                teleporteMapa(0, 37,8, painel.fora);
+                teleporteMapa(0, 79,56, painel.fora);
             }
 
             //MAPA 1 
@@ -310,9 +311,8 @@ public class ManipuladorDeEventos {
             
 
 
-            //FOGUEIRA - Portão Silencioso
-            else if(bater(0, 11,10, "any") == true){
-                //nomeDaFogueira = "[Portão Silencioso]";
+            //FOGUEIRA - Praça do despertar
+            else if(bater(0, 15,13, "any") == true){
                 fogueira(3, painel.estadoDoDialogo);
             }
 

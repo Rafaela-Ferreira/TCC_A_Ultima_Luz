@@ -2,6 +2,7 @@ package tile;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import main.PainelDoJogo;
 
@@ -17,6 +18,7 @@ public class Mapa extends GerenciadorDeBlocos{
         criarMapaDoMundo();
     }
     
+    /* 
     public void criarMapaDoMundo(){
         mapaDoMundo = new BufferedImage[painel.maxMapa];
         int mapaDoMundoLargura = painel.tamanhoDoTile * painel.maxColunasMundo; 
@@ -46,7 +48,56 @@ public class Mapa extends GerenciadorDeBlocos{
             g2.dispose();
         }
     }
+        */
+    
+    /* 
+    public void criarMapaDoMundo() {
 
+        // Não criamos mais imagens gigantes para cada mapa.
+        // Apenas inicializamos o array para manter compatibilidade.
+        mapaDoMundo = new BufferedImage[painel.maxMapa];
+
+        // Agora cada minimapa será desenhado diretamente a partir da matriz `numerosDoMapa`
+        // sem armazenar uma imagem gigante na memória.
+    }
+    */
+
+    public void criarMapaDoMundo() {
+
+        mapaDoMundo = new BufferedImage[painel.maxMapa];
+
+        int scale = 2; 
+
+        int larguraReduzida = painel.maxColunasMundo * scale;
+        int alturaReduzida  = painel.maxLinhasMundo * scale;
+
+        for(int i = 0; i < painel.maxMapa; i++) {
+
+            mapaDoMundo[i] = new BufferedImage(larguraReduzida, alturaReduzida, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = mapaDoMundo[i].createGraphics();
+
+            
+
+            // Desenha cada tile como um pequeno quadrado colorido
+            for (int coluna = 0; coluna < painel.maxColunasMundo; coluna++) {
+                for (int linha = 0; linha < painel.maxLinhasMundo; linha++) {
+
+                    int n = numerosDoMapa[i][coluna][linha];
+
+                    // Usa as cores do tile
+                    BufferedImage img = blocos[n].imagem;
+
+                    // cor média do tile
+                    int cor = img.getRGB(img.getWidth()/2, img.getHeight()/2);
+
+                    g2.setColor(new Color(cor, true));
+                    g2.fillRect(coluna * scale, linha * scale, scale, scale);
+                }
+            }
+
+            g2.dispose();
+        }
+    }
 
     public void desenharMapaCompleto(Graphics2D g2){
         

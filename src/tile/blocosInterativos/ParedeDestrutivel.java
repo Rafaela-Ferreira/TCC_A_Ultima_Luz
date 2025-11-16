@@ -21,6 +21,7 @@ public class ParedeDestrutivel extends BlocosInterativos{
         destruir = true;
         vida = 1;
     }
+
     public boolean itemCorreto(Entidade entidade){
         boolean itemCorreto = false;
 
@@ -31,6 +32,7 @@ public class ParedeDestrutivel extends BlocosInterativos{
 
         return itemCorreto;
     }
+    
     public void iniciarEfeitoSonoro(){
         painel.iniciarEfeitoSonoro(20);
     }

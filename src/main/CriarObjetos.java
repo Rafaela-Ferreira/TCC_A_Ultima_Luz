@@ -66,6 +66,18 @@ public class CriarObjetos {
         int numeroMapa = 0;
         int i = 0;
         //criar objetos no mapa 0
+        painel.Obj[numeroMapa][i] = new ObjPorta(painel); 
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*86;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*62;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjBau(painel);
+        painel.Obj[numeroMapa][i].setSaque(new ObjChave(painel));
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*73;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*63;
+        i++;
+
+        
         
         
         numeroMapa = 1;
@@ -374,17 +386,52 @@ public class CriarObjetos {
         int numeroMapa = 0;
         int i = 0;
 
-        painel.blocosI[numeroMapa][i] = new Fogueira(painel, 10,9); i++;
+        painel.blocosI[numeroMapa][i] = new Fogueira(painel, 15,12); i++;
 
-        painel.blocosI[numeroMapa][i] = new Tocha(painel, 15,9); i++;
+        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 10,49); i++;
+        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 10,50); i++;
+        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 10,51); i++;
+        painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 10,52); i++;
+
+        numeroMapa = 1;
+        i = 0;
+
+
+        numeroMapa = 2;
+        i = 0;
+
+
+        numeroMapa = 3;
+        i = 0;
+
 
         numeroMapa = 4;
         i = 0;
         painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 25,39); i++;
 
+
+        numeroMapa = 5;
+        i = 0;
+
+
+        numeroMapa = 6;
+        i = 0;
+
+
+        numeroMapa = 7;
+        i = 0;
+
+
+        numeroMapa = 8;
+        i = 0;
+
         numeroMapa = 9;
         i = 0;
         painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 25,39); i++;
+
+
+        numeroMapa = 10;
+        i = 0;
 
         //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,9); i++;
         //painel.blocosI[numeroMapa][i] = new ParedeDestrutivel(painel, 18,10); i++;
@@ -590,6 +637,52 @@ public class CriarObjetos {
         int numeroMapa = 0;
         int i = 0;
         //criar inimigos no mapa 0
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*73;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*68;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*73;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*70;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*73;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*73;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*85;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*71;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*82;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*84;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*76;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*86;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*19;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*78;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*14;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*82;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*85;
+        i++;
+
+        
         
         numeroMapa = 1;
         i = 0;

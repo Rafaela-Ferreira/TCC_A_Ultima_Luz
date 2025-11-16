@@ -162,7 +162,7 @@ public class GerenciadorDeBlocos {
         InputStream entrada = getClass().getResourceAsStream(caminhoDoArquivo);
 
         if (entrada == null) {
-            //System.err.println("Erro: Arquivo de mapa não encontrado " + caminhoDoArquivo);
+            System.err.println("Erro: Arquivo de mapa não encontrado " + caminhoDoArquivo);
             return;
         }
 
@@ -175,6 +175,7 @@ public class GerenciadorDeBlocos {
             if (linhaMapa == null) break;
 
             String[] numeros = linhaMapa.trim().split(" ");
+
 
             for (coluna = 0; coluna < painel.maxColunasMundo; coluna++) {
                 if (coluna < numeros.length) {
