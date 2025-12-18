@@ -34,12 +34,12 @@ public class Tocha extends BlocosInterativos{
         areaSolida.width = 28;
         areaSolida.height = 28;
 
-        imagem1 = setup("/img/fogueira/tocha0", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem2 = setup("/img/fogueira/tocha1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem3 = setup("/img/fogueira/tocha2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem4 = setup("/img/fogueira/tocha3", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem5 = setup("/img/fogueira/tocha4", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem6 = setup("/img/fogueira/tocha5", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem1 = setup("/fogueira/tocha0", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem2 = setup("/fogueira/tocha1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem3 = setup("/fogueira/tocha2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem4 = setup("/fogueira/tocha3", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem5 = setup("/fogueira/tocha4", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem6 = setup("/fogueira/tocha5", painel.tamanhoDoTile, painel.tamanhoDoTile);
 
         baixo1 = imagem1; // começa com a primeira imagem
 

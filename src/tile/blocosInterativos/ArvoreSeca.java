@@ -16,7 +16,7 @@ public class ArvoreSeca extends BlocosInterativos{
         this.mundoX = painel.tamanhoDoTile * coluna;
         this.mundoY = painel.tamanhoDoTile * linha;
 
-        baixo1 = setup("/img/tiles/interativos/drytree", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/blocosInterativos/drytree", painel.tamanhoDoTile, painel.tamanhoDoTile);
         destruir = true;
         vida = 3;
     }

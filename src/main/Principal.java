@@ -31,9 +31,7 @@ public class Principal {
     }
 
     public void setIcone(){
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("img/logoAultimaLuz.jpg")); 
+        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("logoAultimaLuz.jpg")); 
         janela.setIconImage(icone.getImage());
-       
-        
     }
 }

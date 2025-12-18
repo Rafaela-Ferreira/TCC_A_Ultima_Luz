@@ -12,7 +12,7 @@ public class ObjEspadaNormal  extends Entidade{
         
         tipo = tipoEspada;
         nome = objNome;
-        baixo1 = setup("/img/objetos/sword_normal", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/sword_normal", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorAtaque = 1;
         areaAtaque.width = 36;
         areaAtaque.height = 36;

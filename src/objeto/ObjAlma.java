@@ -19,7 +19,7 @@ public class ObjAlma extends Entidade{
         tipo = tipoRetirada;
         nome = objNome;
         valor = calcularValorAleatorio();
-        baixo1 = setup("/img/objetos/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     private int calcularValorAleatorio() {

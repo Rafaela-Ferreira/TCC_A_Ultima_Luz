@@ -18,8 +18,8 @@ public class ObjBau extends Entidade {
 
         tipo = tipoObstaculo;
         nome = objNome;
-        imagem = setup("/img/itens/chest", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem2 = setup("/img/objetos/chest_opened", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem = setup("/res/item/chest", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem2 = setup("/res/objeto/chest_opened", painel.tamanhoDoTile, painel.tamanhoDoTile);
         baixo1 = imagem;
         colisaoComBloco = true;
 

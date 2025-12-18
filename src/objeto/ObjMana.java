@@ -16,9 +16,9 @@ public class ObjMana extends Entidade{
         tipo = tipoRetirada;
         nome= objNome;
         valor = 1;
-        baixo1 = setup("/img/objetos/manacrystal_full", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem = setup("/img/objetos/manacrystal_full", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem2 = setup("/img/objetos/manacrystal_blank", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/manacrystal_full", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem = setup("/res/objeto/manacrystal_full", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem2 = setup("/res/objeto/manacrystal_blank", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
     }
     public boolean usar(Entidade entidade){

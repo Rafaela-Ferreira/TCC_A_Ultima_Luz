@@ -8,9 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
-
 import main.CaixaDeFerramentas;
 import main.PainelDoJogo;
 
@@ -135,6 +133,10 @@ public class Entidade {
     public final int tipoPicareta = 10;
     public final int tipoChuva = 11;
     public final int tipoProjetil = 12;
+    public final int tipoNpcAliado = 13;
+    public boolean desaparecer = false;
+
+    public Entidade alvo;
 
 
     public Entidade(PainelDoJogo painel){
@@ -328,8 +330,6 @@ public class Entidade {
     public void atualizar(){
 
         if(dormir == false){
-
-        
         
             if(empurrao == true){
 
@@ -359,7 +359,12 @@ public class Entidade {
             }
             else if(atacar == true){
                 ataque();
+
+                if(tipo == tipoNpcAliado){
+                   
+                }
             }
+            
             else{
                 setAcao();
 
@@ -561,6 +566,7 @@ public class Entidade {
     }
 
 
+    
     public void ataque(){
         contadorDeSprite++;
 
@@ -588,34 +594,120 @@ public class Entidade {
             areaSolida.height = areaAtaque.height;
 
             if(tipo == tipoInimigo){
-                if(painel.colisaoChecked.verificarJogador(this) == true){
-                    danoJogador(ataque);
+
+                // Atacar jogador
+                if(painel.colisaoChecked.verificarJogador(this)){
+                    painel.jogador.receberDano(ataque);
                 }
-            }else{
-                //jogador
-                //verifique a colisão do monstro com o mundo atualizado mundoX, mundoY e área sólida
-                int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
-                painel.jogador.danoDoInimigo(indiceInimigo, this, ataque, armaAtual.poderDoEmpurrao);
 
-                int indiceBlocosI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
-                painel.jogador.danoNoBlocoInterativo(indiceBlocosI);
+                // Atacar NPC aliado
+                int indiceNpc = painel.colisaoChecked.verificarEntidade(this, painel.npc);
 
-                int indiceProjetavel = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
-                painel.jogador.danoDoProjetavel(indiceProjetavel);
+                if (indiceNpc != 999) {
+
+                    Entidade npc = painel.npc[painel.mapaAtual][indiceNpc];
+
+                    if (npc != null &&
+                        npc.vivo &&
+                        npc.tipo == tipoNpcAliado &&
+                        !npc.invencivel) {
+
+                        npc.receberDano(ataque);
+                        npc.acaoAoDano();
+                        npc.invencivel = true;
+
+                        setEmpurrao(npc, this, poderDoEmpurrao);
+                    }
+                }
             }
 
+            
+            // JOGADOR ATACA
+            else if (tipo == tipoJogador) {
+
+                int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+
+                if (indiceInimigo != -1) {
+                    painel.jogador.danoDoInimigo(indiceInimigo, this,ataque, armaAtual.poderDoEmpurrao);
+                }
+
+                int indiceBlocoI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+                painel.jogador.danoNoBlocoInterativo(indiceBlocoI);
+
+                int indiceProjetil = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
+                painel.jogador.danoDoProjetavel(indiceProjetil);
+            }
+
+
+            // NPC ALIADO ATACA INIMIGO
+            else if (tipo == tipoNpcAliado) {
+
+                int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+
+                if (indiceInimigo >= 0 &&
+                    indiceInimigo < painel.inimigo[painel.mapaAtual].length) {
+
+                    Entidade inimigo = painel.inimigo[painel.mapaAtual][indiceInimigo];
+
+                    if (inimigo != null && !inimigo.invencivel && inimigo.vivo) {
+
+                        int dano = ataque - inimigo.defesa;
+                        if (dano < 1) dano = 1;
+
+                        inimigo.vida -= dano;
+                        inimigo.invencivel = true;
+
+                        setEmpurrao(inimigo, this, poderDoEmpurrao);
+
+                        if (inimigo.vida <= 0) {
+                            inimigo.morrendo = true;
+                            inimigo.vivo = false;
+
+
+                            // NPC aliado cumpre seu papel e desaparece do mundo
+                            this.vivo = false;
+                        }
+                    }
+                }
+            }
+
+            // RESTAURAR ESTADO
             mundoX = AtualMundoX;
             mundoY = AtualMundoY;
             areaSolida.width = areaSolidaLargura;
             areaSolida.height = areaSolidaAltura;
 
         }
+
+        // FINALIZAR ATAQUE
         if(contadorDeSprite > direcaoDoMovimento2){
             numeroDoSprite = 1;
             contadorDeSprite = 0;
             atacar = false;
         }
+
     }
+
+    public void receberDano(int dano){
+
+        if(invencivel == true || vivo == false) return;
+
+        int danoFinal = dano - defesa;
+        if(danoFinal < 1) danoFinal = 1;
+
+        vida -= danoFinal;
+        invencivel = true;
+
+        acaoAoDano();
+
+        if(vida <= 0){
+            vida = 0;
+            vivo = false;
+            morrendo = true;
+        }
+    }
+
+
 
     public void danoJogador(int ataque){
 
@@ -799,7 +891,7 @@ public class Entidade {
 
         try{
             imagem = ImageIO.read(getClass().getResourceAsStream(caminho + ".png"));
-            //System.out.println(imagem == null ? "Imagem NÃO encontrada" : "Imagem encontrada");
+            System.out.println(imagem == null ? "Imagem NÃO encontrada" : "Imagem encontrada");
             imagem = ferramentas.escalaImage(imagem, altura, largura);
 
         }catch(IOException e){
@@ -808,6 +900,9 @@ public class Entidade {
 
         return imagem;
     }
+    
+
+
 
     public void procurarCaminho(int metaColuna, int metaLinha){
 

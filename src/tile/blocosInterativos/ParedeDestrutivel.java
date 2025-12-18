@@ -17,7 +17,7 @@ public class ParedeDestrutivel extends BlocosInterativos{
         this.mundoX = painel.tamanhoDoTile * coluna;
         this.mundoY = painel.tamanhoDoTile * linha;
 
-        baixo1 = setup("/img/tiles/interativos/destructiblewall", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/blocosInterativos/destructiblewall", painel.tamanhoDoTile, painel.tamanhoDoTile);
         destruir = true;
         vida = 1;
     }

@@ -15,7 +15,7 @@ public class ObjChave  extends Entidade {
 
         tipo = tipoConsumivel;
         nome = objNome;
-        baixo1 = setup("/img/itens/key", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/item/key", painel.tamanhoDoTile, painel.tamanhoDoTile);
 
         descricao = "[" + nome + "]\npara abrir uma porta.";
         preco = 100;

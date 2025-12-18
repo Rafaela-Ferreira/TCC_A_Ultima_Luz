@@ -14,7 +14,7 @@ public class ObjBota extends Entidade {
         super(painel);
         
         nome = objNome;
-        baixo1 = setup("/img/itens/boots", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/item/boots", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
         
     }

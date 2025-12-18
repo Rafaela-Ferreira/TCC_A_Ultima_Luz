@@ -9,4 +9,11 @@ public class Progresso {
 
 
     public static boolean cutsceneInicialVista = false;
+
+
+    // Invasor Sombrio - Mapa 1
+    public static boolean invasorMapa1Derrotado = false;
+    public static boolean invasaoMapa1Ativa = false;
+
+
 }

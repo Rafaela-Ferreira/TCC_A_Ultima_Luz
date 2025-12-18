@@ -15,7 +15,7 @@ public class ObjFragmentoCarmesim extends Entidade{
         tipo = tipoConsumivel;
         nome = objNome;
         valor = 1;
-        baixo1 = setup("/img/objetos/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "Fragmento \nnecessário para \nrestaurar a espada.";
     }
     

@@ -1,6 +1,8 @@
 package main;
 
 
+import entidade.Entidade;
+import entidade.NpcSacerdotizaCega;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -9,18 +11,12 @@ import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import entidade.Entidade;
-import entidade.NpcSacerdotizaCega;
-import objeto.ObjCoracao;
-import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
 
 
 
@@ -98,6 +94,7 @@ public class InterfaceDoUsuario {
         if(painel.estadoDoJogo == painel.iniciarEstadoDoJogo){
             desenharHUD_DoJogador(); 
             desenhaVidaDoInimigo();
+            desenhaVidaDoNpcAliado();
             desenharMensagem();
         }
         //PAUSAR
@@ -411,11 +408,50 @@ public class InterfaceDoUsuario {
                 }
             }
         }
-    
-
-
-        
     }
+
+    public void desenhaVidaDoNpcAliado() {
+
+        for (int i = 0; i < painel.npc[1].length; i++) {
+
+            Entidade npc = painel.npc[painel.mapaAtual][i];
+
+            if (npc != null && npc.tipo == npc.tipoNpcAliado && npc.camera()) {
+
+                if (npc.barraDeVidaAtiva) {
+
+                    double escala = (double) painel.tamanhoDoTile / npc.vidaMaxima;
+                    double larguraVida = escala * npc.vida;
+
+                    g2.setColor(new Color(35, 35, 35));
+                    g2.fillRect(
+                        npc.getTelaX() - 1,
+                        npc.getTelaY() - 16,
+                        painel.tamanhoDoTile + 2,
+                        12
+                    );
+
+                    g2.setColor(new Color(0, 200, 0)); // VERDE = aliado
+                    g2.fillRect(
+                        npc.getTelaX(),
+                        npc.getTelaY() - 15,
+                        (int) larguraVida,
+                        10
+                    );
+
+                    npc.contadorBarraDeVida++;
+
+                    if (npc.contadorBarraDeVida > 300) {
+                        npc.barraDeVidaAtiva = false;
+                        npc.contadorBarraDeVida = 0;
+                    }
+                }
+            }
+        }
+    }
+
+
+    
 
     public void desenharMensagem(){
         if(mensagens.isEmpty()) return;

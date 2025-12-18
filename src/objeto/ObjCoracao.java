@@ -18,10 +18,10 @@ public class ObjCoracao extends Entidade{
         tipo = tipoRetirada;
         nome = objNome;
         valor = 2;
-        baixo1 = setup("/img/vida/vidaCompleta", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem = setup("/img/vida/vidaCompleta", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem2 = setup("/img/vida/vidaMeio", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        imagem3 = setup("/img/vida/vidaBranco", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/vida/vidaCompleta", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem = setup("/res/vida/vidaCompleta", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem2 = setup("/res/vida/vidaMeio", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        imagem3 = setup("/res/vida/vidaBranco", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }  
     
     public boolean usar(Entidade entidade){

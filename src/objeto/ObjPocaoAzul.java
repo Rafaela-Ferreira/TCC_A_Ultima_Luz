@@ -15,7 +15,7 @@ public class ObjPocaoAzul extends Entidade{
         tipo = tipoConsumivel;
         nome = objNome;
         valor = 5;
-        baixo1 = setup("/img/objetos/potion_red", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/potion_red", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[" + nome + "]\nRecupera mana em " + valor + ".";
         //preco = 25; - item nao e vendido, apenas encontrado
         empilhavel = true;

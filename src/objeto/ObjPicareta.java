@@ -13,7 +13,7 @@ public class ObjPicareta extends Entidade{
         
         tipo = tipoPicareta;
         nome = objNome;
-        baixo1 = setup("/img/objetos/pickaxe", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/pickaxe", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorAtaque = 6;
         areaAtaque.width = 30;
         areaAtaque.height = 30;

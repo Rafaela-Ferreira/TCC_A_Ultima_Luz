@@ -28,14 +28,14 @@ public class ObjPedra extends Projetil{
 
     public void getImagem(){
         
-        cima1 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/img/projetavel/rock_down_1",  painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/img/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/projetavel/rock_down_1",  painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
     
     public boolean temRecursos(Entidade usar){

@@ -16,34 +16,34 @@ public class Som {
     float volume;
 
     public Som(){
-        somURL[0] = getClass().getResource("/Sons/ApocalypticEchoes.wav");
-        somURL[1] = getClass().getResource("/Sons/coin.wav");
-        somURL[2] = getClass().getResource("/Sons/powerup.wav");
-        somURL[3] = getClass().getResource("/Sons/unlock.wav");
-        somURL[4] = getClass().getResource("/Sons/fanfare.wav");
-        somURL[5] = getClass().getResource("/Sons/hitmonster.wav");
-        somURL[6] = getClass().getResource("/Sons/receivedamage.wav");
-        somURL[7] = getClass().getResource("/Sons/blocked.wav");
-        somURL[8] = getClass().getResource("/Sons/levelup.wav");
-        somURL[9] = getClass().getResource("/Sons/cursor.wav");
-        somURL[10] = getClass().getResource("/Sons/burning.wav");
-        somURL[11] = getClass().getResource("/Sons/cuttree.wav");
-        somURL[12] = getClass().getResource("/Sons/gameover.wav");
-        somURL[13] = getClass().getResource("/Sons/stairs.wav");
-        somURL[14] = getClass().getResource("/Sons/sleep.wav");
-        somURL[15] = getClass().getResource("/Sons/blocked.wav");
-        somURL[16] = getClass().getResource("/Sons/parry.wav");
-        somURL[17] = getClass().getResource("/Sons/speak.wav");
-        somURL[18] = getClass().getResource("/Sons/Merchant.wav");
-        somURL[19] = getClass().getResource("/Sons/Dungeon.wav");
-        somURL[20] = getClass().getResource("/Sons/chipwall.wav");
-        somURL[21] = getClass().getResource("/Sons/dooropen.wav");
-        somURL[22] = getClass().getResource("/Sons/FinalBattle.wav");
+        somURL[0] = getClass().getResource("/Som/ApocalypticEchoes.wav");
+        somURL[1] = getClass().getResource("/Som/coin.wav");
+        somURL[2] = getClass().getResource("/Som/powerup.wav");
+        somURL[3] = getClass().getResource("/Som/unlock.wav");
+        somURL[4] = getClass().getResource("/Som/fanfare.wav");
+        somURL[5] = getClass().getResource("/Som/hitmonster.wav");
+        somURL[6] = getClass().getResource("/Som/receivedamage.wav");
+        somURL[7] = getClass().getResource("/Som/blocked.wav");
+        somURL[8] = getClass().getResource("/Som/levelup.wav");
+        somURL[9] = getClass().getResource("/Som/cursor.wav");
+        somURL[10] = getClass().getResource("/Som/burning.wav");
+        somURL[11] = getClass().getResource("/Som/cuttree.wav");
+        somURL[12] = getClass().getResource("/Som/gameover.wav");
+        somURL[13] = getClass().getResource("/Som/stairs.wav");
+        somURL[14] = getClass().getResource("/Som/sleep.wav");
+        somURL[15] = getClass().getResource("/Som/blocked.wav");
+        somURL[16] = getClass().getResource("/Som/parry.wav");
+        somURL[17] = getClass().getResource("/Som/speak.wav");
+        somURL[18] = getClass().getResource("/Som/Merchant.wav");
+        somURL[19] = getClass().getResource("/Som/Dungeon.wav");
+        somURL[20] = getClass().getResource("/Som/chipwall.wav");
+        somURL[21] = getClass().getResource("/Som/dooropen.wav");
+        somURL[22] = getClass().getResource("/Som/FinalBattle.wav");
         
-        somURL[23] = getClass().getResource("/Sons/correr.wav");
-        somURL[24] = getClass().getResource("/Sons/chuva.wav");
-        somURL[25] = getClass().getResource("/Sons/trovao.wav");
-        somURL[25] = getClass().getResource("/Sons/vento.wav");
+        somURL[23] = getClass().getResource("/Som/correr.wav");
+        somURL[24] = getClass().getResource("/Som/chuva.wav");
+        somURL[25] = getClass().getResource("/Som/trovao.wav");
+        somURL[25] = getClass().getResource("/Som/vento.wav");
 
     }
 

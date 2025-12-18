@@ -31,14 +31,14 @@ public class ObjBolaDeFogo extends Projetil{
 
     public void getImagem(){
         
-        cima1 = setup("/img/projetavel/fireball_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/img/projetavel/fireball_up_2",  painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/projetavel/fireball_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/img/projetavel/fireball_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/img/projetavel/fireball_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/img/projetavel/fireball_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/img/projetavel/fireball_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/img/projetavel/fireball_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/projetavel/fireball_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/projetavel/fireball_up_2",  painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/projetavel/fireball_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/projetavel/fireball_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/projetavel/fireball_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/projetavel/fireball_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/projetavel/fireball_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/projetavel/fireball_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public boolean temRecursos(Entidade usar){

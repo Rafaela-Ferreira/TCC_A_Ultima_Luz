@@ -16,7 +16,7 @@ public class ObjPortaDeFerro extends Entidade{
 
         tipo = tipoObstaculo;
         nome = objNome;
-        baixo1 = setup("/img/objetos/door_iron", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/door_iron", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
         temColisao = true; // Define que a porta tem colisão
 

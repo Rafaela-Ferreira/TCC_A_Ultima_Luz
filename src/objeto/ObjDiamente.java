@@ -14,7 +14,7 @@ public class ObjDiamente extends Entidade{
 
         tipo = tipoRetirada;
         nome = objNome;
-        baixo1 = setup("/img/objetos/blueheart", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/blueheart", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
         setDialogo();
 

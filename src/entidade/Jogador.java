@@ -130,7 +130,7 @@ public class Jogador extends Entidade {
 
         //estado do jogador
         nivel = 1;
-        vidaMaxima = 6;
+        vidaMaxima = 20;
         vida = vidaMaxima;
         manaMaxima = 4;
         mana = manaMaxima;
@@ -235,14 +235,16 @@ public class Jogador extends Entidade {
 
     public void getImagem(){
         
-        cima1 = setup("/img/spritesjogador/boy_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/img/spritesjogador/boy_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/spritesjogador/boy_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/img/spritesjogador/boy_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/img/spritesjogador/boy_left_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/img/spritesjogador/boy_left_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/img/spritesjogador/boy_right_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/img/spritesjogador/boy_right_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+    	
+    	
+        cima1 = setup("/jogador/boy_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/jogador/boy_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/jogador/boy_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/jogador/boy_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/jogador/boy_left_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/jogador/boy_left_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/jogador/boy_right_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/jogador/boy_right_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void getImagemDormindo(BufferedImage imagem){
@@ -258,48 +260,48 @@ public class Jogador extends Entidade {
 
     public void getImagemDeAtaque(){
         if(armaAtual.tipo == tipoEspada){
-            ataqueCima1 = setup("/img/spritesjogador/ataques/boy_attack_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueCima2 = setup("/img/spritesjogador/ataques/boy_attack_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_attack_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_attack_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_attack_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_attack_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_attack_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_attack_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueCima1 = setup("/jogador/ataques/boy_attack_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/jogador/ataques/boy_attack_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/jogador/ataques/boy_attack_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/jogador/ataques/boy_attack_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/jogador/ataques/boy_attack_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/jogador/ataques/boy_attack_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/jogador/ataques/boy_attack_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/jogador/ataques/boy_attack_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
 
         if(armaAtual.tipo == tipoMachado){
-            ataqueCima1 = setup("/img/spritesjogador/ataques/boy_axe_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueCima2 = setup("/img/spritesjogador/ataques/boy_axe_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_axe_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_axe_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_axe_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_axe_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_axe_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_axe_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueCima1 = setup("/jogador/ataques/boy_axe_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/jogador/ataques/boy_axe_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/jogador/ataques/boy_axe_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/jogador/ataques/boy_axe_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/jogador/ataques/boy_axe_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/jogador/ataques/boy_axe_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/jogador/ataques/boy_axe_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/jogador/ataques/boy_axe_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
 
         if(armaAtual.tipo == tipoPicareta){
-            ataqueCima1 = setup("/img/spritesjogador/ataques/boy_pick_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueCima2 = setup("/img/spritesjogador/ataques/boy_pick_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo1 = setup("/img/spritesjogador/ataques/boy_pick_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo2 = setup("/img/spritesjogador/ataques/boy_pick_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueEsquerda1 = setup("/img/spritesjogador/ataques/boy_pick_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueEsquerda2 = setup("/img/spritesjogador/ataques/boy_pick_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita1 = setup("/img/spritesjogador/ataques/boy_pick_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita2 = setup("/img/spritesjogador/ataques/boy_pick_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueCima1 = setup("/jogador/ataques/boy_pick_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/jogador/ataques/boy_pick_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/jogador/ataques/boy_pick_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/jogador/ataques/boy_pick_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/jogador/ataques/boy_pick_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/jogador/ataques/boy_pick_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/jogador/ataques/boy_pick_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/jogador/ataques/boy_pick_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
         
     }
 
     public void getImagemDeDefesa(){
-        defesaCima = setup("/img/spritesjogador/defesa/boy_guard_up" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaBaixo = setup("/img/spritesjogador/defesa/boy_guard_down" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaEsquerda = setup("/img/spritesjogador/defesa/boy_guard_left" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaDireita = setup("/img/spritesjogador/defesa/boy_guard_right" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaCima = setup("/jogador/defesa/boy_guard_up" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaBaixo = setup("/jogador/defesa/boy_guard_down" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaEsquerda = setup("/jogador/defesa/boy_guard_left" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaDireita = setup("/jogador/defesa/boy_guard_right" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     

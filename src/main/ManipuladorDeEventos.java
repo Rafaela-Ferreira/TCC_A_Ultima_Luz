@@ -2,6 +2,9 @@ package main;
 
 import dados.Progresso;
 import entidade.Entidade;
+import entidade.NpcAliado;
+import main.inimigo.InimigoInvasor;
+
 
 public class ManipuladorDeEventos {
     PainelDoJogo painel;
@@ -91,6 +94,10 @@ public class ManipuladorDeEventos {
                 buracoDeDano(painel.estadoDoDialogo);
             }
 
+            // EVENTO DE INVASÃO – MAPA 1
+            else if (bater(0, 30, 20, "any") == true) {
+                invasaoMapa1();
+            }
 
 
             //MAPA 0 - 1 Praça do despertar
@@ -512,6 +519,32 @@ public class ManipuladorDeEventos {
         }
     }
 
+    public void invasaoMapa1() {
+
+        if (Progresso.invasaoMapa1Ativa == false &&
+            Progresso.invasorMapa1Derrotado == false) {
+
+            Progresso.invasaoMapa1Ativa = true;
+
+            // cria o invasor (hostil)
+            painel.inimigo[painel.mapaAtual][0] = new InimigoInvasor(painel);
+            painel.inimigo[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 32;
+            painel.inimigo[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 20;
+
+
+             // cria o NPC aliado
+            painel.npc[painel.mapaAtual][0] = new NpcAliado(painel);
+            painel.npc[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 30;
+            painel.npc[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 22;
+
+            // feedback Soulslike
+            painel.iniciarEfeitoSonoro(14); // som sinistro
+            painel.interfaceDoUsuario.adicionarMensagem("Um espírito hostil invadiu o mundo..." );
+
+            painel.batalhaComChefeAtiva = true;
+            podeTocarEvento = false;
+        }
+    }
     
 
 }

@@ -12,7 +12,7 @@ public class ObjTocha extends Entidade {
 
         tipo = tipoIliminacao;
         nome = objNome;
-        baixo1 = setup("/img/fogueira/tocha0", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/fogueira/tocha0", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
         descricao = "[Lanterna]\nIlumina os arredores.";
         preco = 500;

@@ -29,14 +29,14 @@ public class NpcVelho extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/img/npc/oldman_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/img/npc/oldman_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/npc/oldman_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/img/npc/oldman_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/img/npc/oldman_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/img/npc/oldman_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/img/npc/oldman_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/img/npc/oldman_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/npc/oldman_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/npc/oldman_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/npc/oldman_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/npc/oldman_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/npc/oldman_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/npc/oldman_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/npc/oldman_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/npc/oldman_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){

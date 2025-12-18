@@ -12,7 +12,7 @@ public class ObjMachado extends Entidade{
         
         tipo = tipoMachado;
         nome = objNome;
-        baixo1 = setup("/img/objetos/axe", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/axe", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorAtaque = 2;
         areaAtaque.width = 30;
         areaAtaque.height = 30;

@@ -41,14 +41,14 @@ public class LodoVermelho  extends Entidade{
     }
     
     public void getImagem(){
-        cima1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/img/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/img/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/inimigo/redslime_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/inimigo/redslime_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setAcao(){

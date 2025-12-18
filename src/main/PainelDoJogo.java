@@ -286,7 +286,13 @@ public class PainelDoJogo extends JPanel implements Runnable {
             // Atualiza o estado do NPC
             for(int i = 0; i < npc[1].length; i++){
                 if(npc[mapaAtual][i] != null){
+
                     npc[mapaAtual][i].atualizar();
+
+                    //para o NPC Aliado desaparecer apos cumprir sua função
+                    if(npc[mapaAtual][i].vivo == false){
+                        npc[mapaAtual][i] = null;
+                    }
                 }
             }
 
