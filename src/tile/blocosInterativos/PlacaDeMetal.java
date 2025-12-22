@@ -15,7 +15,7 @@ public class PlacaDeMetal extends BlocosInterativos{
         this.mundoY = painel.tamanhoDoTile * linha;
 
         nome = nomeBlocoI;
-        baixo1 = setup("/blocosInterativos/metalplate", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/blocosInterativos/metalplate", painel.tamanhoDoTile, painel.tamanhoDoTile);
       
         areaSolida.x = 0;
         areaSolida.y = 0;

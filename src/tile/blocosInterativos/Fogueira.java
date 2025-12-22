@@ -3,7 +3,6 @@ package tile.blocosInterativos;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import main.PainelDoJogo;
 
 public class Fogueira extends BlocosInterativos{
@@ -35,10 +34,10 @@ public class Fogueira extends BlocosInterativos{
         
 
         int i = 2;
-        imagem1 = setup("/fogueira/fogueira1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-        imagem2 = setup("/fogueira/fogueira2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-        imagem3 = setup("/fogueira/fogueira3", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-        imagem4 = setup("/fogueira/fogueira4", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+        imagem1 = setup("/res/fogueira/fogueira1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+        imagem2 = setup("/res/fogueira/fogueira2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+        imagem3 = setup("/res/fogueira/fogueira3", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+        imagem4 = setup("/res/fogueira/fogueira4", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
 
         baixo1 = imagem1; 
     }

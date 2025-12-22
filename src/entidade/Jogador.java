@@ -1,12 +1,10 @@
 package entidade;
 
+import dados.Progresso;
 import java.awt.AlphaComposite;
-
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
-
 import main.PainelDoJogo;
 import main.Teclado;
 import objeto.ObjAlma;
@@ -16,7 +14,6 @@ import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
 import objeto.ObjMachado;
 import objeto.ObjPicareta;
-import tile.blocosInterativos.Fogueira;
 
 
 
@@ -52,6 +49,7 @@ public class Jogador extends Entidade {
     public int almasPerdidas = 0;
     public boolean almasNoChao = false;
     public int almaX, almaY;
+
 
 
     public Jogador(PainelDoJogo painel, Teclado teclado) {
@@ -101,6 +99,8 @@ public class Jogador extends Entidade {
 
     // Renasce no último ponto salvo
     public void renascerNoUltimoPonto() {
+
+
         if (mundoXSalvo != 0 && mundoYSalvo != 0) {
             painel.mapaAtual = mapaSalvo;
             mundoX = mundoXSalvo;
@@ -237,14 +237,14 @@ public class Jogador extends Entidade {
         
     	
     	
-        cima1 = setup("/jogador/boy_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/jogador/boy_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/jogador/boy_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/jogador/boy_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/jogador/boy_left_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/jogador/boy_left_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/jogador/boy_right_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/jogador/boy_right_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/jogador/boy_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/jogador/boy_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/jogador/boy_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/jogador/boy_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/jogador/boy_left_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/jogador/boy_left_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/jogador/boy_right_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/jogador/boy_right_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void getImagemDormindo(BufferedImage imagem){
@@ -260,48 +260,48 @@ public class Jogador extends Entidade {
 
     public void getImagemDeAtaque(){
         if(armaAtual.tipo == tipoEspada){
-            ataqueCima1 = setup("/jogador/ataques/boy_attack_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueCima2 = setup("/jogador/ataques/boy_attack_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo1 = setup("/jogador/ataques/boy_attack_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo2 = setup("/jogador/ataques/boy_attack_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueEsquerda1 = setup("/jogador/ataques/boy_attack_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueEsquerda2 = setup("/jogador/ataques/boy_attack_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita1 = setup("/jogador/ataques/boy_attack_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita2 = setup("/jogador/ataques/boy_attack_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueCima1 = setup("/res/jogador/ataques/boy_attack_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/res/jogador/ataques/boy_attack_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/res/jogador/ataques/boy_attack_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/res/jogador/ataques/boy_attack_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/res/jogador/ataques/boy_attack_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/res/jogador/ataques/boy_attack_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/res/jogador/ataques/boy_attack_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/res/jogador/ataques/boy_attack_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
 
         if(armaAtual.tipo == tipoMachado){
-            ataqueCima1 = setup("/jogador/ataques/boy_axe_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueCima2 = setup("/jogador/ataques/boy_axe_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo1 = setup("/jogador/ataques/boy_axe_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo2 = setup("/jogador/ataques/boy_axe_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueEsquerda1 = setup("/jogador/ataques/boy_axe_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueEsquerda2 = setup("/jogador/ataques/boy_axe_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita1 = setup("/jogador/ataques/boy_axe_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita2 = setup("/jogador/ataques/boy_axe_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueCima1 = setup("/res/jogador/ataques/boy_axe_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/res/jogador/ataques/boy_axe_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/res/jogador/ataques/boy_axe_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/res/jogador/ataques/boy_axe_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/res/jogador/ataques/boy_axe_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/res/jogador/ataques/boy_axe_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/res/jogador/ataques/boy_axe_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/res/jogador/ataques/boy_axe_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
 
         if(armaAtual.tipo == tipoPicareta){
-            ataqueCima1 = setup("/jogador/ataques/boy_pick_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueCima2 = setup("/jogador/ataques/boy_pick_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo1 = setup("/jogador/ataques/boy_pick_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueBaixo2 = setup("/jogador/ataques/boy_pick_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-            ataqueEsquerda1 = setup("/jogador/ataques/boy_pick_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueEsquerda2 = setup("/jogador/ataques/boy_pick_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita1 = setup("/jogador/ataques/boy_pick_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-            ataqueDireita2 = setup("/jogador/ataques/boy_pick_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueCima1 = setup("/res/jogador/ataques/boy_pick_up_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueCima2 = setup("/res/jogador/ataques/boy_pick_up_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo1 = setup("/res/jogador/ataques/boy_pick_down_1" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueBaixo2 = setup("/res/jogador/ataques/boy_pick_down_2" ,painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+            ataqueEsquerda1 = setup("/res/jogador/ataques/boy_pick_left_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueEsquerda2 = setup("/res/jogador/ataques/boy_pick_left_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita1 = setup("/res/jogador/ataques/boy_pick_right_1" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+            ataqueDireita2 = setup("/res/jogador/ataques/boy_pick_right_2" ,painel.tamanhoDoTile*2, painel.tamanhoDoTile);
 
         }
         
     }
 
     public void getImagemDeDefesa(){
-        defesaCima = setup("/jogador/defesa/boy_guard_up" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaBaixo = setup("/jogador/defesa/boy_guard_down" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaEsquerda = setup("/jogador/defesa/boy_guard_left" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaDireita = setup("/jogador/defesa/boy_guard_right" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaCima = setup("/res/jogador/defesa/boy_guard_up" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaBaixo = setup("/res/jogador/defesa/boy_guard_down" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaEsquerda = setup("/res/jogador/defesa/boy_guard_left" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaDireita = setup("/res/jogador/defesa/boy_guard_right" ,painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     
@@ -491,7 +491,7 @@ public class Jogador extends Entidade {
         
         if(teclado.modoDebugAtivo == false){
             if(vida <= 0){
-                deixarAlmasNoChao();
+                morrer();
                 painel.estadoDoJogo = painel.estadoGameOver;
                 painel.interfaceDoUsuario.numeroDoComando = -1;
                 painel.pararMusica();
@@ -503,6 +503,7 @@ public class Jogador extends Entidade {
         
     } 
 
+    /* 
 
     public void deixarAlmasNoChao() {
         if (almasNoChao) {
@@ -518,6 +519,7 @@ public class Jogador extends Entidade {
             almasNoChao = true;
         }
     }
+    
 
     public void verificarRecuperacaoDeAlmas() {
         if (almasNoChao) {
@@ -688,36 +690,31 @@ public class Jogador extends Entidade {
 
      
     public void morrer() {
-       //if (painel.estadoDoJogo == painel.estadoGameOver) return;
 
-        //System.out.println("Jogador morreu. Almas antes: " + alma);
-
-        // Verifica se já havia almas no chão e não foram recuperadas
+    
+        // Se já existiam almas no chão, elas são perdidas
         if (almasNoChao) {
-            //System.out.println("Almas não recuperadas foram perdidas permanentemente!");
-            painel.interfaceDoUsuario.adicionarMensagem("Almas não recuperadas foram perdidas!");
-            // Remove as almas antigas do mapa
+
             for (int i = 0; i < painel.Obj[painel.mapaAtual].length; i++) {
                 if (painel.Obj[painel.mapaAtual][i] != null &&
                     painel.Obj[painel.mapaAtual][i].nome.equals(ObjAlma.objNome)) {
+
                     painel.Obj[painel.mapaAtual][i] = null;
                 }
             }
+
             almasPerdidas = 0;
             almasNoChao = false;
         }
 
-        // Sempre perde todas as almas do jogador
         int almasDeixadas = alma;
         alma = 0;
 
-        // Cria o objeto de alma no chão
         ObjAlma almaDrop = new ObjAlma(painel);
         almaDrop.mundoX = mundoX;
         almaDrop.mundoY = mundoY;
         almaDrop.valor = almasDeixadas;
 
-        // Adiciona ao mapa
         for (int i = 0; i < painel.Obj[painel.mapaAtual].length; i++) {
             if (painel.Obj[painel.mapaAtual][i] == null) {
                 painel.Obj[painel.mapaAtual][i] = almaDrop;
@@ -725,18 +722,22 @@ public class Jogador extends Entidade {
             }
         }
 
-        // Marca que há almas no chão
         almasNoChao = true;
+        almasPerdidas = almasDeixadas;
         almaX = mundoX;
         almaY = mundoY;
-        almasPerdidas = almasDeixadas;
 
         painel.interfaceDoUsuario.adicionarMensagem("Você deixou " + almasDeixadas + " almas no chão!");
 
-        // Sons e estado do jogo
         painel.pararMusica();
         painel.iniciarEfeitoSonoro(12);
         painel.estadoDoJogo = painel.estadoGameOver;
+        painel.interfaceDoUsuario.numeroDoComando = -1;
+
+
+        // libera a invasão para acontecer novamente
+        Progresso.invasaoMapa1Ativa = false;
+        
     }
     
     

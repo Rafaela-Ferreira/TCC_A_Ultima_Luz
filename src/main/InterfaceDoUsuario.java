@@ -59,9 +59,9 @@ public class InterfaceDoUsuario {
         this.painel = painel;
 
         try {
-            InputStream entrada = getClass().getResourceAsStream("/fontes/MaruMonica.ttf");
+            InputStream entrada = getClass().getResourceAsStream("/res/fontes/MaruMonica.ttf");
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, entrada);
-            entrada = getClass().getResourceAsStream("/fontes/PurisaBold.ttf");
+            entrada = getClass().getResourceAsStream("/res/fontes/PurisaBold.ttf");
             purisaB = Font.createFont(Font.TRUETYPE_FONT, entrada);
 
         } catch (FontFormatException e) {
@@ -423,21 +423,11 @@ public class InterfaceDoUsuario {
                     double escala = (double) painel.tamanhoDoTile / npc.vidaMaxima;
                     double larguraVida = escala * npc.vida;
 
-                    g2.setColor(new Color(35, 35, 35));
-                    g2.fillRect(
-                        npc.getTelaX() - 1,
-                        npc.getTelaY() - 16,
-                        painel.tamanhoDoTile + 2,
-                        12
-                    );
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(npc.getTelaX()-1, npc.getTelaY() - 16, painel.tamanhoDoTile+2, 12);
 
-                    g2.setColor(new Color(0, 200, 0)); // VERDE = aliado
-                    g2.fillRect(
-                        npc.getTelaX(),
-                        npc.getTelaY() - 15,
-                        (int) larguraVida,
-                        10
-                    );
+                    g2.setColor(new Color(255,0,30));
+                    g2.fillRect(npc.getTelaX(), npc.getTelaY() - 15, (int)larguraVida, 10);
 
                     npc.contadorBarraDeVida++;
 
@@ -463,7 +453,7 @@ public class InterfaceDoUsuario {
 
             if(msg != null){
                 int larguraCaixa = 500;
-                int alturaCaixa = 80;
+                int alturaCaixa = 90;
 
                 int x = painel.larguraTela/2 - larguraCaixa/2;
                 int y = painel.alturaTela - 100;
@@ -492,12 +482,22 @@ public class InterfaceDoUsuario {
                 FontMetrics fm = g2.getFontMetrics();
                 int larguraTexto = fm.stringWidth(msg);
                 int alturaTexto = fm.getHeight();
+
                 int textoX = x + (larguraCaixa - larguraTexto) / 2;
                 int textoY = y + (alturaCaixa - alturaTexto) / 2 + fm.getAscent();
+                textoY -= 15;
 
                 g2.setColor(Color.white);
-                g2.drawString(msg, textoX, textoY);
+                int linhaY = textoY;
 
+                for (String linha : msg.split("\n")) {
+                    int larguraLinha = fm.stringWidth(linha);
+                    int linhaX = x + (larguraCaixa - larguraLinha) / 2;
+
+                    g2.drawString(linha, linhaX, linhaY);
+                    linhaY += fm.getHeight();
+                }
+                
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
                 if(contador > 180){

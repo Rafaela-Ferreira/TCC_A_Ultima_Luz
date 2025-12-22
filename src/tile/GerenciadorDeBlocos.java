@@ -31,7 +31,7 @@ public class GerenciadorDeBlocos {
 
         
         //ler arquivo de dados do bloco
-        InputStream is = getClass().getResourceAsStream("/mapa/Banco.txt");
+        InputStream is = getClass().getResourceAsStream("/res/mapa/Banco.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //obtendo informações de blocos e colisão do arquivo
@@ -53,7 +53,7 @@ public class GerenciadorDeBlocos {
         carregarImagensDosBlocos();
 
         //get the maxmundoCol e row
-        is = getClass().getResourceAsStream("/mapa/1_1PracaDoDespertar.txt");//mapas de 50x50, 100x100, ou 250x250...
+        is = getClass().getResourceAsStream("/res/mapa/1_1PracaDoDespertar.txt");//mapas de 50x50, 100x100, ou 250x250...
         br = new BufferedReader(new InputStreamReader(is));
 
         try{
@@ -71,46 +71,46 @@ public class GerenciadorDeBlocos {
         }
 
         //Área 1 - Inicio do Jogo
-        carregarMapa("/mapa/1_1PracaDoDespertar.txt", 0);      // 1 Praça do despertar
-        carregarMapa("/mapa/1_2Arena.txt", 1);                 // 1_2 Arena Chefe Tutorial
+        carregarMapa("/res/mapa/1_1PracaDoDespertar.txt", 0);      // 1 Praça do despertar
+        carregarMapa("/res/mapa/1_2Arena.txt", 1);                 // 1_2 Arena Chefe Tutorial
 
         //Área 2 
-        carregarMapa("/mapa/2_1CapelaDaLuzInterior.txt", 2);   // 2_1 Capela Da Luz Interior - Bifurcação para Gula e Avareza
+        carregarMapa("/res/mapa/2_1CapelaDaLuzInterior.txt", 2);   // 2_1 Capela Da Luz Interior - Bifurcação para Gula e Avareza
 
         //Área 3 - Caminhos para o Boss Gula
-        carregarMapa("/mapa/3_1SalaoDoBanqueteEterno.txt", 3); // 3.1 Salão Do Banquete Eterno
-        carregarMapa("/mapa/3_2Arena.txt", 4);                 // 3.2 Arena - Chefe Gula
+        carregarMapa("/res/mapa/3_1SalaoDoBanqueteEterno.txt", 3); // 3.1 Salão Do Banquete Eterno
+        carregarMapa("/res/mapa/3_2Arena.txt", 4);                 // 3.2 Arena - Chefe Gula
         
         //Área 4 - Caminhos para o Boss Avareza
-        carregarMapa("/mapa/4_1PortaDeFerro.txt", 5);         // 4.1 Porta De Ferro
-        carregarMapa("/mapa/4_2CamaraDasCorrentes.txt", 6);   // 4.2 Câmara Das Correntes
-        carregarMapa("/mapa/4_3Arena.txt", 7);                // 4.3 Arena Chefe Avareza
+        carregarMapa("/res/mapa/4_1PortaDeFerro.txt", 5);         // 4.1 Porta De Ferro
+        carregarMapa("/res/mapa/4_2CamaraDasCorrentes.txt", 6);   // 4.2 Câmara Das Correntes
+        carregarMapa("/res/mapa/4_3Arena.txt", 7);                // 4.3 Arena Chefe Avareza
         
 
 
         //Área 5 - Caminhos para o Boss Inveja
-        carregarMapa("/mapa/5_1JardimDasSombras.txt", 8);     // 5.1 Jardim Das Sombras
-        carregarMapa("/mapa/5_2Arena.txt", 9);                // 5.2 Arena Chefe Inveja
+        carregarMapa("/res/mapa/5_1JardimDasSombras.txt", 8);     // 5.1 Jardim Das Sombras
+        carregarMapa("/res/mapa/5_2Arena.txt", 9);                // 5.2 Arena Chefe Inveja
 
         //Área 6 - Caminhos para o Boss Luxúria
-        carregarMapa("/mapa/6_1AuroraPartida.txt", 10);        // 6.1 Aurora Partida
-        carregarMapa("/mapa/6_2Arena.txt", 11);                // 6.2 Arena Chefe Luxúria
+        carregarMapa("/res/mapa/6_1AuroraPartida.txt", 10);        // 6.1 Aurora Partida
+        carregarMapa("/res/mapa/6_2Arena.txt", 11);                // 6.2 Arena Chefe Luxúria
 
         //Área 7 - Caminhos para o Boss Orgulho
-        carregarMapa("/mapa/7_1TronoDaLuz.txt", 12);           // 7.1 Trono Da Luz
-        carregarMapa("/mapa/7_2TronoCaido.txt", 13);           // 7.2 Trono Caído
-        carregarMapa("/mapa/7_3ArenaFinal.txt", 14);           // 7.3 Arena Final
+        carregarMapa("/res/mapa/7_1TronoDaLuz.txt", 12);           // 7.1 Trono Da Luz
+        carregarMapa("/res/mapa/7_2TronoCaido.txt", 13);           // 7.2 Trono Caído
+        carregarMapa("/res/mapa/7_3ArenaFinal.txt", 14);           // 7.3 Arena Final
 
 
         //Área 8 - Caminhos para o Boss Preguiça
-        carregarMapa("/mapa/8_1SalaoDoSonoEterno.txt", 15);    // 8.1 Salão Do Sono Eterno
-        carregarMapa("/mapa/8_2LanternaDosSonhos.txt", 16);    // 8.2 Lanterna Dos Sonhos
-        carregarMapa("/mapa/8_3Arena.txt", 17);                // 8.3 Arena Chefe Preguiça
+        carregarMapa("/res/mapa/8_1SalaoDoSonoEterno.txt", 15);    // 8.1 Salão Do Sono Eterno
+        carregarMapa("/res/mapa/8_2LanternaDosSonhos.txt", 16);    // 8.2 Lanterna Dos Sonhos
+        carregarMapa("/res/mapa/8_3Arena.txt", 17);                // 8.3 Arena Chefe Preguiça
 
         //Área 9 - Caminhos para o Boss Ira
-        carregarMapa("/mapa/9_1LaminasSanguinarias.txt", 18);   // 9.1 Lâminas Sanginárias
-        carregarMapa("/mapa/9_2OFogoRubro.txt", 19);           // 9.2 O Fogo Rubro
-        carregarMapa("/mapa/9_3Arena.txt", 20);                // 9.3 Arena Chefe Ira
+        carregarMapa("/res/mapa/9_1LaminasSanguinarias.txt", 18);   // 9.1 Lâminas Sanginárias
+        carregarMapa("/res/mapa/9_2OFogoRubro.txt", 19);           // 9.2 O Fogo Rubro
+        carregarMapa("/res/mapa/9_3Arena.txt", 20);                // 9.3 Arena Chefe Ira
         
     }
 
@@ -142,7 +142,7 @@ public class GerenciadorDeBlocos {
         
         try {
             blocos[indice] = new Bloco();
-            blocos[indice].imagem = ImageIO.read(getClass().getResourceAsStream("/blocos/" + nomeDaImagem));
+            blocos[indice].imagem = ImageIO.read(getClass().getResourceAsStream("/res/blocos/" + nomeDaImagem));
             //String caminho = "/img/num/" + nomeDaImagem;
             //System.out.println("Carregando: " + caminho);
             blocos[indice].imagem = ferramentas.escalaImage(blocos[indice].imagem, painel.tamanhoDoTile, painel.tamanhoDoTile); // Define se o bloco tem colisão

@@ -1,8 +1,7 @@
 package tile.blocosInterativos;
 
-import java.awt.Color;
-
 import entidade.Entidade;
+import java.awt.Color;
 import main.PainelDoJogo;
 
 //passagens segretas
@@ -17,7 +16,7 @@ public class ParedeDestrutivel extends BlocosInterativos{
         this.mundoX = painel.tamanhoDoTile * coluna;
         this.mundoY = painel.tamanhoDoTile * linha;
 
-        baixo1 = setup("/blocosInterativos/destructiblewall", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/blocosInterativos/destructiblewall", painel.tamanhoDoTile, painel.tamanhoDoTile);
         destruir = true;
         vida = 1;
     }

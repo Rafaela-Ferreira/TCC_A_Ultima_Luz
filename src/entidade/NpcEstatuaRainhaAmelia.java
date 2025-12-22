@@ -1,7 +1,7 @@
 package entidade;
 
-import main.PainelDoJogo;
 import java.awt.Rectangle;
+import main.PainelDoJogo;
 
 public class NpcEstatuaRainhaAmelia extends Entidade{
 
@@ -32,14 +32,14 @@ public class NpcEstatuaRainhaAmelia extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){

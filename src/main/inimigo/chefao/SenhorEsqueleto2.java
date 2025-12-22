@@ -1,12 +1,10 @@
 package main.inimigo.chefao;
 
-import java.util.Random;
-
 import dados.Progresso;
 import entidade.Entidade;
+import java.util.Random;
 import main.PainelDoJogo;
 import objeto.ObjCoracao;
-import objeto.ObjFragmentoCarmesim;
 import objeto.ObjFragmentoFaminto;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
@@ -58,25 +56,25 @@ public class SenhorEsqueleto2 extends Entidade{
 
         int i = 5;
         if(furia == false){
-            cima1 = setup("/inimigo/skeletonlord_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            cima2 = setup("/inimigo/skeletonlord_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            baixo1 = setup("/inimigo/skeletonlord_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            baixo2 = setup("/inimigo/skeletonlord_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            esquerda1 = setup("/inimigo/skeletonlord_left_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            esquerda2 = setup("/inimigo/skeletonlord_left_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            direita1 = setup("/inimigo/skeletonlord_right_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            direita2 = setup("/inimigo/skeletonlord_right_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            cima1 = setup("/res/inimigo/skeletonlord_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            cima2 = setup("/res/inimigo/skeletonlord_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            baixo1 = setup("/res/inimigo/skeletonlord_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            baixo2 = setup("/res/inimigo/skeletonlord_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            esquerda1 = setup("/res/inimigo/skeletonlord_left_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            esquerda2 = setup("/res/inimigo/skeletonlord_left_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            direita1 = setup("/res/inimigo/skeletonlord_right_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            direita2 = setup("/res/inimigo/skeletonlord_right_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
         }
 
         if(furia == true){
-            cima1 = setup("/inimigo/skeletonlord_phase2_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            cima2 = setup("/inimigo/skeletonlord_phase2_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            baixo1 = setup("/inimigo/skeletonlord_phase2_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            baixo2 = setup("/inimigo/skeletonlord_phase2_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            esquerda1 = setup("/inimigo/skeletonlord_phase2_left_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            esquerda2 = setup("/inimigo/skeletonlord_phase2_left_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            direita1 = setup("/inimigo/skeletonlord_phase2_right_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-            direita2 = setup("/inimigo/skeletonlord_phase2_right_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            cima1 = setup("/res/inimigo/skeletonlord_phase2_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            cima2 = setup("/res/inimigo/skeletonlord_phase2_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            baixo1 = setup("/res/inimigo/skeletonlord_phase2_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            baixo2 = setup("/res/inimigo/skeletonlord_phase2_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            esquerda1 = setup("/res/inimigo/skeletonlord_phase2_left_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            esquerda2 = setup("/res/inimigo/skeletonlord_phase2_left_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            direita1 = setup("/res/inimigo/skeletonlord_phase2_right_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+            direita2 = setup("/res/inimigo/skeletonlord_phase2_right_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
         }
 
 
@@ -89,27 +87,27 @@ public class SenhorEsqueleto2 extends Entidade{
         int i = 5;
 
         if(furia == false){
-            ataqueCima1 = setup("/inimigo/skeletonlord_attack_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueCima2 = setup("/inimigo/skeletonlord_attack_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueBaixo1 = setup("/inimigo/skeletonlord_attack_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueBaixo2 = setup("/inimigo/skeletonlord_attack_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueCima1 = setup("/res/inimigo/skeletonlord_attack_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueCima2 = setup("/res/inimigo/skeletonlord_attack_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueBaixo1 = setup("/res/inimigo/skeletonlord_attack_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueBaixo2 = setup("/res/inimigo/skeletonlord_attack_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
 
-            ataqueEsquerda1 = setup("/inimigo/skeletonlord_attack_left_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
-            ataqueEsquerda2 = setup("/inimigo/skeletonlord_attack_left_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
-            ataqueDireita1 = setup("/inimigo/skeletonlord_attack_right_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
-            ataqueDireita2 = setup("/inimigo/skeletonlord_attack_right_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueEsquerda1 = setup("/res/inimigo/skeletonlord_attack_left_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueEsquerda2 = setup("/res/inimigo/skeletonlord_attack_left_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita1 = setup("/res/inimigo/skeletonlord_attack_right_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita2 = setup("/res/inimigo/skeletonlord_attack_right_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
         }
 
         if(furia == true){
-            ataqueCima1 = setup("/inimigo/skeletonlord_phase2_attack_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueCima2 = setup("/inimigo/skeletonlord_phase2_attack_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueBaixo1 = setup("/inimigo/skeletonlord_phase2_attack_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
-            ataqueBaixo2 = setup("/inimigo/skeletonlord_phase2_attack_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueCima1 = setup("/res/inimigo/skeletonlord_phase2_attack_up_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueCima2 = setup("/res/inimigo/skeletonlord_phase2_attack_up_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueBaixo1 = setup("/res/inimigo/skeletonlord_phase2_attack_down_1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
+            ataqueBaixo2 = setup("/res/inimigo/skeletonlord_phase2_attack_down_2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i*2);
 
-            ataqueEsquerda1 = setup("/inimigo/skeletonlord_phase2_attack_left_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
-            ataqueEsquerda2 = setup("/inimigo/skeletonlord_phase2_attack_left_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
-            ataqueDireita1 = setup("/inimigo/skeletonlord_phase2_attack_right_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
-            ataqueDireita2 = setup("/inimigo/skeletonlord_phase2_attack_right_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueEsquerda1 = setup("/res/inimigo/skeletonlord_phase2_attack_left_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueEsquerda2 = setup("/res/inimigo/skeletonlord_phase2_attack_left_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita1 = setup("/res/inimigo/skeletonlord_phase2_attack_right_1", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
+            ataqueDireita2 = setup("/res/inimigo/skeletonlord_phase2_attack_right_2", painel.tamanhoDoTile*i*2, painel.tamanhoDoTile*i);
         }
         
     }

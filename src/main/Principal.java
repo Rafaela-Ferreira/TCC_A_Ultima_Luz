@@ -1,4 +1,6 @@
 package main;
+
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -31,7 +33,7 @@ public class Principal {
     }
 
     public void setIcone(){
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("logoAultimaLuz.jpg")); 
+        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("res/logoAultimaLuz.jpg")); 
         janela.setIconImage(icone.getImage());
     }
 }

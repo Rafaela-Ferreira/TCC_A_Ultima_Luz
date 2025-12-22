@@ -1,8 +1,7 @@
 package tile.blocosInterativos;
 
-import java.awt.Color;
-
 import entidade.Entidade;
+import java.awt.Color;
 import main.PainelDoJogo;
 
 public class ArvoreSeca extends BlocosInterativos{
@@ -16,7 +15,7 @@ public class ArvoreSeca extends BlocosInterativos{
         this.mundoX = painel.tamanhoDoTile * coluna;
         this.mundoY = painel.tamanhoDoTile * linha;
 
-        baixo1 = setup("/blocosInterativos/drytree", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/blocosInterativos/drytree", painel.tamanhoDoTile, painel.tamanhoDoTile);
         destruir = true;
         vida = 3;
     }

@@ -1,9 +1,8 @@
 package objeto;
 
-import java.awt.Color;
-
 import entidade.Entidade;
 import entidade.Projetil;
+import java.awt.Color;
 import main.PainelDoJogo;
 
 public class ObjPedra extends Projetil{
@@ -28,14 +27,14 @@ public class ObjPedra extends Projetil{
 
     public void getImagem(){
         
-        cima1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/projetavel/rock_down_1",  painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/projetavel/rock_down_1",  painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/projetavel/rock_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
     
     public boolean temRecursos(Entidade usar){

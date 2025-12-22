@@ -1,8 +1,7 @@
 package main.inimigo;
 
-import java.util.Random;
-
 import entidade.Entidade;
+import java.util.Random;
 import main.PainelDoJogo;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
@@ -17,6 +16,7 @@ public class InimigoOrc extends Entidade{
 
         this.painel = painel;
         
+
         tipo = tipoInimigo;
         nome ="Orc";
         velocidadePadrao = 1;
@@ -45,25 +45,25 @@ public class InimigoOrc extends Entidade{
     }
     
     public void getImagem(){
-        cima1 = setup("/inimigo/orc_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/inimigo/orc_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/inimigo/orc_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/inimigo/orc_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/inimigo/orc_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/inimigo/orc_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/inimigo/orc_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/inimigo/orc_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/inimigo/orc_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/inimigo/orc_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/inimigo/orc_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/inimigo/orc_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/inimigo/orc_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/inimigo/orc_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/inimigo/orc_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/inimigo/orc_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void getImagemAtaque(){
-        ataqueCima1 = setup("/img/inimigo/orc_attack_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueCima2 = setup("/img/inimigo/orc_attack_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueBaixo1 = setup("/img/inimigo/orc_attack_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueBaixo2 = setup("/img/inimigo/orc_attack_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueEsquerda1 = setup("/img/inimigo/orc_attack_left_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueEsquerda2 = setup("/img/inimigo/orc_attack_left_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueDireita1 = setup("/img/inimigo/orc_attack_right_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueDireita2 = setup("/img/inimigo/orc_attack_right_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueCima1 = setup("/res/inimigo/orc_attack_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueCima2 = setup("/res/inimigo/orc_attack_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueBaixo1 = setup("/res/inimigo/orc_attack_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueBaixo2 = setup("/res/inimigo/orc_attack_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueEsquerda1 = setup("/res/inimigo/orc_attack_left_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueEsquerda2 = setup("/res/inimigo/orc_attack_left_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueDireita1 = setup("/res/inimigo/orc_attack_right_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueDireita2 = setup("/res/inimigo/orc_attack_right_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
     }
 
     public void setAcao(){

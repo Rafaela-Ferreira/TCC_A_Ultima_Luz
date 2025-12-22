@@ -138,6 +138,13 @@ public class Entidade {
 
     public Entidade alvo;
 
+    public boolean podeReceberDano = true;
+
+
+
+
+    
+
 
     public Entidade(PainelDoJogo painel){
         this.painel = painel;
@@ -231,6 +238,8 @@ public class Entidade {
 
     public void acaoAoDano(){ }
 
+    public void morrer(){}
+
     public void falar(){   }
 
     public void faceJogador(){
@@ -318,12 +327,18 @@ public class Entidade {
         painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
         painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
 
+         
         boolean contatoComJogador = painel.colisaoChecked.verificarJogador(this);
 
         if(this.tipo == tipoInimigo && contatoComJogador == true){
             danoJogador(ataque);
         }
+        
+
+      
     }
+
+    
 
 
 
@@ -359,10 +374,7 @@ public class Entidade {
             }
             else if(atacar == true){
                 ataque();
-
-                if(tipo == tipoNpcAliado){
-                   
-                }
+                
             }
             
             else{
@@ -444,7 +456,7 @@ public class Entidade {
             contadorDeTiro = 0;
         }
     }
-
+    
     public void verificarSeAtacou_ou_nao(int taxa, int direta, int horizontal){
         boolean alcanceDoAlvo = false;
         int Xdistancia = getDistaciaX(painel.jogador);
@@ -487,7 +499,10 @@ public class Entidade {
             }
         }
     }
+    
 
+    
+    
     public void verificarSeComecouAPerseguir_ou_nao(Entidade alvo, int distancia, int taxa){
         if(getDistaciaDoBloco(alvo) < distancia){
             int i = new Random().nextInt(taxa);
@@ -597,28 +612,20 @@ public class Entidade {
 
                 // Atacar jogador
                 if(painel.colisaoChecked.verificarJogador(this)){
-                    painel.jogador.receberDano(ataque);
+                    painel.jogador.danoJogador(ataque);
                 }
 
                 // Atacar NPC aliado
                 int indiceNpc = painel.colisaoChecked.verificarEntidade(this, painel.npc);
 
-                if (indiceNpc != 999) {
-
+                if(indiceNpc != 999){
                     Entidade npc = painel.npc[painel.mapaAtual][indiceNpc];
 
-                    if (npc != null &&
-                        npc.vivo &&
-                        npc.tipo == tipoNpcAliado &&
-                        !npc.invencivel) {
-
-                        npc.receberDano(ataque);
-                        npc.acaoAoDano();
-                        npc.invencivel = true;
-
-                        setEmpurrao(npc, this, poderDoEmpurrao);
+                    if(npc != null && npc.tipo == tipoNpcAliado){
+                        npc.danoJogador(ataque);
                     }
                 }
+                
             }
 
             
@@ -659,6 +666,7 @@ public class Entidade {
 
                         setEmpurrao(inimigo, this, poderDoEmpurrao);
 
+                        /* 
                         if (inimigo.vida <= 0) {
                             inimigo.morrendo = true;
                             inimigo.vivo = false;
@@ -667,6 +675,7 @@ public class Entidade {
                             // NPC aliado cumpre seu papel e desaparece do mundo
                             this.vivo = false;
                         }
+                        */
                     }
                 }
             }
@@ -688,25 +697,27 @@ public class Entidade {
 
     }
 
-    public void receberDano(int dano){
+    public void receberDano(Entidade atacante){
 
-        if(invencivel == true || vivo == false) return;
+        if(invencivel) return;
+        if(!vivo) return;
 
-        int danoFinal = dano - defesa;
-        if(danoFinal < 1) danoFinal = 1;
+        int dano = atacante.ataque - defesa;
+        if(dano < 1) dano = 1;
 
-        vida -= danoFinal;
+        vida -= dano;
         invencivel = true;
 
-        acaoAoDano();
+        setEmpurrao(this, atacante, atacante.poderDoEmpurrao);
 
         if(vida <= 0){
             vida = 0;
             vivo = false;
             morrendo = true;
+            morrer();
         }
     }
-
+    
 
 
     public void danoJogador(int ataque){
@@ -891,7 +902,7 @@ public class Entidade {
 
         try{
             imagem = ImageIO.read(getClass().getResourceAsStream(caminho + ".png"));
-            System.out.println(imagem == null ? "Imagem NÃO encontrada" : "Imagem encontrada");
+            //System.out.println(imagem == null ? "Imagem NÃO encontrada" : "Imagem encontrada");
             imagem = ferramentas.escalaImage(imagem, altura, largura);
 
         }catch(IOException e){

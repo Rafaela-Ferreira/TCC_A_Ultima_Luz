@@ -531,15 +531,28 @@ public class ManipuladorDeEventos {
             painel.inimigo[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 32;
             painel.inimigo[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 20;
 
-
-             // cria o NPC aliado
-            painel.npc[painel.mapaAtual][0] = new NpcAliado(painel);
-            painel.npc[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 30;
-            painel.npc[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 22;
-
-            // feedback Soulslike
+            // Mensagem de alerta
             painel.iniciarEfeitoSonoro(14); // som sinistro
             painel.interfaceDoUsuario.adicionarMensagem("Um espírito hostil invadiu o mundo..." );
+
+            //TEMPORIZADOR 
+            new Thread(() -> {
+                try {
+                    int tempoEmSegundos = 30; // 30 segundos 
+                    Thread.sleep(tempoEmSegundos * 1000); //1000 = 1 segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // cria o NPC aliado APÓS 10 segundos
+                painel.npc[painel.mapaAtual][0] = new NpcAliado(painel);
+                painel.npc[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 28;
+                painel.npc[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 22;
+
+                painel.iniciarEfeitoSonoro(15);
+                painel.interfaceDoUsuario.adicionarMensagem("Um espírito aliado atravessou\nos véus para ajudá-lo!");
+            }).start();
+            
 
             painel.batalhaComChefeAtiva = true;
             podeTocarEvento = false;

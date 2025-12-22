@@ -163,8 +163,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
         jogador.renascerNoUltimoPonto();
         jogador.restaltarStatus();
 
-        jogador.almasNoChao = false;
-        jogador.almasPerdidas = 0;
+        //jogador.almasNoChao = false;
+        //jogador.almasPerdidas = 0;
 
         jogador.reiniciarContador();
         criarObjetos.setNpc();
@@ -283,19 +283,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
             // Atualiza o estado do jogador
             jogador.atualizar(); 
 
-            // Atualiza o estado do NPC
-            for(int i = 0; i < npc[1].length; i++){
-                if(npc[mapaAtual][i] != null){
-
-                    npc[mapaAtual][i].atualizar();
-
-                    //para o NPC Aliado desaparecer apos cumprir sua função
-                    if(npc[mapaAtual][i].vivo == false){
-                        npc[mapaAtual][i] = null;
-                    }
-                }
-            }
-
             //atualizar o estado do inimigo
             for(int i = 0; i < inimigo[1].length; i++){
                 if(inimigo[mapaAtual][i] != null){
@@ -309,6 +296,21 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     
                 }
             }
+
+            // Atualiza o estado do NPC
+            for(int i = 0; i < npc[1].length; i++){
+                if(npc[mapaAtual][i] != null){
+
+                    npc[mapaAtual][i].atualizar();
+
+                    //para o NPC Aliado desaparecer apos cumprir sua função
+                    if(npc[mapaAtual][i].vivo == false){
+                        npc[mapaAtual][i] = null;
+                    }
+                }
+            }
+
+            
 
             //atualizar o estado do projetil - bola de fogo
             for(int i = 0; i < projetavel[1].length; i++){
@@ -461,29 +463,15 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             //mini mapa
             mapa.desenharMiniMapa(g2);
-
-            //Cutscene
-            gerenciadorDeCutscene.desenhar(g2);
             
-
-            if (jogador.almasNoChao) {
-                int telaX = jogador.almaX - jogador.mundoX + jogador.telaX;
-                int telaY = jogador.almaY - jogador.mundoY + jogador.telaY;
-
-                // Efeito visual das almas
-                g2.setColor(new Color(100, 200, 255, 180));
-                g2.fillOval(telaX - 10, telaY - 10, 20, 20);
-                g2.setColor(new Color(255, 255, 255, 200));
-                g2.setFont(new Font("Serif", Font.BOLD, 18));
-                g2.drawString("✧", telaX - 5, telaY + 5);
-            }
-
             
             // Desenha inventário rápido
             interfaceDoUsuario.desenharHUD_DoJogador();
             // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
             interfaceDoUsuario.desenhar(g2);
 
+            //Cutscene
+            gerenciadorDeCutscene.desenhar(g2);
             
 
             //DEBUG

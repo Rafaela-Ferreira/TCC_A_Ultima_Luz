@@ -1,9 +1,8 @@
 package objeto;
 
-import java.awt.Color;
-
 import entidade.Entidade;
 import entidade.Projetil;
+import java.awt.Color;
 import main.PainelDoJogo;
 
 
@@ -31,14 +30,14 @@ public class ObjBolaDeFogo extends Projetil{
 
     public void getImagem(){
         
-        cima1 = setup("/projetavel/fireball_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/projetavel/fireball_up_2",  painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/projetavel/fireball_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/projetavel/fireball_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/projetavel/fireball_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/projetavel/fireball_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/projetavel/fireball_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/projetavel/fireball_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/projetavel/fireball_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/projetavel/fireball_up_2",  painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/projetavel/fireball_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/projetavel/fireball_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/projetavel/fireball_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/projetavel/fireball_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/projetavel/fireball_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/projetavel/fireball_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public boolean temRecursos(Entidade usar){

@@ -2,7 +2,6 @@ package entidade;
 
 import java.awt.Rectangle;
 import java.util.Random;
-
 import main.PainelDoJogo;
 
 public class NpcOVigiaPartido extends Entidade{
@@ -31,14 +30,14 @@ public class NpcOVigiaPartido extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/npc/oldman_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/npc/oldman_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/npc/oldman_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/npc/oldman_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/npc/oldman_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/npc/oldman_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/npc/oldman_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/npc/oldman_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/npc/oldman_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/oldman_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/npc/oldman_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/oldman_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/oldman_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/oldman_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/oldman_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/oldman_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     //trocar diálogos
