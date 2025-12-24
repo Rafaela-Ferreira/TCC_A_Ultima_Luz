@@ -2,6 +2,7 @@ package main;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 import entidade.jogadorManequim;
@@ -26,6 +27,27 @@ public class GerenciadorDeCutscene {
     public final int senhorEsqueleto = 1;
     public final int cenaFinal = 2;
     public final int cenaInicial = 3;
+    public final int cenaMorte = 4;
+    
+    String mensagemMorteAtual;
+
+
+    public void desenhar(Graphics2D g2){
+        this.g2 = g2;
+
+        switch (numeroDaCena) {
+            case cenaMorte: cenaMorte(); break;
+
+            case senhorEsqueleto: cenaSenhorEsqueleto(); break;
+            case cenaFinal : cenaFinal(); break;
+            case cenaInicial: cenaInicial(); break;
+            
+        }
+
+    }
+
+
+    
 
 
     public GerenciadorDeCutscene(PainelDoJogo painel){
@@ -49,16 +71,7 @@ public class GerenciadorDeCutscene {
         +"Obrigado por jogar!";
     }
 
-    public void desenhar(Graphics2D g2){
-        this.g2 = g2;
-
-        switch (numeroDaCena) {
-            case senhorEsqueleto: cenaSenhorEsqueleto(); break;
-            case cenaFinal : cenaFinal(); break;
-            case cenaInicial: cenaInicial(); break;
-        }
-
-    }
+    
 
     public void cenaInicial() {
 
@@ -333,4 +346,89 @@ public class GerenciadorDeCutscene {
 
         
     }
+
+
+  
+    public void cenaMorte() {
+
+        String[] mensagensMorte = {
+            "Dica: Observe os padrões dos inimigos antes de atacar.",
+            "Item: Poções podem virar o jogo em batalhas longas.",
+            "Dica: Fugir também é uma estratégia válida.",
+            "Descrição: Relíquias antigas escondem poderes esquecidos.",
+            "Dica: Explorar o mapa pode revelar atalhos e segredos."
+        };
+        
+
+        if (faseDaCena == 0) {
+
+            int i = (int)(Math.random() * mensagensMorte.length);
+            mensagemMorteAtual = mensagensMorte[i];
+
+            alpha = 0f;
+            contador = 0;
+            faseDaCena++;
+        }
+
+        //
+        if (faseDaCena == 1) {
+
+            alpha += 0.02f;
+            if (alpha > 1f) alpha = 1f;
+
+            desenharFundoPreto(alpha);
+
+            desenharString(alpha, 28f,painel.alturaTela / 2, mensagemMorteAtual, 40 );
+
+            if (alpha >= 1f) {
+                contador = 0;
+                faseDaCena++;
+            }
+        }
+
+        //tempo de leitura
+        if (faseDaCena == 2) {
+
+            desenharFundoPreto(1f);
+
+            desenharString(1f, 28f, painel.alturaTela / 2, mensagemMorteAtual, 40);
+
+            // 600 frames = 10 segundos a 60 FPS
+            if (contadorAlcancado(600)) {
+                faseDaCena++;
+            }
+        }
+
+        //
+        if (faseDaCena == 3) {
+
+            alpha -= 0.02f;
+            if (alpha < 0f) alpha = 0f;
+
+            desenharFundoPreto(alpha);
+
+            desenharString(alpha, 28f, painel.alturaTela / 2, mensagemMorteAtual, 40 );
+
+            if (alpha <= 0f) {
+                faseDaCena++;
+            }
+        }
+
+        //retorno ao jogo
+        if (faseDaCena == 4) {
+
+            painel.jogador.morto = false;
+            painel.jogador.invencivel = true;
+            painel.jogador.invencivelContador = 0;
+
+            // reset da cutscene
+            numeroDaCena = NA;
+            faseDaCena = 0;
+            contador = 0;
+            alpha = 0f;
+
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import entidade.NpcSacerdotizaCega;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
@@ -52,6 +53,8 @@ public class InterfaceDoUsuario {
     String combinandoTexto = "";
     private float alphaGameOver = 0f; // Controle da transparência (0 a 1)
 
+    int faseGameOver = 0;
+    int contadorGameOver = 0;
 
 
     public InterfaceDoUsuario(PainelDoJogo painel) {
@@ -121,8 +124,9 @@ public class InterfaceDoUsuario {
         }
 
         //estado de game over
-        if(painel.estadoDoJogo == painel.estadoGameOver){
-            desenharTelaDeGameOver();
+        if(painel.estadoDoJogo == painel.estadoGameOver 
+            && painel.gerenciadorDeCutscene.numeroDaCena == painel.gerenciadorDeCutscene.NA){
+                desenharTelaDeGameOver();
         }
         
         //estado de trasição
@@ -146,10 +150,15 @@ public class InterfaceDoUsuario {
         
     }
 
+    
+
+
     public void desenharTelaDeGameOver(){
+        
         // Fundo escuro translúcido
         g2.setColor(new Color(0, 0, 0, 100));
         g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
+
 
         // Texto principal estilo Dark Souls
         String texto = "VOCÊ MORREU";
@@ -199,6 +208,11 @@ public class InterfaceDoUsuario {
                 g2.drawString(">", x - 50, y);
             }
         }
+    }
+
+    public void resetarGameOver() {
+        alphaGameOver = 0f;
+        numeroDoComando = 0;
     }
 
     /* 

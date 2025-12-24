@@ -8,6 +8,9 @@ public class Teclado implements KeyListener {
 
     public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, 
         precionarEnter, teclaDeTiroPressionada, precionarEspaco;
+
+    //teclas de interface do usuario
+    public boolean uiCima, uiBaixo, uiEsquerda, uiDireita;
     
     //debug
     boolean mostrarTextoDebug = false;
@@ -50,7 +53,8 @@ public class Teclado implements KeyListener {
 
         //estado do personagem
         else if(painel.estadoDoJogo == painel.estadoPersonagem){
-            personagemEstado(code);
+            iniciarEstadoDoJogo(code);  // movimento continua
+            personagemEstado(code);     // inventário / UI
         }
         //estado de opções
         else if(painel.estadoDoJogo == painel.estadoOpcoes){
@@ -187,6 +191,10 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_D) {
             precionarDireita = true;
         }
+        
+
+
+
         if (code == KeyEvent.VK_P) {
             //painel.estadoDoJogo = painel.pausarEstadoDoJogo;
         }
@@ -295,6 +303,7 @@ public class Teclado implements KeyListener {
             painel.iniciarEfeitoSonoro(9);
         }
 
+        /* 
         if(code == KeyEvent.VK_ENTER){
             if(painel.interfaceDoUsuario.numeroDoComando == 0){
                 painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
@@ -308,6 +317,24 @@ public class Teclado implements KeyListener {
             }
             
 
+        }
+        */
+
+        if(code == KeyEvent.VK_ENTER){
+
+            // REINICIAR
+            if(painel.interfaceDoUsuario.numeroDoComando == 0){
+                painel.estadoDoJogo = painel.estadoSaidaGameOver;
+                //painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                //painel.reiniciarJogo(false);
+                painel.iniciarMusica(0);
+
+            }else if(painel.interfaceDoUsuario.numeroDoComando == 1){
+                painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0; // voltar para o menu inicial (0 é a tela inicial, 1 é a escolha de classe)
+                painel.estadoDoJogo = painel.tituloEstado;
+                painel.reiniciarJogo(true);
+            }
+                   
         }
     }
 
@@ -421,26 +448,26 @@ public class Teclado implements KeyListener {
 
 
     public void invetarioJogador(int code){
-        if(code == KeyEvent.VK_W){
+        if(code == KeyEvent.VK_UP){
             if(painel.interfaceDoUsuario.jogadorEspacoLinha != 0){
                 painel.interfaceDoUsuario.jogadorEspacoLinha--;
                 painel.iniciarEfeitoSonoro(9);
             }
         }
-        if(code == KeyEvent.VK_A){
+        if(code == KeyEvent.VK_LEFT){
             if(painel.interfaceDoUsuario.jogadorEspacoColuna != 0){
                 painel.interfaceDoUsuario.jogadorEspacoColuna--;
                 painel.iniciarEfeitoSonoro(9);
             }
         }
-        if(code == KeyEvent.VK_S){
+        if(code == KeyEvent.VK_DOWN){
             if(painel.interfaceDoUsuario.jogadorEspacoLinha != 3){
                 painel.interfaceDoUsuario.jogadorEspacoLinha++;
                 painel.iniciarEfeitoSonoro(9);
 
             }
         }
-        if(code == KeyEvent.VK_D){
+        if(code == KeyEvent.VK_RIGHT){
             if(painel.interfaceDoUsuario.jogadorEspacoColuna != 4){
                 painel.interfaceDoUsuario.jogadorEspacoColuna++;
                 painel.iniciarEfeitoSonoro(9);
@@ -450,26 +477,26 @@ public class Teclado implements KeyListener {
     }
 
     public void invetarioNpc(int code){
-        if(code == KeyEvent.VK_W){
+        if(code == KeyEvent.VK_UP){
             if(painel.interfaceDoUsuario.npcEspacoLinha != 0){
                 painel.interfaceDoUsuario.npcEspacoLinha--;
                 painel.iniciarEfeitoSonoro(9);
             }
         }
-        if(code == KeyEvent.VK_A){
+        if(code == KeyEvent.VK_LEFT){
             if(painel.interfaceDoUsuario.npcEspacoColuna != 0){
                 painel.interfaceDoUsuario.npcEspacoColuna--;
                 painel.iniciarEfeitoSonoro(9);
             }
         }
-        if(code == KeyEvent.VK_S){
+        if(code == KeyEvent.VK_DOWN){
             if(painel.interfaceDoUsuario.npcEspacoLinha != 3){
                 painel.interfaceDoUsuario.npcEspacoLinha++;
                 painel.iniciarEfeitoSonoro(9);
 
             }
         }
-        if(code == KeyEvent.VK_D){
+        if(code == KeyEvent.VK_RIGHT){
             if(painel.interfaceDoUsuario.npcEspacoColuna != 4){
                 painel.interfaceDoUsuario.npcEspacoColuna++;
                 painel.iniciarEfeitoSonoro(9);
@@ -507,6 +534,19 @@ public class Teclado implements KeyListener {
         }
         if (code == KeyEvent.VK_SPACE) {
             precionarEspaco = false;
+        }
+
+        if (code == KeyEvent.VK_UP) {
+            uiCima = false;
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            uiBaixo = false;
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            uiEsquerda = false;
+        }
+        if (code == KeyEvent.VK_RIGHT) {
+            uiDireita = false;
         }
      
     }

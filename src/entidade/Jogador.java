@@ -50,6 +50,8 @@ public class Jogador extends Entidade {
     public boolean almasNoChao = false;
     public int almaX, almaY;
 
+    public boolean morto = false;
+
 
 
     public Jogador(PainelDoJogo painel, Teclado teclado) {
@@ -308,6 +310,10 @@ public class Jogador extends Entidade {
 
     public void atualizar(){
 
+        if (morto) {
+            return;
+        }
+
         if(empurrao == true){
             colisaoComBloco = false;
             painel.colisaoChecked.verificarColisao(this);
@@ -491,9 +497,23 @@ public class Jogador extends Entidade {
         
         if(teclado.modoDebugAtivo == false){
             if(vida <= 0){
+
+                // trava para não disparar toda hora
+                vida = 0;
+                morto = true;
+
                 morrer();
+
+                // ativa cutscene de morte
+                //painel.estadoDoJogo = painel.estadoCutscene;
+                //painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.cenaMorte;
+                //painel.gerenciadorDeCutscene.faseDaCena = 0;
+                
                 painel.estadoDoJogo = painel.estadoGameOver;
-                painel.interfaceDoUsuario.numeroDoComando = -1;
+                painel.interfaceDoUsuario.resetarGameOver();
+
+                //painel.estadoDoJogo = painel.estadoGameOver;
+                //painel.interfaceDoUsuario.numeroDoComando = -1;
                 painel.pararMusica();
                 painel.iniciarEfeitoSonoro(12);
                 

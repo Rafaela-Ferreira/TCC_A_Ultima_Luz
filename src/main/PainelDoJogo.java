@@ -99,6 +99,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoMapa = 10;
     public final int estadoCutscene = 11;
 
+    public final int estadoSaidaGameOver = 99;
+
     public boolean personagemAtivo = false;
     public boolean mapaAtivo = false;
     public boolean opcoesAtivas = false;
@@ -279,7 +281,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public void atualizarJogo() {
         // Lógica de atualização do jogo (ex: movimentação, colisões, etc.)
         
-        if(estadoDoJogo == iniciarEstadoDoJogo){
+        if(estadoDoJogo == iniciarEstadoDoJogo || estadoDoJogo == estadoPersonagem){
             // Atualiza o estado do jogador
             jogador.atualizar(); 
 
@@ -357,6 +359,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
         if(estadoDoJogo == pausarEstadoDoJogo){
 
         }
+
+        
+        
         
         
     }
@@ -369,11 +374,25 @@ public class PainelDoJogo extends JPanel implements Runnable {
             desenhoInicio = System.nanoTime();
         }
 
+        if(estadoDoJogo == estadoSaidaGameOver){
+
+            interfaceDoUsuario.resetarGameOver();
+            reiniciarJogo(false);
+            iniciarMusica(0);
+
+            gerenciadorDeCutscene.numeroDaCena = gerenciadorDeCutscene.cenaMorte;
+            gerenciadorDeCutscene.faseDaCena = 0;
+            gerenciadorDeCutscene.contador = 0;
+
+            estadoDoJogo = estadoCutscene;
+        }
+
         //TITULO
         if(estadoDoJogo == tituloEstado){
             interfaceDoUsuario.desenhar(g2);
         
         }
+        
         //tela do mapa
         else if(estadoDoJogo == estadoMapa){
             mapa.desenharMapaCompleto(g2);
