@@ -75,8 +75,46 @@ public class Teclado implements KeyListener {
             estadoMapa(code);
         }
 
+        // estado de viagem rápida
+        else if(painel.estadoDoJogo == painel.estadoViagemRapida){
+            estadoViagemRapida(code);
+        }
+
     }
 
+
+    public void estadoViagemRapida(int code){
+
+        // subir
+        if(code == KeyEvent.VK_W){
+            painel.interfaceDoUsuario.numeroDoComando--;
+            painel.iniciarEfeitoSonoro(9);
+
+            if(painel.interfaceDoUsuario.numeroDoComando < 0){
+                painel.interfaceDoUsuario.numeroDoComando = 3; // total de opções - 1
+            }
+        }
+
+        // descer
+        if(code == KeyEvent.VK_S){
+            painel.interfaceDoUsuario.numeroDoComando++;
+            painel.iniciarEfeitoSonoro(9);
+
+            if(painel.interfaceDoUsuario.numeroDoComando > 3){
+                painel.interfaceDoUsuario.numeroDoComando = 0;
+            }
+        }
+
+        // confirmar
+        if(code == KeyEvent.VK_ENTER){
+            precionarEnter = true;
+        }
+
+        // cancelar / voltar
+        if(code == KeyEvent.VK_ESCAPE){
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+        }
+    }
 
 
 

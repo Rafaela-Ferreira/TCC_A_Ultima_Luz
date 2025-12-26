@@ -2,57 +2,22 @@ package main;
 
 import dados.Progresso;
 import entidade.NpcADamaDeEspinhos;
-import entidade.NpcComerciante;
 import entidade.NpcEstatuaRainhaAmelia;
-import entidade.NpcFantasma;
 import entidade.NpcOCarrascoSemRosto;
 import entidade.NpcOVigiaPartido;
-import entidade.NpcPedraGrande;
-import entidade.NpcSacerdotizaCega;
-import entidade.NpcVelho;
-import main.inimigo.InimigoMorcego;
-import main.inimigo.InimigoOrc;
+import entidade.NpcPortalViagemRapida;
 import main.inimigo.LodoVerde;
-import main.inimigo.LodoVermelho;
 import main.inimigo.chefao.SenhorEsqueleto;
 import main.inimigo.chefao.SenhorEsqueleto2;
 import main.inimigo.chefao.SenhorEsqueleto3;
-import objeto.ObjAlma;
-import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjChave;
-import objeto.ObjCoracao;
 import objeto.ObjDiamente;
-import objeto.ObjEscudoAzul;
-import objeto.ObjFragmentoCarmesim;
-import objeto.ObjFragmentoCoracaoDaLamina;
-import objeto.ObjFragmentoFaminto;
-import objeto.ObjFragmentoFlamejante;
-import objeto.ObjFragmentoOnirico;
-import objeto.ObjFragmentoSombrio;
-import objeto.ObjTocha;
-import objeto.ObjLanterna;
-import objeto.ObjMachado;
-import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
-import objeto.ObjPicareta;
-import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
-import tile.blocosInterativos.Agua_00;
-import tile.blocosInterativos.Agua_01;
-import tile.blocosInterativos.Agua_02;
-import tile.blocosInterativos.Agua_03;
-import tile.blocosInterativos.Agua_04;
-import tile.blocosInterativos.Agua_05;
-import tile.blocosInterativos.Agua_06;
-import tile.blocosInterativos.Agua_07;
-import tile.blocosInterativos.Agua_08;
 import tile.blocosInterativos.ArvoreSeca;
 import tile.blocosInterativos.Fogueira;
-import tile.blocosInterativos.ParedeDestrutivel;
 import tile.blocosInterativos.PlacaDeMetal;
-import tile.blocosInterativos.Tocha;
 
 public class CriarObjetos {
     PainelDoJogo painel;
@@ -511,7 +476,12 @@ public class CriarObjetos {
         int numeroMapa = 0;
         int i = 0;
         //criar npc no mapa 0 
+        
+        painel.npc[numeroMapa][i] = new NpcPortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile * 25;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile * 30;
 
+        /*---mapa 1-- */
         numeroMapa = 1;
         i = 0;
         painel.npc[numeroMapa][i] = new NpcEstatuaRainhaAmelia(painel);

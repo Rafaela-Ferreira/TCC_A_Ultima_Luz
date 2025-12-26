@@ -17,6 +17,7 @@ public class ManipuladorDeEventos {
 
     String nomeDaFogueira = "";
 
+
     public ManipuladorDeEventos(PainelDoJogo painel){
         this.painel = painel;
 
@@ -85,6 +86,12 @@ public class ManipuladorDeEventos {
             podeTocarEvento = true;   
         }
         if(podeTocarEvento == true){
+
+
+            //if(bater(0, 25, 30, "any") == true){
+            //    System.out.println("viagem rapida");
+            //    portal();
+            //}
             
             //criação dos eventos -- apagar depois
             if(bater (0, 27,16, "direita") == true){
@@ -559,5 +566,62 @@ public class ManipuladorDeEventos {
         }
     }
     
+    /* viagem rápida */
+    public void portal(){
 
+        if(podeTocarEvento == false){
+
+            painel.estadoDoJogo = painel.estadoViagemRapida;
+            painel.interfaceDoUsuario.numeroDoComando = 0;
+
+            podeTocarEvento = true;
+        }
+    }
+
+    public void viajarRapido(int destino){
+
+        switch(destino){
+
+            case 0: 
+                teleporteMapa(0, 26, 41, painel.fora);
+                break;
+
+            case 1: 
+                teleporteMapa(1, 25, 8, painel.fora);
+                break;
+
+            case 2: 
+                teleporteMapa(4, 26, 41, painel.interior);
+                break;
+
+            case 3: 
+                teleporteMapa(0, 26, 41, painel.fora);
+                break;
+
+            case 4: 
+                teleporteMapa(1, 25, 8, painel.fora);
+                break;
+
+            case 5: 
+                teleporteMapa(4, 26, 41, painel.interior);
+                break;
+
+            case 7: 
+                teleporteMapa(0, 26, 41, painel.fora);
+                break;
+
+            case 8: 
+                teleporteMapa(1, 25, 8, painel.fora);
+                break;
+
+            case 9: 
+                teleporteMapa(4, 26, 41, painel.interior);
+                break;
+
+        }
+
+        podeTocarEvento = false;
+    }
+    
+    
 }

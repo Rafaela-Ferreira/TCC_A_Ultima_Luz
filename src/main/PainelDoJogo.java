@@ -1,16 +1,9 @@
 package main;
-import javax.swing.JPanel;
-
 import IA.LocalizarCaminhos;
 import ambiente.GerenciadorDeAmbientes;
 import dados.SalvarE_Carregar;
 import entidade.Entidade;
 import entidade.Jogador;
-import objeto.ObjChuva;
-import tile.GerenciadorDeBlocos;
-import tile.Mapa;
-import tile.blocosInterativos.BlocosInterativos;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,6 +15,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.JPanel;
+import objeto.ObjChuva;
+import tile.GerenciadorDeBlocos;
+import tile.Mapa;
+import tile.blocosInterativos.BlocosInterativos;
 
 public class PainelDoJogo extends JPanel implements Runnable {
     // Tela do jogo
@@ -98,6 +96,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoDormir = 9;
     public final int estadoMapa = 10;
     public final int estadoCutscene = 11;
+    public final int estadoViagemRapida = 12;
 
     public final int estadoSaidaGameOver = 99;
 
@@ -312,8 +311,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
-            
-
             //atualizar o estado do projetil - bola de fogo
             for(int i = 0; i < projetavel[1].length; i++){
                 if(projetavel[mapaAtual][i] != null){
@@ -327,7 +324,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
-            
             for(int i = 0; i < listaParticula.size(); i++){
                 if(listaParticula.get(i) != null){
                     if(listaParticula.get(i).vivo == true){
@@ -347,23 +343,14 @@ public class PainelDoJogo extends JPanel implements Runnable {
             }
             gerenciadorDeAmbientes.atualizar();
             
-
-
         }
 
-        if (estadoDoJogo == estadoCutscene) {
-            gerenciadorDeCutscene.desenhar(g2);
-        }
+        if (estadoDoJogo == estadoViagemRapida) { return; }
 
+        if (estadoDoJogo == estadoCutscene) { gerenciadorDeCutscene.desenhar(g2); }
 
-        if(estadoDoJogo == pausarEstadoDoJogo){
-
-        }
-
-        
-        
-        
-        
+        if(estadoDoJogo == pausarEstadoDoJogo){ }
+  
     }
 
     public void desenharTelaTemporaria(){
@@ -372,6 +359,11 @@ public class PainelDoJogo extends JPanel implements Runnable {
         long desenhoInicio = 0;
         if(teclado.mostrarTextoDebug == true){
             desenhoInicio = System.nanoTime();
+        }
+
+        if (estadoDoJogo == estadoViagemRapida) {
+            interfaceDoUsuario.desenhar(g2);
+            return;
         }
 
         if(estadoDoJogo == estadoSaidaGameOver){

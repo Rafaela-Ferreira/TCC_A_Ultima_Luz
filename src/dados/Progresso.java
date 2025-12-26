@@ -15,4 +15,5 @@ public class Progresso {
     public static boolean invasorMapa1Derrotado = false;
     public static boolean invasaoMapa1Ativa = false;
 
+
 }

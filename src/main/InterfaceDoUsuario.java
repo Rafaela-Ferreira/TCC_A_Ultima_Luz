@@ -6,7 +6,6 @@ import entidade.NpcSacerdotizaCega;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
@@ -47,6 +46,7 @@ public class InterfaceDoUsuario {
     int subEstado = 0;
     int subEstadoGuardia = 0;
     int estadoSubirNivel = 0;
+    int regiaoSelecionada = 0;
     int contador = 0;
     public Entidade npc;
     int indicePersonagem = 0;
@@ -147,11 +147,257 @@ public class InterfaceDoUsuario {
         if(painel.estadoDoJogo == painel.estadoDormir){
             desenharTelaDeDormir();
         }
+
+        // estado Viagem Rápida
+        if (painel.estadoDoJogo == painel.estadoViagemRapida) {
+            desenharTelaViagemRapida();
+        }
         
     }
 
-    
+    public void desenharTelaViagemRapida() {
 
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int frameX = painel.tamanhoDoTile * 1;
+        int frameY = painel.tamanhoDoTile * 2;
+
+        int frameLargura = painel.tamanhoDoTile * 7;
+        int frameAltura = painel.tamanhoDoTile * 8;
+
+        desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
+
+        switch (subEstado) {
+            case 0 -> telaPrincipalDeViagemRapida(frameX, frameY, frameLargura);
+            case 1 -> telaRegiao1(frameX, frameY, frameLargura);
+            case 2 -> telaRegiao2(frameX, frameY, frameLargura);
+            case 3 -> telaRegiao3(frameX, frameY, frameLargura);
+            
+        }
+
+        painel.teclado.precionarEnter = false;
+    }
+
+    public void telaPrincipalDeViagemRapida(int frameX, int frameY, int frameLargura){
+
+        int textoX;
+        int textoY;
+
+        String titulo = "Viagem Rápida";
+        textoX = frameX + (frameLargura /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
+        textoY = frameY + painel.tamanhoDoTile;
+        g2.drawString(titulo, textoX, textoY);
+
+        textoX = frameX + painel.tamanhoDoTile * 1;
+        textoY += painel.tamanhoDoTile * 2;
+
+        // Região 1
+        g2.drawString("Região das Ruínas", textoX, textoY);
+        if(numeroDoComando == 0){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                subEstado = 1;
+                numeroDoComando = 0;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        // Região 2
+        g2.drawString("Floresta Sombria", textoX, textoY);
+        if(numeroDoComando == 1){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                subEstado = 2;
+                numeroDoComando = 0;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        // Região 3
+        g2.drawString("Terras Profanas", textoX, textoY);
+        if(numeroDoComando == 2){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                subEstado = 3;
+                numeroDoComando = 0;
+            }
+        }
+        textoY += painel.tamanhoDoTile * 2;
+
+        // Voltar
+        g2.drawString("Voltar", textoX, textoY);
+        if(numeroDoComando == 3){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            }
+        }
+    }
+
+    public void telaRegiao1(int frameX, int frameY, int frameLargura){
+
+        int textoX;
+        int textoY;
+
+        String titulo = "Região das Ruínas";
+        textoX = frameX + (frameLargura  /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
+        textoY = frameY + painel.tamanhoDoTile;
+        g2.drawString(titulo, textoX, textoY);
+
+        textoX = frameX + painel.tamanhoDoTile * 1;
+        textoY += painel.tamanhoDoTile * 2;
+
+        // Mapa 1
+        g2.drawString("Santuário Inicial", textoX, textoY);
+        if(numeroDoComando == 0){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(0);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        // Mapa 2
+        g2.drawString("Cemitério Antigo", textoX, textoY);
+        if(numeroDoComando == 1){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(1);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        // Mapa 3
+        g2.drawString("Catedral", textoX, textoY);
+        if(numeroDoComando == 2){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(2);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile * 2;
+
+        // Voltar
+        g2.drawString("Voltar", textoX, textoY);
+        if(numeroDoComando == 3){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                subEstado = 0;
+                numeroDoComando = 0;
+            }
+        }
+    }
+
+    public void telaRegiao2(int frameX, int frameY, int frameLargura){
+
+        int textoX;
+        int textoY;
+
+        String titulo = "Floresta Sombria";
+        textoX = frameX + (frameLargura  /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
+        textoY = frameY + painel.tamanhoDoTile;
+        g2.drawString(titulo, textoX, textoY);
+
+        textoX = frameX + painel.tamanhoDoTile * 1;
+        textoY += painel.tamanhoDoTile * 2;
+
+        g2.drawString("Bosque Escuro", textoX, textoY);
+        if(numeroDoComando == 0){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(4);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        g2.drawString("Clareira", textoX, textoY);
+        if(numeroDoComando == 1){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(5);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        g2.drawString("Raiz Ancestral", textoX, textoY);
+        if(numeroDoComando == 2){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(6);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile * 2;
+
+        g2.drawString("Voltar", textoX, textoY);
+        if(numeroDoComando == 3){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                subEstado = 0;
+                numeroDoComando = 0;
+            }
+        }
+    }
+
+    public void telaRegiao3(int frameX, int frameY, int frameLargura){
+
+        int textoX;
+        int textoY;
+
+        String titulo = "Floresta Sombria";
+        textoX = frameX + (frameLargura  /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
+        textoY = frameY + painel.tamanhoDoTile;
+        g2.drawString(titulo, textoX, textoY);
+
+        textoX = frameX + painel.tamanhoDoTile * 1;
+        textoY += painel.tamanhoDoTile * 2;
+
+        g2.drawString("Bosque Escuro", textoX, textoY);
+        if(numeroDoComando == 0){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(7);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        g2.drawString("Clareira", textoX, textoY);
+        if(numeroDoComando == 1){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(8);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+
+        g2.drawString("Raiz Ancestral", textoX, textoY);
+        if(numeroDoComando == 2){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(9);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile * 2;
+
+        g2.drawString("Voltar", textoX, textoY);
+        if(numeroDoComando == 3){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                subEstado = 0;
+                numeroDoComando = 0;
+            }
+        }
+    }
+    
 
     public void desenharTelaDeGameOver(){
         
