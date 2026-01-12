@@ -56,6 +56,8 @@ public class InterfaceDoUsuario {
     int faseGameOver = 0;
     int contadorGameOver = 0;
 
+    public String textoMensagemPreDefinida = "";
+
 
     public InterfaceDoUsuario(PainelDoJogo painel) {
         
@@ -152,8 +154,38 @@ public class InterfaceDoUsuario {
         if (painel.estadoDoJogo == painel.estadoViagemRapida) {
             desenharTelaViagemRapida();
         }
+
+        // estado de mensagem pré-definida - dicas
+        if(painel.interfaceDoUsuario.mensagemAtiva){
+            desenharMensagemPreDefinia();
+        }
+
+
         
     }
+
+    public void desenharMensagemPreDefinia(){
+
+        g2.setFont(g2.getFont().deriveFont(24F));
+        g2.setColor(Color.white);
+
+        int frameX = painel.tamanhoDoTile * 2;
+        int frameY = painel.tamanhoDoTile * 8;
+        int frameLargura = painel.tamanhoDoTile * 10;
+        int frameAltura = painel.tamanhoDoTile * 3;
+
+        desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
+
+        int textoX = frameX + painel.tamanhoDoTile;
+        int textoY = frameY + painel.tamanhoDoTile;
+
+        for(String linha : textoMensagemPreDefinida.split("\n")){
+            g2.drawString(linha, textoX, textoY);
+            textoY += 28;
+        }
+  
+    }
+   
 
     public void desenharTelaViagemRapida() {
 

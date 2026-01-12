@@ -1,6 +1,7 @@
 package main;
 
 
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -36,4 +37,7 @@ public class Principal {
         ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("res/logoAultimaLuz.jpg")); 
         janela.setIconImage(icone.getImage());
     }
+
+    // para usar SEMPRE que atualizar o projeto (alteração nos recursos/arquivos de texto/imagem/som)
+    //Copy-Item -Recurse -Force res bin/
 }

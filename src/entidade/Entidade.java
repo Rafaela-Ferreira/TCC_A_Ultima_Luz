@@ -134,6 +134,7 @@ public class Entidade {
     public final int tipoChuva = 11;
     public final int tipoProjetil = 12;
     public final int tipoNpcAliado = 13;
+    public final int tipoMensagem = 14;
     public boolean desaparecer = false;
 
     public Entidade alvo;

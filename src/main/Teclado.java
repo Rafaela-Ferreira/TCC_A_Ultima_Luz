@@ -9,6 +9,8 @@ public class Teclado implements KeyListener {
     public boolean precionarCima, precionarBaixo, precionarEsquerda, precionarDireita, 
         precionarEnter, teclaDeTiroPressionada, precionarEspaco;
 
+    public boolean enterConsumido;
+
     //teclas de interface do usuario
     public boolean uiCima, uiBaixo, uiEsquerda, uiDireita;
     
@@ -80,6 +82,25 @@ public class Teclado implements KeyListener {
             estadoViagemRapida(code);
         }
 
+        // estado da mensagem no chão
+        else if(painel.estadoDoJogo == painel.estadoMensagem){
+           // estadoMensagem(code);
+        }
+
+    }
+
+
+    public void estadoMensagem(int code){
+        if(code == KeyEvent.VK_ENTER && !enterConsumido){
+
+            precionarEnter = true; 
+
+            painel.interfaceDoUsuario.mensagemAtiva = false;
+            painel.interfaceDoUsuario.textoMensagemPreDefinida = "";
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+
+            enterConsumido = true; 
+        }
     }
 
 
@@ -548,6 +569,7 @@ public class Teclado implements KeyListener {
         // Lógica para quando uma tecla é liberada
         //System.out.println("Tecla liberada: " + e.getKeyChar());
         int code = e.getKeyCode();
+
         if (code == KeyEvent.VK_W){
            // System.out.println("Movendo para cima");
             precionarCima = false;
@@ -567,9 +589,17 @@ public class Teclado implements KeyListener {
         if (code == KeyEvent.VK_F) {
             teclaDeTiroPressionada = false;
         }
+        
         if (code == KeyEvent.VK_ENTER) {
             precionarEnter = false;
         }
+
+        if (code == KeyEvent.VK_ENTER) {
+            precionarEnter = false;
+            enterConsumido = false;
+        }
+        
+
         if (code == KeyEvent.VK_SPACE) {
             precionarEspaco = false;
         }

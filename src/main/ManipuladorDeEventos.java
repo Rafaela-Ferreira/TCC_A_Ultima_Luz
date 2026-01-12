@@ -88,11 +88,6 @@ public class ManipuladorDeEventos {
         if(podeTocarEvento == true){
 
 
-            //if(bater(0, 25, 30, "any") == true){
-            //    System.out.println("viagem rapida");
-            //    portal();
-            //}
-            
             //criação dos eventos -- apagar depois
             if(bater (0, 27,16, "direita") == true){
                 buracoDeDano(painel.estadoDoDialogo);
@@ -110,12 +105,12 @@ public class ManipuladorDeEventos {
             //MAPA 0 - 1 Praça do despertar
             //teleporte entre mapas do 0 para o 1 - Praça do Despertar - ida
             else if(bater(0, 79,56, "any") == true){
-                teleporteMapa(1, 26,41, painel.fora);
+                teleporteMapa(1, 26,41, painel.masmorra); // arena
 
             }
             //teleporte entre mapas do 1 para o 0  - volta
             else if(bater(1, 26,41, "any") == true){
-                teleporteMapa(0, 79,56, painel.fora);
+                teleporteMapa(0, 79,56, painel.fora); // boss tutorial primeiro grande desafio
             }
 
             //MAPA 1 

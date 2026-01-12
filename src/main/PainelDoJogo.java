@@ -97,6 +97,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int estadoMapa = 10;
     public final int estadoCutscene = 11;
     public final int estadoViagemRapida = 12;
+    public final int estadoMensagem = 13;
 
     public final int estadoSaidaGameOver = 99;
 
@@ -279,6 +280,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     public void atualizarJogo() {
         // Lógica de atualização do jogo (ex: movimentação, colisões, etc.)
+
+        
         
         if(estadoDoJogo == iniciarEstadoDoJogo || estadoDoJogo == estadoPersonagem){
             // Atualiza o estado do jogador
@@ -350,6 +353,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
         if (estadoDoJogo == estadoCutscene) { gerenciadorDeCutscene.desenhar(g2); }
 
         if(estadoDoJogo == pausarEstadoDoJogo){ }
+        
+        
   
     }
 
@@ -365,7 +370,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
             interfaceDoUsuario.desenhar(g2);
             return;
         }
-
+        
         if(estadoDoJogo == estadoSaidaGameOver){
 
             interfaceDoUsuario.resetarGameOver();

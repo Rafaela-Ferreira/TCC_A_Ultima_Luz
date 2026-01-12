@@ -13,10 +13,12 @@ import main.inimigo.chefao.SenhorEsqueleto3;
 import objeto.ObjBau;
 import objeto.ObjChave;
 import objeto.ObjDiamente;
+import objeto.ObjPocaoAzul;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
 import tile.blocosInterativos.ArvoreSeca;
 import tile.blocosInterativos.Fogueira;
+import tile.blocosInterativos.MensagemNoChao;
 import tile.blocosInterativos.PlacaDeMetal;
 
 public class CriarObjetos {
@@ -30,6 +32,8 @@ public class CriarObjetos {
 
         int numeroMapa = 0;
         int i = 0;
+
+        
         //criar objetos no mapa 0
         painel.Obj[numeroMapa][i] = new ObjPorta(painel); 
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*86;
@@ -40,6 +44,17 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i].setSaque(new ObjChave(painel));
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*73;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*63;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjBau(painel);
+        painel.Obj[numeroMapa][i].setSaque(new ObjPocaoAzul(painel));
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*80;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjChave(painel); 
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*42;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*30;
         i++;
 
         
@@ -351,6 +366,17 @@ public class CriarObjetos {
         int numeroMapa = 0;
         int i = 0;
 
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 12,15, "Use W A S D para se mover."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 18,23, "Use F para atacar à distância."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 13,30, "Use C para abrir o inventário."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 42,14, "Use M para abrir o mapa."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 38,26, "Use X para visualizar o minimapa."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 26,36, "ESC para opções."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 12,23, "A morte não é o fim."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 67,65, "Precione ENTER para atacar."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 68,70, "Use ESPAÇO para se proteger."); i++;
+        painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 11,48, "Tente bater!"); i++;
+
         painel.blocosI[numeroMapa][i] = new Fogueira(painel, 15,12); i++;
 
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 10,49); i++;
@@ -480,6 +506,9 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i] = new NpcPortalViagemRapida(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile * 25;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile * 30;
+
+
+        
 
         /*---mapa 1-- */
         numeroMapa = 1;

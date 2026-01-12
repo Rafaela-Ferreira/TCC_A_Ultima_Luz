@@ -18,7 +18,6 @@ import objeto.ObjFragmentoFaminto;
 import objeto.ObjFragmentoFlamejante;
 import objeto.ObjFragmentoOnirico;
 import objeto.ObjFragmentoSombrio;
-import objeto.ObjTocha;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
 import objeto.ObjMana;
@@ -29,6 +28,7 @@ import objeto.ObjPocaoAzul;
 import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
+import objeto.ObjTocha;
 
 
 public class GeradorDeEntidade {
@@ -83,7 +83,8 @@ public class GeradorDeEntidade {
             case ObjFragmentoOnirico.objNome : objeto = new objeto.ObjFragmentoOnirico(painel); break; //Preguiça
             case ObjFragmentoFlamejante.objNome : objeto = new objeto.ObjFragmentoFlamejante(painel); break; // ira
            
-
+            
+           
             
             
         }

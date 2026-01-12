@@ -116,8 +116,8 @@ public class Jogador extends Entidade {
     }
 
     public void setDefaultValues() {
-        mundoX = painel.tamanhoDoTile * 43; 
-        mundoY = painel.tamanhoDoTile * 43;
+        mundoX = painel.tamanhoDoTile * 13; 
+        mundoY = painel.tamanhoDoTile * 13;
         
         
         
@@ -522,6 +522,7 @@ public class Jogador extends Entidade {
         }
         
     } 
+
 
     /* 
 

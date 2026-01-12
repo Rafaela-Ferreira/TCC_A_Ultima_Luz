@@ -13,7 +13,7 @@ public class Tronco extends BlocosInterativos{
         this.mundoX = painel.tamanhoDoTile * coluna;
         this.mundoY = painel.tamanhoDoTile * linha;
 
-        baixo1 = setup("/blocosInterativos/trunk", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/blocosInterativos/trunk", painel.tamanhoDoTile, painel.tamanhoDoTile);
       
         areaSolida.x = 0;
         areaSolida.y = 0;
