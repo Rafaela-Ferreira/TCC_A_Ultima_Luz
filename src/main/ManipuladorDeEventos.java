@@ -116,7 +116,7 @@ public class ManipuladorDeEventos {
             //MAPA 1 
             //teleporte entre mapas do 1 para o 2 arena - ida
             else if(bater(1, 25,8, "any") == true){
-                teleporteMapa(2, 23,37, painel.fora);
+                teleporteMapa(2, 23,37, painel.capela);
 
             }
             //teleporte entre mapas do 1 para 2 - volta

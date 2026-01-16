@@ -6,6 +6,7 @@ import entidade.NpcEstatuaRainhaAmelia;
 import entidade.NpcOCarrascoSemRosto;
 import entidade.NpcOVigiaPartido;
 import entidade.NpcPortalViagemRapida;
+import entidade.NpcSacerdotizaCega;
 import main.inimigo.LodoVerde;
 import main.inimigo.chefao.SenhorEsqueleto;
 import main.inimigo.chefao.SenhorEsqueleto2;
@@ -76,6 +77,7 @@ public class CriarObjetos {
         numeroMapa = 2;
         i = 0;
         //criar objetos no mapa 2
+        
 
 
         numeroMapa = 3;
@@ -522,6 +524,16 @@ public class CriarObjetos {
         numeroMapa = 2;
         i = 0;
         //criar npc no mapa 2
+        painel.npc[numeroMapa][i] = new NpcSacerdotizaCega(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
+        i++;
+
+        painel.npc[numeroMapa][i] = new NpcPortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*26;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*32;
+        i++;
+
 
         numeroMapa = 3;
         i = 0;

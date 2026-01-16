@@ -28,7 +28,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     final int escala = 3; 
     
     public final int tamanhoDoTile = tamanhoOriginalDoTile * escala; // Tile de 48x48 pixels
-    public final int maxColunasTela = 20;
+    public final int maxColunasTela = 22;
     public final int maxLinhasTela = 13;
 
     public final int larguraTela = tamanhoDoTile * maxColunasTela; // 960 pixels
@@ -38,8 +38,16 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public  int maxColunasMundo; // Número máximo de colunas no mundo
     public  int maxLinhasMundo; // Número máximo de linhas no mundo
     public final int maxMapa = 30; //qtd de mapas - ajustar conforme necessidade - (21 no momento)
-    public int mapaAtual = 0;  //mapa inicial
+    public int mapaAtual = 8;  //mapa inicial
    
+
+
+
+
+
+
+
+    
     //tela cheia
     int larguraTela2 = larguraTela;
     int alturaTela2 = alturaTela;
@@ -121,6 +129,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int fora = 50; 
     public final int interior = 51;
     public final int masmorra = 52;
+    public final int capela = 53;
+
+    public final int floresta = 54;
 
     
     public PainelDoJogo(){
@@ -151,8 +162,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
             setTelaCheia();
         }
 
-        chuva = new ObjChuva(this);
-        chuva.setAtiva(areaAtual == fora);
+       // chuva = new ObjChuva(this);
+       // chuva.setAtiva(areaAtual == fora);
         
     }
     
@@ -660,9 +671,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 iniciarMusica(0);
                 
                 if (proximaArea == fora) {
-                    chuva.setAtiva(true);
+                   // chuva.setAtiva(true);
                 } else {
-                    chuva.setAtiva(false);
+                   // chuva.setAtiva(false);
                 }
             }
             
@@ -673,6 +684,14 @@ public class PainelDoJogo extends JPanel implements Runnable {
             
             if(proximaArea == masmorra){
                 iniciarMusica(19);
+            }
+
+            if(proximaArea == capela){
+                iniciarMusica(18);
+            }
+
+            if(proximaArea == floresta){
+                iniciarMusica(18);
             }
 
             criarObjetos.setNpc();

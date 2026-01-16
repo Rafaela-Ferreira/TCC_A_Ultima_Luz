@@ -1,6 +1,7 @@
 package entidade;
 
 import main.PainelDoJogo;
+import objeto.ObjPocaoVermelha;
 
 public class NpcGuardiaDosNiveis extends Entidade{
     
@@ -17,14 +18,14 @@ public class NpcGuardiaDosNiveis extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/merchant_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/merchant_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){
@@ -36,7 +37,9 @@ public class NpcGuardiaDosNiveis extends Entidade{
         dialogo[2][1] = "Retorne quando estiver pronto para \nsubir de nível.";
 
     }
-    public void setItens(){ }
+    public void setItens(){
+        inventario.add(new ObjPocaoVermelha(painel));
+    }
 
     public void falar(){
 
@@ -46,26 +49,5 @@ public class NpcGuardiaDosNiveis extends Entidade{
         
     }
 
-    /* Calcula o custo dinâmico em almas para subir de nível */
-    public int calcularCustoParaSubirNivel() {
-        return (int) (Math.pow(painel.jogador.nivel, 2)) + 10;
-    }
-
-
-    public void tentarSubirNivel() {
-        int custo = calcularCustoParaSubirNivel();
-
-        if (painel.jogador.alma >= custo) {
-            painel.jogador.alma -= custo;
-            painel.jogador.nivel++;
-            painel.jogador.forca += 2;
-            painel.jogador.vidaMaxima += 5;
-            painel.jogador.vida = painel.jogador.vidaMaxima;
-
-            painel.interfaceDoUsuario.adicionarMensagem("Você subiu para o nível " + painel.jogador.nivel + "!");
-            iniciarDialogo(this, 1); 
-        } else {
-            iniciarDialogo(this, 2);
-        }
-    }
+    
 }
