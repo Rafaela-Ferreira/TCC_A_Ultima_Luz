@@ -72,7 +72,7 @@ public class GerenciadorDeBlocos {
 
         //Área 1 - Inicio do Jogo
         carregarMapa("/res/mapa/1_1PracaDoDespertar.txt", 0);      // 1 Praça do despertar
-        carregarMapa("/res/mapa/1_2Arena.txt", 1);                 // 1_2 Arena Chefe Tutorial
+        carregarMapa("/res/mapa/1_3Arena.txt", 1);                 // 1_2 Arena Chefe Tutorial
 
         //Área 2 
         carregarMapa("/res/mapa/2_1CapelaDaLuzInterior.txt", 2);   // 2_1 Capela Da Luz Interior - Bifurcação para Gula e Avareza

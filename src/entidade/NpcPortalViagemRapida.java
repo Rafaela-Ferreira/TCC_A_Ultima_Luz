@@ -26,14 +26,14 @@ public class NpcPortalViagemRapida extends Entidade {
     }
 
     public void getImagem(){
-        cima1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
 

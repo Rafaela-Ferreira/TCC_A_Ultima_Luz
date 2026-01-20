@@ -14,6 +14,7 @@ import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
 import objeto.ObjMachado;
 import objeto.ObjPicareta;
+import objeto.ObjTocha;
 
 
 
@@ -116,8 +117,8 @@ public class Jogador extends Entidade {
     }
 
     public void setDefaultValues() {
-        mundoX = painel.tamanhoDoTile * 56; 
-        mundoY = painel.tamanhoDoTile * 56;
+        mundoX = painel.tamanhoDoTile * 12; 
+        mundoY = painel.tamanhoDoTile * 12;
         
         
         
@@ -139,7 +140,7 @@ public class Jogador extends Entidade {
         resistenciaMaxima = 100;
         resistencia = resistenciaMaxima;
         municao = 10;
-        forca = 1; //quanto mais força ele tem, mais dano ele dá.
+        forca = 10; //quanto mais força ele tem, mais dano ele dá.
         destreza = 1; //quanto mais destreza ele tem, menos dano ele recebe.
         exp = 0;
         proximoNivelExp = 1;
@@ -201,6 +202,7 @@ public class Jogador extends Entidade {
         inventario.add(new ObjChave(painel));
         inventario.add(new ObjMachado(painel));
         inventario.add(new ObjPicareta(painel));
+        inventario.add(new ObjTocha(painel));
 
     }
 

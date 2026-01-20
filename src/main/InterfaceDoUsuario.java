@@ -195,7 +195,7 @@ public class InterfaceDoUsuario {
         int frameX = painel.tamanhoDoTile * 1;
         int frameY = painel.tamanhoDoTile * 2;
 
-        int frameLargura = painel.tamanhoDoTile * 7;
+        int frameLargura = painel.tamanhoDoTile * 8;
         int frameAltura = painel.tamanhoDoTile * 8;
 
         desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
@@ -204,7 +204,7 @@ public class InterfaceDoUsuario {
             case 0 -> telaPrincipalDeViagemRapida(frameX, frameY, frameLargura);
             case 1 -> telaRegiao1(frameX, frameY, frameLargura);
             case 2 -> telaRegiao2(frameX, frameY, frameLargura);
-            case 3 -> telaRegiao3(frameX, frameY, frameLargura);
+           // case 3 -> telaRegiao3(frameX, frameY, frameLargura);
             
         }
 
@@ -225,7 +225,7 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile * 2;
 
         // Região 1
-        g2.drawString("Região das Ruínas", textoX, textoY);
+        g2.drawString("Caminho para Gula", textoX, textoY);
         if(numeroDoComando == 0){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
@@ -236,7 +236,7 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile;
 
         // Região 2
-        g2.drawString("Floresta Sombria", textoX, textoY);
+        g2.drawString("Caminho para Avareza", textoX, textoY);
         if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
@@ -246,7 +246,7 @@ public class InterfaceDoUsuario {
         }
         textoY += painel.tamanhoDoTile;
 
-        // Região 3
+        /*  Região 3
         g2.drawString("Terras Profanas", textoX, textoY);
         if(numeroDoComando == 2){
             g2.drawString(">", textoX - 15, textoY);
@@ -255,11 +255,12 @@ public class InterfaceDoUsuario {
                 numeroDoComando = 0;
             }
         }
+        */
         textoY += painel.tamanhoDoTile * 2;
-
+        
         // Voltar
         g2.drawString("Voltar", textoX, textoY);
-        if(numeroDoComando == 3){
+        if(numeroDoComando == 2){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
                 painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
@@ -272,7 +273,7 @@ public class InterfaceDoUsuario {
         int textoX;
         int textoY;
 
-        String titulo = "Região das Ruínas";
+        String titulo = "GULA";
         textoX = frameX + (frameLargura  /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
         textoY = frameY + painel.tamanhoDoTile;
         g2.drawString(titulo, textoX, textoY);
@@ -281,17 +282,17 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile * 2;
 
         // Mapa 1
-        g2.drawString("Santuário Inicial", textoX, textoY);
+        g2.drawString("Salão do Banquete Eterno", textoX, textoY);
         if(numeroDoComando == 0){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
-                painel.mEventos.viajarRapido(0);
+                painel.mEventos.viajarRapido(3);
                 painel.estadoDoJogo = painel.estadoDeTransicao;
             }
         }
         textoY += painel.tamanhoDoTile;
 
-        // Mapa 2
+        /* Mapa 2
         g2.drawString("Cemitério Antigo", textoX, textoY);
         if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
@@ -311,11 +312,12 @@ public class InterfaceDoUsuario {
                 painel.estadoDoJogo = painel.estadoDeTransicao;
             }
         }
+        */
         textoY += painel.tamanhoDoTile * 2;
 
         // Voltar
         g2.drawString("Voltar", textoX, textoY);
-        if(numeroDoComando == 3){
+        if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
                 subEstado = 0;
@@ -329,7 +331,7 @@ public class InterfaceDoUsuario {
         int textoX;
         int textoY;
 
-        String titulo = "Floresta Sombria";
+        String titulo = "AVAREZA";
         textoX = frameX + (frameLargura  /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
         textoY = frameY + painel.tamanhoDoTile;
         g2.drawString(titulo, textoX, textoY);
@@ -337,18 +339,8 @@ public class InterfaceDoUsuario {
         textoX = frameX + painel.tamanhoDoTile * 1;
         textoY += painel.tamanhoDoTile * 2;
 
-        g2.drawString("Bosque Escuro", textoX, textoY);
+        g2.drawString("Porta de Ferro", textoX, textoY);
         if(numeroDoComando == 0){
-            g2.drawString(">", textoX - 15, textoY);
-            if(painel.teclado.precionarEnter){
-                painel.mEventos.viajarRapido(4);
-                painel.estadoDoJogo = painel.estadoDeTransicao;
-            }
-        }
-        textoY += painel.tamanhoDoTile;
-
-        g2.drawString("Clareira", textoX, textoY);
-        if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
                 painel.mEventos.viajarRapido(5);
@@ -356,7 +348,17 @@ public class InterfaceDoUsuario {
             }
         }
         textoY += painel.tamanhoDoTile;
-
+        /*
+        g2.drawString("Câmaras das Correntes", textoX, textoY);
+        if(numeroDoComando == 1){
+            g2.drawString(">", textoX - 15, textoY);
+            if(painel.teclado.precionarEnter){
+                painel.mEventos.viajarRapido(6);
+                painel.estadoDoJogo = painel.estadoDeTransicao;
+            }
+        }
+        textoY += painel.tamanhoDoTile;
+         
         g2.drawString("Raiz Ancestral", textoX, textoY);
         if(numeroDoComando == 2){
             g2.drawString(">", textoX - 15, textoY);
@@ -365,10 +367,11 @@ public class InterfaceDoUsuario {
                 painel.estadoDoJogo = painel.estadoDeTransicao;
             }
         }
+        */
         textoY += painel.tamanhoDoTile * 2;
 
         g2.drawString("Voltar", textoX, textoY);
-        if(numeroDoComando == 3){
+        if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
                 subEstado = 0;
@@ -557,7 +560,7 @@ public class InterfaceDoUsuario {
         }
     }
     */
-    
+
     public void desenharHUD_DoJogador() {
         int x = 20;
         int y = 20;
@@ -1839,21 +1842,17 @@ public class InterfaceDoUsuario {
     
     public void desenharSubJanela(int x, int y, int largura, int altura){
         
-        // Fundo translúcido (leve degradê pra dar profundidade)
-        GradientPaint gradiente = new GradientPaint(
-            x, y, new Color(0, 0, 0), 
-            x, y + altura, new Color(20, 20, 20)
-        );
-        g2.setPaint(gradiente);
+        // Fundo translúcido sólido (sem gradiente)
+        g2.setColor(new Color(0, 0, 0, 180));
         g2.fillRoundRect(x, y, largura, altura, 35, 35);
 
         // Borda cinza suave
-        Color borda = new Color(180, 180, 180, 200);
-        g2.setColor(borda);
+        g2.setColor(new Color(180, 180, 180, 200));
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(x + 5, y + 5, largura - 10, altura - 10, 25, 25);
 
-        g2.setPaint(null);
+        // Define a cor do texto como branco
+        g2.setColor(Color.WHITE);
     }
 
     public void desenharTelaDePausa(){

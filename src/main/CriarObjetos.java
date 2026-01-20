@@ -2,7 +2,6 @@ package main;
 
 import dados.Progresso;
 import entidade.NpcADamaDeEspinhos;
-import entidade.NpcEstatuaRainhaAmelia;
 import entidade.NpcOCarrascoSemRosto;
 import entidade.NpcOVigiaPartido;
 import entidade.NpcPortalViagemRapida;
@@ -73,6 +72,10 @@ public class CriarObjetos {
             painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*15;
             i++;
         }
+
+        
+
+       
 
         numeroMapa = 2;
         i = 0;
@@ -388,6 +391,7 @@ public class CriarObjetos {
 
         numeroMapa = 1;
         i = 0;
+        //painel.blocosI[numeroMapa][i] = new PlacaDeMetal(painel, 21,70); i++;
 
 
         numeroMapa = 2;
@@ -515,10 +519,9 @@ public class CriarObjetos {
         /*---mapa 1-- */
         numeroMapa = 1;
         i = 0;
-        painel.npc[numeroMapa][i] = new NpcEstatuaRainhaAmelia(painel);
-        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
-        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
-        i++;
+        
+
+       
 
 
         numeroMapa = 2;

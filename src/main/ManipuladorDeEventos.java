@@ -109,18 +109,20 @@ public class ManipuladorDeEventos {
 
             }
             //teleporte entre mapas do 1 para o 0  - volta
-            else if(bater(1, 26,41, "any") == true){
+            else if(bater(1, 26,41,"any") == true){
                 teleporteMapa(0, 79,56, painel.fora); // boss tutorial primeiro grande desafio
             }
+
+            
 
             //MAPA 1 
             //teleporte entre mapas do 1 para o 2 arena - ida
             else if(bater(1, 25,8, "any") == true){
-                teleporteMapa(2, 23,37, painel.capela);
+                teleporteMapa(2, 81,52, painel.capela);
 
             }
             //teleporte entre mapas do 1 para 2 - volta
-            else if(bater(2, 10,39, "any") == true){
+            else if(bater(2, 81,52, "any") == true){
                 teleporteMapa(1, 25,8, painel.fora);
             }
 
@@ -586,31 +588,35 @@ public class ManipuladorDeEventos {
                 break;
 
             case 2: 
-                teleporteMapa(4, 26, 41, painel.interior);
+                teleporteMapa(2, 26, 41, painel.interior);
                 break;
 
             case 3: 
-                teleporteMapa(0, 26, 41, painel.fora);
+                teleporteMapa(3, 26, 41, painel.fora);
                 break;
 
             case 4: 
-                teleporteMapa(1, 25, 8, painel.fora);
+                teleporteMapa(4, 25, 8, painel.fora);
                 break;
 
             case 5: 
-                teleporteMapa(4, 26, 41, painel.interior);
+                teleporteMapa(5, 26, 41, painel.interior);
+                break;
+
+            case 6: 
+                teleporteMapa(6, 26, 41, painel.fora);
                 break;
 
             case 7: 
-                teleporteMapa(0, 26, 41, painel.fora);
+                teleporteMapa(7, 26, 41, painel.fora);
                 break;
 
             case 8: 
-                teleporteMapa(1, 25, 8, painel.fora);
+                teleporteMapa(8, 25, 8, painel.fora);
                 break;
 
             case 9: 
-                teleporteMapa(4, 26, 41, painel.interior);
+                teleporteMapa(9, 26, 41, painel.interior);
                 break;
 
         }

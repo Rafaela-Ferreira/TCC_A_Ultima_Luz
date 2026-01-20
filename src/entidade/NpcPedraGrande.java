@@ -2,7 +2,6 @@ package entidade;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
 import main.PainelDoJogo;
 import objeto.ObjPortaDeFerro;
 import tile.blocosInterativos.BlocosInterativos;
@@ -37,14 +36,14 @@ public class NpcPedraGrande extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){
