@@ -52,7 +52,6 @@ public class Teclado implements KeyListener {
         else if(painel.estadoDoJogo == painel.estadoDoDialogo || painel.estadoDoJogo == painel.estadoCutscene){
             dialogoEstado(code);
         } 
-
         //estado do personagem
         else if(painel.estadoDoJogo == painel.estadoPersonagem){
             iniciarEstadoDoJogo(code);  // movimento continua
@@ -86,7 +85,6 @@ public class Teclado implements KeyListener {
         else if(painel.estadoDoJogo == painel.estadoMensagem){
            // estadoMensagem(code);
         }
-
     }
 
 
@@ -180,12 +178,12 @@ public class Teclado implements KeyListener {
             if (code == KeyEvent.VK_W){
                 painel.interfaceDoUsuario.numeroDoComando--;
                 if( painel.interfaceDoUsuario.numeroDoComando < 0 ){
-                    painel.interfaceDoUsuario.numeroDoComando = 3;
+                    painel.interfaceDoUsuario.numeroDoComando = 4;
                 }
             } 
             if (code == KeyEvent.VK_S) {
                 painel.interfaceDoUsuario.numeroDoComando++;
-                if( painel.interfaceDoUsuario.numeroDoComando > 3 ){
+                if( painel.interfaceDoUsuario.numeroDoComando > 4 ){
                     painel.interfaceDoUsuario.numeroDoComando = 0;
                 }
             }
@@ -293,16 +291,9 @@ public class Teclado implements KeyListener {
             } else if(mostrarTextoDebug == true){
                 mostrarTextoDebug = false;
             }
-        }
-        /* 
-        if(code == KeyEvent.VK_R){
-            switch (painel.mapaAtual) {
-                case 0: painel.gerenciadorDeBlocos.carregarMapa("/mapas/mapaV3.txt", 0); break;
-                case 1: painel.gerenciadorDeBlocos.carregarMapa("/mapas/interior02.txt", 1); break;
-            }
             
         }
-        */
+        
 
 
         if(code == KeyEvent.VK_G){
@@ -353,6 +344,7 @@ public class Teclado implements KeyListener {
                 painel.interfaceDoUsuario.numeroDoComando = 1;
             }
             painel.iniciarEfeitoSonoro(9);
+            
         }
         if(code == KeyEvent.VK_S){
             painel.interfaceDoUsuario.numeroDoComando++;

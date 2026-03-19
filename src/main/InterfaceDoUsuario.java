@@ -236,6 +236,7 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile;
 
         // Região 2
+        
         g2.drawString("Caminho para Avareza", textoX, textoY);
         if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
@@ -489,6 +490,7 @@ public class InterfaceDoUsuario {
                 g2.drawString(">", x - 50, y);
             }
         }
+
     }
 
     public void resetarGameOver() {

@@ -102,6 +102,10 @@ public class Entidade {
     public boolean chefe;
     public int fragmentoDaEspada;
 
+    public boolean defensor = false;
+    public int delayRecuperacaoResistencia = 0;
+    public boolean exausto = false;
+
     //atributos dos Itens
     //inventario
     public ArrayList<Entidade> inventario = new ArrayList<>();
@@ -235,6 +239,7 @@ public class Entidade {
 
     public void setAcao(){ }
 
+
     public void mover(String direcao){ }
 
     public void acaoAoDano(){ }
@@ -259,15 +264,14 @@ public class Entidade {
                 break;
         }
     }
+    
     public void iniciarDialogo(Entidade entidade, int setNum){
         painel.estadoDoJogo = painel.estadoDoDialogo;
         painel.interfaceDoUsuario.npc = entidade;
         setDialogo = setNum;
     }
 
-    public void interagir(){
-
-    }
+    public void interagir(){ }
 
 
     public boolean usar(Entidade entidade){ return false; }
@@ -284,6 +288,7 @@ public class Entidade {
             }
         }
     }
+    
     public Color getParticulaCor(){
         Color cor = null;
         return cor;
@@ -293,6 +298,7 @@ public class Entidade {
         int tamanho = 0; //6 pixels
         return tamanho;
     }
+    
     public int getParticulaVelocidade(){
         int velocidade = 0;
         return velocidade;
@@ -338,10 +344,6 @@ public class Entidade {
 
       
     }
-
-    
-
-
 
     public void atualizar(){
 
@@ -501,9 +503,6 @@ public class Entidade {
         }
     }
     
-
-    
-    
     public void verificarSeComecouAPerseguir_ou_nao(Entidade alvo, int distancia, int taxa){
         if(getDistaciaDoBloco(alvo) < distancia){
             int i = new Random().nextInt(taxa);
@@ -580,8 +579,6 @@ public class Entidade {
 
         return direcaoOposta;
     }
-
-
     
     public void ataque(){
         contadorDeSprite++;
@@ -720,7 +717,6 @@ public class Entidade {
     }
     
 
-
     public void danoJogador(int ataque){
 
         if(painel.jogador.invencivel == false){
@@ -768,7 +764,6 @@ public class Entidade {
             painel.jogador.invencivel = true;
         }
     }
-
 
     public void setEmpurrao(Entidade alvo, Entidade atacante, int poderDoEmpurrao){
         this.atacante = atacante;
@@ -819,6 +814,7 @@ public class Entidade {
                     if(atacar == false){
                         if(numeroDoSprite  == 1){ imagem = baixo1; }
                         if(numeroDoSprite  == 2){ imagem = baixo2; }
+
                     }
                     if(atacar == true){
                         if(numeroDoSprite  == 1){ imagem = ataqueBaixo1; }
@@ -913,9 +909,6 @@ public class Entidade {
         return imagem;
     }
     
-
-
-
     public void procurarCaminho(int metaColuna, int metaLinha){
 
         int iniciarColuna = (mundoX + areaSolida.x) / painel.tamanhoDoTile;

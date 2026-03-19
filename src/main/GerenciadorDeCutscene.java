@@ -1,13 +1,11 @@
 package main;
 
+import entidade.jogadorManequim;
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
-
-import entidade.jogadorManequim;
-import main.inimigo.chefao.SenhorEsqueleto;
-import main.inimigo.chefao.SenhorEsqueleto2;
+import main.inimigo.chefao.EronODevoradorSilencioso;
+import main.inimigo.chefao.DariusOColecionadorDeAlmas;
 import main.inimigo.chefao.SenhorEsqueleto3;
 import objeto.ObjDiamente;
 import objeto.ObjPortaDeFerro;
@@ -21,24 +19,23 @@ public class GerenciadorDeCutscene {
     float alpha = 0f;
     int y;
     String creditosFinais;
-
     //numero das cenas
     public final int NA = 0;
-    public final int senhorEsqueleto = 1;
+    public final int eronODevoradorSilencioso = 1;
+    public final int dariusOColecionadorDeAlmas = 6;
+    public final int senhorEsqueleto = 5;
     public final int cenaFinal = 2;
     public final int cenaInicial = 3;
     public final int cenaMorte = 4;
     
     String mensagemMorteAtual;
 
-
     public void desenhar(Graphics2D g2){
         this.g2 = g2;
 
         switch (numeroDaCena) {
             case cenaMorte: cenaMorte(); break;
-
-            case senhorEsqueleto: cenaSenhorEsqueleto(); break;
+            case eronODevoradorSilencioso: cenaEronODevoradorSilencioso(); break;
             case cenaFinal : cenaFinal(); break;
             case cenaInicial: cenaInicial(); break;
             
@@ -56,7 +53,6 @@ public class GerenciadorDeCutscene {
         creditosFinais = "Programação/Musica/Arte\n"
         +"Rafaela\n"
         +"Nancy\n"
-        +"Isabela\n"
         +"\n\n\n\n\n\n\n\n\n\n\n\n\n"
         +"Agradecimentos especiais\n"
         +"Isabela\n"
@@ -85,9 +81,9 @@ public class GerenciadorDeCutscene {
             alpha += 0.01f;
             if (alpha > 1f) alpha = 1f;
 
-            String texto = "Em um mundo esquecido pelas luzes,\n"
-                        + "um menino desperta no coração da escuridão.\n"
-                        + "Sua jornada pela última chama está prestes a começar...";
+            String texto = "Acorde, adormecido!!\n"
+                        + "Pois és o escolhido.\n"
+                        + "Acabe com o nosso sofrimento...";
 
             desenharFundoPreto(1f);
             desenharString(alpha, 36f, painel.alturaTela / 2 - 100, texto, 45);
@@ -99,7 +95,24 @@ public class GerenciadorDeCutscene {
             }
         }
 
+
         if (faseDaCena == 2) {
+            alpha += 0.01f;
+            if (alpha > 1f) alpha = 1f;
+
+            String texto = "Seja A Última Luz.";
+
+            desenharFundoPreto(1f);
+            desenharString(alpha, 100f, painel.alturaTela / 2 - 50, texto, 45);
+
+            if (contadorAlcancado(800)) {
+                faseDaCena++;
+                alpha = 0f; 
+                contador = 0;
+            }
+        }
+
+        if (faseDaCena == 3) {
             float velocidadeFade = 0.01f;
 
             if (contador == 0) {
@@ -124,14 +137,14 @@ public class GerenciadorDeCutscene {
             }
         }
 
-        if (faseDaCena == 3) {
+        if (faseDaCena == 4) {
             numeroDaCena = NA;
             faseDaCena = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
         }
     }
 
-    public void  cenaSenhorEsqueleto(){
+    public void  cenaEronODevoradorSilencioso(){
         
         if(faseDaCena == 0){
             painel.batalhaComChefeAtiva = true;
@@ -179,8 +192,8 @@ public class GerenciadorDeCutscene {
 
                 if(painel.inimigo[painel.mapaAtual][i] != null && 
                     //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
-                    painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto.nomeBoss) ||
-                    painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto2.nomeBoss) ||
+                    painel.inimigo[painel.mapaAtual][i].nome.equals(EronODevoradorSilencioso.nomeBoss) ||
+                    painel.inimigo[painel.mapaAtual][i].nome.equals(DariusOColecionadorDeAlmas.nomeBoss) ||
                     painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto3.nomeBoss) ){
 
                     painel.inimigo[painel.mapaAtual][i].dormir = false;
@@ -235,7 +248,6 @@ public class GerenciadorDeCutscene {
             painel.interfaceDoUsuario.desenharDialogoNaTela();
         }
         if(faseDaCena == 2){
-            //tocar a fanfarra
             painel.iniciarEfeitoSonoro(4);
             faseDaCena++;
         }
@@ -269,10 +281,8 @@ public class GerenciadorDeCutscene {
             }
 
             //alterar texto
-            String texto = "Após a batalha feroz com o Senhor Esqueleto, \n"
-                            + "o menino azul finalmente encontrou o tesouro lendário. \n"
-                            + "Mas este não é o fim de sua jornada. \n"
-                            + "A aventura do menino azul apenas começou.";
+            String texto = "Este não é o fim de sua jornada. \n"
+                            + "A aventura do adormecido apenas começou.";
             
             desenharString(alpha, 38f, 200, texto, 70);
 
@@ -280,10 +290,11 @@ public class GerenciadorDeCutscene {
                 painel.iniciarMusica(0);
                 faseDaCena++;
             }
-    }
+        }
         if(faseDaCena == 6){
             desenharFundoPreto(1f);
-            desenharString(1f, 120f, painel.alturaTela/2, "A Última Luz", 40);
+            desenharString(1f, 120f, painel.alturaTela/2,
+                 "A Última Luz", 40);
             
             
             if(contadorAlcancado(480) == true){

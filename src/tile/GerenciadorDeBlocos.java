@@ -53,7 +53,7 @@ public class GerenciadorDeBlocos {
         carregarImagensDosBlocos();
 
         //get the maxmundoCol e row
-        is = getClass().getResourceAsStream("/res/mapa/1_1PracaDoDespertar.txt");//mapas de 50x50, 100x100, ou 250x250...
+        is = getClass().getResourceAsStream("/res/mapa/mapa0.txt");//mapas de 50x50, 100x100, ou 250x250...
         br = new BufferedReader(new InputStreamReader(is));
 
         try{
@@ -70,48 +70,26 @@ public class GerenciadorDeBlocos {
             System.out.println("Exceção! Mapa não encontrado!");
         }
 
-        //Área 1 - Inicio do Jogo
-        carregarMapa("/res/mapa/1_1PracaDoDespertar.txt", 0);      // 1 Praça do despertar
-        carregarMapa("/res/mapa/1_3Arena.txt", 1);                 // 1_2 Arena Chefe Tutorial
 
-        //Área 2 
-        carregarMapa("/res/mapa/2_1CapelaDaLuzInterior.txt", 2);   // 2_1 Capela Da Luz Interior - Bifurcação para Gula e Avareza
-
-        //Área 3 - Caminhos para o Boss Gula
-        carregarMapa("/res/mapa/3_1SalaoDoBanqueteEterno.txt", 3); // 3.1 Salão Do Banquete Eterno
-        carregarMapa("/res/mapa/3_2Arena.txt", 4);                 // 3.2 Arena - Chefe Gula
+        //area zero
+        carregarMapa("/res/mapa/mapa0.txt", 0);
+        carregarMapa("/res/mapa/mapa1.txt", 1);
+        carregarMapa("/res/mapa/mapa2.txt", 2);
+        carregarMapa("/res/mapa/mapa3.txt", 3);
+        carregarMapa("/res/mapa/mapa4.txt", 4);
         
-        //Área 4 - Caminhos para o Boss Avareza
-        carregarMapa("/res/mapa/4_1PortaDeFerro.txt", 5);         // 4.1 Porta De Ferro
-        carregarMapa("/res/mapa/4_2CamaraDasCorrentes.txt", 6);   // 4.2 Câmara Das Correntes
-        carregarMapa("/res/mapa/4_3Arena.txt", 7);                // 4.3 Arena Chefe Avareza
         
-
-
-        //Área 5 - Caminhos para o Boss Inveja
-        carregarMapa("/res/mapa/5_1JardimDasSombras.txt", 8);     // 5.1 Jardim Das Sombras
-        carregarMapa("/res/mapa/5_2Arena.txt", 9);                // 5.2 Arena Chefe Inveja
-
-        //Área 6 - Caminhos para o Boss Luxúria
-        carregarMapa("/res/mapa/6_1AuroraPartida.txt", 10);        // 6.1 Aurora Partida
-        carregarMapa("/res/mapa/6_2Arena.txt", 11);                // 6.2 Arena Chefe Luxúria
-
-        //Área 7 - Caminhos para o Boss Orgulho
-        carregarMapa("/res/mapa/7_1TronoDaLuz.txt", 12);           // 7.1 Trono Da Luz
-        carregarMapa("/res/mapa/7_2TronoCaido.txt", 13);           // 7.2 Trono Caído
-        carregarMapa("/res/mapa/7_3ArenaFinal.txt", 14);           // 7.3 Arena Final
-
-
-        //Área 8 - Caminhos para o Boss Preguiça
-        carregarMapa("/res/mapa/8_1SalaoDoSonoEterno.txt", 15);    // 8.1 Salão Do Sono Eterno
-        carregarMapa("/res/mapa/8_2LanternaDosSonhos.txt", 16);    // 8.2 Lanterna Dos Sonhos
-        carregarMapa("/res/mapa/8_3Arena.txt", 17);                // 8.3 Arena Chefe Preguiça
-
-        //Área 9 - Caminhos para o Boss Ira
-        carregarMapa("/res/mapa/9_1LaminasSanguinarias.txt", 18);   // 9.1 Lâminas Sanginárias
-        carregarMapa("/res/mapa/9_2OFogoRubro.txt", 19);           // 9.2 O Fogo Rubro
-        carregarMapa("/res/mapa/9_3Arena.txt", 20);                // 9.3 Arena Chefe Ira
         
+        
+        carregarMapa("/res/mapa/mapa5.txt", 5);
+        carregarMapa("/res/mapa/mapa6.txt", 6);
+        carregarMapa("/res/mapa/mapa7.txt", 7);
+
+        carregarMapa("/res/mapa/mapa8.txt", 8);
+        carregarMapa("/res/mapa/mapa9.txt", 9);
+        carregarMapa("/res/mapa/mapa10.txt", 10);
+        carregarMapa("/res/mapa/mapa11.txt", 11);
+       
     }
 
     public void carregarImagensDosBlocos() {
@@ -216,6 +194,12 @@ public class GerenciadorDeBlocos {
                 mundoY - painel.tamanhoDoTile < painel.jogador.mundoY + painel.jogador.telaY) {
                 
                 g2.drawImage(blocos[numeroDoBloco].imagem, telaX, telaY,  null);
+
+                // DEBUG - visualizar blocos com colisão
+                //if(blocos[numeroDoBloco].temColisao){
+                //    g2.setColor(new Color(0, 0, 255, 60)); // azul translúcido
+                //    g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
+                //}
             }
 
             colunaDoMundo++;

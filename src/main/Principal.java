@@ -38,6 +38,11 @@ public class Principal {
         janela.setIconImage(icone.getImage());
     }
 
-    // para usar SEMPRE que atualizar o projeto (alteração nos recursos/arquivos de texto/imagem/som)
-    //Copy-Item -Recurse -Force res bin/
+    // para usar SEMPRE que atualizar o projeto (alteração nos recursos/arquivos de texto/imagem/som) 
+    // terminal powershell
+    // Copy-Item -Recurse -Force res bin/
+    
+
 }
+
+

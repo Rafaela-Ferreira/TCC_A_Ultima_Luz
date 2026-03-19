@@ -12,7 +12,7 @@ public class NpcEstatuaRainhaAmelia extends Entidade{
 
         nome = nomeNpc;
         direcao = "baixo";
-        velocidade = 4;
+        velocidade = 0;
 
 
         areaSolida = new Rectangle();
@@ -31,15 +31,9 @@ public class NpcEstatuaRainhaAmelia extends Entidade{
     }
 
     public void getImagem(){
+        baixo1 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
-        cima1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/res/npc/bigrock", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){
@@ -48,9 +42,9 @@ public class NpcEstatuaRainhaAmelia extends Entidade{
         dialogo[0][2] = "E restaure o seu poder.";
     }
 
-    public void setAcao(){ }
+    //public void setAcao(){ }
 
-    public void atualizar(){ }
+    //public void atualizar(){ }
 
     public void falar(){
 

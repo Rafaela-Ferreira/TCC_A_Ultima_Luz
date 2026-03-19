@@ -14,7 +14,7 @@ public class Agua_02 extends BlocosInterativos{
         this.mundoY = painel.tamanhoDoTile * linha;
 
         baixo1 = setup("/img/objetos/w02_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/img/objetos/w02_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/img/objetos/w02_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
         destruir = true;
         
     }

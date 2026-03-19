@@ -1,7 +1,6 @@
 package entidade;
 import java.awt.Rectangle;
 import java.util.Random;
-
 import main.PainelDoJogo;
 
 public class NpcVelho extends Entidade{
@@ -10,16 +9,6 @@ public class NpcVelho extends Entidade{
 
         direcao = "baixo";
         velocidade = 1;
-
-        
-        areaSolida = new Rectangle();
-        areaSolida.x = 8;
-        areaSolida.x = 16;
-        areaSolidaPadraoX = areaSolida.x;
-        areaSolidaPadraoY = areaSolida.y;
-        areaSolida.width = 32;
-        areaSolida.height = 32;
-
         setDialogo = -1;
 
         getImagem();
@@ -29,14 +18,14 @@ public class NpcVelho extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/npc/oldman_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/npc/oldman_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/npc/oldman_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/npc/oldman_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/npc/oldman_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/npc/oldman_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/npc/oldman_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/npc/oldman_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/npc/oldman_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/oldman_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/npc/oldman_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/oldman_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/oldman_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/oldman_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/oldman_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/oldman_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){
@@ -57,12 +46,12 @@ public class NpcVelho extends Entidade{
 
         if(pastaAtiva == true){
             //para o NPC ter um objetivo
-            //int metaColuna = 10;
-            //int metaLinha = 9;
+            int metaColuna = 29;
+            int metaLinha = 19;
 
             //para o NPC seguir o jogador
-            int metaColuna = (painel.jogador.mundoX + painel.jogador.areaSolida.x) / painel.tamanhoDoTile;
-            int metaLinha = (painel.jogador.mundoY + painel.jogador.areaSolida.y) / painel.tamanhoDoTile;
+            //int metaColuna = (painel.jogador.mundoX + painel.jogador.areaSolida.x) / painel.tamanhoDoTile;
+            //int metaLinha = (painel.jogador.mundoY + painel.jogador.areaSolida.y) / painel.tamanhoDoTile;
 
             procurarCaminho(metaColuna, metaLinha);
 

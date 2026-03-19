@@ -1,18 +1,14 @@
 package tile.blocosInterativos;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+
 import main.PainelDoJogo;
+
+
 
 public class Fogueira extends BlocosInterativos{
     
     PainelDoJogo painel;
-    boolean ativa = true;
-    int contadorDeSprite = 0;
-    int numeroDoSprite = 1;
-    
-    BufferedImage imagem1, imagem2, imagem3, imagem4;
 
     public Fogueira(PainelDoJogo painel, int coluna, int linha) {
         super(painel, coluna, linha);
@@ -20,76 +16,73 @@ public class Fogueira extends BlocosInterativos{
 
         this.mundoX = painel.tamanhoDoTile * coluna;
         this.mundoY = painel.tamanhoDoTile * linha;
-        
-        
-        // define como obstáculo interativo
-        tipo = tipoObstaculo;
 
-        temColisao = false; // o player pode se aproximar
-        
-        areaSolida.x = 10;
-        areaSolida.y = 20;
-        areaSolida.width = 28;
-        areaSolida.height = 28;
-        
+        int i = 3;
+        baixo1 = setup("/res/fogueira/fogueira1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+        baixo2 = setup("/res/fogueira/fogueira2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+        destruir = true;
 
-        int i = 2;
-        imagem1 = setup("/res/fogueira/fogueira1", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-        imagem2 = setup("/res/fogueira/fogueira2", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-        imagem3 = setup("/res/fogueira/fogueira3", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
-        imagem4 = setup("/res/fogueira/fogueira4", painel.tamanhoDoTile*i, painel.tamanhoDoTile*i);
+      
 
-        baixo1 = imagem1; 
+        areaSolida.x = 0;
+        areaSolida.y = 0;
+        areaSolida.width = 0;
+        areaSolida.height = 0;
+        areaSolidaPadraoX = areaSolida.x;
+        areaSolidaPadraoY = areaSolida.y;
+        
     }
 
-    public void interagir() {
-        //não está funcionando ainda
-        //painel.mEventos.fogueira(painel.iniciarEstadoDoJogo);
-    }
 
-    
-    public void atualizar() {
-        if (ativa) {
-            contadorDeSprite++;
+    public void atualizar(){
+        spriteContador++;
 
-            // altera a imagem a cada 12 frames 
-            if (contadorDeSprite > 12) {
-                numeroDoSprite++;
-                if (numeroDoSprite > 4) {
-                    numeroDoSprite = 1;
+        if(spriteContador > 15){ // velocidade da animação
+            if(spriteNum == 1){
+                spriteNum = 2;
+            } else {
+                spriteNum = 1;
+            }
+            spriteContador = 0;
+        }
+       
+       
+        if(invencivel == true){
+            invencivelContador++;
+            
+            if(invencivel == true){
+                invencivelContador++;
+                
+                if(invencivelContador > 20){
+                    invencivel = false;
+                    invencivelContador = 0;
                 }
-
-                switch (numeroDoSprite) {
-                    case 1: baixo1 = imagem1; break;
-                    case 2: baixo1 = imagem2; break;
-                    case 3: baixo1 = imagem3; break;
-                    case 4: baixo1 = imagem4; break;
-                }
-
-                contadorDeSprite = 0;
             }
         }
+     }
     
-    }
-
-    public void desenhar(Graphics2D g2) {
+    
+    public void desenhar(Graphics2D g2){
         int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
         int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
-        // Desenha a fogueira
-        g2.drawImage(baixo1, telaX, telaY, null);
+        // Verifica se o bloco está dentro da área visível do jogador
+        if (mundoX + painel.tamanhoDoTile > painel.jogador.mundoX - painel.jogador.telaX && 
+            mundoX - painel.tamanhoDoTile < painel.jogador.mundoX + painel.jogador.telaX &&
+            mundoY + painel.tamanhoDoTile > painel.jogador.mundoY - painel.jogador.telaY &&
+            mundoY - painel.tamanhoDoTile < painel.jogador.mundoY + painel.jogador.telaY) {
 
-        // --- DEBUG: visualizar área de colisão ---
-        if (temColisao) {
-            g2.setColor(new Color(255, 0, 0, 100)); // vermelho semi-transparente
-            g2.fillRect(
-                telaX + areaSolida.x,
-                telaY + areaSolida.y,
-                areaSolida.width,
-                areaSolida.height
-            );
+            //g2.drawImage(baixo1, telaX, telaY, null);
+
+            if(spriteNum == 1){
+                g2.drawImage(baixo1, telaX, telaY, null);
+            }
+            if(spriteNum == 2){
+                g2.drawImage(baixo2, telaX, telaY, null);
+            }
+
+           
         }
     }
 
-    
 }

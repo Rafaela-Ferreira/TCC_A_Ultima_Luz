@@ -22,8 +22,8 @@ public class ArvoreSeca extends BlocosInterativos{
     public boolean itemCorreto(Entidade entidade){
         boolean itemCorreto = false;
 
-        //é necessario usar um machado para cortar uma árvore
-        if(entidade.armaAtual.tipo == tipoMachado){
+        //qualquer arma pode cortar uma árvore
+        if(entidade.armaAtual.tipo == tipoPicareta || entidade.armaAtual.tipo == tipoMachado || entidade.armaAtual.tipo == tipoEspada){
             itemCorreto = true;
         }
 

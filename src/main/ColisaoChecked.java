@@ -1,7 +1,6 @@
 package main;
 
 import entidade.Entidade;
-import java.awt.Rectangle;
 
 public class ColisaoChecked {
     PainelDoJogo painel;

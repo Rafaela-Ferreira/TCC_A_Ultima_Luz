@@ -22,8 +22,10 @@ public class ObjDiamente extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "Você pega uma linda pedra azul.";
-        dialogo[0][1] = "Você encontra o coração azul, o tesouro lendário!";
+        dialogo[0][0] = "Ninguém escapa do ciclo eterno entre \n"
+                     + "a morte e o renacimento.";
+        dialogo[0][1] = "Mas aquele que carregava o poder sabia que, um dia,\n"
+                     + "alguém ouviria seus sussuros.";
 
     }
 

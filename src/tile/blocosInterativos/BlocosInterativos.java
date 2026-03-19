@@ -1,14 +1,17 @@
 package tile.blocosInterativos;
 
-import java.awt.Graphics2D;
-
 import entidade.Entidade;
+import java.awt.Graphics2D;
 import main.PainelDoJogo;
 
 public class BlocosInterativos extends Entidade{
 
     PainelDoJogo painel;
     public boolean destruir = false;
+
+
+    int spriteContador = 0;
+    int spriteNum = 1;
 
     public BlocosInterativos(PainelDoJogo painel, int coluna, int linha) {
         super(painel);
@@ -20,17 +23,19 @@ public class BlocosInterativos extends Entidade{
         boolean itemCorreto = false;
         return itemCorreto;
     }
-    public void iniciarEfeitoSonoro(){
 
-    }
+    public void iniciarEfeitoSonoro(){ }
+
     public BlocosInterativos getDestruir(){
         BlocosInterativos bloco = null;
         return bloco;
     }
 
     public void atualizar(){
+       
         if(invencivel == true){
             invencivelContador++;
+            
             if(invencivel == true){
                 invencivelContador++;
                 
@@ -41,6 +46,7 @@ public class BlocosInterativos extends Entidade{
             }
         }
     }
+
     public void desenhar(Graphics2D g2){
 
         int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
@@ -54,8 +60,9 @@ public class BlocosInterativos extends Entidade{
 
             g2.drawImage(baixo1, telaX, telaY, null);
 
-           
         }
-    }   
+    }  
+
+     
     
 }

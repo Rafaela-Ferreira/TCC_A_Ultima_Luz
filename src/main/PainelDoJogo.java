@@ -38,7 +38,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public  int maxColunasMundo; // Número máximo de colunas no mundo
     public  int maxLinhasMundo; // Número máximo de linhas no mundo
     public final int maxMapa = 30; //qtd de mapas - ajustar conforme necessidade - (21 no momento)
-    public int mapaAtual = 0;  //mapa inicial
+    public int mapaAtual = 4;  //mapa inicial
    
 
 
@@ -57,6 +57,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
     //FPS
     int FPS= 60;
+
 
     public GerenciadorDeBlocos gerenciadorDeBlocos = new GerenciadorDeBlocos(this);
 
@@ -503,6 +504,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
 
             //DEBUG
             if(teclado.mostrarTextoDebug == true){
+
+                // DEBUG DOS EVENTOS
+                mEventos.desenhar(g2);
+
                 long desenhoFinal = System.nanoTime();
                 long tempoDeDesenho = desenhoFinal - desenhoInicio;
                 g2.setFont(new Font("Serif", Font.BOLD, 26));
@@ -517,6 +522,15 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y); y += linhaAltura;
                 g2.drawString("Modo de DEBUG: " + teclado.modoDebugAtivo, x, y);
                 
+                // DEBUG - desenhar área de colisão do jogador
+                /*g2.setColor(new Color(255, 0, 0, 120)); 
+                g2.drawRect(
+                    jogador.mundoX + jogador.areaSolida.x - jogador.mundoX + jogador.telaX,
+                    jogador.mundoY + jogador.areaSolida.y - jogador.mundoY + jogador.telaY,
+                    jogador.areaSolida.width,
+                    jogador.areaSolida.height
+                );
+                */
 
             }
 

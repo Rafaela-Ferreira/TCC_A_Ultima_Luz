@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-
 import main.PainelDoJogo;
 
 public class Tocha extends BlocosInterativos{
@@ -80,7 +79,7 @@ public class Tocha extends BlocosInterativos{
     public void desenharLuz(Graphics2D g2, int telaX, int telaY) {
         if (!ativa) return;
 
-        // 🔥 Raio base da luz com leve variação (tremulação)
+        // Raio base da luz com leve variação (tremulação)
         double variacao = Math.sin(System.currentTimeMillis() * 0.008) * 3; // leve oscilação
         int raio = (int) (painel.tamanhoDoTile * 2 + variacao);
 

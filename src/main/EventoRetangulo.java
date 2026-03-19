@@ -7,4 +7,6 @@ public class EventoRetangulo extends Rectangle{
     int eventoRetanguloPadraoX, eventoRetanguloPadraoY;
     boolean eventoJaAconteceu = false;
 
+    
+
 }

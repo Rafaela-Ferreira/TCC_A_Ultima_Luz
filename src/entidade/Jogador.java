@@ -54,7 +54,6 @@ public class Jogador extends Entidade {
     public boolean morto = false;
 
 
-
     public Jogador(PainelDoJogo painel, Teclado teclado) {
         super(painel); //estamos chamando o construtor da superClass desta class (Entidade)
         
@@ -73,10 +72,10 @@ public class Jogador extends Entidade {
         areaSolida.height = 32; 
 
         // exemplo de inicialização
-        itensRapidos[0] = inventario.size() > 0 ? inventario.get(0) : null;
-        itensRapidos[1] = inventario.size() > 1 ? inventario.get(1) : null;
-        itensRapidos[2] = null;
-        itensRapidos[3] = null;
+        //itensRapidos[0] = inventario.size() > 0 ? inventario.get(0) : null;
+        //itensRapidos[1] = inventario.size() > 1 ? inventario.get(1) : null;
+        //itensRapidos[2] = null;
+        //itensRapidos[3] = null;
 
         alma = 100;
 
@@ -117,8 +116,8 @@ public class Jogador extends Entidade {
     }
 
     public void setDefaultValues() {
-        mundoX = painel.tamanhoDoTile * 12; 
-        mundoY = painel.tamanhoDoTile * 12;
+        mundoX = painel.tamanhoDoTile * 14; 
+        mundoY = painel.tamanhoDoTile * 14;
         
         
         
@@ -312,7 +311,12 @@ public class Jogador extends Entidade {
 
     public void atualizar(){
 
-        if (morto) {
+      
+
+        //if (morto) {
+        //    return;
+        //}
+        if (morto && teclado.modoDebugAtivo == false) {
             return;
         }
 
@@ -353,6 +357,13 @@ public class Jogador extends Entidade {
         else if(teclado.precionarEspaco == true){
             defender = true;
             contadorDeGuarda++;
+
+            if(resistencia > 0){
+                resistencia--;
+                delayRecuperacaoResistencia = 0;
+            }else{
+                defender = false;
+            }
         }
 
         else if(teclado.precionarCima == true || teclado.precionarBaixo == true || 
@@ -409,11 +420,17 @@ public class Jogador extends Entidade {
                 numeroDoSprite = 1;  
             }
 
-            if(teclado.precionarEnter == true && cancelarAtaque == false){
+            if(teclado.precionarEnter == true && cancelarAtaque == false && resistencia >= 10){
                 painel.iniciarEfeitoSonoro(7);
                 atacar = true;
                 contadorDeSprite = 0;
 
+                resistencia -= 10;
+                delayRecuperacaoResistencia = 0;
+
+                if(resistencia < 10){
+                    cancelarAtaque = true;
+                }
 
                 //diminuir a durabilidade
                 armaAtual.durabilidade--;
@@ -488,6 +505,7 @@ public class Jogador extends Entidade {
         if(contadorDeTiro < 30){
             contadorDeTiro++;
         }
+
         if(vida > vidaMaxima){
             vida = vidaMaxima;
         }
@@ -495,7 +513,50 @@ public class Jogador extends Entidade {
         if(mana > manaMaxima){
             mana = manaMaxima;
         }
-        
+
+
+        if(teclado.precionarCima == true || teclado.precionarBaixo == true || 
+            teclado.precionarEsquerda == true || teclado.precionarDireita == true || teclado.precionarEnter == true){
+            
+            if(colisaoComBloco == false && teclado.precionarEnter == false) {
+                if(resistencia > 0){
+                    resistencia -= 2;
+
+                    // só reinicia o delay se realmente estiver executando esforço pesado
+                    if(atacar == true || empurrao == true || defensor == true){
+                        delayRecuperacaoResistencia = 0;
+                    }
+                }
+                else{
+                    exausto = true;
+                    velocidade = 2; 
+                }
+            }
+        }
+
+        // Recuperação de resistência
+        if(atacar == false && empurrao == false && defensor == false ){
+            delayRecuperacaoResistencia++;
+
+            if(delayRecuperacaoResistencia > 60){
+                if(resistencia < resistenciaMaxima){
+                    resistencia += 2;
+                }
+            }
+        }else{
+            delayRecuperacaoResistencia = 0;
+        }
+
+        if(resistencia <= 0){
+            resistencia = 0;
+            exausto = true;
+        }
+
+        if(resistencia > 20){
+            exausto = false;
+            velocidade = velocidadePadrao;
+        }
+    
         
         if(teclado.modoDebugAtivo == false){
             if(vida <= 0){
@@ -523,43 +584,9 @@ public class Jogador extends Entidade {
             
         }
         
+        
     } 
 
-
-    /* 
-
-    public void deixarAlmasNoChao() {
-        if (almasNoChao) {
-            //System.out.println("As almas antigas foram perdidas permanentemente!");
-            almasPerdidas = 0;
-            almasNoChao = false;
-        } else {
-            //System.out.println("Almas deixadas no chão!");
-            almasPerdidas = alma;
-            alma = 0;
-            almaX = mundoX;
-            almaY = mundoY;
-            almasNoChao = true;
-        }
-    }
-    
-
-    public void verificarRecuperacaoDeAlmas() {
-        if (almasNoChao) {
-            int distanciaX = Math.abs(mundoX - almaX);
-            int distanciaY = Math.abs(mundoY - almaY);
-
-            if (distanciaX < 40 && distanciaY < 40) { // distância para coletar
-                alma += almasPerdidas;
-                almasPerdidas = 0;
-                almasNoChao = false;
-
-                painel.iniciarEfeitoSonoro(8);
-            }
-        }
-    }
-    
-    
 
     /*para abrir a porta é necessário ter uma chave
       se tiver, a porta é removida do array de objetos
@@ -621,26 +648,7 @@ public class Jogador extends Entidade {
         
     }
 
-    /* 
-    //subir de nivel
-    public void verificarNivelAcima(){
-        if(exp >= proximoNivelExp){
-            nivel++;
-            proximoNivelExp = proximoNivelExp * 2;
-            vidaMaxima += 2;
-            forca++;
-            destreza++;
-            ataque = getAtaque();
-            defesa = getDefesa();
-            painel.iniciarEfeitoSonoro(8);
-            painel.estadoDoJogo = painel.estadoDoDialogo;
-
-            //dialogo[0][0] = "Você subiu para o nível " + nivel + "!";
-            setDialogo();
-            iniciarDialogo(this, 0);
-        }
-    }
-    */
+    
 
     public void selecionarItem(){
         int indeceItem = painel.interfaceDoUsuario.pegarItemSelecionado(painel.interfaceDoUsuario.jogadorEspacoColuna, painel.interfaceDoUsuario.jogadorEspacoLinha);
