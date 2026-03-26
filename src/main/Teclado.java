@@ -68,8 +68,9 @@ public class Teclado implements KeyListener {
         }
 
         //estado de troca - inventario do npc
-        else if(painel.estadoDoJogo == painel.trocaDeEstado){
+        else if(painel.estadoDoJogo == painel.trocaDeEstado ){
             trocarEstado(code);
+            
         }
         //estado do mapa
         else if(painel.estadoDoJogo == painel.estadoMapa){

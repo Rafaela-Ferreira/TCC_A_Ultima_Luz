@@ -1,8 +1,11 @@
 package main;
 
 import dados.Progresso;
+import entidade.NpcADamaDeEspinhos;
 import entidade.NpcComerciante;
 import entidade.NpcEstatuaRainhaAmelia;
+import entidade.NpcOCarrascoSemRosto;
+import entidade.NpcOVigiaPartido;
 import entidade.NpcPedraGrande;
 import entidade.NpcPortalViagemRapida;
 import entidade.NpcSacerdotizaCega;
@@ -339,6 +342,26 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i] = new NpcSacerdotizaCega(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*12;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
+        i++;
+
+        painel.npc[numeroMapa][i] = new NpcADamaDeEspinhos(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*15;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
+        i++;
+
+        painel.npc[numeroMapa][i] = new NpcOCarrascoSemRosto(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*16;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
+        i++;
+
+        painel.npc[numeroMapa][i] = new NpcOVigiaPartido(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*13;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
+        i++;
+
+        painel.npc[numeroMapa][i] = new NpcEstatuaRainhaAmelia(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*14;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*14;
         i++;
 
         painel.npc[numeroMapa][i] = new NpcPortalViagemRapida(painel);

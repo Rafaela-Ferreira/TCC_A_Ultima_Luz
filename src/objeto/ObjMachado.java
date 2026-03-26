@@ -17,7 +17,7 @@ public class ObjMachado extends Entidade{
         areaAtaque.width = 30;
         areaAtaque.height = 30;
         descricao = "[" + nome + "]\nAumenta o ataque em " + valorAtaque + ".";
-        preco = 75;
+        preco = 500;
         poderDoEmpurrao = 10;
         direcaoDoMovimento1 = 20;
         direcaoDoMovimento2 = 40;

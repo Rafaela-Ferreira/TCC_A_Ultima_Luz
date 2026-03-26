@@ -15,15 +15,7 @@ public class NpcEstatuaRainhaAmelia extends Entidade{
         velocidade = 0;
 
 
-        areaSolida = new Rectangle();
-        areaSolida.x = 2;
-        areaSolida.x = 6;
-        areaSolidaPadraoX = areaSolida.x;
-        areaSolidaPadraoY = areaSolida.y;
-        areaSolida.width = 44;
-        areaSolida.height = 40;
-
-        setDialogo = -1;
+       
 
         getImagem();
         setDialogo();
@@ -31,20 +23,23 @@ public class NpcEstatuaRainhaAmelia extends Entidade{
     }
 
     public void getImagem(){
+        cima1 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
         baixo1 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
         baixo2 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/NovicePyromancer1", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
     }
 
     public void setDialogo(){
         dialogo[0][0] = "Estatua da Rainha Amelia.";
-        dialogo[0][1] = "Reconecte as chamas perdidas da aurora.";
-        dialogo[0][2] = "E restaure o seu poder.";
+        dialogo[0][1] = "“Mesmo na queda... a aurora deve florescer.”";
+        dialogo[0][2] = "Fragmentos da chama ainda resistem.\nEspalhados… esquecidos... aguardando.";
+        dialogo[0][3] = "Reúna o que foi perdido.\nE talvez... o ciclo possa ser quebrado.";
     }
-
-    //public void setAcao(){ }
-
-    //public void atualizar(){ }
 
     public void falar(){
 

@@ -17,7 +17,7 @@ public class ObjPocaoVermelha  extends Entidade{
         valor = 5;
         baixo1 = setup("/res/objeto/potion_red", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[" + nome + "]\ncura sua vida em " + valor + ".";
-        //preco = 25; - item nao e vendido, apenas encontrado
+        preco = 55;
         empilhavel = true;
         setDialogo();
     }

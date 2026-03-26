@@ -18,7 +18,7 @@ public class ObjPicareta extends Entidade{
         areaAtaque.width = 30;
         areaAtaque.height = 30;
         descricao = "[" + nome + "]\nAumenta o ataque em " + valorAtaque + ".";
-        preco = 75;
+        preco = 1000;
         poderDoEmpurrao = 10;
         direcaoDoMovimento1 = 10;
         direcaoDoMovimento2 = 20;

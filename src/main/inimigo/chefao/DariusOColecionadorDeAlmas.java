@@ -5,6 +5,7 @@ import entidade.Entidade;
 import java.util.Random;
 import main.PainelDoJogo;
 import objeto.ObjCoracao;
+import objeto.ObjFragmentoDourado;
 import objeto.ObjFragmentoFaminto;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
@@ -171,15 +172,15 @@ public class DariusOColecionadorDeAlmas extends Entidade{
         //definir o drop do inimigo 
         if(i < 50){
             droparItem(new ObjMoedaBronze(painel));
-            droparItem(new ObjFragmentoFaminto(painel));
+            droparItem(new ObjFragmentoDourado(painel));
         }
         if(i >= 50 && i < 75){
             droparItem(new ObjCoracao(painel));
-            droparItem(new ObjFragmentoFaminto(painel));
+            droparItem(new ObjFragmentoDourado(painel));
         }
         if(i >= 75 && i < 100){
             droparItem(new ObjMana(painel));
-            droparItem(new ObjFragmentoFaminto(painel));
+            droparItem(new ObjFragmentoDourado(painel));
         }
     }
 }

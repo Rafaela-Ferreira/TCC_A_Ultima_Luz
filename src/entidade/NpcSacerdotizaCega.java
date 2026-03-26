@@ -17,23 +17,24 @@ public class NpcSacerdotizaCega extends Entidade{
 
     public void getImagem(){
         
-        cima1 = setup("/res/npc/ExpertDruid1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/res/npc/ExpertDruid2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/res/npc/ExpertDruid1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/res/npc/ExpertDruid2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/res/npc/ExpertDruid1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/res/npc/ExpertDruid2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/res/npc/ExpertDruid1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/res/npc/ExpertDruid2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/npc/sarcedotisa_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/npc/sarcedotisa_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/npc/sarcedotisa_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/npc/sarcedotisa_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/npc/sarcedotisa_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/npc/sarcedotisa_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/npc/sarcedotisa_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/npc/sarcedotisa_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setDialogo(){
-        //seria legal exibir esse dialogo antes de desenhar a tela para subir de nivel
-        dialogo[0][0] = "Saudações, viajante.\nTraga-me almas e eu elevarei seu poder.";
+        dialogo[0][0] = "Saudações, viajante.\nEntregue-me suas almas...\ne eu guiarei sua ascensão.";
+        dialogo[0][1] = "Eu não vejo seu corpo…\napenas a chama que o sustenta.\nEla pode crescer... se você permitir.";
         
-        dialogo[1][0] = "Seu espírito está mais forte agora... use-o \ncom sabedoria.";
-        dialogo[2][0] = "Você não possui almas suficientes.";
-        dialogo[2][1] = "Retorne quando estiver pronto para \nsubir de nível.";
+        dialogo[1][0] = "Sua chama arde mais intensa agora…\nQue ela não consuma o que resta de você.";
+        
+        dialogo[2][0] = "...Não.\nAs almas que carrega são insuficientes.";
+        dialogo[2][1] = "Retorne quando sua chama estiver pronta\npara ser elevada.";
 
     }
     public void setItens(){ }

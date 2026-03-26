@@ -76,11 +76,7 @@ public class GerenciadorDeBlocos {
         carregarMapa("/res/mapa/mapa1.txt", 1);
         carregarMapa("/res/mapa/mapa2.txt", 2);
         carregarMapa("/res/mapa/mapa3.txt", 3);
-        carregarMapa("/res/mapa/mapa4.txt", 4);
-        
-        
-        
-        
+        carregarMapa("/res/mapa/mapa4.txt", 4);  
         carregarMapa("/res/mapa/mapa5.txt", 5);
         carregarMapa("/res/mapa/mapa6.txt", 6);
         carregarMapa("/res/mapa/mapa7.txt", 7);
@@ -88,7 +84,22 @@ public class GerenciadorDeBlocos {
         carregarMapa("/res/mapa/mapa8.txt", 8);
         carregarMapa("/res/mapa/mapa9.txt", 9);
         carregarMapa("/res/mapa/mapa10.txt", 10);
+
+
         carregarMapa("/res/mapa/mapa11.txt", 11);
+
+        carregarMapa("/res/mapa/mapa12.txt", 12);
+        carregarMapa("/res/mapa/mapa13.txt", 13);
+        carregarMapa("/res/mapa/mapa14.txt", 14);
+        carregarMapa("/res/mapa/mapa15.txt", 15);
+        carregarMapa("/res/mapa/mapa16.txt", 16);
+        carregarMapa("/res/mapa/mapa17.txt", 17);
+        carregarMapa("/res/mapa/mapa18.txt", 18);
+        carregarMapa("/res/mapa/mapa19.txt", 19);
+        carregarMapa("/res/mapa/mapa20.txt", 20);
+        carregarMapa("/res/mapa/mapa21.txt", 21);
+
+        carregarMapa("/res/mapa/2_1CapelaDaLuzInterior.txt", 22);
        
     }
 

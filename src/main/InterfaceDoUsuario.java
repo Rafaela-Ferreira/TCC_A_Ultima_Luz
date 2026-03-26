@@ -14,9 +14,11 @@ import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 
 
@@ -603,57 +605,56 @@ public class InterfaceDoUsuario {
 
         g2.setColor(new Color(0, 200, 0));
         g2.fillRect(x, yStamina, larguraStamina, altura);
-
-        //ESPAÇOS DE INVENTÁRIO RÁPIDO
-        int slotTamanho = 40;
-        int margem = 40;
-        int centroX = margem + slotTamanho;;
-        int centroY = painel.alturaTela - margem - slotTamanho * 2;
-
-        int[][] posicoes = {
-            {0, -slotTamanho}, // CIMA - projetaveis (magia, piromansias, etc...)
-            {0, slotTamanho},  // BAIXO - consumiveis(adiconar mais de um)
-            {-slotTamanho, 0}, // ESQUERDA - escudo
-            {slotTamanho, 0},  // DIREITA - arma
-            {0, 0}             // CENTRO
-        };
-
-        g2.setColor(new Color(0, 0, 0, 0));
-        g2.fillRoundRect(
-            centroX - slotTamanho - 10,
-            centroY - slotTamanho - 10,
-            slotTamanho * 3 + 20,
-            slotTamanho * 3 + 20,
-            20, 20
-        );
-
-        // Desenhar espaços
-        for (int i = 0; i < painel.jogador.itensRapidos.length && i < posicoes.length; i++) {
-            int xs = centroX + posicoes[i][0];
-            int ys = centroY + posicoes[i][1];
-
-            g2.setColor(new Color(70, 70, 70, 100));
-            g2.fillRoundRect(xs, ys, slotTamanho, slotTamanho, 10, 10);
-
-            // Destaque do espaco selecionado
-            if (i == painel.jogador.slotSelecionado) {
-                g2.setColor(new Color(255, 255, 255));
-                g2.setStroke(new BasicStroke(3));
-                g2.drawRoundRect(xs - 2, ys - 2, slotTamanho + 4, slotTamanho + 4, 10, 10);
-            }
-        }
-
+        
         // ALMAS
+        int margem = 30;
+
         g2.setFont(new Font("Serif", Font.BOLD, 36));
         String textoAlmas = String.format("%,d", painel.jogador.alma);
 
         int larguraTexto = g2.getFontMetrics().stringWidth(textoAlmas);
-        int xTexto = painel.larguraTela - margem - larguraTexto;
-        int yTexto = painel.alturaTela - margem;
+        int alturaTexto = g2.getFontMetrics().getHeight();
 
+        int tamanhoIcone = 48;
+        int padding = 5;
+        int espacamento = 5;
+
+        // --- TAMANHO DA CAIXA DINÂMICO ---
+        int larguraCaixa = tamanhoIcone + espacamento + larguraTexto + padding * 2;
+        int alturaCaixa = Math.max(tamanhoIcone, alturaTexto) + padding;
+
+        // posição da caixa (sempre fixa no canto)
+        int xCaixa = painel.larguraTela - margem - larguraCaixa;
+        int yCaixa = painel.alturaTela - margem - alturaCaixa;
+
+        // --- POSIÇÕES INTERNAS (baseadas na caixa) ---
+        int xImagem = xCaixa + padding;
+        int yImagem = yCaixa + (alturaCaixa - tamanhoIcone) / 2;
+
+        int xTexto = xImagem + tamanhoIcone + espacamento;
+        int yTexto = yCaixa + (alturaCaixa + alturaTexto) / 2 - 5;
+
+        // fundo
         g2.setColor(new Color(0, 0, 0, 150));
+        g2.fillRoundRect(xCaixa, yCaixa, larguraCaixa, alturaCaixa, 15, 15);
+
+        // borda
+        g2.setColor(new Color(255, 255, 255, 50));
+        g2.drawRoundRect(xCaixa, yCaixa, larguraCaixa, alturaCaixa, 15, 15);
+
+        // imagem
+        try {
+            BufferedImage imagemAlma = ImageIO.read(new File("res/objeto/alma.png"));
+            g2.drawImage(imagemAlma, xImagem, yImagem, tamanhoIcone, tamanhoIcone, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // sombra
+        g2.setColor(new Color(0, 0, 0, 180));
         g2.drawString(textoAlmas, xTexto + 2, yTexto + 2);
 
+        // texto
         g2.setColor(new Color(255, 255, 255));
         g2.drawString(textoAlmas, xTexto, yTexto);
     }
@@ -1267,7 +1268,7 @@ public class InterfaceDoUsuario {
         //sub janela
         int frameX = painel.tamanhoDoTile*6;
         int frameY = painel.tamanhoDoTile;
-        int frameLargura = painel.tamanhoDoTile*10;
+        int frameLargura = painel.tamanhoDoTile*11;
         int frameAltura = painel.tamanhoDoTile*10;
 
         desenharSubJanela(frameX, frameY, frameAltura, frameLargura);
@@ -1422,7 +1423,9 @@ public class InterfaceDoUsuario {
         g2.drawString("Confirm/ataque", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("Projetável", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("Inventário", textoX, textoY); textoY+=painel.tamanhoDoTile;
-        g2.drawString("Pause", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("Defesa", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("Mapa", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("Mini Mapa", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("Opções", textoX, textoY); textoY+=painel.tamanhoDoTile;
 
 
@@ -1432,12 +1435,14 @@ public class InterfaceDoUsuario {
         g2.drawString("ENTER", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("F", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("C", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("ESPAÇO", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("M", textoX, textoY); textoY+=painel.tamanhoDoTile;
+        g2.drawString("X", textoX, textoY); textoY+=painel.tamanhoDoTile;
         g2.drawString("ESC", textoX, textoY); textoY+=painel.tamanhoDoTile;
-        g2.drawString("T", textoX, textoY); textoY+=painel.tamanhoDoTile;
 
         //Voltar
         textoX = frameX + painel.tamanhoDoTile;
-        textoY = frameY + painel.tamanhoDoTile*9;
+        textoY = frameY + painel.tamanhoDoTile*10;
         g2.drawString("Voltar", textoX, textoY);
         if(numeroDoComando == 0){
             g2.drawString(">", textoX-25, textoY);

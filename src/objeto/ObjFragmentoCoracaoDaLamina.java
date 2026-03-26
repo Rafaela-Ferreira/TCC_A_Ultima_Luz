@@ -15,7 +15,7 @@ public class ObjFragmentoCoracaoDaLamina extends Entidade{
         tipo = tipoConsumivel;
         nome = objNome;
         valor = 1;
-        baixo1 = setup("/res/objeto/coin_bronze", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/frag5", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "O núcleo sagrado e \ncorrompido da espada\nperdida";
     }
     
