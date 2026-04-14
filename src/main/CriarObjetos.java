@@ -10,17 +10,22 @@ import entidade.NpcPedraGrande;
 import entidade.NpcPortalViagemRapida;
 import entidade.NpcSacerdotizaCega;
 import entidade.NpcVelho;
+import main.inimigo.BesouroAzul;
+import main.inimigo.EcoNoturno;
+import main.inimigo.GuardiaoDePedra;
 import main.inimigo.InimigoMorcego;
 import main.inimigo.InimigoOrc;
+import main.inimigo.LargatoCorrompido;
 import main.inimigo.LodoVerde;
 import main.inimigo.LodoVermelho;
+import main.inimigo.MaoDoAbismo;
+import main.inimigo.VigiaQuebrado;
 import main.inimigo.chefao.DariusOColecionadorDeAlmas;
 import main.inimigo.chefao.EronODevoradorSilencioso;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjChave;
 import objeto.ObjCoracao;
-import objeto.ObjDiamente;
 import objeto.ObjEscudoAzul;
 import objeto.ObjFragmentoFaminto;
 import objeto.ObjLanterna;
@@ -30,9 +35,9 @@ import objeto.ObjPicareta;
 import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
+import objeto.ObjTocha;
 import tile.blocosInterativos.ArvoreSeca;
 import tile.blocosInterativos.Fogueira;
-import tile.blocosInterativos.MensagemNoChao;
 import tile.blocosInterativos.ParedeDestrutivel;
 import tile.blocosInterativos.PlacaDeMetal;
 
@@ -59,11 +64,6 @@ public class CriarObjetos {
         painel.Obj[numeroMapa][i] = new ObjFragmentoFaminto(painel);
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*28;
-        i++;
-
-        painel.Obj[numeroMapa][i] = new ObjDiamente(painel);
-        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
-        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*23;
         i++;
 
         painel.Obj[numeroMapa][i] = new ObjChave(painel);
@@ -215,6 +215,27 @@ public class CriarObjetos {
         i++;
 
 
+        painel.Obj[numeroMapa][i] = new ObjChave(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*26;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
+        i++;
+        
+
+        painel.Obj[numeroMapa][i] = new ObjBarraca(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjTocha(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*39;
+        i++;
+
+        painel.Obj[numeroMapa][i] = new ObjLanterna(painel);
+        painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*24;
+        painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*39;
+        i++;
+
         //painel.Obj[numeroMapa][i] = new ObjDiamente(painel);
         //painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
         //painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
@@ -227,9 +248,16 @@ public class CriarObjetos {
     public void setBlocosInterativos(){
         int numeroMapa = 0;
         int i = 0;
-        //painel.blocosI[numeroMapa][i] = new TesteDeFogueira(painel, 21,19); i++;
 
-        painel.blocosI[numeroMapa][i] = new Fogueira(painel, 20,17); i++;
+       // painel.blocosI[numeroMapa][i] = new Fogueira(painel, 20,17); i++;
+
+        //painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 22,21, "Bem-vindo ao jogo!"); i++;
+
+       // painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 29,20, "Precione C para abrir o inventário"); i++;
+        
+        //painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 25,19, "Precione M para abrir o mapa"); i++;
+        
+        //painel.blocosI[numeroMapa][i] = new MensagemNoChao(painel, 24,23, "Precione ENTER para atacar"); i++;
 
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 27,12); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca(painel, 28,12); i++;
@@ -279,7 +307,7 @@ public class CriarObjetos {
         numeroMapa = 5;
         i = 0;
 
-        painel.Obj[numeroMapa][i] = new MensagemNoChao(painel, 24, 22, "Teste");
+        //painel.Obj[numeroMapa][i] = new MensagemNoChao(painel, 24, 22, "Teste");
 
         painel.blocosI[numeroMapa][i] = new Fogueira(painel, 18,36); i++;
 
@@ -300,11 +328,6 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i] = new NpcVelho(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*21;
-        i++;
-
-        painel.npc[numeroMapa][i] = new NpcEstatuaRainhaAmelia(painel);
-        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
-        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
 
 
@@ -389,6 +412,37 @@ public class CriarObjetos {
     public void setInimigos(){
         int numeroMapa = 0;
         int i = 0;
+
+        painel.inimigo[numeroMapa][i] = new EcoNoturno(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new GuardiaoDePedra(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*22;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new VigiaQuebrado(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*22;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new BesouroAzul(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*25;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*23;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new MaoDoAbismo(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*27;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*22;
+        i++;
+
+        painel.inimigo[numeroMapa][i] = new LargatoCorrompido(painel);
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*28;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*22;
+        i++;
+
         painel.inimigo[numeroMapa][i] = new LodoVerde(painel);
         painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
         painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;

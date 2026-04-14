@@ -14,7 +14,7 @@ public class ObjTocha extends Entidade {
         nome = objNome;
         baixo1 = setup("/res/fogueira/tocha0", painel.tamanhoDoTile, painel.tamanhoDoTile);
         
-        descricao = "[Lanterna]\nIlumina os arredores.";
+        descricao = "[Tocha]\nIlumina os arredores.";
         preco = 500;
         raioDeLuz = 450;
     }

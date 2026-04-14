@@ -694,6 +694,7 @@ public class InterfaceDoUsuario {
                     int x = painel.larguraTela/2 - painel.tamanhoDoTile*4;
                     int y = painel.tamanhoDoTile*10;
 
+                    
                     g2.setColor(new Color(35,35,35));
                     g2.fillRect(x-1, y-1, painel.tamanhoDoTile * 8 +2, 22);
 
@@ -754,7 +755,10 @@ public class InterfaceDoUsuario {
                 int alturaCaixa = 90;
 
                 int x = painel.larguraTela/2 - larguraCaixa/2;
-                int y = painel.alturaTela - 100;
+                int yBase = painel.alturaTela - 100;
+                int espacamento = 25; // distância entre mensagens
+
+                int y = yBase - (i * espacamento);
 
                 int contador = contadorDeMensagens.get(i) + 1;
                 contadorDeMensagens.set(i, contador);
@@ -771,11 +775,11 @@ public class InterfaceDoUsuario {
                 );
                 g2.setComposite(ac);
 
-                g2.setColor(new Color(0, 0, 0, 180));
-                g2.fillRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
+               // g2.setColor(new Color(0, 0, 0, 180));
+                //g2.fillRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
 
-                g2.setColor(new Color(200, 200, 200, 200));
-                g2.drawRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
+                //g2.setColor(new Color(200, 200, 200, 200));
+               // g2.drawRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
 
                 FontMetrics fm = g2.getFontMetrics();
                 int larguraTexto = fm.stringWidth(msg);
@@ -840,7 +844,7 @@ public class InterfaceDoUsuario {
             g2.setFont(new Font("Serif", Font.PLAIN, 20));
             g2.setColor(new Color(200, 200, 200));
 
-            String[] opcoes = { "Novo jogo", "Carregar jogo", "Sair" };
+            String[] opcoes = { "Novo jogo", "Jogo salvo", "Sair" };
             y += painel.tamanhoDoTile * 2;
 
             for (int i = 0; i < opcoes.length; i++) {
@@ -927,9 +931,20 @@ public class InterfaceDoUsuario {
             };
 
             if (!descricao.isEmpty()) {
+                /*
                 int xDesc = painel.larguraTela / 2; 
                 int yDesc = painel.alturaTela - painel.tamanhoDoTile * 2;
                 xDesc = Math.min(xDesc, painel.larguraTela - 250); 
+                g2.setColor(new Color(200, 200, 200));
+                g2.drawString(descricao, xDesc, yDesc);
+                */
+                int imgX = painel.tamanhoDoTile * 3;
+                int imgY = painel.tamanhoDoTile * 5;
+                int imgAltura = painel.tamanhoDoTile * 3;
+
+                int xDesc = imgX; 
+                int yDesc = imgY + imgAltura + painel.tamanhoDoTile; 
+
                 g2.setColor(new Color(200, 200, 200));
                 g2.drawString(descricao, xDesc, yDesc);
             }

@@ -1,6 +1,5 @@
 package tile.blocosInterativos;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import main.PainelDoJogo;
 
@@ -20,7 +19,7 @@ public class MensagemNoChao extends BlocosInterativos {
 
         this.mensagem = mensagem;
 
-        //baixo1 = setup("/res/npc/bigrock", painel.tamanhoDoTile,  painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/Letter", painel.tamanhoDoTile,  painel.tamanhoDoTile);
 
         destruir = false;
     }
@@ -55,14 +54,6 @@ public class MensagemNoChao extends BlocosInterativos {
         int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
         int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
-        int largura = painel.tamanhoDoTile * 2;   // mais largo
-        int altura  = painel.tamanhoDoTile / 2;   // mais baixo
-
-        g2.setColor(new Color(255, 220, 0, 50));
-        g2.fillRect( telaX - 8, telaY - 8, largura + 16, altura + 16);
-
-        g2.setColor(new Color(255, 220, 0, 90));
-        g2.fillRect( telaX - 4, telaY - 4, largura + 8, altura + 8);
-
+        g2.drawImage(baixo1, telaX, telaY, null);
     }
 }

@@ -1,6 +1,5 @@
 package tile;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,6 +71,7 @@ public class GerenciadorDeBlocos {
 
 
         //area zero
+       // carregarMapa("/res/mapa/mapa1.1.txt", 0);
         carregarMapa("/res/mapa/mapa0.txt", 0);
         carregarMapa("/res/mapa/mapa1.txt", 1);
         carregarMapa("/res/mapa/mapa2.txt", 2);
@@ -224,7 +224,7 @@ public class GerenciadorDeBlocos {
         
 
         if(desenharCaminho == true){
-            g2.setColor(new Color(255,0,0,70));
+           // g2.setColor(new Color(255,0,0,70));
 
             for(int i = 0; i < painel.localizarCaminhos.listaCaminho.size(); i++){
 
@@ -233,7 +233,7 @@ public class GerenciadorDeBlocos {
                 int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
                 int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
-                g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
+                //g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
             }
         }
         

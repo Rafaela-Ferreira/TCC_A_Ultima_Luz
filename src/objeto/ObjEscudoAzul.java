@@ -16,6 +16,9 @@ public class ObjEscudoAzul extends Entidade{
         valorDefesa = 2;
         descricao = "[" + nome + "]\nFabricado de aço.";
         preco = 250;
+        poderDoEmpurrao = 5;
+
+        
     }
     
 }
