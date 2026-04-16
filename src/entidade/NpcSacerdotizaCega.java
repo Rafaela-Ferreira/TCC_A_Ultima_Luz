@@ -34,7 +34,7 @@ public class NpcSacerdotizaCega extends Entidade{
         dialogo[1][0] = "Sua chama arde mais intensa agora…\nQue ela não consuma o que resta de você.";
         
         dialogo[2][0] = "...Não.\nAs almas que carrega são insuficientes.";
-        dialogo[2][1] = "Retorne quando sua chama estiver pronta\npara ser elevada.";
+        dialogo[2][1] = "Retorne quando sua chama estiver pronta\npara ascender.";
 
     }
     public void setItens(){ }

@@ -392,11 +392,11 @@ public class ManipuladorDeEventos {
         switch(destino){
 
             case 0: 
-                teleporteMapa(0, 26, 41, painel.fora);
+                teleporteMapa(4, 14, 16, painel.interior);
                 break;
-
+            /* 
             case 1: 
-                teleporteMapa(1, 25, 8, painel.fora);
+                teleporteMapa(1, 26, 41, painel.fora);
                 break;
 
             case 2: 
@@ -430,7 +430,7 @@ public class ManipuladorDeEventos {
             case 9: 
                 teleporteMapa(9, 26, 41, painel.interior);
                 break;
-
+            */
         }
 
         podeTocarEvento = false;

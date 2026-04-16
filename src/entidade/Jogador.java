@@ -116,8 +116,8 @@ public class Jogador extends Entidade {
     }
 
     public void setDefaultValues() {
-        mundoX = painel.tamanhoDoTile * 22; 
-        mundoY = painel.tamanhoDoTile * 15;
+        mundoX = painel.tamanhoDoTile * 42; 
+        mundoY = painel.tamanhoDoTile * 33;
         
         
         
@@ -198,10 +198,7 @@ public class Jogador extends Entidade {
         inventario.add(escudoAtual);
         inventario.add(armaAtual);
 
-        inventario.add(new ObjChave(painel));
-        inventario.add(new ObjMachado(painel));
-        inventario.add(new ObjPicareta(painel));
-        inventario.add(new ObjTocha(painel));
+        //inventario.add(new ObjChave(painel));
 
     }
 
@@ -794,14 +791,14 @@ public class Jogador extends Entidade {
                 }
 
                 painel.inimigo[painel.mapaAtual][indice].vida -= dano;
-                painel.interfaceDoUsuario.adicionarMensagem(dano + " de dano!");
+                //painel.interfaceDoUsuario.adicionarMensagem(dano + " de dano!");
                 painel.inimigo[painel.mapaAtual][indice].invencivel = true;
                 painel.inimigo[painel.mapaAtual][indice].acaoAoDano();
 
                 if(painel.inimigo[painel.mapaAtual][indice].vida <= 0){
                     painel.inimigo[painel.mapaAtual][indice].morrendo = true;
                     painel.interfaceDoUsuario.adicionarMensagem("Você derrotou " + painel.inimigo[painel.mapaAtual][indice].nome + "!");
-                    painel.interfaceDoUsuario.adicionarMensagem("Você ganhou " + painel.inimigo[painel.mapaAtual][indice].exp + " de experiência!");
+                    //painel.interfaceDoUsuario.adicionarMensagem("Você ganhou " + painel.inimigo[painel.mapaAtual][indice].exp + " de experiência!");
                     exp += painel.inimigo[painel.mapaAtual][indice].exp;
                     //verificarNivelAcima();
                 }

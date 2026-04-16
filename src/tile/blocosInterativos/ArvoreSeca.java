@@ -19,6 +19,7 @@ public class ArvoreSeca extends BlocosInterativos{
         destruir = true;
         vida = 3;
     }
+    
     public boolean itemCorreto(Entidade entidade){
         boolean itemCorreto = false;
 
@@ -29,9 +30,11 @@ public class ArvoreSeca extends BlocosInterativos{
 
         return itemCorreto;
     }
+
     public void iniciarEfeitoSonoro(){
         painel.iniciarEfeitoSonoro(11);
     }
+
     public BlocosInterativos getDestruir(){
         BlocosInterativos bloco = new Tronco(painel, mundoX/painel.tamanhoDoTile, mundoY/painel.tamanhoDoTile);
         return bloco;

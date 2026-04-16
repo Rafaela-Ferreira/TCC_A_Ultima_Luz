@@ -1,12 +1,11 @@
 package main.inimigo;
 
-import java.util.Random;
-
 import entidade.Entidade;
+import java.util.Random;
 import main.PainelDoJogo;
+import objeto.ObjAlmapequena;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
 import objeto.ObjPedra;
 
 public class BesouroAzul extends Entidade{
@@ -87,7 +86,7 @@ public class BesouroAzul extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
+            droparItem(new ObjAlmapequena(painel));
         }
         if(i >= 50 && i < 75){
             droparItem(new ObjCoracao(painel));

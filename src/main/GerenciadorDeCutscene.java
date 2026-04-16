@@ -61,9 +61,8 @@ public class GerenciadorDeCutscene {
         +"Fabio\n"
         +"Glauber\n"
         +"Zady\n"
-        +"Sovat\n"
-        +"Alguém\n"
-        +"Alguém\n\n\n\n\n\n"
+        +"Emilio\n\n\n"
+        
         +"Obrigado por jogar!";
     }
 

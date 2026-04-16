@@ -3,6 +3,7 @@ package main.inimigo;
 import entidade.Entidade;
 import java.util.Random;
 import main.PainelDoJogo;
+import objeto.ObjAlmapequena;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
@@ -86,7 +87,7 @@ public class LodoVerde extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
+            droparItem(new ObjAlmapequena(painel));
         }
         if(i >= 50 && i < 75){
             droparItem(new ObjCoracao(painel));

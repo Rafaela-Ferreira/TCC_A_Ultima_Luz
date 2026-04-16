@@ -205,7 +205,7 @@ public class InterfaceDoUsuario {
         switch (subEstado) {
             case 0 -> telaPrincipalDeViagemRapida(frameX, frameY, frameLargura);
             case 1 -> telaRegiao1(frameX, frameY, frameLargura);
-            case 2 -> telaRegiao2(frameX, frameY, frameLargura);
+            //case 2 -> telaRegiao2(frameX, frameY, frameLargura);
            // case 3 -> telaRegiao3(frameX, frameY, frameLargura);
             
         }
@@ -227,7 +227,7 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile * 2;
 
         // Região 1
-        g2.drawString("Caminho para Gula", textoX, textoY);
+        g2.drawString("Caminho para Capela", textoX, textoY);
         if(numeroDoComando == 0){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
@@ -238,7 +238,7 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile;
 
         // Região 2
-        
+        /* 
         g2.drawString("Caminho para Avareza", textoX, textoY);
         if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
@@ -248,7 +248,7 @@ public class InterfaceDoUsuario {
             }
         }
         textoY += painel.tamanhoDoTile;
-
+        */
         /*  Região 3
         g2.drawString("Terras Profanas", textoX, textoY);
         if(numeroDoComando == 2){
@@ -263,7 +263,7 @@ public class InterfaceDoUsuario {
         
         // Voltar
         g2.drawString("Voltar", textoX, textoY);
-        if(numeroDoComando == 2){
+        if(numeroDoComando == 1){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
                 painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
@@ -276,7 +276,7 @@ public class InterfaceDoUsuario {
         int textoX;
         int textoY;
 
-        String titulo = "GULA";
+        String titulo = "Capela da Luz";
         textoX = frameX + (frameLargura  /2)- (g2.getFontMetrics().stringWidth(titulo)/2 );
         textoY = frameY + painel.tamanhoDoTile;
         g2.drawString(titulo, textoX, textoY);
@@ -285,11 +285,11 @@ public class InterfaceDoUsuario {
         textoY += painel.tamanhoDoTile * 2;
 
         // Mapa 1
-        g2.drawString("Salão do Banquete Eterno", textoX, textoY);
+        g2.drawString("Ascender", textoX, textoY);
         if(numeroDoComando == 0){
             g2.drawString(">", textoX - 15, textoY);
             if(painel.teclado.precionarEnter){
-                painel.mEventos.viajarRapido(3);
+                painel.mEventos.viajarRapido(0);
                 painel.estadoDoJogo = painel.estadoDeTransicao;
             }
         }
