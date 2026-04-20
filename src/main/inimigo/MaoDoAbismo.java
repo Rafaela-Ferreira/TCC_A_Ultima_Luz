@@ -4,6 +4,7 @@ import java.util.Random;
 
 import entidade.Entidade;
 import main.PainelDoJogo;
+import objeto.ObjBolaDeFogo;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
@@ -28,7 +29,7 @@ public class MaoDoAbismo  extends Entidade{
         defesa = 0;
         exp = 5;
 
-        projetil = new ObjPedra(painel);
+        projetil = new ObjBolaDeFogo(painel);
 
         areaSolida.x = 3;
         areaSolida.y = 18;

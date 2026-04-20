@@ -44,10 +44,16 @@ public class NpcOVigiaPartido extends Entidade{
     }
 
     public void falar(){
-
+        
         faceJogador();
-        painel.estadoDoJogo = painel.trocaDeEstado;
-        painel.interfaceDoUsuario.npc = this;
+        iniciarDialogo(this, setDialogo);
+
+        setDialogo++;
+
+        if(dialogo[setDialogo][0] == null){
+            setDialogo--;
+        }
+        
     }
 
     

@@ -2,7 +2,7 @@ package main;
 
 
 import entidade.Entidade;
-import entidade.NpcSacerdotizaCega;
+import entidade.GuardiaDaLuz;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -140,7 +140,7 @@ public class InterfaceDoUsuario {
 
         //estado de troca
         if(painel.estadoDoJogo == painel.trocaDeEstado){
-            if (painel.interfaceDoUsuario.npc instanceof NpcSacerdotizaCega) {
+            if (painel.interfaceDoUsuario.npc instanceof GuardiaDaLuz) {
                 desenharTelaDeTrocaGuardia(); // Só a guardiã
             } else {
                 desenharTelaDeTroca(); // Comerciante ou outros NPCs
@@ -775,11 +775,6 @@ public class InterfaceDoUsuario {
                 );
                 g2.setComposite(ac);
 
-               // g2.setColor(new Color(0, 0, 0, 180));
-                //g2.fillRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
-
-                //g2.setColor(new Color(200, 200, 200, 200));
-               // g2.drawRoundRect(x, y, larguraCaixa, alturaCaixa, 25, 25);
 
                 FontMetrics fm = g2.getFontMetrics();
                 int larguraTexto = fm.stringWidth(msg);
@@ -789,6 +784,8 @@ public class InterfaceDoUsuario {
                 int textoY = y + (alturaCaixa - alturaTexto) / 2 + fm.getAscent();
                 textoY -= 15;
 
+                
+
                 g2.setColor(Color.white);
                 int linhaY = textoY;
 
@@ -796,6 +793,20 @@ public class InterfaceDoUsuario {
                     int larguraLinha = fm.stringWidth(linha);
                     int linhaX = x + (larguraCaixa - larguraLinha) / 2;
 
+                    // CONTORNO PRETO
+                    g2.setColor(new Color(0, 0, 0, 50));
+                    int offset = 2;
+
+                    for (int dx = -offset; dx <= offset; dx++) {
+                        for (int dy = -offset; dy <= offset; dy++) {
+                            if (dx != 0 || dy != 0) {
+                                g2.drawString(linha, linhaX + dx, linhaY + dy);
+                            }
+                        }
+                    }
+
+                    // TEXTO PRINCIPAL
+                    g2.setColor(Color.white);
                     g2.drawString(linha, linhaX, linhaY);
                     linhaY += fm.getHeight();
                 }
@@ -1798,7 +1809,7 @@ public class InterfaceDoUsuario {
 
         // Custo dinâmico
         int custo = 0;
-        if (npc instanceof NpcSacerdotizaCega guardia) {
+        if (npc instanceof GuardiaDaLuz guardia) {
             custo = guardia.calcularCustoParaSubirNivel();
         }
 
@@ -1816,7 +1827,7 @@ public class InterfaceDoUsuario {
 
         // Confirmar subida de nível
         if (painel.teclado.precionarEnter) {
-            if (npc instanceof NpcSacerdotizaCega guardia) {
+            if (npc instanceof GuardiaDaLuz guardia) {
                 guardia.tentarSubirNivel();
             }
             subEstadoGuardia = 0; // volta para o menu principal

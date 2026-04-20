@@ -15,7 +15,7 @@ public class ObjAlmaMedia extends Entidade{
         tipo = tipoRetirada;
         nome = objNome;
         valor = 30;
-        baixo1 = setup("/res/objeto/alma1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/objeto/alma2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
     
     public boolean usar(Entidade entidade){

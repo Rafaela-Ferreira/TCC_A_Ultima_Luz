@@ -56,32 +56,32 @@ public class NpcAliado extends Entidade {
  
 
     public void getImagem(){
-        cima1 = setup("/res/jogador/boy_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/res/jogador/boy_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/res/jogador/boy_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/res/jogador/boy_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/res/jogador/boy_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/res/jogador/boy_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/res/jogador/boy_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/res/jogador/boy_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/invasao/aliado/up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/invasao/aliado/up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/invasao/aliado/down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/invasao/aliado/down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/invasao/aliado/left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/invasao/aliado/left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/invasao/aliado/right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/invasao/aliado/right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void getImagemDeAtaque(){
-        ataqueCima1 = setup("/res/jogador/ataques/boy_attack_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
-        ataqueCima2 = setup("/res/jogador/ataques/boy_attack_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
-        ataqueBaixo1 = setup("/res/jogador/ataques/boy_attack_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
-        ataqueBaixo2 = setup("/res/jogador/ataques/boy_attack_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
-        ataqueEsquerda1 = setup("/res/jogador/ataques/boy_attack_left_1", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
-        ataqueEsquerda2 = setup("/res/jogador/ataques/boy_attack_left_2", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
-        ataqueDireita1 = setup("/res/jogador/ataques/boy_attack_right_1", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
-        ataqueDireita2 = setup("/res/jogador/ataques/boy_attack_right_2", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
+        ataqueCima1 = setup("/res/invasao/aliado/ataque/ataque_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
+        ataqueCima2 = setup("/res/invasao/aliado/ataque/ataque_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
+        ataqueBaixo1 = setup("/res/invasao/aliado/ataque/ataque_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
+        ataqueBaixo2 = setup("/res/invasao/aliado/ataque/ataque_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile * 2);
+        ataqueEsquerda1 = setup("/res/invasao/aliado/ataque/ataque_left_1", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
+        ataqueEsquerda2 = setup("/res/invasao/aliado/ataque/ataque_left_2", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
+        ataqueDireita1 = setup("/res/invasao/aliado/ataque/ataque_right_1", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
+        ataqueDireita2 = setup("/res/invasao/aliado/ataque/ataque_right_2", painel.tamanhoDoTile * 2, painel.tamanhoDoTile);
     }
 
     public void getImagemDeDefesa(){
-        defesaCima = setup("/res/jogador/defesa/boy_guard_up", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaBaixo = setup("/res/jogador/defesa/boy_guard_down", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaEsquerda = setup("/res/jogador/defesa/boy_guard_left", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        defesaDireita = setup("/res/jogador/defesa/boy_guard_right", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaCima = setup("/res/invasao/aliado/defesa/defesa_up", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaBaixo = setup("/res/invasao/aliado/defesa/defesa_down", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaEsquerda = setup("/res/invasao/aliado/defesa/defesa_left", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        defesaDireita = setup("/res/invasao/aliado/defesa/defesa_right", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void setPosicaoPadrao() {

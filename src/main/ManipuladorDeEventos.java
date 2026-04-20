@@ -92,6 +92,7 @@ public class ManipuladorDeEventos {
         if(podeTocarEvento == true){
 
 
+            //BURACO DE DANO
             if(bater (0, 27,16, "direita") == true){
                 buracoDeDano(painel.estadoDoDialogo);
             }
@@ -100,117 +101,126 @@ public class ManipuladorDeEventos {
             }
 
 
-            //teleporte entre mapas do 0 para o 1
             else if(bater (0, 10,39, "any") == true){
-                teleporteMapa(1, 12, 13, painel.interior);    
+                teleporteMapa(10, 12, 13, painel.interior);    
             }
-            //teleporte entre mapas do 1 para o 0
-            else if(bater (1, 12,13, "any") == true){
+            else if(bater (10, 12,13, "any") == true){
                 teleporteMapa(0, 10,39, painel.fora);
             }
-
-            //armadilha: teletransporte no mesmo mapa
             else if(bater (0, 18,16, "any") == true){
-                teleporteMapa(0, 38,9, painel.fora);
+                teleporteMapa(0, 38,9, painel.fora); //armadilha
             }
-            
             else if(bater(1, 12, 9, "cima") == true ){
                 falar(painel.npc[1][0]);
             }
-
-            //teleporte entre mapas do 0 para o 2
-            else if(bater (0, 12, 9, "any") == true){
-                teleporteMapa(2, 9, 41, painel.masmorra);    
+            else if(bater (0, 12,9, "any") == true){
+                teleporteMapa(1, 9, 41, painel.masmorra);    
             }
-            //teleporte entre mapas do 2 para o 0
-            else if(bater (2, 9, 41, "any") == true){
-                teleporteMapa(0, 12, 9, painel.fora);
+            else if(bater (1, 9,41, "any") == true){
+                teleporteMapa(0, 12,9, painel.fora);
             }
-
-            //teleporte entre mapas do 0 para o 2
-            else if(bater (2, 8, 7, "any") == true){
-                teleporteMapa(3, 26, 41, painel.masmorra);    
+            else if(bater (1, 8,7, "any") == true){
+                teleporteMapa(2, 26, 41, painel.masmorra);    
             }
-            //teleporte entre mapas do 2 para o 0
-            else if(bater (3, 26, 41, "any") == true){
-                teleporteMapa(2, 8, 7, painel.masmorra);
+            else if(bater (2, 26,41, "any") == true){
+                teleporteMapa(1, 8,7, painel.masmorra);
             }
-
-            //teleporte entre mapas do 3 para o 5
-            else if(bater (3, 25, 8, "any") == true){
-                teleporteMapa(5, 23, 41, painel.fora);    
+            else if(bater (2, 25,8, "any") == true){
+                teleporteMapa(3, 23, 41, painel.fora);    
             }
-            //teleporte entre mapas do 5 para o 3
-            else if(bater (5, 23, 41, "any") == true){
-                teleporteMapa(3, 25, 8, painel.masmorra);
+            else if(bater (3, 23,41, "any") == true){
+                teleporteMapa(2, 25, 8, painel.masmorra);    
             }
-
-
-            //teleporte entre mapas do 5 para o 6
-            else if(bater (5, 38, 9, "any") == true){
-                teleporteMapa(6, 8, 7, painel.masmorra);    
+            else if(bater (3, 10,39, "any") == true){
+                teleporteMapa(11, 12,16, painel.interior);    
             }
-            //teleporte entre mapas do 6 para o 5
-            else if(bater (6, 8, 7, "any") == true){
-                teleporteMapa(5, 38, 9, painel.fora);
+            else if(bater (11, 12,16, "any") == true){
+                teleporteMapa(3, 10,39, painel.fora);    
+            }
+            else if(bater (3, 12,9, "any") == true){
+                teleporteMapa(4, 39,41, painel.masmorra);    
+            }
+            else if(bater (4, 39,41, "any") == true){
+                teleporteMapa(3, 12,9, painel.fora);    
             }
 
-            //teleporte entre mapas do 5 para o 4
-            else if(bater (5, 10, 39, "any") == true){
-                teleporteMapa(4, 12, 16, painel.interior);    
+            else if(bater (4, 8,7, "any") == true){
+                teleporteMapa(5, 26,41, painel.masmorra);    
             }
-            //teleporte entre mapas do 4 para o 5
-            else if(bater (4, 12, 16, "any") == true){
-                teleporteMapa(5, 10, 39, painel.fora);
+            else if(bater (5, 26,41, "any") == true){
+                teleporteMapa(4, 8,7, painel.masmorra);    
             }
-
-            else if(bater (6, 46, 15, "any") == true){
-                teleporteMapa(10, 10, 39, painel.fora);
+            else if(bater (5, 25,8, "any") == true){
+                teleporteMapa(6, 12,9, painel.fora);    
             }
-
-            else if(bater (10, 10, 39, "any") == true){
-                teleporteMapa(6, 46, 15, painel.masmorra);
+            else if(bater (6, 12,9, "any") == true){
+                teleporteMapa(5, 25,8, painel.masmorra);    
             }
-
-            else if(bater (6, 9, 41, "any") == true){
-                teleporteMapa(7, 26, 41, painel.masmorra);
+            else if(bater (6, 32,15, "any") == true){
+                teleporteMapa(7, 26,41, painel.masmorra);    
+            }
+            else if(bater (7, 26,41, "any") == true){
+                teleporteMapa(6, 32,15, painel.fora);    
             }
 
-            else if(bater (7, 25,8, "any") == true){
-                teleporteMapa(11, 23, 39, painel.fora);
+            //mapa secreto
+            else if(bater (4, 47,15, "any") == true){
+                teleporteMapa(8, 12,9, painel.fora);    
             }
-           
-            else if(bater (11, 23,39, "any") == true){
-                teleporteMapa(7, 25, 8, painel.masmorra);
+            else if(bater (8, 12,9, "any") == true){
+                teleporteMapa(4, 47,15, painel.masmorra);    
+            }
+            else if(bater (8, 10,39, "any") == true){
+                teleporteMapa(9, 26,41, painel.masmorra);    
+            }
+            else if(bater (9, 26,41, "any") == true){
+                teleporteMapa(8, 10,39, painel.fora);    
+            }
+            else if(bater (9, 25,8, "any") == true){
+                teleporteMapa(8, 35,17, painel.fora);    
             }
 
+
+            //teleporteMapa(12, 12,16, painel.interior); 
             
 
-            //FOGUEIRA mapa 0
+            //FOGUEIRAS 
+            //mapa 0
             else if(bater(0, 21,19, "any") == true){
                 fogueira(3, painel.estadoDoDialogo);
             }
-            
-            //FOGUEIRA mapa 2
-            else if(bater(2, 15,25, "any") == true){
+            else if(bater(1, 15,25, "any") == true){
                 fogueira(3, painel.estadoDoDialogo);
             }
-
-            //FOGUEIRA mapa 5
+            else if(bater(4, 20,36, "any") == true){
+                fogueira(3, painel.estadoDoDialogo);
+            }
             else if(bater(5, 19,38, "any") == true){
                 fogueira(3, painel.estadoDoDialogo);
             }
+            else if(bater(6, 26,39, "any") == true){
+                fogueira(3, painel.estadoDoDialogo);
+            }
+            else if(bater(8, 25,23, "any") == true){
+                fogueira(3, painel.estadoDoDialogo);
+            }
 
             
-            //evento cutscene - boss 01
-            else if(bater (3, 25,27, "any") == true){ EronODevoradorSilencioso(); }
-
-
-            //evento cutscene - boss 02
-            else if(bater (7, 25,27, "any") == true){ DariusOColecionadorDeAlmas(); }
+            //CUTSCENES
+            // boss 01
+            else if(bater (2, 25,27, "any") == true){ EronODevoradorSilencioso(); }
+            // boss 02
+            else if(bater (5, 25,27, "any") == true){ DariusOColecionadorDeAlmas(); }
+            //boss 03
+            else if(bater (7, 25,27, "any") == true){ AurionOArcanjoCaido(); }
+            //boss 04
+            else if(bater (10, 25,27, "any") == true){ KaelgorOGuerreiroEmChamas(); }
           
-
-            
+    
+            //INVASÃO
+            else if(bater (6, 36,28, "any") == true){
+                invasaoMapa1();
+            }
 
         }
 
@@ -316,14 +326,24 @@ public class ManipuladorDeEventos {
         }
     }
 
-
-
-
-
     public void DariusOColecionadorDeAlmas(){
         if(painel.batalhaComChefeAtiva == false && Progresso.dariusOColecionadorDeAlmas == false){
             painel.estadoDoJogo = painel.estadoCutscene;
             painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.dariusOColecionadorDeAlmas;
+        }
+    }
+    
+    public void AurionOArcanjoCaido(){
+        if(painel.batalhaComChefeAtiva == false && Progresso.aurionOArcanjoCaido == false){
+            painel.estadoDoJogo = painel.estadoCutscene;
+            painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.aurionOArcanjoCaido;
+        }
+    }
+
+    public void KaelgorOGuerreiroEmChamas(){
+        if(painel.batalhaComChefeAtiva == false && Progresso.kaelgorOGuerreiroEmChamas == false){
+            painel.estadoDoJogo = painel.estadoCutscene;
+            painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.kaelgorOGuerreiroEmChamas;
         }
     }
 
@@ -344,8 +364,8 @@ public class ManipuladorDeEventos {
 
             // cria o invasor (hostil)
             painel.inimigo[painel.mapaAtual][0] = new InimigoInvasor(painel);
-            painel.inimigo[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 32;
-            painel.inimigo[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 20;
+            painel.inimigo[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 20;
+            painel.inimigo[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 22;
 
             // Mensagem de alerta
             painel.iniciarEfeitoSonoro(14); // som sinistro
@@ -362,7 +382,7 @@ public class ManipuladorDeEventos {
 
                 // cria o NPC aliado APÓS 10 segundos
                 painel.npc[painel.mapaAtual][0] = new NpcAliado(painel);
-                painel.npc[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 28;
+                painel.npc[painel.mapaAtual][0].mundoX = painel.tamanhoDoTile * 20;
                 painel.npc[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 22;
 
                 painel.iniciarEfeitoSonoro(15);
@@ -454,8 +474,19 @@ public class ManipuladorDeEventos {
                 int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
                 g2.fillRect(telaX, telaY, er.width, er.height);
+
+                // destaque da invasão
+                /* 
+                if(coluna == 36 && linha == 28){
+
+                    g2.setColor(new Color(255, 0, 0, 120));
+                    g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
+                }
+                */
             }
         }
+
+        
     }
     
 }

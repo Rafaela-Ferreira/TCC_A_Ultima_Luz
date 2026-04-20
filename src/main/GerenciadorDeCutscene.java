@@ -4,8 +4,10 @@ import entidade.jogadorManequim;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import main.inimigo.chefao.AurionOArcanjoCaido;
 import main.inimigo.chefao.EronODevoradorSilencioso;
 import main.inimigo.chefao.DariusOColecionadorDeAlmas;
+import main.inimigo.chefao.KaelgorOGuerreiroEmChamas;
 import main.inimigo.chefao.SenhorEsqueleto3;
 import objeto.ObjDiamente;
 import objeto.ObjPortaDeFerro;
@@ -21,12 +23,15 @@ public class GerenciadorDeCutscene {
     String creditosFinais;
     //numero das cenas
     public final int NA = 0;
-    public final int eronODevoradorSilencioso = 1;
-    public final int dariusOColecionadorDeAlmas = 6;
-    public final int senhorEsqueleto = 5;
+    public final int senhorEsqueleto = 1;
     public final int cenaFinal = 2;
     public final int cenaInicial = 3;
     public final int cenaMorte = 4;
+
+    public final int eronODevoradorSilencioso = 5;
+    public final int dariusOColecionadorDeAlmas = 6;
+    public final int aurionOArcanjoCaido = 7;
+    public final int kaelgorOGuerreiroEmChamas = 8;
     
     String mensagemMorteAtual;
 
@@ -36,16 +41,16 @@ public class GerenciadorDeCutscene {
         switch (numeroDaCena) {
             case cenaMorte: cenaMorte(); break;
             case eronODevoradorSilencioso: cenaEronODevoradorSilencioso(); break;
+            case dariusOColecionadorDeAlmas: cenaDariusOColecionadorDeAlmas(); break;
+            case aurionOArcanjoCaido: cenaAurionOArcanjoCaido(); break;
+            case kaelgorOGuerreiroEmChamas: cenaKaelgorOGuerreiroEmChamas(); break;
             case cenaFinal : cenaFinal(); break;
             case cenaInicial: cenaInicial(); break;
             
         }
 
     }
-
-
     
-
 
     public GerenciadorDeCutscene(PainelDoJogo painel){
         this.painel = painel;
@@ -141,98 +146,6 @@ public class GerenciadorDeCutscene {
             faseDaCena = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
         }
-    }
-
-    public void  cenaEronODevoradorSilencioso(){
-        
-        if(faseDaCena == 0){
-            painel.batalhaComChefeAtiva = true;
-
-            //feche a porta de ferro
-            for(int i =0; i < painel.Obj[1].length; i++){
-                
-                if(painel.Obj[painel.mapaAtual][i] == null){
-                    painel.Obj[painel.mapaAtual][i] = new ObjPortaDeFerro(painel);
-                    painel.Obj[painel.mapaAtual][i].mundoX = painel.tamanhoDoTile*25;
-                    painel.Obj[painel.mapaAtual][i].mundoY = painel.tamanhoDoTile*28;
-                    painel.Obj[painel.mapaAtual][i].temp = true;//para que possa excluir a porta depois que derrotar o chefe
-                    painel.iniciarEfeitoSonoro(21);
-                    break;
-                }
-            }
-            // procurar uma vaga para o manequim
-            for(int i = 0; i < painel.npc[1].length; i++){
-                
-                if(painel.npc[painel.mapaAtual][i] == null){
-
-                    painel.npc[painel.mapaAtual][i] = new jogadorManequim(painel);
-                    painel.npc[painel.mapaAtual][i].mundoX = painel.jogador.mundoX;
-                    painel.npc[painel.mapaAtual][i].mundoY = painel.jogador.mundoY;
-                    painel.npc[painel.mapaAtual][i].direcao = painel.jogador.direcao;
-                    break;
-                }
-            }
-
-            painel.jogador.desenho = false;
-            faseDaCena++;
-        }
-        if(faseDaCena == 1){
-
-            painel.jogador.mundoY -= 2;
-
-            if(painel.jogador.mundoY < painel.tamanhoDoTile*16){
-                faseDaCena++;
-            }
-        }
-        if(faseDaCena == 2){
-            //procure o chefe
-
-            for(int i = 0; i < painel.inimigo[1].length; i++){
-
-                if(painel.inimigo[painel.mapaAtual][i] != null && 
-                    //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
-                    painel.inimigo[painel.mapaAtual][i].nome.equals(EronODevoradorSilencioso.nomeBoss) ||
-                    painel.inimigo[painel.mapaAtual][i].nome.equals(DariusOColecionadorDeAlmas.nomeBoss) ||
-                    painel.inimigo[painel.mapaAtual][i].nome.equals(SenhorEsqueleto3.nomeBoss) ){
-
-                    painel.inimigo[painel.mapaAtual][i].dormir = false;
-                    painel.interfaceDoUsuario.npc = painel.inimigo[painel.mapaAtual][i];
-                    faseDaCena ++;
-                    break;
-                }
-            }
-        } 
-        if(faseDaCena == 3){
-            //o chefe fala
-            painel.interfaceDoUsuario.desenharDialogoNaTela();
-        }
-        if(faseDaCena == 4){
-            //retornar ao jogador
-            for(int i = 0; i < painel.npc[1].length; i++){
-                
-                if(painel.npc[painel.mapaAtual][i] != null &&
-                    painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
-                    //restaurar a posição do jogador
-                    painel.jogador.mundoX = painel.npc[painel.mapaAtual][i].mundoX;
-                    painel.jogador.mundoY = painel.npc[painel.mapaAtual][i].mundoY;
-
-                    //deleta o manequim
-                    painel.npc[painel.mapaAtual][i] = null;
-                    break;
-                }
-
-            }
-            //comece a desenhar o jogador
-            painel.jogador.desenho = true;
-
-            //reiniciar
-            numeroDaCena = NA;
-            faseDaCena = 0;
-            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-            painel.pararMusica();
-            painel.iniciarMusica(22);
-        }
-
     }
 
     public void cenaFinal(){
@@ -357,7 +270,6 @@ public class GerenciadorDeCutscene {
         
     }
 
-
   
     public void cenaMorte() {
 
@@ -441,4 +353,366 @@ public class GerenciadorDeCutscene {
         }
     }
 
+
+    public void  cenaEronODevoradorSilencioso(){
+        
+        if(faseDaCena == 0){
+            painel.batalhaComChefeAtiva = true;
+
+            //feche a porta de ferro
+            for(int i =0; i < painel.Obj[1].length; i++){
+                
+                if(painel.Obj[painel.mapaAtual][i] == null){
+                    painel.Obj[painel.mapaAtual][i] = new ObjPortaDeFerro(painel);
+                    painel.Obj[painel.mapaAtual][i].mundoX = painel.tamanhoDoTile*25;
+                    painel.Obj[painel.mapaAtual][i].mundoY = painel.tamanhoDoTile*28;
+                    painel.Obj[painel.mapaAtual][i].temp = true;//para que possa excluir a porta depois que derrotar o chefe
+                    painel.iniciarEfeitoSonoro(21);
+                    break;
+                }
+            }
+            // procurar uma vaga para o manequim
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] == null){
+
+                    painel.npc[painel.mapaAtual][i] = new jogadorManequim(painel);
+                    painel.npc[painel.mapaAtual][i].mundoX = painel.jogador.mundoX;
+                    painel.npc[painel.mapaAtual][i].mundoY = painel.jogador.mundoY;
+                    painel.npc[painel.mapaAtual][i].direcao = painel.jogador.direcao;
+                    break;
+                }
+            }
+
+            painel.jogador.desenho = false;
+            faseDaCena++;
+        }
+        if(faseDaCena == 1){
+
+            painel.jogador.mundoY -= 2;
+
+            if(painel.jogador.mundoY < painel.tamanhoDoTile*16){
+                faseDaCena++;
+            }
+        }
+        if(faseDaCena == 2){
+            //procure o chefe
+
+            for(int i = 0; i < painel.inimigo[1].length; i++){
+
+                if(painel.inimigo[painel.mapaAtual][i] != null && 
+                    //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
+                    painel.inimigo[painel.mapaAtual][i].nome ==(EronODevoradorSilencioso.nomeBoss)){
+
+                    painel.inimigo[painel.mapaAtual][i].dormir = false;
+                    painel.interfaceDoUsuario.npc = painel.inimigo[painel.mapaAtual][i];
+                    faseDaCena ++;
+                    break;
+                }
+            }
+        } 
+        if(faseDaCena == 3){
+            //o chefe fala
+            painel.interfaceDoUsuario.desenharDialogoNaTela();
+        }
+        if(faseDaCena == 4){
+            //retornar ao jogador
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] != null &&
+                    painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
+                    //restaurar a posição do jogador
+                    painel.jogador.mundoX = painel.npc[painel.mapaAtual][i].mundoX;
+                    painel.jogador.mundoY = painel.npc[painel.mapaAtual][i].mundoY;
+
+                    //deleta o manequim
+                    painel.npc[painel.mapaAtual][i] = null;
+                    break;
+                }
+
+            }
+            //comece a desenhar o jogador
+            painel.jogador.desenho = true;
+
+            //reiniciar
+            numeroDaCena = NA;
+            faseDaCena = 0;
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            painel.pararMusica();
+            painel.iniciarMusica(22);
+        }
+
+    }
+
+    public void  cenaDariusOColecionadorDeAlmas(){
+        
+        if(faseDaCena == 0){
+            painel.batalhaComChefeAtiva = true;
+
+            //feche a porta de ferro
+            for(int i =0; i < painel.Obj[1].length; i++){
+                
+                if(painel.Obj[painel.mapaAtual][i] == null){
+                    painel.Obj[painel.mapaAtual][i] = new ObjPortaDeFerro(painel);
+                    painel.Obj[painel.mapaAtual][i].mundoX = painel.tamanhoDoTile*25;
+                    painel.Obj[painel.mapaAtual][i].mundoY = painel.tamanhoDoTile*28;
+                    painel.Obj[painel.mapaAtual][i].temp = true;//para que possa excluir a porta depois que derrotar o chefe
+                    painel.iniciarEfeitoSonoro(21);
+                    break;
+                }
+            }
+            // procurar uma vaga para o manequim
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] == null){
+
+                    painel.npc[painel.mapaAtual][i] = new jogadorManequim(painel);
+                    painel.npc[painel.mapaAtual][i].mundoX = painel.jogador.mundoX;
+                    painel.npc[painel.mapaAtual][i].mundoY = painel.jogador.mundoY;
+                    painel.npc[painel.mapaAtual][i].direcao = painel.jogador.direcao;
+                    break;
+                }
+            }
+
+            painel.jogador.desenho = false;
+            faseDaCena++;
+        }
+        if(faseDaCena == 1){
+
+            painel.jogador.mundoY -= 2;
+
+            if(painel.jogador.mundoY < painel.tamanhoDoTile*16){
+                faseDaCena++;
+            }
+        }
+        if(faseDaCena == 2){
+            //procure o chefe
+
+            for(int i = 0; i < painel.inimigo[1].length; i++){
+
+                if(painel.inimigo[painel.mapaAtual][i] != null && 
+                    //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
+                    painel.inimigo[painel.mapaAtual][i].nome == (DariusOColecionadorDeAlmas.nomeBoss) ){
+
+                    painel.inimigo[painel.mapaAtual][i].dormir = false;
+                    painel.interfaceDoUsuario.npc = painel.inimigo[painel.mapaAtual][i];
+                    faseDaCena ++;
+                    break;
+                }
+            }
+        } 
+        if(faseDaCena == 3){
+            //o chefe fala
+            painel.interfaceDoUsuario.desenharDialogoNaTela();
+        }
+        if(faseDaCena == 4){
+            //retornar ao jogador
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] != null &&
+                    painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
+                    //restaurar a posição do jogador
+                    painel.jogador.mundoX = painel.npc[painel.mapaAtual][i].mundoX;
+                    painel.jogador.mundoY = painel.npc[painel.mapaAtual][i].mundoY;
+
+                    //deleta o manequim
+                    painel.npc[painel.mapaAtual][i] = null;
+                    break;
+                }
+
+            }
+            //comece a desenhar o jogador
+            painel.jogador.desenho = true;
+
+            //reiniciar
+            numeroDaCena = NA;
+            faseDaCena = 0;
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            painel.pararMusica();
+            painel.iniciarMusica(22);
+        }
+
+    }
+    
+    public void  cenaAurionOArcanjoCaido(){
+        
+        if(faseDaCena == 0){
+            painel.batalhaComChefeAtiva = true;
+
+            //feche a porta de ferro
+            for(int i =0; i < painel.Obj[1].length; i++){
+                
+                if(painel.Obj[painel.mapaAtual][i] == null){
+                    painel.Obj[painel.mapaAtual][i] = new ObjPortaDeFerro(painel);
+                    painel.Obj[painel.mapaAtual][i].mundoX = painel.tamanhoDoTile*25;
+                    painel.Obj[painel.mapaAtual][i].mundoY = painel.tamanhoDoTile*28;
+                    painel.Obj[painel.mapaAtual][i].temp = true;//para que possa excluir a porta depois que derrotar o chefe
+                    painel.iniciarEfeitoSonoro(21);
+                    break;
+                }
+            }
+            // procurar uma vaga para o manequim
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] == null){
+
+                    painel.npc[painel.mapaAtual][i] = new jogadorManequim(painel);
+                    painel.npc[painel.mapaAtual][i].mundoX = painel.jogador.mundoX;
+                    painel.npc[painel.mapaAtual][i].mundoY = painel.jogador.mundoY;
+                    painel.npc[painel.mapaAtual][i].direcao = painel.jogador.direcao;
+                    break;
+                }
+            }
+
+            painel.jogador.desenho = false;
+            faseDaCena++;
+        }
+        if(faseDaCena == 1){
+
+            painel.jogador.mundoY -= 2;
+
+            if(painel.jogador.mundoY < painel.tamanhoDoTile*16){
+                faseDaCena++;
+            }
+        }
+        if(faseDaCena == 2){
+            //procure o chefe
+
+            for(int i = 0; i < painel.inimigo[1].length; i++){
+
+                if(painel.inimigo[painel.mapaAtual][i] != null && 
+                    //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
+                    painel.inimigo[painel.mapaAtual][i].nome == (AurionOArcanjoCaido.nomeBoss) ){
+
+                    painel.inimigo[painel.mapaAtual][i].dormir = false;
+                    painel.interfaceDoUsuario.npc = painel.inimigo[painel.mapaAtual][i];
+                    faseDaCena ++;
+                    break;
+                }
+            }
+        } 
+        if(faseDaCena == 3){
+            //o chefe fala
+            painel.interfaceDoUsuario.desenharDialogoNaTela();
+        }
+        if(faseDaCena == 4){
+            //retornar ao jogador
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] != null &&
+                    painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
+                    //restaurar a posição do jogador
+                    painel.jogador.mundoX = painel.npc[painel.mapaAtual][i].mundoX;
+                    painel.jogador.mundoY = painel.npc[painel.mapaAtual][i].mundoY;
+
+                    //deleta o manequim
+                    painel.npc[painel.mapaAtual][i] = null;
+                    break;
+                }
+
+            }
+            //comece a desenhar o jogador
+            painel.jogador.desenho = true;
+
+            //reiniciar
+            numeroDaCena = NA;
+            faseDaCena = 0;
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            painel.pararMusica();
+            painel.iniciarMusica(22);
+        }
+
+    }
+
+    public void  cenaKaelgorOGuerreiroEmChamas(){
+        
+        if(faseDaCena == 0){
+            painel.batalhaComChefeAtiva = true;
+
+            //feche a porta de ferro
+            for(int i =0; i < painel.Obj[1].length; i++){
+                
+                if(painel.Obj[painel.mapaAtual][i] == null){
+                    painel.Obj[painel.mapaAtual][i] = new ObjPortaDeFerro(painel);
+                    painel.Obj[painel.mapaAtual][i].mundoX = painel.tamanhoDoTile*25;
+                    painel.Obj[painel.mapaAtual][i].mundoY = painel.tamanhoDoTile*28;
+                    painel.Obj[painel.mapaAtual][i].temp = true;//para que possa excluir a porta depois que derrotar o chefe
+                    painel.iniciarEfeitoSonoro(21);
+                    break;
+                }
+            }
+            // procurar uma vaga para o manequim
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] == null){
+
+                    painel.npc[painel.mapaAtual][i] = new jogadorManequim(painel);
+                    painel.npc[painel.mapaAtual][i].mundoX = painel.jogador.mundoX;
+                    painel.npc[painel.mapaAtual][i].mundoY = painel.jogador.mundoY;
+                    painel.npc[painel.mapaAtual][i].direcao = painel.jogador.direcao;
+                    break;
+                }
+            }
+
+            painel.jogador.desenho = false;
+            faseDaCena++;
+        }
+        if(faseDaCena == 1){
+
+            painel.jogador.mundoY -= 2;
+
+            if(painel.jogador.mundoY < painel.tamanhoDoTile*16){
+                faseDaCena++;
+            }
+        }
+        if(faseDaCena == 2){
+            //procure o chefe
+
+            for(int i = 0; i < painel.inimigo[1].length; i++){
+
+                if(painel.inimigo[painel.mapaAtual][i] != null && 
+                    //painel.inimigo[painel.mapaAtual][i].nome == SenhorEsqueleto.nomeBoss){
+                    painel.inimigo[painel.mapaAtual][i].nome == (KaelgorOGuerreiroEmChamas.nomeBoss) ){
+
+                    painel.inimigo[painel.mapaAtual][i].dormir = false;
+                    painel.interfaceDoUsuario.npc = painel.inimigo[painel.mapaAtual][i];
+                    faseDaCena ++;
+                    break;
+                }
+            }
+        } 
+        if(faseDaCena == 3){
+            //o chefe fala
+            painel.interfaceDoUsuario.desenharDialogoNaTela();
+        }
+        if(faseDaCena == 4){
+            //retornar ao jogador
+            for(int i = 0; i < painel.npc[1].length; i++){
+                
+                if(painel.npc[painel.mapaAtual][i] != null &&
+                    painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
+                    //restaurar a posição do jogador
+                    painel.jogador.mundoX = painel.npc[painel.mapaAtual][i].mundoX;
+                    painel.jogador.mundoY = painel.npc[painel.mapaAtual][i].mundoY;
+
+                    //deleta o manequim
+                    painel.npc[painel.mapaAtual][i] = null;
+                    break;
+                }
+
+            }
+            //comece a desenhar o jogador
+            painel.jogador.desenho = true;
+
+            //reiniciar
+            numeroDaCena = NA;
+            faseDaCena = 0;
+            painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+            painel.pararMusica();
+            painel.iniciarMusica(22);
+        }
+
+    }
+
+    
 }

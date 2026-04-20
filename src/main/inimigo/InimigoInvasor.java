@@ -42,25 +42,25 @@ public class InimigoInvasor extends Entidade{
     }
 
     public void getImagem(){
-        cima1 = setup("/res/inimigo/orc_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        cima2 = setup("/res/inimigo/orc_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo1 = setup("/res/inimigo/orc_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        baixo2 = setup("/res/inimigo/orc_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda1 = setup("/res/inimigo/orc_left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        esquerda2 = setup("/res/inimigo/orc_left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita1 = setup("/res/inimigo/orc_right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        direita2 = setup("/res/inimigo/orc_right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima1 = setup("/res/invasao/inimigo/up_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        cima2 = setup("/res/invasao/inimigo/up_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo1 = setup("/res/invasao/inimigo/down_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        baixo2 = setup("/res/invasao/inimigo/down_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda1 = setup("/res/invasao/inimigo/left_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        esquerda2 = setup("/res/invasao/inimigo/left_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita1 = setup("/res/invasao/inimigo/right_1", painel.tamanhoDoTile, painel.tamanhoDoTile);
+        direita2 = setup("/res/invasao/inimigo/right_2", painel.tamanhoDoTile, painel.tamanhoDoTile);
     }
 
     public void getImagemAtaque(){
-        ataqueCima1 = setup("/res/inimigo/orc_attack_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueCima2 = setup("/res/inimigo/orc_attack_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueBaixo1 = setup("/res/inimigo/orc_attack_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueBaixo2 = setup("/res/inimigo/orc_attack_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
-        ataqueEsquerda1 = setup("/res/inimigo/orc_attack_left_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueEsquerda2 = setup("/res/inimigo/orc_attack_left_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueDireita1 = setup("/res/inimigo/orc_attack_right_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
-        ataqueDireita2 = setup("/res/inimigo/orc_attack_right_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueCima1 = setup("/res/invasao/inimigo/ataque/ataque_up_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueCima2 = setup("/res/invasao/inimigo/ataque/ataque_up_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueBaixo1 = setup("/res/invasao/inimigo/ataque/ataque_down_1", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueBaixo2 = setup("/res/invasao/inimigo/ataque/ataque_down_2", painel.tamanhoDoTile, painel.tamanhoDoTile*2);
+        ataqueEsquerda1 = setup("/res/invasao/inimigo/ataque/ataque_left_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueEsquerda2 = setup("/res/invasao/inimigo/ataque/ataque_left_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueDireita1 = setup("/res/invasao/inimigo/ataque/ataque_right_1", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
+        ataqueDireita2 = setup("/res/invasao/inimigo/ataque/ataque_right_2", painel.tamanhoDoTile*2, painel.tamanhoDoTile);
     }
 
 

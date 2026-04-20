@@ -1,13 +1,12 @@
 package main.inimigo;
 
-import java.util.Random;
-
 import entidade.Entidade;
+import java.util.Random;
 import main.PainelDoJogo;
+import objeto.ObjBolaDeFogo;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
-import objeto.ObjPedra;
 
 public class LargatoCorrompido extends Entidade{
 
@@ -28,7 +27,7 @@ public class LargatoCorrompido extends Entidade{
         defesa = 0;
         exp = 2;
 
-        projetil = new ObjPedra(painel);
+        projetil = new ObjBolaDeFogo(painel);
 
         areaSolida.x = 3;
         areaSolida.y = 18;
@@ -62,8 +61,8 @@ public class LargatoCorrompido extends Entidade{
             //para o inimigo seguir o jogador
             procurarCaminho(getColunaAtual(painel.jogador), getLinhaAtual(painel.jogador));
 
-            //verifique se ele atira um projétil - apenas o vermelho atira pedra
-            //verificarSeAtirou_ou_nao(200, 30);
+            //verifique se ele atira um projétil
+            verificarSeAtirou_ou_nao(200, 30);
         }
         else{
             //verifique se ele começa a perseguir

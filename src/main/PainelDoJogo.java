@@ -531,6 +531,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     jogador.areaSolida.height
                 );
                 */
+               
 
             }
 
