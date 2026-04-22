@@ -47,7 +47,7 @@ public class NpcPedraGrande extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "É uma rocha gigante";
+        dialogo[0][0] = "Tente empurrar até uma placa de metal.";
     }
 
     public void setAcao(){ }

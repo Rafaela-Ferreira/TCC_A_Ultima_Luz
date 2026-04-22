@@ -59,5 +59,6 @@ public class NpcComerciante extends Entidade{
         faceJogador();
         painel.estadoDoJogo = painel.trocaDeEstado;
         painel.interfaceDoUsuario.npc = this;
+        
     }
 }

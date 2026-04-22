@@ -20,6 +20,11 @@ public class ManipuladorDeEventos {
 
     String nomeDaFogueira = "";
 
+    int mapaOrigem;
+    int colOrigem;
+    int linOrigem;
+
+
 
     public ManipuladorDeEventos(PainelDoJogo painel){
         this.painel = painel;
@@ -60,23 +65,27 @@ public class ManipuladorDeEventos {
         
 
         eventoMestre.dialogo[0][0] = "Você cai no buraco";
+        eventoMestre.dialogo[1][0] = "Teletransportado!";
 
-        eventoMestre.dialogo[1][0] = "Você tomou água de cura!\nSua vida e sua mana foi renovada.\nO seu progresso salvo foi salvo!";
-        eventoMestre.dialogo[1][1] = "Esta é uma boa água.";
-        
-        eventoMestre.dialogo[2][0] = "Teletransportado!";
+        //fogueiras
+        eventoMestre.dialogo[2][0] = "Praça do Despertar.";
+        eventoMestre.dialogo[2][1] = "O seu progresso foi salvo!";
 
-        eventoMestre.dialogo[3][0] = "Praça do Despertar.";
+        eventoMestre.dialogo[3][0] = "Masmorra dos ecos";
         eventoMestre.dialogo[3][1] = "O seu progresso foi salvo!";
-        eventoMestre.dialogo[4][0] = "Escadaria Ruída\nO seu progresso foi salvo!";
-        eventoMestre.dialogo[5][0] = "Ladeira Dos Pilares Quegrados\nO seu progresso foi salvo!";
-        eventoMestre.dialogo[6][0] = "Praça Do Despertar\nO seu progresso foi salvo!";
-        eventoMestre.dialogo[7][0] = "Portão Silencioso\nO seu progresso foi salvo!";
 
+        eventoMestre.dialogo[4][0] = "Floresta dourada";
+        eventoMestre.dialogo[4][1] = "O seu progresso foi salvo!";
 
-        eventoMestre.dialogo[8][0] = "Porta bloqueada\nNecessário: Chave de prata";
-        eventoMestre.dialogo[9][0] = "Porta bloqueada\nVolte mais tarde!";
-        eventoMestre.dialogo[10][0] = "Entrada para Luxúria...";
+        eventoMestre.dialogo[5][0] = "Masmorra Sombria";
+        eventoMestre.dialogo[5][1] = "O seu progresso foi salvo!";
+        
+        eventoMestre.dialogo[6][0] = "O trono da luz profana";
+        eventoMestre.dialogo[6][1] = "O seu progresso foi salvo!";
+
+        eventoMestre.dialogo[7][0] = "Fogo rubro";
+        eventoMestre.dialogo[7][1] = "O seu progresso foi salvo!";
+
     
     }
 
@@ -100,7 +109,6 @@ public class ManipuladorDeEventos {
                 buracoDeDano(painel.estadoDoDialogo);
             }
 
-
             else if(bater (0, 10,39, "any") == true){
                 teleporteMapa(10, 12, 13, painel.interior);    
             }
@@ -110,6 +118,7 @@ public class ManipuladorDeEventos {
             else if(bater (0, 18,16, "any") == true){
                 teleporteMapa(0, 38,9, painel.fora); //armadilha
             }
+            //é um rocha gigante.
             else if(bater(1, 12, 9, "cima") == true ){
                 falar(painel.npc[1][0]);
             }
@@ -187,34 +196,31 @@ public class ManipuladorDeEventos {
             //FOGUEIRAS 
             //mapa 0
             else if(bater(0, 21,19, "any") == true){
-                fogueira(3, painel.estadoDoDialogo);
+                fogueira(2, painel.estadoDoDialogo);
             }
             else if(bater(1, 15,25, "any") == true){
                 fogueira(3, painel.estadoDoDialogo);
             }
-            else if(bater(4, 20,36, "any") == true){
-                fogueira(3, painel.estadoDoDialogo);
+            else if(bater(3, 25,37, "any") == true){
+                fogueira(4, painel.estadoDoDialogo);
             }
-            else if(bater(5, 19,38, "any") == true){
-                fogueira(3, painel.estadoDoDialogo);
+
+            else if(bater(4, 20,36, "any") == true){
+                fogueira(5, painel.estadoDoDialogo);
             }
             else if(bater(6, 26,39, "any") == true){
-                fogueira(3, painel.estadoDoDialogo);
+                fogueira(6, painel.estadoDoDialogo);
             }
             else if(bater(8, 25,23, "any") == true){
-                fogueira(3, painel.estadoDoDialogo);
+                fogueira(7, painel.estadoDoDialogo);
             }
 
             
-            //CUTSCENES
-            // boss 01
+            //CUTSCENES - chefão
             else if(bater (2, 25,27, "any") == true){ EronODevoradorSilencioso(); }
-            // boss 02
             else if(bater (5, 25,27, "any") == true){ DariusOColecionadorDeAlmas(); }
-            //boss 03
             else if(bater (7, 25,27, "any") == true){ AurionOArcanjoCaido(); }
-            //boss 04
-            else if(bater (10, 25,27, "any") == true){ KaelgorOGuerreiroEmChamas(); }
+            else if(bater (9, 25,27, "any") == true){ KaelgorOGuerreiroEmChamas(); }
           
     
             //INVASÃO
@@ -222,6 +228,16 @@ public class ManipuladorDeEventos {
                 invasaoMapa1();
             }
 
+            //PORTAL DE VIAGEM RÁPIDA 
+            //else if(bater (0, 47,35, "any") == true){
+            //    portalComRetorno(12, 12,16, painel.interior);
+           // }
+            else if(bater (12, 12,16, "any") == true){
+                portalDeVolta();
+            }
+
+            
+            
         }
 
         
@@ -408,11 +424,16 @@ public class ManipuladorDeEventos {
     }
 
     public void viajarRapido(int destino){
+        
+        // SALVA DE ONDE VEIO
+        mapaOrigem = painel.mapaAtual;
+        colOrigem = painel.jogador.mundoX / painel.tamanhoDoTile;
+        linOrigem = painel.jogador.mundoY / painel.tamanhoDoTile;
 
         switch(destino){
 
             case 0: 
-                teleporteMapa(4, 14, 16, painel.interior);
+                teleporteMapa(12, 12, 16, painel.interior);
                 break;
             /* 
             case 1: 
@@ -453,6 +474,21 @@ public class ManipuladorDeEventos {
             */
         }
 
+        podeTocarEvento = false;
+    }
+
+    public void portalComRetorno(int destinoMapa, int destinoCol, int destinoLin, int tipoMapa){
+
+        // salva origem antes de ir
+        mapaOrigem = painel.mapaAtual;
+        colOrigem = (painel.jogador.mundoX / painel.tamanhoDoTile) + 1;
+        linOrigem = painel.jogador.mundoY / painel.tamanhoDoTile;
+
+        teleporteMapa(destinoMapa, destinoCol, destinoLin, tipoMapa);
+    }
+
+    public void portalDeVolta(){
+        teleporteMapa(mapaOrigem, colOrigem, linOrigem, painel.fora);
         podeTocarEvento = false;
     }
     

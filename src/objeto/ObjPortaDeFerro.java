@@ -30,7 +30,7 @@ public class ObjPortaDeFerro extends Entidade{
     
     }
     public void setDialogo(){
-        dialogo[0][0] = "Item necessario!";
+        dialogo[0][0] = "Resolva o enigma para abrir a porta.";
     }
 
     public void interagir(){

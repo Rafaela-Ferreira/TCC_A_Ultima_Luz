@@ -11,7 +11,6 @@ import objeto.ObjAlma;
 import objeto.ObjBolaDeFogo;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaNormal;
-import objeto.ObjTocha;
 
 
 
@@ -113,14 +112,10 @@ public class Jogador extends Entidade {
     }
 
     public void setDefaultValues() {
-        mundoX = painel.tamanhoDoTile * 25; 
-        mundoY = painel.tamanhoDoTile * 10;
-        painel.mapaAtual = 9;
+        //mundoX = painel.tamanhoDoTile * 26; 
+        //mundoY = painel.tamanhoDoTile * 40;
+        //painel.mapaAtual = 0;
         
-        
-        //mundoX = painel.tamanhoDoTile * 12; 
-        //mundoY = painel.tamanhoDoTile * 14;
-        //painel.mapaAtual = 1;
 
 
         velocidadePadrao = 4;
@@ -129,15 +124,15 @@ public class Jogador extends Entidade {
 
         //estado do jogador
         nivel = 1;
-        vidaMaxima = 20;
+        vidaMaxima = 6;
         vida = vidaMaxima;
         manaMaxima = 4;
         mana = manaMaxima;
         resistenciaMaxima = 100;
         resistencia = resistenciaMaxima;
         municao = 10;
-        forca = 5; //quanto mais força ele tem, mais dano ele dá.
-        destreza = 10; //quanto mais destreza ele tem, menos dano ele recebe.
+        forca = 1; //quanto mais força ele tem, mais dano ele dá.
+        destreza = 1; //quanto mais destreza ele tem, menos dano ele recebe.
         exp = 0;
         proximoNivelExp = 1;
         proximoNivelExp = proximoNivelExp+nivel;
@@ -146,7 +141,7 @@ public class Jogador extends Entidade {
 
 
         if (!almasNoChao) {
-            alma = 100;
+            alma = 0;
         }
 
         armaAtual = new ObjEspadaNormal(painel);
@@ -195,7 +190,7 @@ public class Jogador extends Entidade {
         inventario.add(escudoAtual);
         inventario.add(armaAtual);
 
-        inventario.add(new ObjTocha(painel));
+        //inventario.add(new ObjTocha(painel));
 
     }
 
@@ -754,8 +749,8 @@ public class Jogador extends Entidade {
 
         painel.interfaceDoUsuario.adicionarMensagem("Você deixou " + almasDeixadas + " almas no chão!");
 
-        painel.pararMusica();
-        painel.iniciarEfeitoSonoro(12);
+       // painel.pararMusica();
+       // painel.iniciarEfeitoSonoro(12);
         painel.estadoDoJogo = painel.estadoGameOver;
         painel.interfaceDoUsuario.numeroDoComando = -1;
 

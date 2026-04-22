@@ -406,6 +406,8 @@ public class CriarObjetos {
 
         numeroMapa = 3;
         i = 0;
+        painel.blocosI[numeroMapa][i] = new Fogueira(painel, 24,35); i++;
+
         painel.blocosI[numeroMapa][i] = new ArvoreSeca3(painel, 26,15); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca3(painel, 26,16); i++;
         painel.blocosI[numeroMapa][i] = new ArvoreSeca3(painel, 26,17); i++;
@@ -525,6 +527,17 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*14;
         i++;
         
+        painel.npc[numeroMapa][i] = new PortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*14;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*28;
+        i++;
+
+        numeroMapa = 3;
+        i = 0;
+        painel.npc[numeroMapa][i] = new PortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*19;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;
+        i++;
 
         numeroMapa = 4;
         i = 0;
@@ -538,6 +551,11 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*26;
         i++;
 
+        painel.npc[numeroMapa][i] = new PortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*16;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*36;
+        i++;
+
         numeroMapa = 5;
         i = 0;
 
@@ -549,6 +567,11 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*25;
         i++;
 
+        painel.npc[numeroMapa][i] = new PortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*20;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;
+        i++;
+
         numeroMapa = 7;
         i = 0;
 
@@ -557,6 +580,11 @@ public class CriarObjetos {
         painel.npc[numeroMapa][i] = new NpcOVigiaPartido(painel);
         painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*24;
         painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*41;
+        i++;
+
+        painel.npc[numeroMapa][i] = new PortalViagemRapida(painel);
+        painel.npc[numeroMapa][i].mundoX = painel.tamanhoDoTile*22;
+        painel.npc[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
     
         numeroMapa = 10;
@@ -672,12 +700,12 @@ public class CriarObjetos {
 
         painel.inimigo[numeroMapa][i] = new LodoVermelho(painel);
         painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*21;
-        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*38;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
 
         painel.inimigo[numeroMapa][i] = new LodoVermelho(painel);
-        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*23;
-        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*42;
+        painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*33;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
 
         painel.inimigo[numeroMapa][i] = new LodoVermelho(painel);
@@ -695,7 +723,7 @@ public class CriarObjetos {
 
         painel.inimigo[numeroMapa][i] = new LodoVermelho(painel);
         painel.inimigo[numeroMapa][i].mundoX = painel.tamanhoDoTile*34;
-        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*42;
+        painel.inimigo[numeroMapa][i].mundoY = painel.tamanhoDoTile*20;
         i++;
 
         painel.inimigo[numeroMapa][i] = new LodoVermelho(painel);

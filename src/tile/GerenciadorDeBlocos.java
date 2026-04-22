@@ -83,15 +83,12 @@ public class GerenciadorDeBlocos {
         carregarMapa("/res/mapa/mapa7.txt", 7);     // arena final - arion orgulho
         
         carregarMapa("/res/mapa/mapa8.txt", 8);     // mapa secreto - vermelho
-        carregarMapa("/res/mapa/mapa9.txt", 9);     // masmorra
-        carregarMapa("/res/mapa/mapa10.txt", 10);   // arena - ira - Kaelgor
-
-
-        carregarMapa("/res/mapa/mapa11.txt", 11);   // NPC: Comerciante
-        carregarMapa("/res/mapa/mapa12.txt", 12);   // NPC: Poções
-        carregarMapa("/res/mapa/mapa13.txt", 13);   // NPC: Armas
-        carregarMapa("/res/mapa/mapa14.txt", 14);   // NPC: Dialogo
-        carregarMapa("/res/mapa/mapa15.txt", 15);   // NPC: Guardião dos Niveis
+        carregarMapa("/res/mapa/mapa9.txt", 9);     // arena - ira - Kaelgor
+        carregarMapa("/res/mapa/mapa10.txt", 10);   // NPC: Comerciante
+        
+        carregarMapa("/res/mapa/mapa11.txt", 11);   // NPC: Poções
+        carregarMapa("/res/mapa/mapa12.txt", 12);   // NPC: Guardião dos Niveis
+ 
         
     }
 
@@ -216,6 +213,7 @@ public class GerenciadorDeBlocos {
         
 
         if(desenharCaminho == true){
+            //visualizar o caminho encontrado - IA
            // g2.setColor(new Color(255,0,0,70));
 
             for(int i = 0; i < painel.localizarCaminhos.listaCaminho.size(); i++){
@@ -225,7 +223,7 @@ public class GerenciadorDeBlocos {
                 int telaX = mundoX - painel.jogador.mundoX + painel.jogador.telaX;
                 int telaY = mundoY - painel.jogador.mundoY + painel.jogador.telaY;
 
-                //g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
+               // g2.fillRect(telaX, telaY, painel.tamanhoDoTile, painel.tamanhoDoTile);
             }
         }
         

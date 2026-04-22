@@ -106,7 +106,7 @@ public class Iluminacao {
             contadorDia++;
 
             //36.000 = 10 minutos para anoitecer
-            if(contadorDia > 36000){
+            if(contadorDia > 3600){
                 estadoDia = anoitecer;
                 contadorDia= 0;
             }
@@ -123,7 +123,7 @@ public class Iluminacao {
             contadorDia++;
 
             //36.000 = 10 minutos para amanhecer
-            if(contadorDia > 36000){
+            if(contadorDia > 3600){
                 estadoDia = amanhecer;
                 contadorDia = 0;
             }
@@ -151,7 +151,7 @@ public class Iluminacao {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 
-        /*debug
+       /* debug
         String situacao = "";
 
         switch (estadoDia) {
@@ -165,6 +165,6 @@ public class Iluminacao {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));
         g2.drawString(situacao, 700, 500);
-        */
+        */ 
     }
 }
