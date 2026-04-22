@@ -7,7 +7,7 @@ O jogo combina narrativa, ambientação sombria e desafios estratégicos, propor
 
 ## 🌍 Ambientação
 
-Em um mundo em constante transformação, o jogador explora ruínas antigas, florestas místicas e templos esquecidos, enfrentando inimigos e descobrindo segredos perdidos.  
+Em um mundo em constante transformação, o jogador explora diferentes  mapas, enfrentando inimigos e descobrindo fragmentos da história.  
 O ciclo **dia/noite** afeta a jogabilidade e a ambientação, tornando o mundo mais dinâmico e vivo.
 
 ---
@@ -27,12 +27,12 @@ O protótipo foi desenvolvido para a plataforma **PC**.
 - 💬 **Interações com objetos, NPCs e diálogos**  
 - 🎒 **Inventário com itens equipáveis e projetáveis**  
 - ⚔️ **Sistema de combate** com vida, mana, atributos e chefões  
-- 🌫️ **Eventos ambientais** (buracos, cura, teleporte, iluminação)  
+- 🌫️ **Eventos ambientais** (buracos, cura, teleporte, iluminação, viagem rápida)  
 - 🌙 **Ciclo dia/noite e iluminação dinâmica**  
 - 🗺️ **Minimapa e interface** (menus, seleção de classe e tela de game over)  
-- 🔍 **Algoritmo A*** (busca de caminhos inteligente)  
+- 🔍 **Algoritmo A*** (A-Estrela, busca de caminhos inteligente)  
 - 💰 **Sistema de comércio e saque de baús**  
-- 🎭 **Cutscenes, puzzles e efeitos sonoros** integrados  
+- 🎭 **Cutscenes, quebra cabeça e efeitos sonoros** integrados  
 
 ---
 
@@ -71,6 +71,6 @@ As mecânicas e recursos visuais foram adaptados e expandidos para criar uma exp
 <img src="/res/tela_Inicial.png" alt="Tela do jogo A Última Luz" width="400"/>
 
 ## 🧑‍💻 Autoras
-Nancy Miyuki CP3025641 – Desenvolvedora e pesquisadora do projeto.
-Rafaela Ferreira CP3026353 – Desenvolvedora e pesquisadora do projeto.
+- Nancy Miyuki CP3025641 – Desenvolvedora e pesquisadora do projeto.
+- Rafaela Ferreira CP3026353 – Desenvolvedora e pesquisadora do projeto.
 
