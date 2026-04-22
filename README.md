@@ -68,7 +68,7 @@ As mecânicas e recursos visuais foram adaptados e expandidos para criar uma exp
 
 ## 🖼️ Imagem do Protótipo
 
-<img src="/res/telaInicial.png" alt="Tela do jogo A Última Luz" width="400"/>
+<img src="/res/tela_Inicial.png" alt="Tela do jogo A Última Luz" width="400"/>
 
 ## 🧑‍💻 Autoras
 Nancy Miyuki CP3025641 – Desenvolvedora e pesquisadora do projeto.
