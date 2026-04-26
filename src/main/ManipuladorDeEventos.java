@@ -100,7 +100,6 @@ public class ManipuladorDeEventos {
         }
         if(podeTocarEvento == true){
 
-
             //BURACO DE DANO
             if(bater (0, 27,16, "direita") == true){
                 buracoDeDano(painel.estadoDoDialogo);
@@ -108,7 +107,11 @@ public class ManipuladorDeEventos {
             else if(bater (0, 23,19, "any") == true){
                 buracoDeDano(painel.estadoDoDialogo);
             }
+            else if(bater (4, 13,16, "any") == true){
+                buracoDeDano(painel.estadoDoDialogo);
+            }
 
+            //TROCA DE MAPA
             else if(bater (0, 10,39, "any") == true){
                 teleporteMapa(10, 12, 13, painel.interior);    
             }
@@ -117,10 +120,6 @@ public class ManipuladorDeEventos {
             }
             else if(bater (0, 18,16, "any") == true){
                 teleporteMapa(0, 38,9, painel.fora); //armadilha
-            }
-            //é um rocha gigante.
-            else if(bater(1, 12, 9, "cima") == true ){
-                falar(painel.npc[1][0]);
             }
             else if(bater (0, 12,9, "any") == true){
                 teleporteMapa(1, 9, 41, painel.masmorra);    
@@ -156,6 +155,9 @@ public class ManipuladorDeEventos {
             else if(bater (4, 8,7, "any") == true){
                 teleporteMapa(5, 26,41, painel.masmorra);    
             }
+            else if(bater (4, 32,34, "any") == true){
+                teleporteMapa(4, 34,40, painel.masmorra); //armadilha
+            }
             else if(bater (5, 26,41, "any") == true){
                 teleporteMapa(4, 8,7, painel.masmorra);    
             }
@@ -189,9 +191,24 @@ public class ManipuladorDeEventos {
                 teleporteMapa(8, 35,17, painel.fora);    
             }
 
+            //Sistema de venda - comerciante.
+            else if(bater(10, 12, 9, "cima") == true ){
+                falar(painel.npc[10][0]);
+            }
+            //é um rocha gigante.
+            else if(bater(1, 12, 9, "cima") == true ){
+                falar(painel.npc[1][0]);
+            }
 
-            //teleporteMapa(12, 12,16, painel.interior); 
-            
+            //Sistema de venda - Poção.
+            else if(bater(11, 14, 9, "cima") == true ){
+                falar(painel.npc[11][0]);
+            }
+            //Subir nivel.
+            else if(bater(12, 14, 9, "cima") == true ){
+                falar(painel.npc[12][0]);
+            }
+
 
             //FOGUEIRAS 
             //mapa 0
@@ -232,7 +249,7 @@ public class ManipuladorDeEventos {
             //else if(bater (0, 47,35, "any") == true){
             //    portalComRetorno(12, 12,16, painel.interior);
            // }
-            else if(bater (12, 12,16, "any") == true){
+            else if(bater (12, 12,16, "any") == true ){
                 portalDeVolta();
             }
 
@@ -364,13 +381,6 @@ public class ManipuladorDeEventos {
     }
 
 
-    public void senhorEsqueleto3(){
-        if(painel.batalhaComChefeAtiva == false && Progresso.senhorEsqueletoPadrao3 == false){
-            painel.estadoDoJogo = painel.estadoCutscene;
-            painel.gerenciadorDeCutscene.numeroDaCena = painel.gerenciadorDeCutscene.senhorEsqueleto;
-        }
-    }
-
     public void invasaoMapa1() {
 
         if (Progresso.invasaoMapa1Ativa == false &&
@@ -384,7 +394,7 @@ public class ManipuladorDeEventos {
             painel.inimigo[painel.mapaAtual][0].mundoY = painel.tamanhoDoTile * 22;
 
             // Mensagem de alerta
-            painel.iniciarEfeitoSonoro(14); // som sinistro
+            painel.iniciarEfeitoSonoro(14);
             painel.interfaceDoUsuario.adicionarMensagem("Um espírito hostil invadiu o mundo..." );
 
             //TEMPORIZADOR 
@@ -433,7 +443,7 @@ public class ManipuladorDeEventos {
         switch(destino){
 
             case 0: 
-                teleporteMapa(12, 12, 16, painel.interior);
+                teleporteMapa(12, 12, 16, painel.santuario);
                 break;
             /* 
             case 1: 

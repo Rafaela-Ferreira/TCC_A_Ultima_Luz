@@ -24,14 +24,14 @@ public class DariusOColecionadorDeAlmas extends Entidade{
         tipo = tipoInimigo;
         chefe = true;
         nome = nomeBoss;
-        velocidadePadrao = 1;
+        velocidadePadrao = 2;
         velocidade = velocidadePadrao;
-        vidaMaxima = 50;
+        vidaMaxima = 80;
         vida = vidaMaxima;
-        ataque = 10;
-        defesa = 2;
-        exp = 50;
-        poderDoEmpurrao = 5;
+        ataque = 18; // dano alto
+        defesa = 1; // muito frágil
+        //exp = 50;
+        poderDoEmpurrao = 6;
         dormir = true;
 
 
@@ -114,9 +114,9 @@ public class DariusOColecionadorDeAlmas extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "Ninguém pode roubar meu tesouro!";
-        dialogo[0][1] = "Você vai morrer aqui!";
-        dialogo[0][2] = "BEM-VINDO À SUA DESTRUIÇÃO!";
+        dialogo[0][0] = "Mais uma alma para minha coleção...";
+        dialogo[0][1] = "Você brilha... vai valer muito.";
+        dialogo[0][2] = "Resista o quanto quiser\nvocê já me pertence.";
     }
     
     public void setAcao(){
@@ -171,16 +171,16 @@ public class DariusOColecionadorDeAlmas extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
-            droparItem(new ObjFragmentoDourado(painel));
+            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            droparItem(new ObjFragmentoDourado(painel), 16, 0);
         }
         if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel));
-            droparItem(new ObjFragmentoDourado(painel));
+            droparItem(new ObjCoracao(painel), -16, 0);
+            droparItem(new ObjFragmentoDourado(painel),16, 0);
         }
         if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel));
-            droparItem(new ObjFragmentoDourado(painel));
+            droparItem(new ObjMana(painel), -16, 0);
+            droparItem(new ObjFragmentoDourado(painel),16, 0);
         }
     }
 }

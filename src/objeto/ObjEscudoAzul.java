@@ -5,7 +5,7 @@ import main.PainelDoJogo;
 
 public class ObjEscudoAzul extends Entidade{
 
-    public static final String objNome = "escudo azul";
+    public static final String objNome = "Escudo azul";
 
     public ObjEscudoAzul(PainelDoJogo painel) {
         super(painel);
@@ -15,8 +15,8 @@ public class ObjEscudoAzul extends Entidade{
         baixo1 = setup("/res/objeto/shield_blue", painel.tamanhoDoTile, painel.tamanhoDoTile);
         valorDefesa = 2;
         descricao = "[" + nome + "]\nFabricado de aço.";
-        preco = 250;
-        poderDoEmpurrao = 5;
+        preco = 580;
+        poderDoEmpurrao = 7;
 
         
     }

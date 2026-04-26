@@ -8,16 +8,6 @@ public class Progresso {
     public static boolean kaelgorOGuerreiroEmChamas; // Ira
     
 
-
-    public static boolean miraACopiadoraSombria; // inveja
-    public static boolean selarysATentadoraDasAlmas; // luxuria
-    public static boolean thalrenOCavaleiroEsquecido; // Preguica
-    public static boolean senhorEsqueletoPadrao; // Tutorial
-    public static boolean senhorEsqueletoPadrao2; // Gula
-    public static boolean senhorEsqueletoPadrao3; // Avareza
-
-
-
     public static boolean cutsceneInicialVista = false;
 
 

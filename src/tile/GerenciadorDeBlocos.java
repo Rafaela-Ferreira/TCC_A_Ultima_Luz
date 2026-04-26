@@ -19,7 +19,7 @@ public class GerenciadorDeBlocos {
     public int numerosDoMapa[][][]; //usado tbm na verificação de colisão
     
     public int[][][] numeroBloco;
-    boolean desenharCaminho = true;
+    public boolean desenharCaminho = true;
     ArrayList<String> nomeDoArquivos = new ArrayList<>();
     ArrayList<String> estatosColisao = new ArrayList<>();
     

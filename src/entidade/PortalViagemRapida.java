@@ -11,6 +11,7 @@ public class PortalViagemRapida extends Entidade {
         super(painel);
 
         nome = nomeNpc;
+        tipo = tipoPortal;
         direcao = "baixo";
         velocidade = 0; // portal não se move
 
@@ -24,6 +25,7 @@ public class PortalViagemRapida extends Entidade {
 
         getImagem();
     }
+    
 
     public void getImagem(){
         cima1 = setup("/res/objeto/placa", painel.tamanhoDoTile, painel.tamanhoDoTile);
@@ -43,6 +45,13 @@ public class PortalViagemRapida extends Entidade {
         painel.interfaceDoUsuario.numeroDoComando = 0;
         painel.estadoDoJogo = painel.estadoViagemRapida;
         painel.iniciarEfeitoSonoro(10);
+
+        //iniciarDialogo(this, 0);
+
+      
+
+
+       
     }
 }
 

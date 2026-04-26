@@ -24,7 +24,7 @@ public class NpcAliado extends Entidade {
         vivo = true;
 
         direcao = "baixo";
-        velocidadePadrao = 1;
+        velocidadePadrao = 2;
         velocidade = velocidadePadrao;
 
         areaSolida = new Rectangle(8, 16, 32, 32);
@@ -35,8 +35,8 @@ public class NpcAliado extends Entidade {
         vidaMaxima = 15;
         vida = vidaMaxima;
 
-        forca = 1;
-        destreza = 1;
+        forca = 5;
+        destreza = 10;
 
         armaAtual = new ObjEspadaNormal(painel);
         escudoAtual = new ObjEscudoMadeira(painel);

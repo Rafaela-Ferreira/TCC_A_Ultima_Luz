@@ -14,6 +14,7 @@ import objeto.ObjChave;
 import objeto.ObjCoracao;
 import objeto.ObjEscudoAzul;
 import objeto.ObjEscudoMadeira;
+import objeto.ObjEspadaEnferrujada;
 import objeto.ObjEspadaNormal;
 import objeto.ObjFragmentoCarmesim;
 import objeto.ObjFragmentoCoracaoDaLamina;
@@ -49,6 +50,7 @@ public class GeradorDeEntidade {
         switch(nomeDoItem){
             //armas
             case ObjMachado.objNome : objeto = new ObjMachado(painel); break;
+            case ObjEspadaEnferrujada.objNome : objeto = new ObjEspadaEnferrujada(painel); break;
             case ObjEspadaNormal.objNome : objeto = new ObjEspadaNormal(painel); break;
             case ObjBolaDeFogo.objNome : objeto = new ObjBolaDeFogo(painel); break;
             case ObjPedra.objNome : objeto = new ObjPedra(painel); break;

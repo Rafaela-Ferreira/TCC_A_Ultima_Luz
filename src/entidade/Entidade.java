@@ -83,6 +83,8 @@ public class Entidade {
     public int resistenciaMaxima;
     public int municao;
     public int nivel;
+    public int vigor;
+    public int inteligencia;
     public int forca;
     public int destreza;
     public int ataque;
@@ -140,6 +142,7 @@ public class Entidade {
     public final int tipoNpcAliado = 13;
     public final int tipoMensagem = 14;
     public boolean desaparecer = false;
+    public final int tipoPortal = 15;
 
     public Entidade alvo;
 
@@ -278,12 +281,14 @@ public class Entidade {
 
     public void verificarDrop(){}
 
-    public void droparItem(Entidade droparItem){
+    public void droparItem(Entidade droparItem , int offsetX, int offsetY){
+   
+
         for(int i = 0; i < painel.Obj[1].length; i++){
             if(painel.Obj[painel.mapaAtual][i] == null){
                 painel.Obj[painel.mapaAtual][i] = droparItem;
-                painel.Obj[painel.mapaAtual][i].mundoX = mundoX;
-                painel.Obj[painel.mapaAtual][i].mundoY = mundoY;
+                painel.Obj[painel.mapaAtual][i].mundoX = mundoX + offsetX;
+                painel.Obj[painel.mapaAtual][i].mundoY = mundoY + offsetY;
                 break;
             }
         }
@@ -437,7 +442,7 @@ public class Entidade {
 
 
     }
-
+   
     public void verificarSeAtirou_ou_nao(int taxa, int intervaloDeTiro){
         //verifique se ele atira um projétil
         //começa a atirar pedra
@@ -446,6 +451,7 @@ public class Entidade {
         if(i == 0 && projetil.vivo == false && contadorDeTiro == intervaloDeTiro){
             
             projetil.setAcao(mundoX, mundoY, direcao, true, this);
+            
             //painel.listaProjetil.add(projetil); 
 
             //verificar vaga

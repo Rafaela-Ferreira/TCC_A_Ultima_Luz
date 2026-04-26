@@ -8,7 +8,6 @@ import main.inimigo.chefao.AurionOArcanjoCaido;
 import main.inimigo.chefao.EronODevoradorSilencioso;
 import main.inimigo.chefao.DariusOColecionadorDeAlmas;
 import main.inimigo.chefao.KaelgorOGuerreiroEmChamas;
-import main.inimigo.chefao.SenhorEsqueleto3;
 import objeto.ObjDiamente;
 import objeto.ObjPortaDeFerro;
 
@@ -62,11 +61,10 @@ public class GerenciadorDeCutscene {
         +"Agradecimentos especiais\n"
         +"Isabela\n"
         +"Vinicius\n"
-        +"Augusto\n"
         +"Fabio\n"
         +"Glauber\n"
         +"Zady\n"
-        +"Emilio\n\n\n"
+        +"Emilio\n\n\n\n\n"
         
         +"Obrigado por jogar!";
     }
@@ -529,7 +527,7 @@ public class GerenciadorDeCutscene {
             faseDaCena = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
             painel.pararMusica();
-            painel.iniciarMusica(22);
+            painel.iniciarMusica(25);
         }
 
     }
@@ -619,7 +617,7 @@ public class GerenciadorDeCutscene {
             faseDaCena = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
             painel.pararMusica();
-            painel.iniciarMusica(22);
+            painel.iniciarMusica(26);
         }
 
     }
@@ -709,7 +707,7 @@ public class GerenciadorDeCutscene {
             faseDaCena = 0;
             painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
             painel.pararMusica();
-            painel.iniciarMusica(22);
+            painel.iniciarMusica(24);
         }
 
     }

@@ -35,17 +35,16 @@ public class Som {
         somURL[17] = getClass().getResource("/res/Som/speak.wav");
         somURL[18] = getClass().getResource("/res/Som/Merchant.wav");
         somURL[19] = getClass().getResource("/res/Som/Dungeon.wav");
-        somURL[19] = getClass().getResource("/res/Som/Dungeon.wav");
         somURL[20] = getClass().getResource("/res/Som/chipwall.wav");
         somURL[20] = getClass().getResource("/res/Som/chipwall.wav");
         somURL[21] = getClass().getResource("/res/Som/dooropen.wav");
         somURL[22] = getClass().getResource("/res/Som/FinalBattle.wav");
-        
-        somURL[23] = getClass().getResource("/res/Som/correr.wav");
-        somURL[24] = getClass().getResource("/res/Som/chuva.wav");
-        somURL[25] = getClass().getResource("/res/Som/trovao.wav");
-        somURL[25] = getClass().getResource("/res/Som/vento.wav");
 
+        somURL[23] = getClass().getResource("/res/Som/Moonshadow.wav");
+        somURL[24] = getClass().getResource("/res/Som/Veil.wav");
+        somURL[25] = getClass().getResource("/res/Som/DreadRequiem.wav");
+        somURL[26] = getClass().getResource("/res/Som/Twilight.wav");
+        
     }
 
     public void setArquivo(int indice){

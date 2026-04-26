@@ -4,6 +4,7 @@ import java.util.Random;
 
 import entidade.Entidade;
 import main.PainelDoJogo;
+import objeto.ObjAlmaMedia;
 import objeto.ObjBolaDeFogo;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
@@ -88,13 +89,16 @@ public class MaoDoAbismo  extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
+            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            droparItem(new ObjAlmaMedia(painel), 16, 0);
         }
         if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel));
+            droparItem(new ObjCoracao(painel), -16, 0);
+            droparItem(new ObjAlmaMedia(painel), 16, 0);
         }
         if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel));
+            droparItem(new ObjMana(painel), -16, 0);
+            droparItem(new ObjAlmaMedia(painel), 16, 0);
         }
     }
 }

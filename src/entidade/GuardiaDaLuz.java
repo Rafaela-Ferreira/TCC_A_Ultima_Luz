@@ -49,22 +49,46 @@ public class GuardiaDaLuz extends Entidade{
 
     /* Calcula o custo dinâmico em almas para subir de nível */
     public int calcularCustoParaSubirNivel() {
-        return (int) (Math.pow(painel.jogador.nivel, 2)) + 10;
+        return 20 + (painel.jogador.nivel * painel.jogador.nivel * 2);
     }
 
 
-    public void tentarSubirNivel() {
+    public void tentarSubirNivel(int atributo) {
         int custo = calcularCustoParaSubirNivel();
 
         if (painel.jogador.alma >= custo) {
             painel.jogador.alma -= custo;
-            painel.jogador.nivel++;
-            painel.jogador.forca += 2;
-            painel.jogador.vidaMaxima += 5;
-            painel.jogador.vida = painel.jogador.vidaMaxima;
+            
+            painel.jogador.nivel++; //SEMPRE SOBE O NÍVEL
 
-            painel.interfaceDoUsuario.adicionarMensagem("Você subiu para o nível " + painel.jogador.nivel + "!");
-            iniciarDialogo(this, 1); 
+            if (atributo == 0) { // FORÇA
+                painel.jogador.forca += 1;
+
+                painel.jogador.vidaMaxima += 3;
+                painel.jogador.manaMaxima += 2;
+
+               // painel.jogador.municao += 1; //qtd de projetil: pedra.
+
+                painel.jogador.vida = painel.jogador.vidaMaxima;
+                painel.jogador.mana = painel.jogador.manaMaxima;
+            }  
+            else if (atributo == 1) { // DESTREZA
+                painel.jogador.destreza += 1;
+                
+                painel.jogador.resistenciaMaxima += 3;
+                painel.jogador.resistencia = painel.jogador.resistenciaMaxima;
+            }
+
+            // Atualiza combate
+            painel.jogador.ataque = painel.jogador.getAtaque();
+            painel.jogador.defesa = painel.jogador.getDefesa();
+
+            painel.interfaceDoUsuario.adicionarMensagem(
+                "Sua chama evolui... Nível " + painel.jogador.nivel
+            );
+
+            iniciarDialogo(this, 1);
+
         } else {
             iniciarDialogo(this, 2);
         }

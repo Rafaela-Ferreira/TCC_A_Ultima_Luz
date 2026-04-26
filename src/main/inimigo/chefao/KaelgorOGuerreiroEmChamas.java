@@ -4,6 +4,7 @@ import dados.Progresso;
 import entidade.Entidade;
 import java.util.Random;
 import main.PainelDoJogo;
+import objeto.ObjBolaDeFogo;
 import objeto.ObjCoracao;
 import objeto.ObjFragmentoFaminto;
 import objeto.ObjFragmentoFlamejante;
@@ -26,12 +27,12 @@ public class KaelgorOGuerreiroEmChamas extends Entidade{
         nome = nomeBoss;
         velocidadePadrao = 2;
         velocidade = velocidadePadrao;
-        vidaMaxima = 200;
+        vidaMaxima = 220;
         vida = vidaMaxima;
-        ataque = 10;
-        defesa = 2;
-        exp = 50;
-        poderDoEmpurrao = 5;
+        ataque = 16;
+        defesa = 3;
+        //exp = 50;
+        poderDoEmpurrao = 8;
         dormir = true;
 
 
@@ -114,11 +115,9 @@ public class KaelgorOGuerreiroEmChamas extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "Você ousa pisar neste trono profanado?";
-        dialogo[0][1] = "Você vai morrer aqui!";
-        dialogo[0][2] = "BEM-VINDO À SUA DESTRUIÇÃO!";
-        
-        
+        dialogo[0][0] = "HAHA! Finalmente, um oponente digno!";
+        dialogo[0][1] = "Mostre-me sua força... ou seja consumido!";
+        dialogo[0][2] = "MINHAS CHAMAS NÃO PERDOAM!";       
     }
     
     public void setAcao(){
@@ -130,6 +129,7 @@ public class KaelgorOGuerreiroEmChamas extends Entidade{
             velocidadePadrao++;
             velocidade= velocidadePadrao;
             ataque *= 2;
+            
         }
 
         if(getDistaciaDoBloco(painel.jogador) < 10){
@@ -173,16 +173,16 @@ public class KaelgorOGuerreiroEmChamas extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
-            droparItem(new ObjFragmentoFlamejante(painel));
+            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            droparItem(new ObjFragmentoFlamejante(painel), 16, 0);
         }
         if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel));
-            droparItem(new ObjFragmentoFlamejante(painel));
+            droparItem(new ObjCoracao(painel), -16, 0);
+            droparItem(new ObjFragmentoFlamejante(painel), 16, 0);
         }
         if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel));
-            droparItem(new ObjFragmentoFlamejante(painel));
+            droparItem(new ObjMana(painel), -16, 0);
+            droparItem(new ObjFragmentoFlamejante(painel), 16, 0);
         }
     }
 }

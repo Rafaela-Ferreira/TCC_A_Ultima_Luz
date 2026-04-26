@@ -23,14 +23,14 @@ public class AurionOArcanjoCaido extends Entidade{
         tipo = tipoInimigo;
         chefe = true;
         nome = nomeBoss;
-        velocidadePadrao = 2;
+        velocidadePadrao = 1;
         velocidade = velocidadePadrao;
-        vidaMaxima = 200;
+        vidaMaxima = 300;
         vida = vidaMaxima;
-        ataque = 10;
-        defesa = 2;
-        exp = 50;
-        poderDoEmpurrao = 5;
+        ataque = 12;
+        defesa = 5; // bem resistente
+        //exp = 50;
+        poderDoEmpurrao = 4;
         dormir = true;
 
 
@@ -170,16 +170,16 @@ public class AurionOArcanjoCaido extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
-            droparItem(new ObjFragmentoCoracaoDaLamina(painel));
+            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            droparItem(new ObjFragmentoCoracaoDaLamina(painel), 16, 0);
         }
         if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel));
-            droparItem(new ObjFragmentoCoracaoDaLamina(painel));
+            droparItem(new ObjCoracao(painel), -16, 0);
+            droparItem(new ObjFragmentoCoracaoDaLamina(painel), 16, 0);
         }
         if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel));
-            droparItem(new ObjFragmentoCoracaoDaLamina(painel));
+            droparItem(new ObjMana(painel), -16, 0);
+            droparItem(new ObjFragmentoCoracaoDaLamina(painel),16, 0);
         }
     }
 }

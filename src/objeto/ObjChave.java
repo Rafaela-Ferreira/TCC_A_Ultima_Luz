@@ -18,15 +18,15 @@ public class ObjChave  extends Entidade {
         baixo1 = setup("/res/item/key", painel.tamanhoDoTile, painel.tamanhoDoTile);
 
         descricao = "[" + nome + "]\npara abrir uma porta.";
-        preco = 100;
+        preco = 1000;
         empilhavel = true;
     
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "You use the " + nome + "and open the door";
+        dialogo[0][0] = "Você usou uma " + nome + "para abriu uma porta";
 
-        dialogo[1][0] = "What are you doing?";
+        dialogo[1][0] = "O que você está fazendo?";
     }
 
     public boolean usar(Entidade entidade){

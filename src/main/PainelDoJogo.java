@@ -130,7 +130,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int fora = 50; 
     public final int interior = 51;
     public final int masmorra = 52;
-    public final int capela = 53;
+    public final int santuario = 53;
 
     public final int floresta = 54;
 
@@ -409,7 +409,7 @@ public class PainelDoJogo extends JPanel implements Runnable {
         else{
             // Desenha os tiles-blocos de imagem
             gerenciadorDeBlocos.desenhar(g2);
-            
+    
             // Desenha os tiles-blocos interativos
             for(int i = 0; i < blocosI[1].length; i++){
                 if(blocosI[mapaAtual][i] != null){
@@ -448,8 +448,6 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     listaEntidade.add(listaParticula.get(i));
                 }
             }
-
-            
 
             //organizar
             Collections.sort(listaEntidade, new Comparator<Entidade>(){
@@ -532,123 +530,24 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 );
                 */
                
+               //desenha o caminho sendo calculado.
+               if(teclado.modoDebugAtivo){
+                    g2.setColor(new Color(255, 0, 0, 120));
 
+                    for(int i = 0; i < localizarCaminhos.listaCaminho.size(); i++){
+
+                        int mundoX = localizarCaminhos.listaCaminho.get(i).coluna * tamanhoDoTile;
+                        int mundoY = localizarCaminhos.listaCaminho.get(i).linha * tamanhoDoTile; 
+
+                        int telaX = mundoX - jogador.mundoX + jogador.telaX;
+                        int telaY = mundoY - jogador.mundoY + jogador.telaY;
+
+                        g2.fillRect(telaX, telaY, tamanhoDoTile, tamanhoDoTile);
+                    }
+                }
             }
-
-
-
-           
-        }
-        
+        } 
     }
-
-    
-
-    /*
-    public void paintComponent(Graphics g) {
-        // Método padrão do Java para desenhar no JPanel
-        super.paintComponent(g); // Chama o método da superclasse (JPanel), já que PainelDoJogo é uma subclasse
-        
-        Graphics2D g2 = (Graphics2D) g;
-
-        //debug
-        long desenhoInicio = 0;
-        if(teclado.mostrarTextoDebug == true){
-            desenhoInicio = System.nanoTime();
-        }
-
-        //TITULO
-        if(estadoDoJogo == tituloEstado){
-            interfaceDoUsuario.desenhar(g2);
-        }else{
-            // Desenha os tiles-blocos de imagem
-            gerenciadorDeBlocos.desenhar(g2);
-            
-            // Desenha os tiles-blocos interativos
-            for(int i = 0; i < blocosI.length; i++){
-                if(blocosI[i] != null){
-                    blocosI[i].desenhar(g2);
-                }
-            }
-
-            listaEntidade.add(jogador);
-
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null){
-                    listaEntidade.add(npc[i]);
-                }
-            }
-
-            for(int i = 0; i < Obj.length; i++){
-                if(Obj[i] != null){
-                    listaEntidade.add(Obj[i]);
-                }
-            }
-
-            for(int i = 0; i < inimigo.length; i++){
-                if(inimigo[i] != null){
-                    listaEntidade.add(inimigo[i]);
-                }
-            }
-
-            for(int i = 0; i < listaProjetil.size(); i++){
-                if(listaProjetil.get(i) != null){
-                    listaEntidade.add(listaProjetil.get(i));
-                }
-            }
-
-            for(int i = 0; i < listaParticula.size(); i++){
-                if(listaParticula.get(i) != null){
-                    listaEntidade.add(listaParticula.get(i));
-                }
-            }
-
-            //organizar
-            Collections.sort(listaEntidade, new Comparator<Entidade>(){
-
-                @Override
-                public int compare(Entidade e1, Entidade e2) {
-                    
-                    int resultado = Integer.compare(e1.mundoY, e2.mundoY);
-                    return resultado;
-                }
-
-            });
-            
-            //desenhar entidades
-            for(int i = 0; i < listaEntidade.size(); i++){
-                listaEntidade.get(i).desenhar(g2);
-            }
-            //remover da lista de entidades
-            listaEntidade.clear();
-        
-
-            // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
-            interfaceDoUsuario.desenhar(g2);
-
-            //DEBUG
-            if(teclado.mostrarTextoDebug == true){
-                long desenhoFinal = System.nanoTime();
-                long tempoDeDesenho = desenhoFinal - desenhoInicio;
-                g2.setFont(new Font("Arial", Font.PLAIN, 26));
-                g2.setColor(Color.white);
-                int x = 10;
-                int y = 400;
-                int linhaAltura = 20;
-                g2.drawString("mundoX" + jogador.mundoX, x, y); y += linhaAltura;
-                g2.drawString("mundoY" + jogador.mundoY, x, y); y += linhaAltura;
-                g2.drawString("Coluna" + (jogador.mundoX + jogador.areaSolida.x) / tamanhoDoTile, x, y); y += linhaAltura;
-                g2.drawString("Linha" + (jogador.mundoY + jogador.areaSolida.y) / tamanhoDoTile, x, y); y += linhaAltura;
-
-                g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y);
-                
-            }
-        
-        }
-        g2.dispose(); // Desenha um retângulo branco cobrindo toda a tela
-        
-    } */
-
 
     public void iniciarMusica( int i){
         musica.setArquivo(i);
@@ -701,8 +600,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 iniciarMusica(19);
             }
 
-            if(proximaArea == capela){
-                iniciarMusica(18);
+            if(proximaArea == santuario){
+                iniciarMusica(23);
             }
 
             if(proximaArea == floresta){

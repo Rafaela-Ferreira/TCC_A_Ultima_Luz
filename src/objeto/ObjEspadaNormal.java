@@ -5,7 +5,7 @@ import main.PainelDoJogo;
 
 public class ObjEspadaNormal  extends Entidade{
 
-    public static final String objNome = "espada simples";
+    public static final String objNome = "Espada simples";
 
     public ObjEspadaNormal(PainelDoJogo painel) {
         super(painel);

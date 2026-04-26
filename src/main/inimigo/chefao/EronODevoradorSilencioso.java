@@ -113,9 +113,9 @@ public class EronODevoradorSilencioso extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "Você ousa pisar neste trono profanado?";
-        dialogo[0][1] = "Você vai morrer aqui!";
-        dialogo[0][2] = "BEM-VINDO À SUA DESTRUIÇÃO!";
+        dialogo[0][0] = "...Você consegue ouvir isso?";
+        dialogo[0][1] = "O silêncio... é tudo o que resta.";
+        dialogo[0][2] = "Eu devoro até o eco da sua existência.";
     }
     
     public void setAcao(){
@@ -170,16 +170,16 @@ public class EronODevoradorSilencioso extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
-            droparItem(new ObjFragmentoFaminto(painel));
+            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            droparItem(new ObjFragmentoFaminto(painel), 16, 0);
         }
         if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel));
-            droparItem(new ObjFragmentoFaminto(painel));
+            droparItem(new ObjCoracao(painel), -16, 0);
+            droparItem(new ObjFragmentoFaminto(painel), 16, 0);
         }
         if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel));
-            droparItem(new ObjFragmentoFaminto(painel));
+            droparItem(new ObjMana(painel), -16, 0);
+            droparItem(new ObjFragmentoFaminto(painel), 16, 0);
         }
     }
 }

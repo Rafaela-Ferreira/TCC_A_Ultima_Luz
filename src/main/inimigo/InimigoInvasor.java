@@ -3,6 +3,7 @@ package main.inimigo;
 import dados.Progresso;
 import entidade.Entidade;
 import main.PainelDoJogo;
+import objeto.ObjAlmaSombria;
 import objeto.ObjMoedaBronze;
 
 
@@ -23,12 +24,12 @@ public class InimigoInvasor extends Entidade{
         velocidadePadrao = 2;
         velocidade = velocidadePadrao;
 
-        vidaMaxima = 15;
+        vidaMaxima = 20;
         vida = vidaMaxima;
 
         ataque = 12;
-        defesa = 4;
-        exp = 30;
+        defesa = 6;
+        //exp = 30;
 
         areaSolida.x = 8;
         areaSolida.y = 16;
@@ -146,6 +147,6 @@ public class InimigoInvasor extends Entidade{
 
         painel.batalhaComChefeAtiva = false;
 
-        droparItem(new ObjMoedaBronze(painel));
+        droparItem(new ObjAlmaSombria(painel), -16, 0);
     }
 }

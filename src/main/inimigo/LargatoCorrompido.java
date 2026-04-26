@@ -3,6 +3,8 @@ package main.inimigo;
 import entidade.Entidade;
 import java.util.Random;
 import main.PainelDoJogo;
+import objeto.ObjAlma;
+import objeto.ObjAlmaMedia;
 import objeto.ObjBolaDeFogo;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
@@ -86,13 +88,16 @@ public class LargatoCorrompido extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel));
+            droparItem(new ObjAlmaMedia(painel), -16, 0);
+            droparItem(new ObjAlma(painel), 16, 0);
         }
         if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel));
+            droparItem(new ObjCoracao(painel), -16, 0);
+            droparItem(new ObjAlma(painel), 16, 0);
         }
         if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel));
+            droparItem(new ObjMana(painel), -16, 0);
+            droparItem(new ObjAlma(painel), 16, 0);
         }
     }
 }

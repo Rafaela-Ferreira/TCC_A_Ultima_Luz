@@ -19,7 +19,7 @@ public class ObjBarraca  extends Entidade{
         nome = objNome;
         baixo1 = setup("/res/objeto/tent", painel.tamanhoDoTile, painel.tamanhoDoTile);
         descricao = "[Barraca]\nVocê pode dormir até\na manhã seguinte.";
-        preco = 300;
+        preco = 500;
         empilhavel = true;
     }
 

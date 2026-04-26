@@ -5,7 +5,7 @@ import main.PainelDoJogo;
 
 public class ObjEscudoMadeira  extends Entidade{
 
-    public static final String objNome = "escudo madeira";
+    public static final String objNome = "Escudo madeira";
 
     public ObjEscudoMadeira(PainelDoJogo painel) {
         super(painel);
