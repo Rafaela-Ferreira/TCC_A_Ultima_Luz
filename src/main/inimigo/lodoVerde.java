@@ -7,7 +7,6 @@ import objeto.ObjAlma;
 import objeto.ObjAlmapequena;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
 import objeto.ObjPedra;
 
 public class LodoVerde extends Entidade{
