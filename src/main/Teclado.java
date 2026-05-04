@@ -191,7 +191,11 @@ public class Teclado implements KeyListener {
 
             if (code == KeyEvent.VK_ENTER) {
                 if(painel.interfaceDoUsuario.numeroDoComando == 0){
-                    painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    // OBS: alterado -----------------------------------------------------
+
+                    // painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    painel.interfaceDoUsuario.confirmarEscolhaDeClasse();
+                    // ---------------------------------------------------------------------
                     
                     if (painel.interfaceDoUsuario.numeroDoComando == 0){
                         painel.estadoDoJogo = painel.estadoCutscene;
@@ -201,7 +205,11 @@ public class Teclado implements KeyListener {
                     
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 1){
-                    painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    // OBS: alterado -----------------------------------------------------
+
+                    // painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    painel.interfaceDoUsuario.confirmarEscolhaDeClasse();
+                    // ---------------------------------------------------------------------
                     
                     if (painel.interfaceDoUsuario.numeroDoComando == 1){
                         painel.estadoDoJogo = painel.estadoCutscene;
@@ -210,7 +218,11 @@ public class Teclado implements KeyListener {
                     }
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 2){
-                    painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    // OBS: alterado -----------------------------------------------------
+
+                    // painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    painel.interfaceDoUsuario.confirmarEscolhaDeClasse();
+                    // ---------------------------------------------------------------------
                     
                     if (painel.interfaceDoUsuario.numeroDoComando == 2){
                         painel.estadoDoJogo = painel.estadoCutscene;
@@ -219,7 +231,11 @@ public class Teclado implements KeyListener {
                     }
                 }
                 if(painel.interfaceDoUsuario.numeroDoComando == 3){
-                    painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    // OBS: alterado -----------------------------------------------------
+
+                    // painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+                    painel.interfaceDoUsuario.confirmarEscolhaDeClasse();
+                    // ---------------------------------------------------------------------
                     
                     if (painel.interfaceDoUsuario.numeroDoComando == 3){
                         painel.estadoDoJogo = painel.estadoCutscene;

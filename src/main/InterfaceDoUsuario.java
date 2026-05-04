@@ -3,6 +3,11 @@ package main;
 
 import entidade.Entidade;
 import entidade.GuardiaDaLuz;
+import objeto.ObjEspadaNormal;
+import objeto.ObjCatalisadorDeFogo;
+import objeto.ObjCajadoNormal;
+import objeto.ObjAdaga;
+
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -28,7 +33,13 @@ public class InterfaceDoUsuario {
     PainelDoJogo painel;
     public Font maruMonica, purisaB;
     Graphics2D g2;
-    BufferedImage vidaMaxima, vidaMeio,  alma; //almas
+
+    // OBS: adicionado/modificado ----------------------------------------------------
+    BufferedImage imagemPreview, vidaMaxima, vidaMeio,  alma; //almas
+    int comandoAnterior = -1;
+
+    // ---------------------------------------------------------------------
+
     public boolean mensagemAtiva = false;
     //public String mensagem = "";
     //int contadorDeMensagens = 0;
@@ -198,11 +209,12 @@ public class InterfaceDoUsuario {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
 
-        int frameX = painel.tamanhoDoTile * 1;
-        int frameY = painel.tamanhoDoTile * 2;
+        int frameLargura = painel.tamanhoDoTile * 7;
+        int frameAltura = painel.tamanhoDoTile * 5;
 
-        int frameLargura = painel.tamanhoDoTile * 8;
-        int frameAltura = painel.tamanhoDoTile * 8;
+        int frameX = painel.tamanhoDoTile * 1;
+        int frameY = painel.tamanhoDoTile * 4;
+
 
         desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
 
@@ -225,7 +237,7 @@ public class InterfaceDoUsuario {
         g2.drawString(titulo, textoX, textoY);
 
         textoX = frameX + painel.tamanhoDoTile * 1;
-        textoY += painel.tamanhoDoTile * 2;
+        textoY += painel.tamanhoDoTile * 1.5;
 
         g2.drawString("Caminho para Capela", textoX, textoY);
         if(numeroDoComando == 0){
@@ -236,7 +248,7 @@ public class InterfaceDoUsuario {
             }
         }
         textoY += painel.tamanhoDoTile;
-        textoY += painel.tamanhoDoTile * 2;
+        textoY += painel.tamanhoDoTile * 1;
         
         // Voltar
         g2.drawString("Voltar", textoX, textoY);
@@ -259,7 +271,7 @@ public class InterfaceDoUsuario {
         g2.drawString(titulo, textoX, textoY);
 
         textoX = frameX + painel.tamanhoDoTile * 1;
-        textoY += painel.tamanhoDoTile * 2;
+        textoY += painel.tamanhoDoTile * 1.5;
 
         // Mapa 1
         g2.drawString("Ascender", textoX, textoY);
@@ -271,7 +283,7 @@ public class InterfaceDoUsuario {
             }
         }
         textoY += painel.tamanhoDoTile;
-        textoY += painel.tamanhoDoTile * 2;
+        textoY += painel.tamanhoDoTile * 1;
 
         // Voltar
         g2.drawString("Voltar", textoX, textoY);
@@ -662,6 +674,25 @@ public class InterfaceDoUsuario {
             }
 
         } else if (estadoDeRolagemTitulo == 1) {
+            // OBS: Adicionado -----------------------------------------------------
+            // --- 1. LÓGICA DE CARREGAR A IMAGEM (Só roda se mudou a seta) ---
+            if (numeroDoComando != comandoAnterior) {
+                String nomeClasse = switch (numeroDoComando) {
+                    case 0 -> "guerreiro";
+                    case 1 -> "ladrao";
+                    case 2 -> "mago";
+                    case 3 -> "piromante";
+                    default -> "none";
+                };
+
+                if (numeroDoComando != 4) {
+                    imagemPreview = carregarPreview(nomeClasse);
+                } else {
+                    imagemPreview = null;
+                }
+                comandoAnterior = numeroDoComando; // Atualiza para não carregar de novo
+            }
+            // ---------------------------------------------------------------------
             // TELA DE CLASSES
             RadialGradientPaint gradiente = new RadialGradientPaint(
                 new Point2D.Float(painel.larguraTela / 2f, painel.alturaTela / 2f),
@@ -681,13 +712,22 @@ public class InterfaceDoUsuario {
             g2.setColor(new Color(230, 230, 230));
             g2.drawString(titulo, xTitulo, yTitulo);
 
-            if (painel.jogador.baixo1 != null) {
+            // OBS: comentado e alterado
+            // -----------------------------------------------------
+            if (imagemPreview != null) {
                 int imgX = painel.tamanhoDoTile * 3;
                 int imgY = painel.tamanhoDoTile * 5;
-                int imgLargura = painel.tamanhoDoTile * 3;
-                int imgAltura = painel.tamanhoDoTile * 3;
-                g2.drawImage(painel.jogador.baixo1, imgX, imgY, imgLargura, imgAltura, null);
+                g2.drawImage(imagemPreview, imgX, imgY, null);
             }
+
+            // if (painel.jogador.baixo1 != null) {
+            //     int imgX = painel.tamanhoDoTile * 3;
+            //     int imgY = painel.tamanhoDoTile * 5;
+            //     int imgLargura = painel.tamanhoDoTile * 3;
+            //     int imgAltura = painel.tamanhoDoTile * 3;
+            //     g2.drawImage(painel.jogador.baixo1, imgX, imgY, imgLargura, imgAltura, null);
+            // }
+            // ---------------------------------------------------------------------
 
             g2.setFont(new Font("Serif", Font.PLAIN, 20));
             String[] classes = {"Guerreiro","Ladrão", "Mago", "Piromante", "Voltar"};
@@ -938,6 +978,135 @@ public class InterfaceDoUsuario {
    
     }
 
+    // public void desenhaInventario(Entidade entidade, boolean cursor){
+
+    //     int frameX = 0;
+    //     int frameY = 0;
+    //     int frameLargura = 0;
+    //     int frameAltura = 0;
+    //     int espacoColuna = 0;
+    //     int espacoLinha = 0;
+
+    //     if(entidade == painel.jogador){
+
+    //         frameX = painel.tamanhoDoTile*12;
+    //         frameY = painel.tamanhoDoTile;
+    //         frameLargura = painel.tamanhoDoTile*6;
+    //         frameAltura = painel.tamanhoDoTile*5;
+
+    //         espacoColuna = jogadorEspacoColuna;
+    //         espacoLinha = jogadorEspacoLinha;
+
+    //     }else{
+            
+    //         frameX = painel.tamanhoDoTile*2;
+    //         frameY = painel.tamanhoDoTile;
+    //         frameLargura = painel.tamanhoDoTile*6;
+    //         frameAltura = painel.tamanhoDoTile*5;
+
+    //         espacoColuna = npcEspacoColuna;
+    //         espacoLinha = npcEspacoLinha;
+    //     }
+        
+
+    //     desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
+
+    //     //espaços
+    //     final int espacoInicialX = frameX + 20;
+    //     final int espacoInicialY = frameY + 20;
+    //     int espacoX = espacoInicialX;
+    //     int espacoY = espacoInicialY;
+    //     int tamanhoEspaco = painel.tamanhoDoTile+3;
+
+    //     //desenhar itens
+    //     for(int i = 0; i < entidade.inventario.size(); i++){
+            
+    //         //equipar arma (cursor)
+    //         if(entidade.inventario.get(i) == entidade.armaAtual ||
+    //                 entidade.inventario.get(i) == entidade.escudoAtual ||
+    //                 entidade.inventario.get(i) == entidade.luzAtual){
+                
+    //             g2.setColor(new Color(240,190,90));
+    //             g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
+
+    //         }
+               
+    //         g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
+
+    //         //display quantidade
+    //         if(entidade == painel.jogador && entidade.inventario.get(i).quantidade > 1){
+    //             g2.setFont(g2.getFont().deriveFont(32f));
+    //             int quantidadeX;
+    //             int quantidadeY;
+
+    //             String s = "" + entidade.inventario.get(i).quantidade;
+    //             quantidadeX = obterTextoXDireita(s, espacoX + 44);
+    //             quantidadeY = espacoY + painel.tamanhoDoTile;
+
+
+    //             //sombra
+    //             g2.setColor(new Color(60,60,60));
+    //             g2.drawString(s, quantidadeX, quantidadeY);
+
+    //             //numero
+    //             g2.setColor(Color.white);
+    //             g2.drawString(s, quantidadeX -3 , quantidadeY -3);
+    //         }
+
+    //         espacoX += tamanhoEspaco;
+    //         if( i == 4 || i == 9 || i == 14){
+    //             espacoX = espacoInicialX;
+    //             espacoY += tamanhoEspaco;
+    //         }
+           
+
+    //     }
+
+    //     //cursor
+    //     int cursorX = espacoInicialX + (tamanhoEspaco * espacoColuna);
+    //     int cursorY = espacoInicialY + (tamanhoEspaco * espacoLinha);
+    //     int cursorLargura = painel.tamanhoDoTile;
+    //     int cursorAltura = painel.tamanhoDoTile;
+
+    //     //desenhar cursor
+    //     if(cursor == true){
+    //         g2.setColor(Color.white);
+    //         g2.setStroke(new BasicStroke(3));
+    //         g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura , 10, 10);
+
+    //         //frame de descrição
+    //         int DframeX = frameX;
+    //         int DframeY = frameY + frameAltura;
+    //         int DframeLargura = frameLargura;
+    //         int DframeAltura = painel.tamanhoDoTile*3;
+            
+    //         // definir cor do texto **após desenhar o fundo**
+    //         g2.setFont(g2.getFont().deriveFont(28F));
+    //         g2.setColor(Color.white);
+
+    //         int textoX = DframeX + 20;
+    //         int textoY = DframeY + 40;
+           
+
+    //         //pegar o item selecionado
+    //         int itemSelecionado = pegarItemSelecionado(espacoColuna, espacoLinha);
+    //         if(itemSelecionado < entidade.inventario.size()){
+    //             desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
+                
+    //             for(String linha : entidade.inventario.get(itemSelecionado).descricao.split("\n")){
+    //                 g2.drawString(linha, textoX, textoY);
+    //                 textoY += 32;
+    //             }
+                
+    //             //durabilidade - fazer uma verificação para atribuir a todos os objetos
+    //             //g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, textoX, textoY+20);
+    //         }
+            
+    //     }
+        
+
+    // }
+
     public void desenhaInventario(Entidade entidade, boolean cursor){
 
         int frameX = 0;
@@ -981,44 +1150,49 @@ public class InterfaceDoUsuario {
         //desenhar itens
         for(int i = 0; i < entidade.inventario.size(); i++){
             
-            //equipar arma (cursor)
-            if(entidade.inventario.get(i) == entidade.armaAtual ||
-                    entidade.inventario.get(i) == entidade.escudoAtual ||
-                    entidade.inventario.get(i) == entidade.luzAtual){
+            // --- TRAVA DE SEGURANÇA 1: Só desenha se o item não for nulo ---
+            if (entidade.inventario.get(i) != null) {
                 
-                g2.setColor(new Color(240,190,90));
-                g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
+                //equipar arma (cursor)
+                if(entidade.inventario.get(i) == entidade.armaAtual ||
+                        entidade.inventario.get(i) == entidade.escudoAtual ||
+                        entidade.inventario.get(i) == entidade.luzAtual){
+                    
+                    g2.setColor(new Color(240,190,90));
+                    g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
 
-            }
-               
-            g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
+                }
+                   
+                g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
 
-            //display quantidade
-            if(entidade == painel.jogador && entidade.inventario.get(i).quantidade > 1){
-                g2.setFont(g2.getFont().deriveFont(32f));
-                int quantidadeX;
-                int quantidadeY;
+                //display quantidade
+                if(entidade == painel.jogador && entidade.inventario.get(i).quantidade > 1){
+                    g2.setFont(g2.getFont().deriveFont(32f));
+                    int quantidadeX;
+                    int quantidadeY;
 
-                String s = "" + entidade.inventario.get(i).quantidade;
-                quantidadeX = obterTextoXDireita(s, espacoX + 44);
-                quantidadeY = espacoY + painel.tamanhoDoTile;
+                    String s = "" + entidade.inventario.get(i).quantidade;
+                    quantidadeX = obterTextoXDireita(s, espacoX + 44);
+                    quantidadeY = espacoY + painel.tamanhoDoTile;
 
 
-                //sombra
-                g2.setColor(new Color(60,60,60));
-                g2.drawString(s, quantidadeX, quantidadeY);
+                    //sombra
+                    g2.setColor(new Color(60,60,60));
+                    g2.drawString(s, quantidadeX, quantidadeY);
 
-                //numero
-                g2.setColor(Color.white);
-                g2.drawString(s, quantidadeX -3 , quantidadeY -3);
-            }
+                    //numero
+                    g2.setColor(Color.white);
+                    g2.drawString(s, quantidadeX -3 , quantidadeY -3);
+                }
+            } // --- FIM DA TRAVA DE SEGURANÇA 1 ---
 
+            // O avanço dos "quadradinhos" do inventário fica de fora do if para a grade não quebrar
             espacoX += tamanhoEspaco;
             if( i == 4 || i == 9 || i == 14){
                 espacoX = espacoInicialX;
                 espacoY += tamanhoEspaco;
             }
-           
+            
 
         }
 
@@ -1046,11 +1220,13 @@ public class InterfaceDoUsuario {
 
             int textoX = DframeX + 20;
             int textoY = DframeY + 40;
-           
+            
 
             //pegar o item selecionado
             int itemSelecionado = pegarItemSelecionado(espacoColuna, espacoLinha);
-            if(itemSelecionado < entidade.inventario.size()){
+            
+            // --- TRAVA DE SEGURANÇA 2: Só exibe a descrição se houver item naquele espaço! ---
+            if(itemSelecionado < entidade.inventario.size() && entidade.inventario.get(itemSelecionado) != null){
                 desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
                 
                 for(String linha : entidade.inventario.get(itemSelecionado).descricao.split("\n")){
@@ -1066,7 +1242,6 @@ public class InterfaceDoUsuario {
         
 
     }
-
 
     public void desenharTelaDeOpcoes(){
         g2.setColor(Color.white);
@@ -1284,6 +1459,7 @@ public class InterfaceDoUsuario {
                 painel.interfaceDoUsuario.estadoDeRolagemTitulo = 0;
                 painel.estadoDoJogo = painel.tituloEstado;
                 painel.reiniciarJogo(true);
+                // painel.teclado.precionarEnter = false;
             }
         }
 
@@ -1298,6 +1474,7 @@ public class InterfaceDoUsuario {
             if(painel.teclado.precionarEnter == true){
                 subEstado = 0;
                 numeroDoComando = 4;
+                // painel.teclado.precionarEnter = false;
             }
         }
     }
@@ -1729,6 +1906,171 @@ public class InterfaceDoUsuario {
         return x;
     }
     
+    // OBS: Adicionado -----------------------------------------------------
+    public void confirmarEscolhaDeClasse() {
+        System.err.println("nome da classsss: " + numeroDoComando);
+
+        String classeEscolhida = "";
+
+        // classe o jogador escolheu no menu
+        switch (numeroDoComando) {
+            case 0:
+                classeEscolhida = "guerreiro";
+                break;
+            case 1:
+                classeEscolhida = "ladrao";
+                break;
+            case 2:
+                classeEscolhida = "mago";
+                break;
+            case 3:
+                classeEscolhida = "piromante";
+                break;
+            case 4: // Voltar
+                estadoDeRolagemTitulo = 0;
+                numeroDoComando = 0;
+                return; // Sai do método sem iniciar o jogo
+        }
+
+        painel.jogador.carregarImagemPorClasse(classeEscolhida);
+        painel.jogador.setItens(classeEscolhida);
+        // painel.reiniciarJogo(true);
+        painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+        // painel.iniciarMusica(0);
+    }
+
+    // public void confirmarEscolhaDeClasse() {
+
+    //     // Reseta o jogador para evitar bugs se ele voltar ao menu
+    //     // painel.jogador.resetarAtributos();
+    //     System.err.println("nome da classsss: " + numeroDoComando);
+
+    //     switch (numeroDoComando) {
+    //         case 0:
+    //             definirGuerreiro();
+    //             break;
+    //         case 1:
+    //             definirLadrao();
+    //             break;
+    //         case 2:
+    //             definirMago();
+    //             break;
+    //         case 3:
+    //             definirPiromante();
+    //             break;
+    //         case 4: // Voltar
+    //             estadoDeRolagemTitulo = 0;
+    //             numeroDoComando = 0;
+    //             return; // Sai do método sem iniciar o jogo
+    //     }
+
+    //     // Após definir a classe, inicia o jogo
+    //     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
+    //     // painel.iniciarMusica(0); // Toca a música da fase
+    // }
+
+    // public void definirGuerreiro() {
+    //     painel.jogador.carregarImagemPorClasse("guerreiro");
+
+    //     // painel.jogador.vidaMaxima = 10;
+    //     // painel.jogador.vida = 10;
+    //     // painel.jogador.forca = 5;
+    //     // painel.jogador.destreza = 2;
+    //     // painel.jogador.manaMaxima = 2;
+    //     // painel.jogador.mana = 2;
+
+    //     // 3. Itens Iniciais (Certifique-se que você tem essas classes criadas em
+    //     // objeto)
+    //     painel.jogador.armaAtual = new ObjEspadaNormal(painel);
+    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
+    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
+    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
+    // }
+
+    // public void definirLadrao() {
+    //     painel.jogador.carregarImagemPorClasse("ladrao");
+
+    //     // painel.jogador.vidaMaxima = 8;
+    //     // painel.jogador.vida = 8;
+    //     // painel.jogador.forca = 2;
+    //     // painel.jogador.destreza = 6;
+    //     // painel.jogador.manaMaxima = 4;
+    //     // painel.jogador.mana = 4;
+
+    //     painel.jogador.armaAtual = new ObjAdaga(painel);
+    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
+    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
+    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
+    //     // painel.jogador.armaAtual = new Obj_Adaga(painel);
+    //     // painel.jogador.inventario.add(painel.jogador.armaAtual);
+    // }
+
+    // public void definirMago() {
+    //     painel.jogador.carregarImagemPorClasse("mago");
+
+    //     // painel.jogador.vidaMaxima = 6;
+    //     // painel.jogador.vida = 6;
+    //     // painel.jogador.forca = 1;
+    //     // painel.jogador.destreza = 2;
+    //     // painel.jogador.manaMaxima = 10;
+    //     // painel.jogador.mana = 10;
+
+    //     painel.jogador.armaAtual = new ObjCajadoNormal(painel);
+    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
+    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
+    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
+    //     // painel.jogador.armaAtual = new Obj_Cajado_Iniciante(painel);
+    //     // painel.jogador.inventario.add(painel.jogador.armaAtual);
+    //     // Adicionar magia inicial aqui se tiver
+    // }
+
+    // public void definirPiromante() {
+    //     painel.jogador.carregarImagemPorClasse("piromante");
+
+    //     // painel.jogador.vidaMaxima = 8;
+    //     // painel.jogador.vida = 8;
+    //     // painel.jogador.forca = 3;
+    //     // painel.jogador.destreza = 3;
+    //     // painel.jogador.manaMaxima = 6;
+    //     // painel.jogador.mana = 6;
+
+    //     painel.jogador.armaAtual = new ObjCatalisadorDeFogo(painel);
+    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
+    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
+    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
+    // }
+
+    public BufferedImage carregarPreview(String nomeClasse) {
+        BufferedImage imagem = null;
+        String caminho = "/res/jogador-classe/" + nomeClasse + "/baixo1.png"; // Pega sempre o boneco de frente
+
+        try {
+            // Carrega a imagem original
+            InputStream is = getClass().getResourceAsStream(caminho);
+            if (is == null) {
+                // Se não achar a imagem da classe, carrega o 'boy' padrão para não dar erro
+                is = getClass().getResourceAsStream("/res/jogador/baixo1.png");
+            }
+
+            imagem = ImageIO.read(is);
+
+            // Escala a imagem (Zoom) para ficar grande no menu
+            // Vamos fazer ela ficar 3x maior que o tile normal para dar destaque
+            int tamanhoPreview = painel.tamanhoDoTile * 3;
+
+            BufferedImage imagemEscalada = new BufferedImage(tamanhoPreview, tamanhoPreview, imagem.getType());
+            Graphics2D g2 = imagemEscalada.createGraphics();
+            g2.drawImage(imagem, 0, 0, tamanhoPreview, tamanhoPreview, null);
+            g2.dispose();
+
+            return imagemEscalada;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    // ---------------------------------------------------------------------
     
    
 }

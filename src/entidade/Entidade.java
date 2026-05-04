@@ -143,6 +143,10 @@ public class Entidade {
     public final int tipoMensagem = 14;
     public boolean desaparecer = false;
     public final int tipoPortal = 15;
+    public final int tipoCajado = 16; 
+    public final int tipoChama = 17; 
+    public final int tipoAdaga = 18; 
+    public final int tipoMagia = 19; 
 
     public Entidade alvo;
 
@@ -408,7 +412,7 @@ public class Entidade {
 
                 // Controle de animação do sprite
                 contadorDeSprite++;
-                if(contadorDeSprite  > 24) { // A cada 10 atualizações, troca o sprite
+                if(contadorDeSprite  > 100) { // A cada 10 atualizações, troca o sprite
                     if(numeroDoSprite  == 1) {
                         numeroDoSprite  = 2; // Alterna para o segundo sprite
                     } else if(numeroDoSprite  == 2) {
@@ -586,15 +590,173 @@ public class Entidade {
         return direcaoOposta;
     }
     
-    public void ataque(){
+    // OBS: Adicionado/alterado e comentado -----------------------------------------------------
+    // public void ataque(){
+    //     contadorDeSprite++;
+
+    //     if(contadorDeSprite <= direcaoDoMovimento1){
+    //         numeroDoSprite = 1;
+    //     }
+    //     if(contadorDeSprite > direcaoDoMovimento1 && contadorDeSprite <= direcaoDoMovimento2){
+    //         numeroDoSprite = 2;
+
+    //         //Salvar posição de mundoX, mundoY, areaSolida
+    //         int AtualMundoX = mundoX;
+    //         int AtualMundoY = mundoY;
+    //         int areaSolidaLargura = areaSolida.width;
+    //         int areaSolidaAltura = areaSolida.height;
+
+    //         // Ajustar área de mundoX/Y e ataque 
+    //         switch (direcao) {
+    //             case "cima": mundoY -= areaAtaque.height; break;
+    //             case "baixo": mundoY += areaAtaque.height; break;
+    //             case "esquerda": mundoX -= areaAtaque.width; break;
+    //             case "direita": mundoX += areaAtaque.width; break;
+    //         }
+
+    //         areaSolida.width = areaAtaque.width;
+    //         areaSolida.height = areaAtaque.height;
+
+    //         if(tipo == tipoInimigo){
+
+    //             // Atacar jogador
+    //             if(painel.colisaoChecked.verificarJogador(this)){
+    //                 painel.jogador.danoJogador(ataque);
+    //             }
+
+    //             // Atacar NPC aliado
+    //             int indiceNpc = painel.colisaoChecked.verificarEntidade(this, painel.npc);
+
+    //             if(indiceNpc != 999){
+    //                 Entidade npc = painel.npc[painel.mapaAtual][indiceNpc];
+
+    //                 if(npc != null && npc.tipo == tipoNpcAliado){
+    //                     npc.danoJogador(ataque);
+    //                 }
+    //             }
+                
+    //         }
+
+            
+    //         // JOGADOR ATACA
+    //         else if (tipo == tipoJogador) {
+
+    //             // Verificar se é ataque mágico (cajado ou magia)
+    //             boolean ataqueMagicoApenas = false;
+
+    //             if (armaAtual != null && (armaAtual.tipo == tipoCajado || armaAtual.tipo == tipoChama)) {
+    //                 ataqueMagicoApenas = true;
+
+    //                 // Criar a magia
+    //                 Projetil magia = null;
+    //                 if (armaAtual.tipo == tipoChama) {
+    //                     magia = new objeto.ObjMagiaFogo(painel);
+    //                 } else if (armaAtual.tipo == tipoCajado) {
+    //                     magia = new objeto.ObjMagiaCurta(painel);
+    //                 }
+
+    //                 // Verificar se tem mana suficiente
+    //                 if (magia != null && magia.temRecursos(this)) {
+    //                     // Posição da magia
+    //                     int tiroX = this.mundoX;
+    //                     int tiroY = this.mundoY;
+
+    //                     switch (direcao) {
+    //                         case "cima": tiroY -= painel.tamanhoDoTile; break;
+    //                         case "baixo": tiroY += painel.tamanhoDoTile; break;
+    //                         case "esquerda": tiroX -= painel.tamanhoDoTile; break;
+    //                         case "direita": tiroX += painel.tamanhoDoTile; break;
+    //                     }
+
+    //                 // Invocar
+    //                 magia.setAcao(tiroX, tiroY, direcao, true, this);
+
+    //                     // Colocar no array do jogo
+    //                     for (int i = 0; i < painel.projetavel[1].length; i++) {
+    //                         if (painel.projetavel[painel.mapaAtual][i] == null) {
+    //                             painel.projetavel[painel.mapaAtual][i] = magia;
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+
+    //             // Ataque físico (só acontece se NÃO for cajado/magia)
+    //             if (!ataqueMagicoApenas) {
+    //                 int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+
+    //                 if (indiceInimigo != -1) {
+    //                     painel.jogador.danoDoInimigo(indiceInimigo, this,ataque, armaAtual.poderDoEmpurrao);
+    //                 }
+
+    //                 int indiceBlocoI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+    //                 painel.jogador.danoNoBlocoInterativo(indiceBlocoI);
+
+    //                 int indiceProjetil = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
+    //                 painel.jogador.danoDoProjetavel(indiceProjetil);
+    //             }
+    //         }
+
+
+    //         // NPC ALIADO ATACA INIMIGO
+    //         else if (tipo == tipoNpcAliado) {
+
+    //             int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+
+    //             if (indiceInimigo >= 0 &&
+    //                 indiceInimigo < painel.inimigo[painel.mapaAtual].length) {
+
+    //                 Entidade inimigo = painel.inimigo[painel.mapaAtual][indiceInimigo];
+
+    //                 if (inimigo != null && !inimigo.invencivel && inimigo.vivo) {
+
+    //                     int dano = ataque - inimigo.defesa;
+    //                     if (dano < 1) dano = 1;
+
+    //                     inimigo.vida -= dano;
+    //                     inimigo.invencivel = true;
+
+    //                     setEmpurrao(inimigo, this, poderDoEmpurrao);
+
+    //                     /* 
+    //                     if (inimigo.vida <= 0) {
+    //                         inimigo.morrendo = true;
+    //                         inimigo.vivo = false;
+
+
+    //                         // NPC aliado cumpre seu papel e desaparece do mundo
+    //                         this.vivo = false;
+    //                     }
+    //                     */
+    //                 }
+    //             }
+    //         }
+
+    //         // RESTAURAR ESTADO
+    //         mundoX = AtualMundoX;
+    //         mundoY = AtualMundoY;
+    //         areaSolida.width = areaSolidaLargura;
+    //         areaSolida.height = areaSolidaAltura;
+
+    //     }
+
+    //     // FINALIZAR ATAQUE
+    //     if(contadorDeSprite > direcaoDoMovimento2){
+    //         numeroDoSprite = 1;
+    //         contadorDeSprite = 0;
+    //         atacar = false;
+    //     }
+
+    // }
+
+  public void ataque(){
         contadorDeSprite++;
 
         if(contadorDeSprite <= direcaoDoMovimento1){
             numeroDoSprite = 1;
         }
         if(contadorDeSprite > direcaoDoMovimento1 && contadorDeSprite <= direcaoDoMovimento2){
-            numeroDoSprite = 2;
-
+            
             //Salvar posição de mundoX, mundoY, areaSolida
             int AtualMundoX = mundoX;
             int AtualMundoY = mundoY;
@@ -614,6 +776,8 @@ public class Entidade {
 
             if(tipo == tipoInimigo){
 
+                numeroDoSprite = 2;
+
                 // Atacar jogador
                 if(painel.colisaoChecked.verificarJogador(this)){
                     painel.jogador.danoJogador(ataque);
@@ -631,55 +795,99 @@ public class Entidade {
                 }
                 
             }
-
             
             // JOGADOR ATACA
             else if (tipo == tipoJogador) {
 
-                int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+                // Verificar se é ataque mágico (cajado ou chama)
+                boolean ataqueMagicoApenas = false;
 
-                if (indiceInimigo != -1) {
-                    painel.jogador.danoDoInimigo(indiceInimigo, this,ataque, armaAtual.poderDoEmpurrao);
+                if (armaAtual != null && (armaAtual.tipo == tipoCajado || armaAtual.tipo == tipoChama)) {
+                    ataqueMagicoApenas = true;
+                    
+                    numeroDoSprite = 2; // Mantém o sprite de ataque visível
+
+                    // A TRAVA CRUCIAL: Só executa no EXATO momento em que muda de frame
+                    if (contadorDeSprite == direcaoDoMovimento1 + 1) { 
+
+                        // Criar a magia
+                        Projetil magia = null;
+                        if (armaAtual.tipo == tipoChama) {
+                            magia = new objeto.ObjMagiaFogo(painel);
+                        } else if (armaAtual.tipo == tipoCajado) {
+                            magia = new objeto.ObjMagiaCurta(painel);
+                        }
+
+                        // Verificar se tem mana suficiente
+                        if (magia != null && magia.temRecursos(this)) {
+                            
+                            // Consumir a mana!
+                            magia.subtrairRecursos(this); 
+                            
+                            // Posição da magia
+                            int tiroX = this.mundoX;
+                            int tiroY = this.mundoY;
+
+                            // Invocar
+                            magia.setAcao(tiroX, tiroY, direcao, true, this);
+
+                            // Colocar no array do jogo
+                            for (int i = 0; i < painel.projetavel[1].length; i++) {
+                                if (painel.projetavel[painel.mapaAtual][i] == null) {
+                                    painel.projetavel[painel.mapaAtual][i] = magia;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
 
-                int indiceBlocoI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
-                painel.jogador.danoNoBlocoInterativo(indiceBlocoI);
+                // Ataque físico (só acontece se NÃO for cajado/magia)
+                if (!ataqueMagicoApenas) {
+                    
+                    numeroDoSprite = 2; // Atualiza o sprite para o de ataque
+                    
+                    // Trava do ataque físico (para não dar hits infinitos)
+                    if (contadorDeSprite == direcaoDoMovimento1 + 1) {
 
-                int indiceProjetil = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
-                painel.jogador.danoDoProjetavel(indiceProjetil);
+                        int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+
+                        if (indiceInimigo != -1) {
+                            painel.jogador.danoDoInimigo(indiceInimigo, this,ataque, armaAtual.poderDoEmpurrao);
+                        }
+
+                        int indiceBlocoI = painel.colisaoChecked.verificarEntidade(this, painel.blocosI);
+                        painel.jogador.danoNoBlocoInterativo(indiceBlocoI);
+
+                        int indiceProjetil = painel.colisaoChecked.verificarEntidade(this, painel.projetavel);
+                        painel.jogador.danoDoProjetavel(indiceProjetil);
+                    }
+                }
             }
-
 
             // NPC ALIADO ATACA INIMIGO
             else if (tipo == tipoNpcAliado) {
+                numeroDoSprite = 2;
+                
+                // Trava para o NPC não bater infinitamente
+                if(contadorDeSprite == direcaoDoMovimento1 + 1) {
+                    int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
 
-                int indiceInimigo = painel.colisaoChecked.verificarEntidade(this, painel.inimigo);
+                    if (indiceInimigo >= 0 &&
+                        indiceInimigo < painel.inimigo[painel.mapaAtual].length) {
 
-                if (indiceInimigo >= 0 &&
-                    indiceInimigo < painel.inimigo[painel.mapaAtual].length) {
+                        Entidade inimigo = painel.inimigo[painel.mapaAtual][indiceInimigo];
 
-                    Entidade inimigo = painel.inimigo[painel.mapaAtual][indiceInimigo];
+                        if (inimigo != null && !inimigo.invencivel && inimigo.vivo) {
 
-                    if (inimigo != null && !inimigo.invencivel && inimigo.vivo) {
+                            int dano = ataque - inimigo.defesa;
+                            if (dano < 1) dano = 1;
 
-                        int dano = ataque - inimigo.defesa;
-                        if (dano < 1) dano = 1;
+                            inimigo.vida -= dano;
+                            inimigo.invencivel = true;
 
-                        inimigo.vida -= dano;
-                        inimigo.invencivel = true;
-
-                        setEmpurrao(inimigo, this, poderDoEmpurrao);
-
-                        /* 
-                        if (inimigo.vida <= 0) {
-                            inimigo.morrendo = true;
-                            inimigo.vivo = false;
-
-
-                            // NPC aliado cumpre seu papel e desaparece do mundo
-                            this.vivo = false;
+                            setEmpurrao(inimigo, this, poderDoEmpurrao);
                         }
-                        */
                     }
                 }
             }
@@ -692,7 +900,7 @@ public class Entidade {
 
         }
 
-        // FINALIZAR ATAQUE
+        // FINALIZAR ATAQUE E APLICAR COOLDOWN
         if(contadorDeSprite > direcaoDoMovimento2){
             numeroDoSprite = 1;
             contadorDeSprite = 0;
@@ -700,6 +908,7 @@ public class Entidade {
         }
 
     }
+    // ---------------------------------------------------------------------
 
     public void receberDano(Entidade atacante){
 

@@ -42,11 +42,15 @@ public class Principal {
     // terminal powershell
     // mkdir bin
     // javac -d bin (Get-ChildItem src -Recurse -Filter *.java | ForEach-Object { $_.FullName })
+    //OBS: tiver que usar o código abaixo por conta de acentuação do portuguÊs
+    // javac -encoding UTF-8 -d bin (Get-ChildItem src -Recurse -Filter *.java | ForEach-Object { $_.FullName })
     
     // usar SEMPRE que atualizar o projeto (alteração nos recursos/arquivos de texto/imagem/som) 
     // Copy-Item -Recurse -Force res bin/
-    
 
+    // Rodar o projeto
+    // java -cp bin main.Principal
+    
 }
 
 

@@ -22,9 +22,11 @@ public class ArvoreSeca extends BlocosInterativos{
     
     public boolean itemCorreto(Entidade entidade){
         boolean itemCorreto = false;
-
+    
+        //OBS: Adicionado -----------------------------------------------------
         //qualquer arma pode cortar uma árvore
-        if(entidade.armaAtual.tipo == tipoPicareta || entidade.armaAtual.tipo == tipoMachado || entidade.armaAtual.tipo == tipoEspada){
+        if(entidade.armaAtual != null && (entidade.armaAtual.tipo == tipoPicareta || entidade.armaAtual.tipo == tipoMachado || entidade.armaAtual.tipo == tipoEspada || entidade.armaAtual.tipo == tipoAdaga || entidade.armaAtual.tipo == tipoCajado || entidade.armaAtual.tipo == tipoChama)){
+        //--------------------------------------------------------------------
             itemCorreto = true;
         }
 
