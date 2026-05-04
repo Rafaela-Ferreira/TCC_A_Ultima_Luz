@@ -181,11 +181,19 @@ public class PainelDoJogo extends JPanel implements Runnable {
         //jogador.almasPerdidas = 0;
 
         jogador.reiniciarContador();
+
+        jogador.morto = false;       // Avisa que ele não está mais morto!
+        jogador.vivo = true;         // Garante que o status é de vivo
+        jogador.atacar = false;      // Cancela qualquer ataque travado
+        jogador.empurrao = false;    // Cancela travamento de empurrão
+        jogador.exausto = false;     // Tira a exaustão se ele morreu sem estamina
+        jogador.cancelarAtaque = false;
+        
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
 
         if(reiniciar == true){
-            jogador.setDefaultValues();
+            jogador.setDefaultValues();;
             criarObjetos.setarObjetos(); 
             criarObjetos.setBlocosInterativos();
             gerenciadorDeAmbientes.iluminacao.reiniciarDia();
@@ -560,8 +568,9 @@ public class PainelDoJogo extends JPanel implements Runnable {
     }
 
     public void iniciarEfeitoSonoro(int i){
-        efeitoSonoro.setArquivo(i); 
-        efeitoSonoro.iniciar(); 
+        efeitoSonoro.tocarEfeitoConcorrente(i);
+        // efeitoSonoro.setArquivo(i); 
+        // efeitoSonoro.iniciar(); 
     }
 
     //para a chuva

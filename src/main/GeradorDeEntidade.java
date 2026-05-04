@@ -1,6 +1,7 @@
 package main;
 
 import entidade.Entidade;
+import objeto.ObjAdaga;
 import objeto.ObjAlma;
 import objeto.ObjAlmaGrande;
 import objeto.ObjAlmaMedia;
@@ -10,6 +11,8 @@ import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjBolaDeFogo;
 import objeto.ObjBota;
+import objeto.ObjCajadoNormal;
+import objeto.ObjCatalisadorDeFogo;
 import objeto.ObjChave;
 import objeto.ObjCoracao;
 import objeto.ObjEscudoAzul;
@@ -52,6 +55,9 @@ public class GeradorDeEntidade {
             case ObjMachado.objNome : objeto = new ObjMachado(painel); break;
             case ObjEspadaEnferrujada.objNome : objeto = new ObjEspadaEnferrujada(painel); break;
             case ObjEspadaNormal.objNome : objeto = new ObjEspadaNormal(painel); break;
+            case ObjCatalisadorDeFogo.objNome : objeto = new ObjCatalisadorDeFogo(painel); break;
+            case ObjAdaga.objNome : objeto = new ObjAdaga(painel); break;
+            case ObjCajadoNormal.objNome : objeto = new ObjCajadoNormal(painel); break;
             case ObjBolaDeFogo.objNome : objeto = new ObjBolaDeFogo(painel); break;
             case ObjPedra.objNome : objeto = new ObjPedra(painel); break;
             case ObjPicareta.objNome : objeto = new ObjPicareta(painel); break;

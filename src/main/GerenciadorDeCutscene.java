@@ -90,6 +90,20 @@ public class GerenciadorDeCutscene {
             desenharFundoPreto(1f);
             desenharString(alpha, 36f, painel.alturaTela / 2 - 100, texto, 45);
 
+            // OBS: Adicionado -----------------------------------------------------
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(24f));
+            String textoPular = "Pular [ENTER]";
+            g2.drawString(textoPular, painel.larguraTela - 200, painel.alturaTela - 50);
+
+            if (painel.teclado.precionarEnter == true) {
+                faseDaCena = 2;
+                alpha = 1f;
+                contador = 800;
+                painel.teclado.precionarEnter = false;
+            }
+            // ---------------------------------------------------------------------
+
             if (contadorAlcancado(800)) {
                 faseDaCena++;
                 alpha = 0f; 
@@ -415,7 +429,7 @@ public class GerenciadorDeCutscene {
         }
         if(faseDaCena == 4){
             //retornar ao jogador
-            for(int i = 0; i < painel.npc[1].length; i++){
+            for(int i = 0; i < painel.npc[painel.mapaAtual].length; i++){
                 
                 if(painel.npc[painel.mapaAtual][i] != null &&
                     painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
@@ -505,7 +519,7 @@ public class GerenciadorDeCutscene {
         }
         if(faseDaCena == 4){
             //retornar ao jogador
-            for(int i = 0; i < painel.npc[1].length; i++){
+            for(int i = 0; i < painel.npc[painel.mapaAtual].length; i++){
                 
                 if(painel.npc[painel.mapaAtual][i] != null &&
                     painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
@@ -595,7 +609,7 @@ public class GerenciadorDeCutscene {
         }
         if(faseDaCena == 4){
             //retornar ao jogador
-            for(int i = 0; i < painel.npc[1].length; i++){
+            for(int i = 0; i < painel.npc[painel.mapaAtual].length; i++){
                 
                 if(painel.npc[painel.mapaAtual][i] != null &&
                     painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){
@@ -685,7 +699,7 @@ public class GerenciadorDeCutscene {
         }
         if(faseDaCena == 4){
             //retornar ao jogador
-            for(int i = 0; i < painel.npc[1].length; i++){
+            for(int i = 0; i < painel.npc[painel.mapaAtual].length; i++){
                 
                 if(painel.npc[painel.mapaAtual][i] != null &&
                     painel.npc[painel.mapaAtual][i].nome.equals(jogadorManequim.nomeNpc)){

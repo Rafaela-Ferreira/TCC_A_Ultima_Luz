@@ -18,8 +18,8 @@ public class ObjEspadaNormal  extends Entidade{
         areaAtaque.height = 36;
         descricao = "[" + nome + "]\n mas eficaz.";
         preco = 200;
-        direcaoDoMovimento1 = 2;
-        direcaoDoMovimento2 = 10;
+        direcaoDoMovimento1 = 10;
+        direcaoDoMovimento2 = 30;
 
         durabilidade = 100;
 

@@ -128,7 +128,7 @@ public class Mapa extends GerenciadorDeBlocos{
         int mensagemY = 450;
 
         for(String linha: mensagem.split("\n")){
-           // g2.drawString(linha , 700, mensagemY);
+           g2.drawString(linha , 700, mensagemY);
             mensagemY += 40;
         }
     }

@@ -1,7 +1,10 @@
 package entidade;
 
 import main.PainelDoJogo;
+import objeto.ObjAdaga;
 import objeto.ObjBarraca;
+import objeto.ObjCajadoNormal;
+import objeto.ObjCatalisadorDeFogo;
 import objeto.ObjChave;
 import objeto.ObjEscudoAzul;
 import objeto.ObjEscudoMadeira;
@@ -47,15 +50,18 @@ public class NpcComerciante extends Entidade{
     public void setItens(){
         inventario.add(new ObjPocaoVermelha(painel));
         inventario.add(new ObjChave(painel));
-        inventario.add(new ObjChave(painel));
-        inventario.add(new ObjEspadaNormal(painel));
-        inventario.add(new ObjMachado(painel));
+        // inventario.add(new ObjChave(painel));
         inventario.add(new ObjEscudoMadeira(painel));
         inventario.add(new ObjEscudoAzul(painel));
+        inventario.add(new ObjMachado(painel));
         inventario.add(new ObjLanterna(painel));
         inventario.add(new ObjBarraca(painel));
+        inventario.add(new ObjEspadaNormal(painel));
+        // inventario.add(new ObjEspadaEnferrujada(painel));
         inventario.add(new ObjEspadaEnferrujada(painel));
-        inventario.add(new ObjEspadaEnferrujada(painel));
+        inventario.add(new ObjCatalisadorDeFogo(painel));
+        inventario.add(new ObjAdaga(painel));
+        inventario.add(new ObjCajadoNormal(painel));
 
     }
 

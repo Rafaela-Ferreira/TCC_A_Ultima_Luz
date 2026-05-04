@@ -5,16 +5,18 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 
 public class Som {
-    Clip clip; //abre um arquivo de musica
+    Clip clip; // abre um arquivo de musica
     URL somURL[] = new URL[30];
     FloatControl fc;
 
     int escalaDoVolume = 3;
     float volume;
 
-    public Som(){
+    public Som() {
         somURL[0] = getClass().getResource("/res/Som/ApocalypticEchoes.wav");
         somURL[1] = getClass().getResource("/res/Som/coin.wav");
         somURL[2] = getClass().getResource("/res/Som/powerup.wav");
@@ -44,44 +46,103 @@ public class Som {
         somURL[24] = getClass().getResource("/res/Som/Veil.wav");
         somURL[25] = getClass().getResource("/res/Som/DreadRequiem.wav");
         somURL[26] = getClass().getResource("/res/Som/Twilight.wav");
-        
+
     }
 
-    public void setArquivo(int indice){
+    public void setArquivo(int indice) {
         try {
+            // Se já tiver uma música tocando ou parada na memória, fecha ela completamente!
+            if (clip != null) {
+                clip.stop();
+                clip.close();
+            }
+
             AudioInputStream entradaSaídaAudio = AudioSystem.getAudioInputStream(somURL[indice]);
             clip = AudioSystem.getClip();
             clip.open(entradaSaídaAudio);
-            fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+            fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             VerificarVolume();
 
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
     }
 
-    public void iniciar(){
+    public void iniciar() {
         clip.start();
     }
 
-    public void repetir(){
+    public void repetir() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void parar(){
-        clip.stop();
+    public void parar() {
+        if (clip != null) {
+            clip.stop();
+        }
     }
 
-    public void VerificarVolume(){
+    public void VerificarVolume() {
         switch (escalaDoVolume) {
-            case 0: volume = -80f; break;
-            case 1:  volume = -20f; break;
-            case 2:  volume = -12f; break;
-            case 3:  volume = -5f; break;
-            case 4:  volume = 1f; break;
-            case 5: volume = 6f; break;
+            case 0:
+                volume = -80f;
+                break;
+            case 1:
+                volume = -20f;
+                break;
+            case 2:
+                volume = -12f;
+                break;
+            case 3:
+                volume = -5f;
+                break;
+            case 4:
+                volume = 1f;
+                break;
+            case 5:
+                volume = 6f;
+                break;
         }
         fc.setValue(volume);
+    }
+
+    public void tocarEfeitoConcorrente(int indice) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    AudioInputStream entradaAudio = AudioSystem.getAudioInputStream(somURL[indice]);
+                    Clip clipTemporario = AudioSystem.getClip(); // Cria um clip único para esse som
+                    clipTemporario.open(entradaAudio);
+                    FloatControl fcTemp = (FloatControl)clipTemporario.getControl(FloatControl.Type.MASTER_GAIN);
+                    
+                    float vol = -5f;
+                    switch (escalaDoVolume) {
+                        case 0: vol = -80f; break;
+                        case 1: vol = -20f; break;
+                        case 2: vol = -12f; break;
+                        case 3: vol = -5f; break;
+                        case 4: vol = 1f; break;
+                        case 5: vol = 6f; break;
+                    }
+                    fcTemp.setValue(vol);
+                    
+                    clipTemporario.start();
+                    
+                    clipTemporario.addLineListener(new LineListener() {
+                        @Override
+                        public void update(LineEvent event) {
+                            if (event.getType() == LineEvent.Type.STOP) {
+                                clipTemporario.close();
+                            }
+                        }
+                    });
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
