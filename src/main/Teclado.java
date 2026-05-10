@@ -111,7 +111,7 @@ public class Teclado implements KeyListener {
             painel.iniciarEfeitoSonoro(9);
 
             if(painel.interfaceDoUsuario.numeroDoComando < 0){
-                painel.interfaceDoUsuario.numeroDoComando = 3; // total de opções - 1
+                painel.interfaceDoUsuario.numeroDoComando = 2; // total de opções - 1
             }
         }
 
@@ -120,7 +120,7 @@ public class Teclado implements KeyListener {
             painel.interfaceDoUsuario.numeroDoComando++;
             painel.iniciarEfeitoSonoro(9);
 
-            if(painel.interfaceDoUsuario.numeroDoComando > 3){
+            if(painel.interfaceDoUsuario.numeroDoComando > 1){
                 painel.interfaceDoUsuario.numeroDoComando = 0;
             }
         }

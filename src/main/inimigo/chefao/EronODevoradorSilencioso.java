@@ -2,12 +2,9 @@ package main.inimigo.chefao;
 
 import dados.Progresso;
 import entidade.Entidade;
-import java.util.Random;
 import main.PainelDoJogo;
-import objeto.ObjCoracao;
+import objeto.ObjAlmaChefao1;
 import objeto.ObjFragmentoFaminto;
-import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
 import objeto.ObjPortaDeFerro;
 
 public class EronODevoradorSilencioso extends Entidade{
@@ -23,13 +20,13 @@ public class EronODevoradorSilencioso extends Entidade{
         tipo = tipoInimigo;
         chefe = true;
         nome = nomeBoss;
-        velocidadePadrao = 2;
+        velocidadePadrao = 1;
         velocidade = velocidadePadrao;
         vidaMaxima = 200;
         vida = vidaMaxima;
         ataque = 10;
         defesa = 2;
-        exp = 50;
+        //exp = 50;
         poderDoEmpurrao = 5;
         dormir = true;
 
@@ -165,21 +162,9 @@ public class EronODevoradorSilencioso extends Entidade{
             }
         }
 
-        //lançar um dado
-        int i = new Random().nextInt(100)+1;
+        droparItem(new ObjAlmaChefao1(painel), -16, 0);
+        droparItem(new ObjFragmentoFaminto(painel), 16, 0);
 
-        //definir o drop do inimigo 
-        if(i < 50){
-            droparItem(new ObjMoedaBronze(painel), -16, 0);
-            droparItem(new ObjFragmentoFaminto(painel), 16, 0);
-        }
-        if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel), -16, 0);
-            droparItem(new ObjFragmentoFaminto(painel), 16, 0);
-        }
-        if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel), -16, 0);
-            droparItem(new ObjFragmentoFaminto(painel), 16, 0);
-        }
+        
     }
 }

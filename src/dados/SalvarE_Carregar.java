@@ -34,6 +34,16 @@ public class SalvarE_Carregar {
             dados.proximoNivelExp = painel.jogador.proximoNivelExp;
             dados.alma = painel.jogador.alma;
 
+            dados.resistencia = painel.jogador.resistencia;
+            dados.ataque = painel.jogador.ataque;
+            dados.defesa = painel.jogador.defesa;
+            dados.classe = painel.jogador.classe;
+            dados.mundoX = painel.jogador.mundoX;
+            dados.mundoY = painel.jogador.mundoY;
+            dados.mapaAtual = painel.mapaAtual;
+            dados.areaAtual = painel.areaAtual;
+
+
             //inventario do jogador
             for(int i =0; i < painel.jogador.inventario.size(); i++){
                 dados.nomeDoItem.add(painel.jogador.inventario.get(i).nome);
@@ -74,6 +84,7 @@ public class SalvarE_Carregar {
 
             //objeto em braco de armazenamento de dados
             oos.writeObject(dados);
+            oos.close();
 
         }catch(Exception e){
             e.printStackTrace();
@@ -85,7 +96,17 @@ public class SalvarE_Carregar {
     public void carregar(){
 
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("salvar.dat")));
+
+             File arquivo = new File("salvar.dat");
+
+            if(arquivo.exists() == false){
+
+                System.out.println("Não existe save.");
+                return;
+            }
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo));
+            
             
             //ler o objeto de armazenamento de dados
             ArmazenamentoDeDados dados = (ArmazenamentoDeDados)ois.readObject();
@@ -101,6 +122,17 @@ public class SalvarE_Carregar {
             painel.jogador.proximoNivelExp = dados.proximoNivelExp;
             painel.jogador.alma = dados.alma;
 
+            painel.jogador.resistencia = dados.resistencia;
+            painel.jogador.ataque = dados.ataque;
+            painel.jogador.defesa = dados.defesa;
+            painel.jogador.classe = dados.classe;
+            painel.jogador.mundoX = dados.mundoX;
+            painel.jogador.mundoY = dados.mundoY;
+            painel.mapaAtual = dados.mapaAtual;
+            painel.areaAtual = dados.areaAtual;
+            
+        
+
             //inventario do jogador
             painel.jogador.inventario.clear();
             for(int i =0; i < dados.nomeDoItem.size(); i++){
@@ -113,9 +145,9 @@ public class SalvarE_Carregar {
             painel.jogador.escudoAtual = painel.jogador.inventario.get(dados.espacoEscudoAtual);
             painel.jogador.getDefesa();
             painel.jogador.getImagemDeAtaque();
+            
 
             //salvar os Objetos do mapa
-
             for(int numMapa = 0; numMapa < painel.maxMapa; numMapa++){
                 
                 for(int i = 0; i < painel.Obj[1].length; i++){
@@ -143,7 +175,10 @@ public class SalvarE_Carregar {
 
             }
 
+            ois.close();
+
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Exception: Erro ao carregar");
         }
     }

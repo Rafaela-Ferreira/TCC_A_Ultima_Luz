@@ -24,7 +24,7 @@ public class ObjAlma extends Entidade{
     private int calcularValorAleatorio() {
         Random random = new Random();
         int min = 5;
-        int max = 25;
+        int max = 650;
         return min + random.nextInt(max - min + 1);
     }
     

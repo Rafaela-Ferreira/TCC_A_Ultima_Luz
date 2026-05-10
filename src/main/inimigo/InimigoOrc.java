@@ -16,7 +16,6 @@ public class InimigoOrc extends Entidade{
         super(painel);
 
         this.painel = painel;
-        
 
         tipo = tipoInimigo;
         nome ="Orc";
@@ -26,9 +25,8 @@ public class InimigoOrc extends Entidade{
         vida = vidaMaxima;
         ataque = 1;
         defesa = 2;
-        exp = 10;
+        //exp = 10;
         poderDoEmpurrao = 5;
-
 
         areaSolida.x = 4;
         areaSolida.y = 4;

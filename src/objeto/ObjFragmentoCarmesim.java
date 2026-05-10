@@ -16,7 +16,7 @@ public class ObjFragmentoCarmesim extends Entidade{
         nome = objNome;
         valor = 1;
         baixo1 = setup("/res/objeto/frag4", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        descricao = "Fragmento \nnecessário para \nrestaurar a espada.";
+        descricao = "[" + nome + "]\nFragmento \nnecessário para \nrestaurar a espada.";
     }
     
     public boolean usar(Entidade entidade){

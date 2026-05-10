@@ -16,7 +16,7 @@ public class ObjFragmentoFaminto extends Entidade{
         nome = objNome;
         valor = 1;
         baixo1 = setup("/res/objeto/frag1", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        descricao = "Fragmento corrompido \npela fome eterna.";
+        descricao = "[" + nome + "]\nFragmento corrompido \npela fome eterna.";
     }
     
     public boolean usar(Entidade entidade){

@@ -3,11 +3,11 @@ package objeto;
 import entidade.Entidade;
 import main.PainelDoJogo;
 
-public class ObjDiamente extends Entidade{
+public class ObjDiamante extends Entidade{
     PainelDoJogo painel;
     public static final String objNome = "Diamante";
 
-    public ObjDiamente(PainelDoJogo painel) {
+    public ObjDiamante(PainelDoJogo painel) {
         super(painel);
 
         this.painel = painel;
@@ -22,10 +22,8 @@ public class ObjDiamente extends Entidade{
     }
 
     public void setDialogo(){
-        dialogo[0][0] = "Ninguém escapa do ciclo eterno entre \n"
-                     + "a morte e o renacimento.";
-        dialogo[0][1] = "Mas aquele que carregava o poder sabia que, um dia,\n"
-                     + "alguém ouviria seus sussuros.";
+        dialogo[0][0] = "Ninguém escapa do ciclo eterno entre \n" + "a morte e o renacimento.";
+        dialogo[0][1] = "Mas aquele que carregava o poder sabia que, um dia,\n" + "alguém ouviria seus sussuros.";
 
     }
 

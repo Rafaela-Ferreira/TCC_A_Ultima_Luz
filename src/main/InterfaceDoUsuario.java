@@ -3,11 +3,6 @@ package main;
 
 import entidade.Entidade;
 import entidade.GuardiaDaLuz;
-import objeto.ObjEspadaNormal;
-import objeto.ObjCatalisadorDeFogo;
-import objeto.ObjCajadoNormal;
-import objeto.ObjAdaga;
-
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -674,8 +669,7 @@ public class InterfaceDoUsuario {
             }
 
         } else if (estadoDeRolagemTitulo == 1) {
-            // OBS: Adicionado -----------------------------------------------------
-            // --- 1. LÓGICA DE CARREGAR A IMAGEM (Só roda se mudou a seta) ---
+            // --- LÓGICA DE CARREGAR A IMAGEM (Só roda se mudou a seta)
             if (numeroDoComando != comandoAnterior) {
                 String nomeClasse = switch (numeroDoComando) {
                     case 0 -> "guerreiro";
@@ -692,7 +686,7 @@ public class InterfaceDoUsuario {
                 }
                 comandoAnterior = numeroDoComando; // Atualiza para não carregar de novo
             }
-            // ---------------------------------------------------------------------
+
             // TELA DE CLASSES
             RadialGradientPaint gradiente = new RadialGradientPaint(
                 new Point2D.Float(painel.larguraTela / 2f, painel.alturaTela / 2f),
@@ -700,92 +694,185 @@ public class InterfaceDoUsuario {
                 new float[]{0f, 1f},
                 new Color[]{new Color(40, 40, 40, 100), new Color(0, 0, 0, 255)}
             );
+
             g2.setPaint(gradiente);
             g2.fillRect(0, 0, painel.larguraTela, painel.alturaTela);
 
             // TÍTULO
-            g2.setFont(new Font("Serif", Font.BOLD, 46));
+            g2.setFont(new Font("Serif", Font.BOLD, 42));
+
             String titulo = "ESCOLHA SUA CLASSE";
+
             int xTitulo = obterTextoXCentralizado(titulo);
             int yTitulo = painel.tamanhoDoTile * 2;
 
-            g2.setColor(new Color(230, 230, 230));
+            g2.setColor(new Color(230,230,230));
             g2.drawString(titulo, xTitulo, yTitulo);
 
-            // OBS: comentado e alterado
-            // -----------------------------------------------------
+            // DADOS DA CLASSE
+            String descricao = "";
+
+            int nivel = 1;
+            int vida = 0;
+            int mana = 0;
+            int resistencia = 0;
+            int forca = 0;
+            int destreza = 0;
+            int ataque = 0;
+            int defesa = 0;
+
+            switch (numeroDoComando) {
+
+                case 0:
+                    descricao = "Um guerreiro equilibrado, forte e resistente.";
+                    vida = 8;
+                    mana = 2;
+                    resistencia = 100;
+                    forca = 3;
+                    destreza = 2;
+                    ataque = 3;
+                    defesa = 2;
+                break;
+                case 1:
+                    descricao = "Rapido e furtivo, mestre em ataques precisos.";
+                    vida = 5;
+                    mana = 3;
+                    resistencia = 100;
+                    forca = 2;
+                    destreza = 4;
+                    ataque = 3;
+                    defesa = 2;
+                break;
+                case 2:
+                    descricao = "Manipula as forcas arcanas com sabedoria e poder.";
+                    vida = 4;
+                    mana = 8;
+                    resistencia = 100;
+                    forca = 1;
+                    destreza = 2;
+                    ataque = 1;
+                    defesa = 2;
+                break;
+                case 3:
+                    descricao = "Controla o fogo e causa danos explosivos.";
+                    vida = 5;
+                    mana = 6;
+                    resistencia = 100;
+                    forca = 2;
+                    destreza = 2;
+                    ataque = 3;
+                    defesa = 2;
+                break;
+            }
+
+            // IMAGEM DO PERSONAGEM
+            int imgX = painel.tamanhoDoTile * 3;
+            int imgY = painel.tamanhoDoTile * 4;
+
             if (imagemPreview != null) {
-                int imgX = painel.tamanhoDoTile * 3;
-                int imgY = painel.tamanhoDoTile * 5;
                 g2.drawImage(imagemPreview, imgX, imgY, null);
             }
 
-            // if (painel.jogador.baixo1 != null) {
-            //     int imgX = painel.tamanhoDoTile * 3;
-            //     int imgY = painel.tamanhoDoTile * 5;
-            //     int imgLargura = painel.tamanhoDoTile * 3;
-            //     int imgAltura = painel.tamanhoDoTile * 3;
-            //     g2.drawImage(painel.jogador.baixo1, imgX, imgY, imgLargura, imgAltura, null);
-            // }
-            // ---------------------------------------------------------------------
+            // MENU DAS CLASSES
+            g2.setFont(new Font("Serif", Font.PLAIN, 22));
 
-            g2.setFont(new Font("Serif", Font.PLAIN, 20));
-            String[] classes = {"Guerreiro","Ladrão", "Mago", "Piromante", "Voltar"};
+            String[] classes = {"Guerreiro", "Ladrao", "Mago", "Piromante", "Voltar" };
 
             int baseY = painel.tamanhoDoTile * 5;
-            int margemDireita = painel.tamanhoDoTile * 5;
+            int margemDireita = painel.tamanhoDoTile * 4;
             int bordaDireita = painel.larguraTela - margemDireita;
 
             for (int i = 0; i < classes.length; i++) {
+
                 String texto = classes[i];
+
                 int x = obterTextoXDireita(texto, bordaDireita);
-                int y = baseY + (int)(i * painel.tamanhoDoTile);
+                int y = baseY + (i * painel.tamanhoDoTile);
 
                 if (numeroDoComando == i) {
                     g2.setColor(new Color(255, 180, 60));
                     g2.drawString(">", x - painel.tamanhoDoTile, y);
-                    g2.setColor(new Color(255, 180, 80));
+                    g2.setColor(new Color(255, 210, 120));
                 } else {
-                    g2.setColor(new Color(160, 160, 160));
+                    g2.setColor(new Color(170,170,170));
                 }
-
                 g2.drawString(texto, x, y);
             }
 
             // DESCRIÇÃO
-            g2.setFont(new Font("Serif", Font.ITALIC, 20));
-            String descricao = switch (numeroDoComando) {
-                case 0 -> "Um guerreiro equilibrado, forte e resistente.";
-                case 1 -> "Rápido e furtivo, mestre em ataques precisos.";
-                case 2 -> "Manipula as forças arcanas com sabedoria e poder.";
-                case 3 -> "Consegue controlar o fogo e causar danos explosivos aos inimigos.";
-                default -> "";
-            };
-
             if (!descricao.isEmpty()) {
-                /*
-                int xDesc = painel.larguraTela / 2; 
-                int yDesc = painel.alturaTela - painel.tamanhoDoTile * 2;
-                xDesc = Math.min(xDesc, painel.larguraTela - 250); 
-                g2.setColor(new Color(200, 200, 200));
-                g2.drawString(descricao, xDesc, yDesc);
-                */
-                int imgX = painel.tamanhoDoTile * 3;
-                int imgY = painel.tamanhoDoTile * 5;
-                int imgAltura = painel.tamanhoDoTile * 3;
 
-                int xDesc = imgX; 
-                int yDesc = imgY + imgAltura + painel.tamanhoDoTile; 
+                int descX = painel.tamanhoDoTile * 1;
+                int descY = painel.tamanhoDoTile * 10;
 
-                g2.setColor(new Color(200, 200, 200));
-                g2.drawString(descricao, xDesc, yDesc);
+                g2.setFont(new Font("Serif", Font.ITALIC, 18));
+                g2.setColor(new Color(210,210,210));
+                g2.drawString(descricao, descX, descY);
             }
 
+            // CAIXA DE ATRIBUTOS
+            if (numeroDoComando != 4) {
+
+                int caixaX = painel.larguraTela / 2 - 130;
+                int caixaY = painel.tamanhoDoTile * 4;
+
+                int caixaLargura = 280;
+                int caixaAltura = 240;
+
+                // fundo
+               // g2.setColor(new Color(0,0,0,180));
+               // g2.fillRoundRect(caixaX, caixaY, caixaLargura, caixaAltura, 20, 20);
+
+                // borda
+                g2.setColor(new Color(255,180,80));
+                g2.drawRoundRect(caixaX, caixaY, caixaLargura, caixaAltura, 20, 20);
+
+                // titulo
+                g2.setFont(new Font("Serif", Font.BOLD, 20));
+                g2.setColor(new Color(255,200,120));
+                g2.drawString("ATRIBUTOS", caixaX + 70, caixaY + 30);
+
+                // atributos
+                g2.setFont(new Font("Serif", Font.PLAIN, 18));
+                g2.setColor(Color.white);
+
+                int textoX = caixaX + 20;
+                int textoY = caixaY + 60;
+
+                g2.drawString("Nivel: " + nivel, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Vida: " + vida, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Mana: " + mana, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Resistencia: " + resistencia, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Forca: " + forca, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Destreza: " + destreza, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Ataque: " + ataque, textoX, textoY);
+                textoY += 22;
+
+                g2.drawString("Defesa: " + defesa, textoX, textoY);
+            }
+
+            // PARTICULAS
             for (int i = 0; i < 40; i++) {
+
                 int px = (int)(Math.random() * painel.larguraTela);
                 int py = (int)(Math.random() * painel.alturaTela);
+
                 int alpha = 30 + (int)(Math.random() * 60);
-                g2.setColor(new Color(255, 255, 255, alpha));
+
+                g2.setColor(new Color(255,255,255,alpha));
+
                 g2.fillRect(px, py, 2, 2);
             }
         }
@@ -978,135 +1065,135 @@ public class InterfaceDoUsuario {
    
     }
 
-    // public void desenhaInventario(Entidade entidade, boolean cursor){
+    /* 
+     public void desenhaInventario(Entidade entidade, boolean cursor){
 
-    //     int frameX = 0;
-    //     int frameY = 0;
-    //     int frameLargura = 0;
-    //     int frameAltura = 0;
-    //     int espacoColuna = 0;
-    //     int espacoLinha = 0;
+         int frameX = 0;
+         int frameY = 0;
+         int frameLargura = 0;
+         int frameAltura = 0;
+         int espacoColuna = 0;
+         int espacoLinha = 0;
 
-    //     if(entidade == painel.jogador){
+         if(entidade == painel.jogador){
 
-    //         frameX = painel.tamanhoDoTile*12;
-    //         frameY = painel.tamanhoDoTile;
-    //         frameLargura = painel.tamanhoDoTile*6;
-    //         frameAltura = painel.tamanhoDoTile*5;
+             frameX = painel.tamanhoDoTile*12;
+             frameY = painel.tamanhoDoTile;
+             frameLargura = painel.tamanhoDoTile*6;
+             frameAltura = painel.tamanhoDoTile*5;
 
-    //         espacoColuna = jogadorEspacoColuna;
-    //         espacoLinha = jogadorEspacoLinha;
+             espacoColuna = jogadorEspacoColuna;
+             espacoLinha = jogadorEspacoLinha;
 
-    //     }else{
+         }else{
             
-    //         frameX = painel.tamanhoDoTile*2;
-    //         frameY = painel.tamanhoDoTile;
-    //         frameLargura = painel.tamanhoDoTile*6;
-    //         frameAltura = painel.tamanhoDoTile*5;
+             frameX = painel.tamanhoDoTile*2;
+             frameY = painel.tamanhoDoTile;
+             frameLargura = painel.tamanhoDoTile*6;
+             frameAltura = painel.tamanhoDoTile*5;
 
-    //         espacoColuna = npcEspacoColuna;
-    //         espacoLinha = npcEspacoLinha;
-    //     }
+             espacoColuna = npcEspacoColuna;
+             espacoLinha = npcEspacoLinha;
+         }
         
 
-    //     desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
+         desenharSubJanela(frameX, frameY, frameLargura, frameAltura);
 
-    //     //espaços
-    //     final int espacoInicialX = frameX + 20;
-    //     final int espacoInicialY = frameY + 20;
-    //     int espacoX = espacoInicialX;
-    //     int espacoY = espacoInicialY;
-    //     int tamanhoEspaco = painel.tamanhoDoTile+3;
+         //espaços
+         final int espacoInicialX = frameX + 20;
+         final int espacoInicialY = frameY + 20;
+         int espacoX = espacoInicialX;
+         int espacoY = espacoInicialY;
+         int tamanhoEspaco = painel.tamanhoDoTile+3;
 
-    //     //desenhar itens
-    //     for(int i = 0; i < entidade.inventario.size(); i++){
+         //desenhar itens
+         for(int i = 0; i < entidade.inventario.size(); i++){
             
-    //         //equipar arma (cursor)
-    //         if(entidade.inventario.get(i) == entidade.armaAtual ||
-    //                 entidade.inventario.get(i) == entidade.escudoAtual ||
-    //                 entidade.inventario.get(i) == entidade.luzAtual){
+             //equipar arma (cursor)
+             if(entidade.inventario.get(i) == entidade.armaAtual ||
+                     entidade.inventario.get(i) == entidade.escudoAtual ||
+                     entidade.inventario.get(i) == entidade.luzAtual){
                 
-    //             g2.setColor(new Color(240,190,90));
-    //             g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
+                 g2.setColor(new Color(240,190,90));
+                 g2.fillRoundRect(espacoX, espacoY, painel.tamanhoDoTile, painel.tamanhoDoTile, 10, 10);
 
-    //         }
+             }
                
-    //         g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
+             g2.drawImage(entidade.inventario.get(i).baixo1, espacoX, espacoY, null);
 
-    //         //display quantidade
-    //         if(entidade == painel.jogador && entidade.inventario.get(i).quantidade > 1){
-    //             g2.setFont(g2.getFont().deriveFont(32f));
-    //             int quantidadeX;
-    //             int quantidadeY;
+             //display quantidade
+             if(entidade == painel.jogador && entidade.inventario.get(i).quantidade > 1){
+                 g2.setFont(g2.getFont().deriveFont(32f));
+                 int quantidadeX;
+                 int quantidadeY;
 
-    //             String s = "" + entidade.inventario.get(i).quantidade;
-    //             quantidadeX = obterTextoXDireita(s, espacoX + 44);
-    //             quantidadeY = espacoY + painel.tamanhoDoTile;
+                 String s = "" + entidade.inventario.get(i).quantidade;
+                 quantidadeX = obterTextoXDireita(s, espacoX + 44);
+                 quantidadeY = espacoY + painel.tamanhoDoTile;
 
 
-    //             //sombra
-    //             g2.setColor(new Color(60,60,60));
-    //             g2.drawString(s, quantidadeX, quantidadeY);
+                 //sombra
+                 g2.setColor(new Color(60,60,60));
+                 g2.drawString(s, quantidadeX, quantidadeY);
 
-    //             //numero
-    //             g2.setColor(Color.white);
-    //             g2.drawString(s, quantidadeX -3 , quantidadeY -3);
-    //         }
+                 //numero
+                 g2.setColor(Color.white);
+                 g2.drawString(s, quantidadeX -3 , quantidadeY -3);
+             }
 
-    //         espacoX += tamanhoEspaco;
-    //         if( i == 4 || i == 9 || i == 14){
-    //             espacoX = espacoInicialX;
-    //             espacoY += tamanhoEspaco;
-    //         }
+             espacoX += tamanhoEspaco;
+             if( i == 4 || i == 9 || i == 14){
+                 espacoX = espacoInicialX;
+                 espacoY += tamanhoEspaco;
+             }
            
 
-    //     }
+         }
 
-    //     //cursor
-    //     int cursorX = espacoInicialX + (tamanhoEspaco * espacoColuna);
-    //     int cursorY = espacoInicialY + (tamanhoEspaco * espacoLinha);
-    //     int cursorLargura = painel.tamanhoDoTile;
-    //     int cursorAltura = painel.tamanhoDoTile;
+         //cursor
+         int cursorX = espacoInicialX + (tamanhoEspaco * espacoColuna);
+         int cursorY = espacoInicialY + (tamanhoEspaco * espacoLinha);
+         int cursorLargura = painel.tamanhoDoTile;
+         int cursorAltura = painel.tamanhoDoTile;
 
-    //     //desenhar cursor
-    //     if(cursor == true){
-    //         g2.setColor(Color.white);
-    //         g2.setStroke(new BasicStroke(3));
-    //         g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura , 10, 10);
+         //desenhar cursor
+         if(cursor == true){
+             g2.setColor(Color.white);
+             g2.setStroke(new BasicStroke(3));
+             g2.drawRoundRect(cursorX, cursorY, cursorLargura, cursorAltura , 10, 10);
 
-    //         //frame de descrição
-    //         int DframeX = frameX;
-    //         int DframeY = frameY + frameAltura;
-    //         int DframeLargura = frameLargura;
-    //         int DframeAltura = painel.tamanhoDoTile*3;
+             //frame de descrição
+             int DframeX = frameX;
+             int DframeY = frameY + frameAltura;
+             int DframeLargura = frameLargura;
+             int DframeAltura = painel.tamanhoDoTile*3;
             
-    //         // definir cor do texto **após desenhar o fundo**
-    //         g2.setFont(g2.getFont().deriveFont(28F));
-    //         g2.setColor(Color.white);
+             // definir cor do texto **após desenhar o fundo**
+             g2.setFont(g2.getFont().deriveFont(28F));
+             g2.setColor(Color.white);
 
-    //         int textoX = DframeX + 20;
-    //         int textoY = DframeY + 40;
+             int textoX = DframeX + 20;
+             int textoY = DframeY + 40;
            
 
-    //         //pegar o item selecionado
-    //         int itemSelecionado = pegarItemSelecionado(espacoColuna, espacoLinha);
-    //         if(itemSelecionado < entidade.inventario.size()){
-    //             desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
+             //pegar o item selecionado
+             int itemSelecionado = pegarItemSelecionado(espacoColuna, espacoLinha);
+             if(itemSelecionado < entidade.inventario.size()){
+                 desenharSubJanela(DframeX, DframeY, DframeLargura, DframeAltura);
                 
-    //             for(String linha : entidade.inventario.get(itemSelecionado).descricao.split("\n")){
-    //                 g2.drawString(linha, textoX, textoY);
-    //                 textoY += 32;
-    //             }
+                 for(String linha : entidade.inventario.get(itemSelecionado).descricao.split("\n")){
+                     g2.drawString(linha, textoX, textoY);
+                     textoY += 32;
+                 }
                 
-    //             //durabilidade - fazer uma verificação para atribuir a todos os objetos
-    //             //g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, textoX, textoY+20);
-    //         }
-            
-    //     }
-        
+                 //durabilidade - fazer uma verificação para atribuir a todos os objetos
+                 //g2.drawString("Durabilidade: " + entidade.inventario.get(itemSelecionado).durabilidade, textoX, textoY+20);
+             }
+         }
+    }
+    */
 
-    // }
-
+    
     public void desenhaInventario(Entidade entidade, boolean cursor){
 
         int frameX = 0;
@@ -1906,26 +1993,20 @@ public class InterfaceDoUsuario {
         return x;
     }
     
-    // OBS: Adicionado -----------------------------------------------------
     public void confirmarEscolhaDeClasse() {
-        System.err.println("nome da classsss: " + numeroDoComando);
-
+        //System.err.println("nome da classe: " + numeroDoComando);
         String classeEscolhida = "";
 
         // classe o jogador escolheu no menu
         switch (numeroDoComando) {
             case 0:
-                classeEscolhida = "guerreiro";
-                break;
+                classeEscolhida = "guerreiro"; break;
             case 1:
-                classeEscolhida = "ladrao";
-                break;
+                classeEscolhida = "ladrao"; break;
             case 2:
-                classeEscolhida = "mago";
-                break;
+                classeEscolhida = "mago"; break;
             case 3:
-                classeEscolhida = "piromante";
-                break;
+                classeEscolhida = "piromante"; break;
             case 4: // Voltar
                 estadoDeRolagemTitulo = 0;
                 numeroDoComando = 0;
@@ -1939,106 +2020,7 @@ public class InterfaceDoUsuario {
         // painel.iniciarMusica(0);
     }
 
-    // public void confirmarEscolhaDeClasse() {
-
-    //     // Reseta o jogador para evitar bugs se ele voltar ao menu
-    //     // painel.jogador.resetarAtributos();
-    //     System.err.println("nome da classsss: " + numeroDoComando);
-
-    //     switch (numeroDoComando) {
-    //         case 0:
-    //             definirGuerreiro();
-    //             break;
-    //         case 1:
-    //             definirLadrao();
-    //             break;
-    //         case 2:
-    //             definirMago();
-    //             break;
-    //         case 3:
-    //             definirPiromante();
-    //             break;
-    //         case 4: // Voltar
-    //             estadoDeRolagemTitulo = 0;
-    //             numeroDoComando = 0;
-    //             return; // Sai do método sem iniciar o jogo
-    //     }
-
-    //     // Após definir a classe, inicia o jogo
-    //     painel.estadoDoJogo = painel.iniciarEstadoDoJogo;
-    //     // painel.iniciarMusica(0); // Toca a música da fase
-    // }
-
-    // public void definirGuerreiro() {
-    //     painel.jogador.carregarImagemPorClasse("guerreiro");
-
-    //     // painel.jogador.vidaMaxima = 10;
-    //     // painel.jogador.vida = 10;
-    //     // painel.jogador.forca = 5;
-    //     // painel.jogador.destreza = 2;
-    //     // painel.jogador.manaMaxima = 2;
-    //     // painel.jogador.mana = 2;
-
-    //     // 3. Itens Iniciais (Certifique-se que você tem essas classes criadas em
-    //     // objeto)
-    //     painel.jogador.armaAtual = new ObjEspadaNormal(painel);
-    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
-    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
-    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
-    // }
-
-    // public void definirLadrao() {
-    //     painel.jogador.carregarImagemPorClasse("ladrao");
-
-    //     // painel.jogador.vidaMaxima = 8;
-    //     // painel.jogador.vida = 8;
-    //     // painel.jogador.forca = 2;
-    //     // painel.jogador.destreza = 6;
-    //     // painel.jogador.manaMaxima = 4;
-    //     // painel.jogador.mana = 4;
-
-    //     painel.jogador.armaAtual = new ObjAdaga(painel);
-    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
-    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
-    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
-    //     // painel.jogador.armaAtual = new Obj_Adaga(painel);
-    //     // painel.jogador.inventario.add(painel.jogador.armaAtual);
-    // }
-
-    // public void definirMago() {
-    //     painel.jogador.carregarImagemPorClasse("mago");
-
-    //     // painel.jogador.vidaMaxima = 6;
-    //     // painel.jogador.vida = 6;
-    //     // painel.jogador.forca = 1;
-    //     // painel.jogador.destreza = 2;
-    //     // painel.jogador.manaMaxima = 10;
-    //     // painel.jogador.mana = 10;
-
-    //     painel.jogador.armaAtual = new ObjCajadoNormal(painel);
-    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
-    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
-    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
-    //     // painel.jogador.armaAtual = new Obj_Cajado_Iniciante(painel);
-    //     // painel.jogador.inventario.add(painel.jogador.armaAtual);
-    //     // Adicionar magia inicial aqui se tiver
-    // }
-
-    // public void definirPiromante() {
-    //     painel.jogador.carregarImagemPorClasse("piromante");
-
-    //     // painel.jogador.vidaMaxima = 8;
-    //     // painel.jogador.vida = 8;
-    //     // painel.jogador.forca = 3;
-    //     // painel.jogador.destreza = 3;
-    //     // painel.jogador.manaMaxima = 6;
-    //     // painel.jogador.mana = 6;
-
-    //     painel.jogador.armaAtual = new ObjCatalisadorDeFogo(painel);
-    //     // painel.jogador.escudoAtual = new ObjEscudoMadeira(painel);
-    //     painel.jogador.inventario.add(painel.jogador.armaAtual);
-    //     // painel.jogador.inventario.add(painel.jogador.escudoAtual);
-    // }
+   
 
     public BufferedImage carregarPreview(String nomeClasse) {
         BufferedImage imagem = null;

@@ -16,7 +16,7 @@ public class ObjFragmentoDourado extends Entidade{
         nome = objNome;
         valor = 1;
         baixo1 = setup("/res/objeto/frag2", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        descricao = "Fragmento tomado pela\n ganância e tormento.";
+        descricao = "[" + nome + "]\nFragmento tomado pela\n ganância e tormento.";
     }
     
     public boolean usar(Entidade entidade){

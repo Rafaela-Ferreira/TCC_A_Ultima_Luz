@@ -16,7 +16,7 @@ public class ObjFragmentoCoracaoDaLamina extends Entidade{
         nome = objNome;
         valor = 1;
         baixo1 = setup("/res/objeto/frag5", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        descricao = "O núcleo sagrado e \ncorrompido da espada\nperdida";
+        descricao = "[" + nome + "]\nO núcleo sagrado e \ncorrompido da espada\nperdida";
     }
     
     public boolean usar(Entidade entidade){

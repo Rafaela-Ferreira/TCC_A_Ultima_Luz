@@ -16,7 +16,7 @@ public class ObjFragmentoOnirico extends Entidade{
         nome = objNome;
         valor = 1;
         baixo1 = setup("/res/objeto/frag7", painel.tamanhoDoTile, painel.tamanhoDoTile);
-        descricao = "Fragmento envolto \nem energia dos sonhos.";
+        descricao = "[" + nome + "]\nFragmento envolto \nem energia dos sonhos.";
     }
     
     public boolean usar(Entidade entidade){

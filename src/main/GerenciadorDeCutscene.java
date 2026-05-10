@@ -8,7 +8,7 @@ import main.inimigo.chefao.AurionOArcanjoCaido;
 import main.inimigo.chefao.EronODevoradorSilencioso;
 import main.inimigo.chefao.DariusOColecionadorDeAlmas;
 import main.inimigo.chefao.KaelgorOGuerreiroEmChamas;
-import objeto.ObjDiamente;
+import objeto.ObjDiamante;
 import objeto.ObjPortaDeFerro;
 
 public class GerenciadorDeCutscene {
@@ -164,7 +164,7 @@ public class GerenciadorDeCutscene {
 
         if(faseDaCena == 0){
             painel.pararMusica();
-            painel.interfaceDoUsuario.npc = new ObjDiamente(painel);
+            painel.interfaceDoUsuario.npc = new ObjDiamante(painel);
             faseDaCena++;
         }
         if(faseDaCena == 1){

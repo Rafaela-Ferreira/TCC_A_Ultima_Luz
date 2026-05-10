@@ -11,19 +11,16 @@ import objeto.ObjAdaga;
 import objeto.ObjAlma;
 import objeto.ObjBolaDeFogo;
 import objeto.ObjCajadoNormal;
+import objeto.ObjCatalisadorDeFogo;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaEnferrujada;
-import objeto.ObjCatalisadorDeFogo;
-import objeto.ObjMagiaCurta;
-import objeto.ObjMagiaFogo;
 
 public class Jogador extends Entidade {
     // Atributos específicos do Jogador
 
-    // OBS: Adicionado -----------------------------------------------------
     // Guarda o nome da pasta da classe atual (ex: "guerreiro", "mago")
     public String nomeClasseAtual = "guerreiro";
-    // ---------------------------------------------------------------------
+  
 
     Teclado teclado; // keyH
 
@@ -44,6 +41,9 @@ public class Jogador extends Entidade {
     public int totalAlmas = 0;
 
     public boolean morto = false;
+    public String classe;
+    
+
 
     public Jogador(PainelDoJogo painel, Teclado teclado) {
         super(painel); // estamos chamando o construtor da superClass desta class (Entidade)
@@ -65,20 +65,6 @@ public class Jogador extends Entidade {
 
     }
 
-    // OBS: Adicionado -----------------------------------------------------
-    // public void resetarAtributos() {
-    // // Limpa o inventário para não misturar itens de classes diferentes
-    // inventario.clear();
-
-    // // Reseta status de combate
-    // ataque = 0;
-    // defesa = 0;
-
-    // // Limpa os equipamentos atuais
-    // armaAtual = null;
-    // escudoAtual = null;
-    // projetil = null;
-    // }
 
     public void carregarImagemPorClasse(String nomeClasse) {
         this.nomeClasseAtual = nomeClasse;
@@ -86,7 +72,6 @@ public class Jogador extends Entidade {
         getImagemDeAtaque();
         getImagemDeDefesa();
     }
-    // ---------------------------------------------------------------------
 
     // Salva o ponto atual do jogador
     public void salvarPonto() {
@@ -114,7 +99,8 @@ public class Jogador extends Entidade {
     public void setDefaultValues() {
         mundoX = painel.tamanhoDoTile * 23;
         mundoY = painel.tamanhoDoTile * 21;
-        // painel.mapaAtual = 0; //debug
+        //painel.mapaAtual = 0; //debug
+        
 
         velocidadePadrao = 4;
         velocidade = velocidadePadrao;
@@ -122,43 +108,101 @@ public class Jogador extends Entidade {
 
         // estado do jogador
         nivel = 1;
-        vidaMaxima = 6;
-        vida = vidaMaxima;
-        manaMaxima = 4;
-        mana = manaMaxima;
+        //ESSES ATRIBUTOS SÃO ATUALIZADOS DE ACORDO COM A CLASSE ESCOLHIDA!
+        //vidaMaxima = 6;
+        //vida = vidaMaxima;
+        //manaMaxima = 4;
+        //mana = manaMaxima;
         resistenciaMaxima = 100;
         resistencia = resistenciaMaxima;
         municao = 10;
-        forca = 1; // quanto mais força ele tem, mais dano ele dá.
-        destreza = 1; // quanto mais destreza ele tem, menos dano ele recebe.
+        //forca = 1; // quanto mais força ele tem, mais dano ele dá.
+        //destreza = 1; // quanto mais destreza ele tem, menos dano ele recebe.
         fragmentoDaEspada = 0;
 
         // exp = 0;
         // proximoNivelExp = 1;
         // proximoNivelExp = proximoNivelExp+nivel;
 
-        // Debug: adicionar almas aqui!
+        // para Debug: adicionar almas aqui!
         if (!almasNoChao) {
             alma = 0;
         }
 
-        armaAtual = new ObjEspadaEnferrujada(painel);
-        // armaAtual = new ObjEspadaNormal(painel);
-        // armaAtual = new ObjMachado(painel);
-        escudoAtual = new ObjEscudoMadeira(painel);
+        //armaAtual = new ObjEspadaEnferrujada(painel);
+        //armaAtual = new ObjEspadaNormal(painel);
+        //armaAtual = new ObjMachado(painel);
+        //escudoAtual = new ObjEscudoMadeira(painel);
         luzAtual = null;
-        projetil = new ObjBolaDeFogo(painel);
+        //projetil = new ObjBolaDeFogo(painel);
         // projetil = new ObjPedra(painel); //municao
-
+       
+        setAtributosClasse(nomeClasseAtual);
+        setItens(nomeClasseAtual);
+        
         getImagem();
         getImagemDeAtaque();
         getImagemDeDefesa();
-        setItens(nomeClasseAtual);
+
+        
 
         ataque = getAtaque();
         defesa = getDefesa();
 
         setDialogo();
+    }
+
+    public void setAtributosClasse(String nomeClasse){
+
+        if(nomeClasse.equals("guerreiro")){
+            vidaMaxima = 8;
+            manaMaxima = 2;
+            forca = 3;
+            destreza = 2;
+
+            armaAtual = new ObjEspadaEnferrujada(painel);
+            projetil = new ObjBolaDeFogo(painel);
+            escudoAtual = new ObjEscudoMadeira(painel);
+        }
+
+        else if(nomeClasse.equals("ladrao")){
+            vidaMaxima = 5;
+            manaMaxima = 3;
+            forca = 2;
+            destreza = 4;
+
+            armaAtual = new ObjAdaga(painel);
+            projetil = new ObjBolaDeFogo(painel);
+            escudoAtual = new ObjEscudoMadeira(painel);
+        }
+
+        else if(nomeClasse.equals("mago")){
+            vidaMaxima = 4;
+            manaMaxima = 8;
+            forca = 1;
+            destreza = 2;
+
+            armaAtual = new ObjCajadoNormal(painel);
+            projetil = new ObjBolaDeFogo(painel);
+            escudoAtual = new ObjEscudoMadeira(painel);
+        }
+
+        else if(nomeClasse.equals("piromante")){
+            vidaMaxima = 5;
+            manaMaxima = 6;
+            forca = 2;
+            destreza = 2;
+
+            armaAtual = new ObjCatalisadorDeFogo(painel);
+            projetil = new ObjBolaDeFogo(painel);
+            escudoAtual = new ObjEscudoMadeira(painel);
+        }
+
+        vida = vidaMaxima;
+        mana = manaMaxima;
+
+        ataque = getAtaque();
+        defesa = getDefesa();
     }
 
     public void setPosicaoPadrao() {
@@ -188,9 +232,9 @@ public class Jogador extends Entidade {
     public void setItens(String nomeClasse) {
         inventario.clear(); // limpar o inventario
 
-        // inventario.add(escudoAtual);
-        // inventario.add(armaAtual);
-
+        //inventario.add(escudoAtual);
+        //inventario.add(armaAtual);
+          
         if (escudoAtual != null) {
             inventario.add(escudoAtual);
         }
@@ -203,11 +247,9 @@ public class Jogador extends Entidade {
             projetil = new ObjBolaDeFogo(painel);
         } else if (nomeClasse.equals("mago")) {
             armaAtual = new ObjCajadoNormal(painel);
-            // projetil = new ObjMagiaCurta(painel);
             projetil = new ObjBolaDeFogo(painel);
         } else if (nomeClasse.equals("piromante")) {
             armaAtual = new ObjCatalisadorDeFogo(painel);
-            // projetil = new ObjMagiaFogo(painel);
             projetil = new ObjBolaDeFogo(painel);
         }
 
@@ -215,10 +257,7 @@ public class Jogador extends Entidade {
         if (armaAtual != null) {
             inventario.add(armaAtual);
         }
-
-        // inventario.add(new ObjTocha(painel));
-        // inventario.add(new ObjChave(painel));
-        ataque = getAtaque();
+        //ataque = getAtaque();
 
     }
 

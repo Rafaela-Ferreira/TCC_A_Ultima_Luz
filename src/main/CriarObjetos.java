@@ -29,7 +29,7 @@ import objeto.ObjAlmaSombria;
 import objeto.ObjBarraca;
 import objeto.ObjBau;
 import objeto.ObjChave;
-import objeto.ObjDiamente;
+import objeto.ObjDiamante;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
 import objeto.ObjMoedaBronze;
@@ -286,7 +286,7 @@ public class CriarObjetos {
             i++;
         }
 
-        painel.Obj[numeroMapa][i] = new ObjDiamente(painel);
+        painel.Obj[numeroMapa][i] = new ObjDiamante(painel);
         painel.Obj[numeroMapa][i].mundoX = painel.tamanhoDoTile*28;
         painel.Obj[numeroMapa][i].mundoY = painel.tamanhoDoTile*8;
         i++;

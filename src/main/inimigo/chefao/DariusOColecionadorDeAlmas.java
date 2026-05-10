@@ -2,13 +2,9 @@ package main.inimigo.chefao;
 
 import dados.Progresso;
 import entidade.Entidade;
-import java.util.Random;
 import main.PainelDoJogo;
-import objeto.ObjCoracao;
+import objeto.ObjAlmaChefao2;
 import objeto.ObjFragmentoDourado;
-import objeto.ObjFragmentoFaminto;
-import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
 import objeto.ObjPortaDeFerro;
 
 public class DariusOColecionadorDeAlmas extends Entidade{
@@ -24,7 +20,7 @@ public class DariusOColecionadorDeAlmas extends Entidade{
         tipo = tipoInimigo;
         chefe = true;
         nome = nomeBoss;
-        velocidadePadrao = 2;
+        velocidadePadrao = 1;
         velocidade = velocidadePadrao;
         vidaMaxima = 80;
         vida = vidaMaxima;
@@ -148,7 +144,6 @@ public class DariusOColecionadorDeAlmas extends Entidade{
 
     }
 
-
     public void verificarDrop(){
 
         painel.batalhaComChefeAtiva = false;
@@ -166,21 +161,9 @@ public class DariusOColecionadorDeAlmas extends Entidade{
             }
         }
 
-        //lançar um dado
-        int i = new Random().nextInt(100)+1;
+        droparItem(new ObjAlmaChefao2(painel), -16, 0);
+        droparItem(new ObjFragmentoDourado(painel), 16, 0);
 
-        //definir o drop do inimigo 
-        if(i < 50){
-            droparItem(new ObjMoedaBronze(painel), -16, 0);
-            droparItem(new ObjFragmentoDourado(painel), 16, 0);
-        }
-        if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel), -16, 0);
-            droparItem(new ObjFragmentoDourado(painel),16, 0);
-        }
-        if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel), -16, 0);
-            droparItem(new ObjFragmentoDourado(painel),16, 0);
-        }
+        
     }
 }

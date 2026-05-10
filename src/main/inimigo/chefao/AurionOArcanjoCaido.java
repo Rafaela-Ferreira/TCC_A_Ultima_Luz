@@ -3,6 +3,7 @@ import dados.Progresso;
 import entidade.Entidade;
 import java.util.Random;
 import main.PainelDoJogo;
+import objeto.ObjAlmaChefao4;
 import objeto.ObjCoracao;
 import objeto.ObjFragmentoCoracaoDaLamina;
 import objeto.ObjFragmentoFaminto;
@@ -165,21 +166,9 @@ public class AurionOArcanjoCaido extends Entidade{
             }
         }
 
-        //lançar um dado
-        int i = new Random().nextInt(100)+1;
+        droparItem(new ObjAlmaChefao4(painel), -16, 0);
+        droparItem(new ObjFragmentoCoracaoDaLamina(painel), 16, 0);
 
-        //definir o drop do inimigo 
-        if(i < 50){
-            droparItem(new ObjMoedaBronze(painel), -16, 0);
-            droparItem(new ObjFragmentoCoracaoDaLamina(painel), 16, 0);
-        }
-        if(i >= 50 && i < 75){
-            droparItem(new ObjCoracao(painel), -16, 0);
-            droparItem(new ObjFragmentoCoracaoDaLamina(painel), 16, 0);
-        }
-        if(i >= 75 && i < 100){
-            droparItem(new ObjMana(painel), -16, 0);
-            droparItem(new ObjFragmentoCoracaoDaLamina(painel),16, 0);
-        }
+        
     }
 }

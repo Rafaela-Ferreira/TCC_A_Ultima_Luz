@@ -3,6 +3,10 @@ package main;
 import entidade.Entidade;
 import objeto.ObjAdaga;
 import objeto.ObjAlma;
+import objeto.ObjAlmaChefao1;
+import objeto.ObjAlmaChefao2;
+import objeto.ObjAlmaChefao3;
+import objeto.ObjAlmaChefao4;
 import objeto.ObjAlmaGrande;
 import objeto.ObjAlmaMedia;
 import objeto.ObjAlmaSombria;
@@ -14,7 +18,9 @@ import objeto.ObjBota;
 import objeto.ObjCajadoNormal;
 import objeto.ObjCatalisadorDeFogo;
 import objeto.ObjChave;
+import objeto.ObjChuva;
 import objeto.ObjCoracao;
+import objeto.ObjDiamante;
 import objeto.ObjEscudoAzul;
 import objeto.ObjEscudoMadeira;
 import objeto.ObjEspadaEnferrujada;
@@ -28,6 +34,8 @@ import objeto.ObjFragmentoOnirico;
 import objeto.ObjFragmentoSombrio;
 import objeto.ObjLanterna;
 import objeto.ObjMachado;
+import objeto.ObjMagiaCurta;
+import objeto.ObjMagiaFogo;
 import objeto.ObjMana;
 import objeto.ObjMoedaBronze;
 import objeto.ObjPedra;
@@ -53,6 +61,9 @@ public class GeradorDeEntidade {
         switch(nomeDoItem){
             //armas
             case ObjMachado.objNome : objeto = new ObjMachado(painel); break;
+            case ObjMagiaCurta.objNome : objeto = new ObjMagiaCurta(painel); break;
+            case ObjMagiaFogo.objNome : objeto = new ObjMagiaFogo(painel); break;
+            
             case ObjEspadaEnferrujada.objNome : objeto = new ObjEspadaEnferrujada(painel); break;
             case ObjEspadaNormal.objNome : objeto = new ObjEspadaNormal(painel); break;
             case ObjCatalisadorDeFogo.objNome : objeto = new ObjCatalisadorDeFogo(painel); break;
@@ -69,6 +80,7 @@ public class GeradorDeEntidade {
             //objetos
             case ObjBota.objNome: objeto = new ObjBota(painel); break;
             case ObjChave.objNome : objeto = new ObjChave(painel); break;
+            case ObjChuva.objNome : objeto = new ObjChuva(painel); break;
             case ObjPorta.objNome : objeto = new ObjPorta(painel); break;
             case ObjPortaDeFerro.objNome : objeto = new ObjPortaDeFerro(painel); break;
             case ObjBau.objNome : objeto = new ObjBau(painel); break;
@@ -78,11 +90,17 @@ public class GeradorDeEntidade {
             case ObjAlmaMedia.objNome : objeto = new ObjAlmaMedia(painel); break;
             case ObjAlmaGrande.objNome : objeto = new ObjAlmaGrande(painel); break;
             case ObjAlmaSombria.objNome : objeto = new ObjAlmaSombria(painel); break;
-            case ObjTocha.objNome : objeto = new ObjTocha(painel); break;
+            case ObjDiamante.objNome : objeto = new ObjDiamante(painel); break;
+            case ObjAlmaChefao1.objNome : objeto = new ObjAlmaChefao1(painel); break;
+            case ObjAlmaChefao2.objNome : objeto = new ObjAlmaChefao2(painel); break;
+            case ObjAlmaChefao3.objNome : objeto = new ObjAlmaChefao3(painel); break;
+            case ObjAlmaChefao4.objNome : objeto = new ObjAlmaChefao4(painel); break;
+            
 
             //iluminação
             case ObjLanterna.objNome : objeto = new ObjLanterna(painel); break;
             case ObjBarraca.objNome : objeto = new ObjBarraca(painel); break;
+            case ObjTocha.objNome : objeto = new ObjTocha(painel); break;
 
             //cura
             case ObjPocaoVermelha.objNome : objeto = new ObjPocaoVermelha(painel); break;

@@ -12,10 +12,20 @@ public class ArmazenamentoDeDados implements Serializable{
     int mana;
     int forca;
     int destreza;
+
+    int resistencia;
+    int ataque;
+    int defesa;
+
     int exp;
     int proximoNivelExp;
-    int alma; //almas
+    int alma; 
 
+    String classe;
+    int mundoX;
+    int mundoY;
+    int mapaAtual;
+    int areaAtual;
 
     //inventario do jogador
     ArrayList<String> nomeDoItem = new ArrayList<>();
@@ -29,4 +39,15 @@ public class ArmazenamentoDeDados implements Serializable{
     int objDoMapaMundoY[][];
     String nomeDosObjDeSaque[][];
     boolean objDoMapaBauAberto[][]; //mapObjectOpened
+
+    // PROGRESSO
+    boolean eronODevoradorSilencioso;
+    boolean dariusOColecionadorDeAlmas;
+    boolean aurionOArcanjoCaido;
+    boolean kaelgorOGuerreiroEmChamas;
+
+    boolean cutsceneInicialVista;
+
+    boolean invasorMapa1Derrotado;
+    boolean invasaoMapa1Ativa;
 }
