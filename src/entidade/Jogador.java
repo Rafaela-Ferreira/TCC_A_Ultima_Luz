@@ -261,13 +261,24 @@ public class Jogador extends Entidade {
 
     }
 
-    public int getAtaque() {
-        areaAtaque = armaAtual.areaAtaque;
-        direcaoDoMovimento1 = armaAtual.direcaoDoMovimento1;
-        direcaoDoMovimento2 = armaAtual.direcaoDoMovimento2;
-        return ataque = forca * armaAtual.valorAtaque;
+    // public int getAtaque() {
+    //     areaAtaque = armaAtual.areaAtaque;
+    //     direcaoDoMovimento1 = armaAtual.direcaoDoMovimento1;
+    //     direcaoDoMovimento2 = armaAtual.direcaoDoMovimento2;
+    //     return ataque = forca * armaAtual.valorAtaque;
+    // }
+public int getAtaque() {
+        if (armaAtual != null) {
+            areaAtaque = armaAtual.areaAtaque;
+            direcaoDoMovimento1 = armaAtual.direcaoDoMovimento1;
+            direcaoDoMovimento2 = armaAtual.direcaoDoMovimento2;
+            
+            // Altere de (forca * armaAtual.valorAtaque) para SOMA:
+            return ataque = forca + armaAtual.valorAtaque; 
+        } else {
+            return ataque = forca;
+        }
     }
-
     public int getDefesa() {
         return defesa = destreza * escudoAtual.valorDefesa;
     }

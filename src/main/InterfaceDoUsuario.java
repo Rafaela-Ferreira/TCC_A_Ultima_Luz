@@ -1033,10 +1033,15 @@ public class InterfaceDoUsuario {
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
 
-        valor = String.valueOf(painel.jogador.ataque);
+        // valor = String.valueOf(painel.jogador.ataque);
+        valor = String.valueOf(painel.jogador.getAtaque());
         textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
+        // valor = String.valueOf(painel.jogador.getAtaque());
+        // textoX = obterTextoXDireita(valor, bordaX);
+        // g2.drawString(valor, textoX, textoY);
+        // textoY += linhaAltura;
 
         valor = String.valueOf(painel.jogador.defesa);
         textoX = obterTextoXDireita(valor, bordaX);
@@ -1053,7 +1058,15 @@ public class InterfaceDoUsuario {
         // g2.drawString(valor, textoX, textoY);
         // textoY += linhaAltura;
 
-        valor = String.valueOf(painel.jogador.fragmentoDaEspada);
+        // valor = String.valueOf(painel.jogador.fragmentoDaEspada);
+        int totalFragmentos = 0;
+        for (Entidade item : painel.jogador.inventario) {
+            if (item != null && item.nome.contains("Fragmento")) {
+                totalFragmentos += item.quantidade; // Soma respeitando se o item for empilhável
+            }
+        }
+        valor = String.valueOf(totalFragmentos);
+
         textoX = obterTextoXDireita(valor, bordaX);
         g2.drawString(valor, textoX, textoY);
         textoY += linhaAltura;
@@ -2036,6 +2049,7 @@ public class InterfaceDoUsuario {
                 return; // Sai do método sem iniciar o jogo
         }
 
+        painel.jogador.setAtributosClasse(classeEscolhida);
         painel.jogador.carregarImagemPorClasse(classeEscolhida);
         painel.jogador.setItens(classeEscolhida);
         // painel.reiniciarJogo(true);
