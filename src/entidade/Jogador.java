@@ -17,10 +17,8 @@ import objeto.ObjEspadaEnferrujada;
 
 public class Jogador extends Entidade {
     // Atributos específicos do Jogador
-
-    // Guarda o nome da pasta da classe atual (ex: "guerreiro", "mago")
     public String nomeClasseAtual = "guerreiro";
-  
+
 
     Teclado teclado; // keyH
 
@@ -157,7 +155,7 @@ public class Jogador extends Entidade {
         if(nomeClasse.equals("guerreiro")){
             vidaMaxima = 8;
             manaMaxima = 2;
-            forca = 3;
+            forca = 2;
             destreza = 2;
 
             armaAtual = new ObjEspadaEnferrujada(painel);
@@ -190,7 +188,7 @@ public class Jogador extends Entidade {
         else if(nomeClasse.equals("piromante")){
             vidaMaxima = 5;
             manaMaxima = 6;
-            forca = 2;
+            forca = 1;
             destreza = 2;
 
             armaAtual = new ObjCatalisadorDeFogo(painel);
