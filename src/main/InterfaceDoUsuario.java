@@ -705,10 +705,10 @@ public class InterfaceDoUsuario {
                     vida = 8;
                     mana = 2;
                     resistencia = 100;
-                    forca = 3;
+                    forca = 2;
                     destreza = 2;
-                    ataque = 3;
-                    defesa = 2;
+                    // ataque = 2;
+                    // defesa = 2;
                     break;
                 case 1:
                     descricao = "Rapido e furtivo, mestre em ataques precisos.";
@@ -717,8 +717,8 @@ public class InterfaceDoUsuario {
                     resistencia = 100;
                     forca = 2;
                     destreza = 4;
-                    ataque = 3;
-                    defesa = 2;
+                    // ataque = 1;
+                    // defesa = 2;
                     break;
                 case 2:
                     descricao = "Manipula as forcas arcanas com sabedoria e poder.";
@@ -727,18 +727,18 @@ public class InterfaceDoUsuario {
                     resistencia = 100;
                     forca = 1;
                     destreza = 2;
-                    ataque = 1;
-                    defesa = 2;
+                    // ataque = 1;
+                    // defesa = 2;
                     break;
                 case 3:
                     descricao = "Controla o fogo e causa danos explosivos.";
                     vida = 5;
                     mana = 6;
                     resistencia = 100;
-                    forca = 2;
+                    forca = 1;
                     destreza = 2;
-                    ataque = 3;
-                    defesa = 2;
+                    // ataque = 2;
+                    // defesa = 2;
                     break;
             }
 
@@ -823,9 +823,9 @@ public class InterfaceDoUsuario {
             if (numeroDoComando != 4) {
 
                 int caixaLargura = 280;
-                int caixaAltura = 240;
+                int caixaAltura = 200;
                 int caixaX = painel.larguraTela - painel.tamanhoDoTile * 1 - caixaLargura;
-                int caixaY = painel.tamanhoDoTile * 4;
+                int caixaY = painel.tamanhoDoTile * 5;
 
                 // fundo
                 // g2.setColor(new Color(0,0,0,180));
@@ -865,10 +865,10 @@ public class InterfaceDoUsuario {
                 g2.drawString("Destreza: " + destreza, textoX, textoY);
                 textoY += 22;
 
-                g2.drawString("Ataque: " + ataque, textoX, textoY);
-                textoY += 22;
+                // g2.drawString("Ataque: " + ataque, textoX, textoY);
+                // textoY += 22;
 
-                g2.drawString("Defesa: " + defesa, textoX, textoY);
+                // g2.drawString("Defesa: " + defesa, textoX, textoY);
             }
 
             // PARTICULAS
