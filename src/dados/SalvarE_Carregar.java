@@ -7,20 +7,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import main.PainelDoJogo;
 
-
 public class SalvarE_Carregar {
     PainelDoJogo painel;
 
-    public SalvarE_Carregar(PainelDoJogo painel){
+    public SalvarE_Carregar(PainelDoJogo painel) {
         this.painel = painel;
     }
 
+    public void salvar() {
+        try {
 
-    public void salvar(){
-        try{
-            
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("salvar.dat")));
-        
+
             ArmazenamentoDeDados dados = new ArmazenamentoDeDados();
 
             dados.nivel = painel.jogador.nivel;
@@ -33,84 +31,115 @@ public class SalvarE_Carregar {
             dados.exp = painel.jogador.exp;
             dados.proximoNivelExp = painel.jogador.proximoNivelExp;
             dados.alma = painel.jogador.alma;
-
+            
+            dados.classe = painel.jogador.nomeClasseAtual;
             dados.resistencia = painel.jogador.resistencia;
             dados.ataque = painel.jogador.ataque;
             dados.defesa = painel.jogador.defesa;
-            dados.classe = painel.jogador.classe;
             dados.mundoX = painel.jogador.mundoX;
             dados.mundoY = painel.jogador.mundoY;
             dados.mapaAtual = painel.mapaAtual;
             dados.areaAtual = painel.areaAtual;
 
-
-            //inventario do jogador
-            for(int i =0; i < painel.jogador.inventario.size(); i++){
+            // inventario do jogador
+            for (int i = 0; i < painel.jogador.inventario.size(); i++) {
                 dados.nomeDoItem.add(painel.jogador.inventario.get(i).nome);
                 dados.quantidadeDoItem.add(painel.jogador.inventario.get(i).quantidade);
-            }            
+            }
 
-            //salvar os equipamentos atuais
+            // salvar os equipamentos atuais
             dados.espacoArmaAtual = painel.jogador.getEspacoArmaAtual();
             dados.espacoEscudoAtual = painel.jogador.getEspacoEscudoAtual();
 
-            //salvar os objetos do mapa
+            // salvar os objetos do mapa
             dados.nomeDosObjDoMapa = new String[painel.maxMapa][painel.Obj[1].length];
             dados.objDoMapaMundoX = new int[painel.maxMapa][painel.Obj[1].length];
             dados.objDoMapaMundoY = new int[painel.maxMapa][painel.Obj[1].length];
             dados.nomeDosObjDeSaque = new String[painel.maxMapa][painel.Obj[1].length];
             dados.objDoMapaBauAberto = new boolean[painel.maxMapa][painel.Obj[1].length];
 
-            for(int numMapa = 0; numMapa < painel.maxMapa; numMapa++){
+            for (int numMapa = 0; numMapa < painel.maxMapa; numMapa++) {
 
-                for(int i = 0; i < painel.Obj[1].length; i++){
-                    
-                    if(painel.Obj[numMapa][i] == null){
+                for (int i = 0; i < painel.Obj[1].length; i++) {
+
+                    if (painel.Obj[numMapa][i] == null) {
                         dados.nomeDosObjDoMapa[numMapa][i] = "NA";
 
-                    }else{
+                    } else {
                         dados.nomeDosObjDoMapa[numMapa][i] = painel.Obj[numMapa][i].nome;
                         dados.objDoMapaMundoX[numMapa][i] = painel.Obj[numMapa][i].mundoX;
                         dados.objDoMapaMundoY[numMapa][i] = painel.Obj[numMapa][i].mundoY;
-                        
-                        if(painel.Obj[numMapa][i].saque != null){
+
+                        if (painel.Obj[numMapa][i].saque != null) {
                             dados.nomeDosObjDeSaque[numMapa][i] = painel.Obj[numMapa][i].saque.nome;
                         }
                         dados.objDoMapaBauAberto[numMapa][i] = painel.Obj[numMapa][i].aberto;
                     }
                 }
-                
+
             }
 
-            //objeto em braco de armazenamento de dados
+            // objeto em braco de armazenamento de dados
+            // salvar progresso (flags de chefes, cutscenes, invasões)
+            dados.eronODevoradorSilencioso = Progresso.eronODevoradorSilencioso;
+            dados.dariusOColecionadorDeAlmas = Progresso.dariusOColecionadorDeAlmas;
+            dados.aurionOArcanjoCaido = Progresso.aurionOArcanjoCaido;
+            dados.kaelgorOGuerreiroEmChamas = Progresso.kaelgorOGuerreiroEmChamas;
+
+            dados.cutsceneInicialVista = Progresso.cutsceneInicialVista;
+
+            dados.invasorMapa1Derrotado = Progresso.invasorMapa1Derrotado;
+            dados.invasaoMapa1Ativa = Progresso.invasaoMapa1Ativa;
+
             oos.writeObject(dados);
             oos.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Exception: Erro ao salvar");
         }
-        
+
     }
 
-    public void carregar(){
+    public void carregar() {
 
         try {
 
-             File arquivo = new File("salvar.dat");
+            File arquivo = new File("salvar.dat");
 
-            if(arquivo.exists() == false){
+            if (arquivo.exists() == false) {
 
                 System.out.println("Não existe save.");
                 return;
             }
 
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo));
-            
-            
-            //ler o objeto de armazenamento de dados
-            ArmazenamentoDeDados dados = (ArmazenamentoDeDados)ois.readObject();
 
+            // ler o objeto de armazenamento de dados
+            ArmazenamentoDeDados dados = (ArmazenamentoDeDados) ois.readObject();
+
+            System.out.println("Classe salva = " + dados.classe);
+
+            // restaurar progresso (flags de chefes, cutscenes, invasões)
+            System.out.println("Eron derrotado: " + Progresso.eronODevoradorSilencioso);
+            Progresso.eronODevoradorSilencioso = dados.eronODevoradorSilencioso;
+            Progresso.dariusOColecionadorDeAlmas = dados.dariusOColecionadorDeAlmas;
+            Progresso.aurionOArcanjoCaido = dados.aurionOArcanjoCaido;
+            Progresso.kaelgorOGuerreiroEmChamas = dados.kaelgorOGuerreiroEmChamas;
+
+            Progresso.cutsceneInicialVista = dados.cutsceneInicialVista;
+
+            Progresso.invasorMapa1Derrotado = dados.invasorMapa1Derrotado;
+            Progresso.invasaoMapa1Ativa = dados.invasaoMapa1Ativa;
+
+            // Reconstruir inimigos/objetos com base no progresso carregado
+            painel.criarObjetos.setInimigos();
+
+            painel.jogador.nomeClasseAtual = dados.classe;
+            if (dados.classe == null) {
+                dados.classe = "guerreiro";
+            }
+            painel.jogador.carregarImagemPorClasse(dados.classe);
             painel.jogador.nivel = dados.nivel;
             painel.jogador.vidaMaxima = dados.vidaMaxima;
             painel.jogador.vida = dados.vida;
@@ -130,44 +159,41 @@ public class SalvarE_Carregar {
             painel.jogador.mundoY = dados.mundoY;
             painel.mapaAtual = dados.mapaAtual;
             painel.areaAtual = dados.areaAtual;
-            
-        
 
-            //inventario do jogador
+            // inventario do jogador
             painel.jogador.inventario.clear();
-            for(int i =0; i < dados.nomeDoItem.size(); i++){
+            for (int i = 0; i < dados.nomeDoItem.size(); i++) {
                 painel.jogador.inventario.add(painel.geradorDeEntidade.getObjeto(dados.nomeDoItem.get(i)));
                 painel.jogador.inventario.get(i).quantidade = dados.quantidadeDoItem.get(i);
             }
 
-            //salvar os equipamentos atuais
+            // salvar os equipamentos atuais
             painel.jogador.armaAtual = painel.jogador.inventario.get(dados.espacoArmaAtual);
             painel.jogador.escudoAtual = painel.jogador.inventario.get(dados.espacoEscudoAtual);
             painel.jogador.getDefesa();
             painel.jogador.getImagemDeAtaque();
-            
 
-            //salvar os Objetos do mapa
-            for(int numMapa = 0; numMapa < painel.maxMapa; numMapa++){
-                
-                for(int i = 0; i < painel.Obj[1].length; i++){
+            // salvar os Objetos do mapa
+            for (int numMapa = 0; numMapa < painel.maxMapa; numMapa++) {
 
-                    if(dados.nomeDosObjDoMapa[numMapa][i].equals("NA")){
+                for (int i = 0; i < painel.Obj[1].length; i++) {
+
+                    if (dados.nomeDosObjDoMapa[numMapa][i].equals("NA")) {
                         painel.Obj[numMapa][i] = null;
-                    }
-                    else{
+                    } else {
                         painel.Obj[numMapa][i] = painel.geradorDeEntidade.getObjeto(dados.nomeDosObjDoMapa[numMapa][i]);
                         painel.Obj[numMapa][i].mundoX = dados.objDoMapaMundoX[numMapa][i];
                         painel.Obj[numMapa][i].mundoY = dados.objDoMapaMundoY[numMapa][i];
-                        
-                        if(dados.nomeDosObjDeSaque[numMapa][i] != null) {
-                            painel.Obj[numMapa][i].setSaque(painel.geradorDeEntidade.getObjeto(dados.nomeDosObjDeSaque[numMapa][i])); 
+
+                        if (dados.nomeDosObjDeSaque[numMapa][i] != null) {
+                            painel.Obj[numMapa][i]
+                                    .setSaque(painel.geradorDeEntidade.getObjeto(dados.nomeDosObjDeSaque[numMapa][i]));
                         }
 
                         painel.Obj[numMapa][i].aberto = dados.objDoMapaBauAberto[numMapa][i];
-                        
-                        if(painel.Obj[numMapa][i].aberto == true){
-                           painel.Obj[numMapa][i].baixo1 = painel.Obj[numMapa][i].imagem2;
+
+                        if (painel.Obj[numMapa][i].aberto == true) {
+                            painel.Obj[numMapa][i].baixo1 = painel.Obj[numMapa][i].imagem2;
                         }
 
                     }

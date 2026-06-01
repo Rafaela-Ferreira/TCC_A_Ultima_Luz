@@ -23,6 +23,7 @@ public class ManipuladorDeEventos {
     int mapaOrigem;
     int colOrigem;
     int linOrigem;
+    int areaOrigem;
 
 
 
@@ -134,8 +135,21 @@ public class ManipuladorDeEventos {
                 teleporteMapa(1, 8,7, painel.masmorra);
             }
             else if(bater (2, 25,8, "any") == true){
-                teleporteMapa(3, 23, 41, painel.fora);    
-            }
+
+    if(Progresso.invasaoMapa1Ativa){
+        painel.interfaceDoUsuario.adicionarMensagem(
+            "Uma névoa densa impede sua passagem."
+        );
+        podeTocarEvento = false;
+    }
+    else{
+        teleporteMapa(3, 23, 41, painel.fora);
+    }
+}
+            // else if(bater (2, 25,8, "any") == true){
+            //     teleporteMapa(3, 23, 41, painel.fora);  
+
+            // }
             else if(bater (3, 23,41, "any") == true){
                 teleporteMapa(2, 25, 8, painel.masmorra);    
             }
@@ -188,7 +202,8 @@ public class ManipuladorDeEventos {
                 teleporteMapa(8, 10,39, painel.fora);    
             }
             else if(bater (9, 25,8, "any") == true){
-                teleporteMapa(8, 35,17, painel.fora);    
+                teleporteMapa(8, 10,40, painel.fora);    
+                // teleporteMapa(8, 35,17, painel.fora);    
             }
 
             //Sistema de venda - comerciante.
@@ -439,6 +454,7 @@ public class ManipuladorDeEventos {
         mapaOrigem = painel.mapaAtual;
         colOrigem = painel.jogador.mundoX / painel.tamanhoDoTile;
         linOrigem = painel.jogador.mundoY / painel.tamanhoDoTile;
+        areaOrigem = painel.areaAtual;
 
         switch(destino){
 
@@ -494,16 +510,19 @@ public class ManipuladorDeEventos {
         colOrigem = (painel.jogador.mundoX / painel.tamanhoDoTile) + 1;
         linOrigem = painel.jogador.mundoY / painel.tamanhoDoTile;
 
+        areaOrigem = painel.areaAtual;
+
         teleporteMapa(destinoMapa, destinoCol, destinoLin, tipoMapa);
     }
 
     public void portalDeVolta(){
-        teleporteMapa(mapaOrigem, colOrigem, linOrigem, painel.fora);
+        teleporteMapa(mapaOrigem, colOrigem+1, linOrigem, areaOrigem);
         podeTocarEvento = false;
     }
     
 
     public void desenhar(Graphics2D g2){
+    System.out.println("Area atual: " + painel.areaAtual);
 
         g2.setColor(new Color(0, 0, 255, 120)); // azul translúcido
 

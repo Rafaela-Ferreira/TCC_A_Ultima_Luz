@@ -935,7 +935,8 @@ public int getAtaque() {
         painel.interfaceDoUsuario.numeroDoComando = -1;
 
         // libera a invasão para acontecer novamente
-        Progresso.invasaoMapa1Ativa = false;
+        // Progresso.invasaoMapa1Ativa = false;
+        Progresso.invasaoMapa1Ativa = true;
 
     }
 

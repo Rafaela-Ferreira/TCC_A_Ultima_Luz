@@ -1,6 +1,8 @@
 package main;
+
 import IA.LocalizarCaminhos;
 import ambiente.GerenciadorDeAmbientes;
+import dados.Progresso;
 import dados.SalvarE_Carregar;
 import entidade.Entidade;
 import entidade.Jogador;
@@ -25,8 +27,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
     // Tela do jogo
 
     final int tamanhoOriginalDoTile = 16; // Tile de 16x16 pixels
-    final int escala = 3; 
-    
+    final int escala = 3;
+
     public final int tamanhoDoTile = tamanhoOriginalDoTile * escala; // Tile de 48x48 pixels
     public final int maxColunasTela = 22;
     public final int maxLinhasTela = 13;
@@ -34,38 +36,28 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public final int larguraTela = tamanhoDoTile * maxColunasTela; // 960 pixels
     public final int alturaTela = tamanhoDoTile * maxLinhasTela; // 576 pixels
 
-    //criar o mundo
-    public  int maxColunasMundo; // Número máximo de colunas no mundo
-    public  int maxLinhasMundo; // Número máximo de linhas no mundo
-    public final int maxMapa = 50; //qtd de mapas - ajustar conforme necessidade - (21 no momento)
-    public int mapaAtual = 0;  //mapa inicial
-   
+    // criar o mundo
+    public int maxColunasMundo; // Número máximo de colunas no mundo
+    public int maxLinhasMundo; // Número máximo de linhas no mundo
+    public final int maxMapa = 50; // qtd de mapas - ajustar conforme necessidade - (21 no momento)
+    public int mapaAtual = 0; // mapa inicial
 
-
-
-
-
-
-
-    
-    //tela cheia
+    // tela cheia
     int larguraTela2 = larguraTela;
     int alturaTela2 = alturaTela;
     BufferedImage telaTemporaria;
     Graphics2D g2;
     public boolean telaCheiaAtiva = false;
 
-    //FPS
-    int FPS= 60;
-
+    // FPS
+    int FPS = 60;
 
     public GerenciadorDeBlocos gerenciadorDeBlocos = new GerenciadorDeBlocos(this);
 
-    public Teclado teclado = new Teclado(this); 
-    Som musica = new Som(); 
+    public Teclado teclado = new Teclado(this);
+    Som musica = new Som();
     Som efeitoSonoro = new Som();
 
- 
     public ColisaoChecked colisaoChecked = new ColisaoChecked(this);
     public CriarObjetos criarObjetos = new CriarObjetos(this);
     public InterfaceDoUsuario interfaceDoUsuario = new InterfaceDoUsuario(this);
@@ -79,26 +71,24 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public GerenciadorDeCutscene gerenciadorDeCutscene = new GerenciadorDeCutscene(this);
     Thread threadDoJogo; // Necessário implementar Runnable para usar thread
 
-    //Entidades e objetos do jogo
-    public Jogador jogador = new Jogador(this, teclado); 
-    public Entidade Obj[][] = new Entidade[maxMapa][20]; //20 objs ao mesmo tempo
-    public Entidade npc[][] = new Entidade[maxMapa][10]; //10 objs ao mesmo tempo
-    public Entidade inimigo[][] = new Entidade[maxMapa][20]; //20 inimigo ao mesmo tempo
+    // Entidades e objetos do jogo
+    public Jogador jogador = new Jogador(this, teclado);
+    public Entidade Obj[][] = new Entidade[maxMapa][20]; // 20 objs ao mesmo tempo
+    public Entidade npc[][] = new Entidade[maxMapa][10]; // 10 objs ao mesmo tempo
+    public Entidade inimigo[][] = new Entidade[maxMapa][20]; // 20 inimigo ao mesmo tempo
     public BlocosInterativos blocosI[][] = new BlocosInterativos[maxMapa][50];
     public Entidade projetavel[][] = new Entidade[maxMapa][20];
     public ArrayList<Entidade> listaParticula = new ArrayList<>();
-    ArrayList<Entidade> listaEntidade = new ArrayList<>(); 
-   
+    ArrayList<Entidade> listaEntidade = new ArrayList<>();
 
-
-    //Estado do jogo
+    // Estado do jogo
     public int estadoDoJogo;
     public final int tituloEstado = 0;
     public final int iniciarEstadoDoJogo = 1;
-    public final int pausarEstadoDoJogo = 2; 
+    public final int pausarEstadoDoJogo = 2;
     public final int estadoDoDialogo = 3;
-    public final int estadoPersonagem = 4; 
-    public final int estadoOpcoes = 5; 
+    public final int estadoPersonagem = 4;
+    public final int estadoOpcoes = 5;
     public final int estadoGameOver = 6;
     public final int estadoDeTransicao = 7;
     public final int trocaDeEstado = 8;
@@ -113,150 +103,157 @@ public class PainelDoJogo extends JPanel implements Runnable {
     public boolean personagemAtivo = false;
     public boolean mapaAtivo = false;
     public boolean opcoesAtivas = false;
-    
 
     public ObjChuva chuva;
-    
-    //outros estados
+
+    // outros estados
     public boolean batalhaComChefeAtiva = false;
 
-    //IA
+    // IA
     public boolean desenharCaminho;
 
-
-    //AREA
+    // AREA
     public int areaAtual;
     public int proximaArea;
-    public final int fora = 50; 
+    public final int fora = 50;
     public final int interior = 51;
     public final int masmorra = 52;
     public final int santuario = 53;
 
     public final int floresta = 54;
 
-    
-    public PainelDoJogo(){
+    public PainelDoJogo() {
         this.setPreferredSize(new Dimension(larguraTela, alturaTela));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); // Melhora a performance de renderização
         this.addKeyListener(teclado); // Adiciona o KeyListener para capturar eventos de teclado
         this.setFocusable(true); // Permite que o painel receba foco para capturar eventos de teclado
-        
+
     }
 
-    //setupGame
+    // setupGame
     public void setarObjetos() {
-        criarObjetos.setarObjetos(); 
+        criarObjetos.setarObjetos();
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
         criarObjetos.setBlocosInterativos();
         gerenciadorDeAmbientes.setup();
-        //iniciarMusica(0);// Inicia a música de fundo
-        //pararMusica();
+        // iniciarMusica(0);// Inicia a música de fundo
+        // pararMusica();
         estadoDoJogo = tituloEstado;
         areaAtual = fora;
 
         telaTemporaria = new BufferedImage(larguraTela, alturaTela, BufferedImage.TYPE_INT_ARGB);
-        g2 = (Graphics2D)telaTemporaria.getGraphics();
+        g2 = (Graphics2D) telaTemporaria.getGraphics();
 
-        if(telaCheiaAtiva == true){
+        if (telaCheiaAtiva == true) {
             setTelaCheia();
         }
 
-       // chuva = new ObjChuva(this);
-       // chuva.setAtiva(areaAtual == fora);
-        
+        // chuva = new ObjChuva(this);
+        // chuva.setAtiva(areaAtual == fora);
+
     }
-    
-    public void  reiniciarJogo(boolean reiniciar){
+
+    public void reiniciarJogo(boolean reiniciar) {
         pararMusica();
-        areaAtual = fora; // não queremos retornar a posição padrão, queremos retornar no ultimo ponto salvo
+        areaAtual = fora; // não queremos retornar a posição padrão, queremos retornar no ultimo ponto
+                          // salvo
         removerTempDaEntidade();
         batalhaComChefeAtiva = false;
-        //jogador.setPosicaoPadrao();
+        // jogador.setPosicaoPadrao();
         jogador.renascerNoUltimoPonto();
         jogador.restaltarStatus();
 
-        //jogador.almasNoChao = false;
-        //jogador.almasPerdidas = 0;
+        // jogador.almasNoChao = false;
+        // jogador.almasPerdidas = 0;
 
         jogador.reiniciarContador();
 
-        jogador.morto = false;       // Avisa que ele não está mais morto!
-        jogador.vivo = true;         // Garante que o status é de vivo
-        jogador.atacar = false;      // Cancela qualquer ataque travado
-        jogador.empurrao = false;    // Cancela travamento de empurrão
-        jogador.exausto = false;     // Tira a exaustão se ele morreu sem estamina
+        jogador.morto = false; // Avisa que ele não está mais morto!
+        jogador.vivo = true; // Garante que o status é de vivo
+        jogador.atacar = false; // Cancela qualquer ataque travado
+        jogador.empurrao = false; // Cancela travamento de empurrão
+        jogador.exausto = false; // Tira a exaustão se ele morreu sem estamina
         jogador.cancelarAtaque = false;
-        
+
         criarObjetos.setNpc();
         criarObjetos.setInimigos();
 
-        if(reiniciar == true){
-            jogador.setDefaultValues();;
-            criarObjetos.setarObjetos(); 
+        if (reiniciar == true) {
+            jogador.setDefaultValues();
+            ;
+            criarObjetos.setarObjetos();
             criarObjetos.setBlocosInterativos();
             gerenciadorDeAmbientes.iluminacao.reiniciarDia();
         }
 
-        
-        
     }
 
-    public void setTelaCheia(){
-        //pegar a tela do monitor
+    public void setTelaCheia() {
+        // pegar a tela do monitor
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(Principal.janela);
 
-        //pegar altura e largura da tela
+        // pegar altura e largura da tela
         larguraTela2 = Principal.janela.getWidth();
         alturaTela2 = Principal.janela.getHeight();
 
     }
-    
+
     public void iniciarThreadDoJogo() {
         threadDoJogo = new Thread(this); // Passa o próprio objeto (PainelDoJogo) para a thread
         threadDoJogo.start(); // Chama automaticamente o método run
     }
 
-    /*@Override
-    public void run() {
-        // Ao implementar a interface Runnable (como o PainelDoJogo), é necessário sobrescrever o método run
-        // Aqui é onde o jogo irá rodar - o loop principal do jogo
-
-        double intervaloDeAtualizacao = 1000000000 / FPS; // Intervalo de atualização em nanosegundos -> 0.01666 segundos
-        double tempoDaProximaAtualizacao = System.nanoTime() + intervaloDeAtualizacao; // Marca o tempo da próxima atualização
-
-        while(threadDoJogo != null) {
-            // Loop do jogo
-            
-            //long tempoInicial = System.nanoTime(); // Marca o tempo inicial do loop
-            //System.out.println("Loop do jogo rodando..."+ tempoInicial);
-
-            // 1. Atualizar o estado do jogo
-            atualizarJogo();
-            // 2. Desenhar/renderizar o jogo
-
-            repaint(); // Chama o método paintComponent para desenhar o jogo
-
-            // 3. Controlar o tempo de atualização
-            try {
-                double tempoRestante = tempoDaProximaAtualizacao - System.nanoTime(); // Calcula o tempo restante até a próxima atualização
-                tempoRestante = tempoRestante / 1000000; // Converte de nanosegundos para milissegundos
-                
-                if(tempoRestante < 0) tempoRestante = 0; // Se o tempo restante for negativo, define como 0
-                
-                
-                Thread.sleep((long) tempoRestante); // Converte de nanosegundos para milissegundos e pausa a thread
-            
-                tempoDaProximaAtualizacao += intervaloDeAtualizacao; // Atualiza o tempo da próxima atualização
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        
-        }
-    }*/
+    /*
+     * @Override
+     * public void run() {
+     * // Ao implementar a interface Runnable (como o PainelDoJogo), é necessário
+     * sobrescrever o método run
+     * // Aqui é onde o jogo irá rodar - o loop principal do jogo
+     * 
+     * double intervaloDeAtualizacao = 1000000000 / FPS; // Intervalo de atualização
+     * em nanosegundos -> 0.01666 segundos
+     * double tempoDaProximaAtualizacao = System.nanoTime() +
+     * intervaloDeAtualizacao; // Marca o tempo da próxima atualização
+     * 
+     * while(threadDoJogo != null) {
+     * // Loop do jogo
+     * 
+     * //long tempoInicial = System.nanoTime(); // Marca o tempo inicial do loop
+     * //System.out.println("Loop do jogo rodando..."+ tempoInicial);
+     * 
+     * // 1. Atualizar o estado do jogo
+     * atualizarJogo();
+     * // 2. Desenhar/renderizar o jogo
+     * 
+     * repaint(); // Chama o método paintComponent para desenhar o jogo
+     * 
+     * // 3. Controlar o tempo de atualização
+     * try {
+     * double tempoRestante = tempoDaProximaAtualizacao - System.nanoTime(); //
+     * Calcula o tempo restante até a próxima atualização
+     * tempoRestante = tempoRestante / 1000000; // Converte de nanosegundos para
+     * milissegundos
+     * 
+     * if(tempoRestante < 0) tempoRestante = 0; // Se o tempo restante for negativo,
+     * define como 0
+     * 
+     * 
+     * Thread.sleep((long) tempoRestante); // Converte de nanosegundos para
+     * milissegundos e pausa a thread
+     * 
+     * tempoDaProximaAtualizacao += intervaloDeAtualizacao; // Atualiza o tempo da
+     * próxima atualização
+     * } catch (InterruptedException e) {
+     * e.printStackTrace();
+     * }
+     * 
+     * }
+     * }
+     */
 
     @Override
     public void run() {
@@ -268,121 +265,166 @@ public class PainelDoJogo extends JPanel implements Runnable {
         int quadrosDesenhados = 0;
 
         while (threadDoJogo != null) {
-            tempoAtual = System.nanoTime(); 
+            tempoAtual = System.nanoTime();
 
             delta += (tempoAtual - tempoAnterior) / intervaloAtualizacao;
-            cronometro += (tempoAtual - tempoAnterior); 
-            tempoAnterior = tempoAtual; 
+            cronometro += (tempoAtual - tempoAnterior);
+            tempoAnterior = tempoAtual;
 
             if (delta >= 1) {
-                atualizarJogo(); 
-                //repaint();
+                atualizarJogo();
+                // repaint();
                 desenharTelaTemporaria();
                 desenharTela();
 
-                delta--; 
+                delta--;
                 quadrosDesenhados++;
             }
 
-            if (cronometro >= 1000000000) { 
-                System.out.println("FPS: " + quadrosDesenhados);
+            if (cronometro >= 1000000000) {
+                // System.out.println("FPS: " + quadrosDesenhados);
                 quadrosDesenhados = 0;
-                cronometro = 0; 
+                cronometro = 0;
             }
         }
     }
 
-    public void desenharTela(){
+    public void desenharTela() {
         Graphics g = getGraphics();
-        g.drawImage(telaTemporaria, 0,0, larguraTela2, alturaTela2, null);
+        g.drawImage(telaTemporaria, 0, 0, larguraTela2, alturaTela2, null);
         g.dispose();
     }
 
     public void atualizarJogo() {
         // Lógica de atualização do jogo (ex: movimentação, colisões, etc.)
 
-        
-        
-        if(estadoDoJogo == iniciarEstadoDoJogo || estadoDoJogo == estadoPersonagem){
+        if (estadoDoJogo == iniciarEstadoDoJogo || estadoDoJogo == estadoPersonagem) {
             // Atualiza o estado do jogador
-            jogador.atualizar(); 
+            jogador.atualizar();
 
-            //atualizar o estado do inimigo
-            for(int i = 0; i < inimigo[1].length; i++){
-                if(inimigo[mapaAtual][i] != null){
-                    if(inimigo[mapaAtual][i].vivo == true && inimigo[mapaAtual][i].morrendo== false){
+            // atualizar o estado do inimigo
+            for (int i = 0; i < inimigo[1].length; i++) {
+                if (inimigo[mapaAtual][i] != null) {
+                    if (inimigo[mapaAtual][i].vivo == true && inimigo[mapaAtual][i].morrendo == false) {
                         inimigo[mapaAtual][i].atualizar();
                     }
-                    if(inimigo[mapaAtual][i].vivo == false){
-                        inimigo[mapaAtual][i].verificarDrop();  //dropar item
+                    if (inimigo[mapaAtual][i].vivo == false) {
+                        inimigo[mapaAtual][i].verificarDrop(); // dropar item
                         inimigo[mapaAtual][i] = null;
                     }
-                    
+
                 }
             }
 
             // Atualiza o estado do NPC
-            for(int i = 0; i < npc[1].length; i++){
-                if(npc[mapaAtual][i] != null){
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[mapaAtual][i] != null) {
 
-                    npc[mapaAtual][i].atualizar();
+                    var npcAtual = npc[mapaAtual][i];
+                    npcAtual.atualizar();
 
-                    //para o NPC Aliado desaparecer apos cumprir sua função
-                    if(npc[mapaAtual][i].vivo == false){
+                    // para o NPC Aliado desaparecer apos cumprir sua função
+                    if (npc[mapaAtual][i] != null && npc[mapaAtual][i].vivo == false) {
                         npc[mapaAtual][i] = null;
                     }
                 }
             }
 
-            //atualizar o estado do projetil - bola de fogo
-            for(int i = 0; i < projetavel[1].length; i++){
-                if(projetavel[mapaAtual][i] != null){
-                    if(projetavel[mapaAtual][i].vivo == true){
+            // Verifica se todos os inimigos foram derrotados e remove o NPC aliado DEPOIS
+            // de atualizar tudo
+            boolean temInimigoVivo = false;
+            boolean temAliadoVivo = false;
+
+            for (int i = 0; i < inimigo[mapaAtual].length; i++) {
+                if (inimigo[mapaAtual][i] != null && inimigo[mapaAtual][i].vivo) {
+                    temInimigoVivo = true;
+                }
+            }
+            // System.out.println("----- CHECAGEM DE INIMIGOS -----");
+            // for (int i = 0; i < inimigo[mapaAtual].length; i++) {
+            // if (inimigo[mapaAtual][i] != null) {
+            // System.out.println(
+            // "Inimigo " + i +
+            // " vivo=" + inimigo[mapaAtual][i].vivo +
+            // " morrendo=" + inimigo[mapaAtual][i].morrendo);
+            // }
+            // }
+            // System.out.println("temInimigoVivo = " + temInimigoVivo);
+
+            for (int i = 0; i < npc[mapaAtual].length; i++) {
+                if (npc[mapaAtual][i] != null && npc[mapaAtual][i].tipo == npc[mapaAtual][i].tipoNpcAliado) {
+                    temAliadoVivo = true;
+                }
+            }
+
+            // Se há aliado vivo mas nenhum inimigo vivo, remove o aliado
+            // System.out.println(
+            // "temAliadoVivo=" + temAliadoVivo +
+            // " | temInimigoVivo=" + temInimigoVivo +
+            // " | invasaoAtiva=" + Progresso.invasaoMapa1Ativa);
+
+            if (temAliadoVivo && !temInimigoVivo) {
+                for (int i = 0; i < npc[mapaAtual].length; i++) {
+                    if (npc[mapaAtual][i] != null && npc[mapaAtual][i].tipo == npc[mapaAtual][i].tipoNpcAliado) {
+                        npc[mapaAtual][i] = null;
+                        interfaceDoUsuario.adicionarMensagem("O aliado retornou para além dos véus.");
+                    }
+                }
+                Progresso.invasaoMapa1Ativa = false;
+            }
+
+            // atualizar o estado do projetil - bola de fogo
+            for (int i = 0; i < projetavel[1].length; i++) {
+                if (projetavel[mapaAtual][i] != null) {
+                    if (projetavel[mapaAtual][i].vivo == true) {
                         projetavel[mapaAtual][i].atualizar();
                     }
-                    if(projetavel[mapaAtual][i].vivo == false){
+                    if (projetavel[mapaAtual][i].vivo == false) {
                         projetavel[mapaAtual][i] = null;
                     }
-                    
+
                 }
             }
 
-            for(int i = 0; i < listaParticula.size(); i++){
-                if(listaParticula.get(i) != null){
-                    if(listaParticula.get(i).vivo == true){
+            for (int i = 0; i < listaParticula.size(); i++) {
+                if (listaParticula.get(i) != null) {
+                    if (listaParticula.get(i).vivo == true) {
                         listaParticula.get(i).atualizar();
                     }
-                    if(listaParticula.get(i).vivo == false){
+                    if (listaParticula.get(i).vivo == false) {
                         listaParticula.remove(i);
                     }
-                    
+
                 }
             }
 
-            for(int i = 0; i < blocosI[1].length; i++){
-                if(blocosI[mapaAtual][i] != null){
+            for (int i = 0; i < blocosI[1].length; i++) {
+                if (blocosI[mapaAtual][i] != null) {
                     blocosI[mapaAtual][i].atualizar();
                 }
             }
             gerenciadorDeAmbientes.atualizar();
-            
+
         }
 
-        if (estadoDoJogo == estadoViagemRapida) { return; }
+        if (estadoDoJogo == estadoViagemRapida) {
+            return;
+        }
 
-        if (estadoDoJogo == estadoCutscene) { gerenciadorDeCutscene.desenhar(g2); }
+        if (estadoDoJogo == estadoCutscene) {
+            gerenciadorDeCutscene.desenhar(g2);
+        }
 
-        if(estadoDoJogo == pausarEstadoDoJogo){ }
-        
-        
-  
+        if (estadoDoJogo == pausarEstadoDoJogo) {
+        }
+
     }
 
-    public void desenharTelaTemporaria(){
+    public void desenharTelaTemporaria() {
 
-        //debug
+        // debug
         long desenhoInicio = 0;
-        if(teclado.mostrarTextoDebug == true){
+        if (teclado.mostrarTextoDebug == true) {
             desenhoInicio = System.nanoTime();
         }
 
@@ -390,8 +432,8 @@ public class PainelDoJogo extends JPanel implements Runnable {
             interfaceDoUsuario.desenhar(g2);
             return;
         }
-        
-        if(estadoDoJogo == estadoSaidaGameOver){
+
+        if (estadoDoJogo == estadoSaidaGameOver) {
 
             interfaceDoUsuario.resetarGameOver();
             reiniciarJogo(false);
@@ -404,89 +446,87 @@ public class PainelDoJogo extends JPanel implements Runnable {
             estadoDoJogo = estadoCutscene;
         }
 
-        //TITULO
-        if(estadoDoJogo == tituloEstado){
+        // TITULO
+        if (estadoDoJogo == tituloEstado) {
             interfaceDoUsuario.desenhar(g2);
-        
+
         }
-        
-        //tela do mapa
-        else if(estadoDoJogo == estadoMapa){
+
+        // tela do mapa
+        else if (estadoDoJogo == estadoMapa) {
             mapa.desenharMapaCompleto(g2);
-        }
-        else{
+        } else {
             // Desenha os tiles-blocos de imagem
             gerenciadorDeBlocos.desenhar(g2);
-    
+
             // Desenha os tiles-blocos interativos
-            for(int i = 0; i < blocosI[1].length; i++){
-                if(blocosI[mapaAtual][i] != null){
+            for (int i = 0; i < blocosI[1].length; i++) {
+                if (blocosI[mapaAtual][i] != null) {
                     blocosI[mapaAtual][i].desenhar(g2);
                 }
             }
 
             listaEntidade.add(jogador);
 
-            for(int i = 0; i < npc[1].length; i++){
-                if(npc[mapaAtual][i] != null){
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[mapaAtual][i] != null) {
                     listaEntidade.add(npc[mapaAtual][i]);
                 }
             }
 
-            for(int i = 0; i < Obj[1].length; i++){
-                if(Obj[mapaAtual][i] != null){
+            for (int i = 0; i < Obj[1].length; i++) {
+                if (Obj[mapaAtual][i] != null) {
                     listaEntidade.add(Obj[mapaAtual][i]);
                 }
             }
 
-            for(int i = 0; i < inimigo[1].length; i++){
-                if(inimigo[mapaAtual][i] != null){
+            for (int i = 0; i < inimigo[1].length; i++) {
+                if (inimigo[mapaAtual][i] != null) {
                     listaEntidade.add(inimigo[mapaAtual][i]);
                 }
             }
 
-            for(int i = 0; i < projetavel[1].length; i++){
-                if(projetavel[mapaAtual][i] != null){
+            for (int i = 0; i < projetavel[1].length; i++) {
+                if (projetavel[mapaAtual][i] != null) {
                     listaEntidade.add(projetavel[mapaAtual][i]);
                 }
             }
 
-            for(int i = 0; i < listaParticula.size(); i++){
-                if(listaParticula.get(i) != null){
+            for (int i = 0; i < listaParticula.size(); i++) {
+                if (listaParticula.get(i) != null) {
                     listaEntidade.add(listaParticula.get(i));
                 }
             }
 
-            //organizar
-            Collections.sort(listaEntidade, new Comparator<Entidade>(){
+            // organizar
+            Collections.sort(listaEntidade, new Comparator<Entidade>() {
 
                 @Override
                 public int compare(Entidade e1, Entidade e2) {
-                    
+
                     int resultado = Integer.compare(e1.mundoY, e2.mundoY);
                     return resultado;
                 }
 
             });
-            
-            //desenhar entidades
-            for(int i = 0; i < listaEntidade.size(); i++){
+
+            // desenhar entidades
+            for (int i = 0; i < listaEntidade.size(); i++) {
                 listaEntidade.get(i).desenhar(g2);
             }
-            //remover da lista de entidades
+            // remover da lista de entidades
             listaEntidade.clear();
-            
-            
+
             // Desenhar chuva
             if (chuva != null) {
                 chuva.atualizar();
                 chuva.desenhar(g2);
             }
-        
-            //Ambiente de iliminação
+
+            // Ambiente de iliminação
             gerenciadorDeAmbientes.desenhar(g2);
 
-            //Desenha o foco de luz nas tochas
+            // Desenha o foco de luz nas tochas
             for (int i = 0; i < blocosI[1].length; i++) {
                 if (blocosI[mapaAtual][i] instanceof tile.blocosInterativos.Tocha tocha) {
                     int telaX = tocha.mundoX - jogador.mundoX + jogador.telaX;
@@ -495,21 +535,20 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 }
             }
 
-            //mini mapa
+            // mini mapa
             mapa.desenharMiniMapa(g2);
-            
-            
+
             // Desenha inventário rápido
             interfaceDoUsuario.desenharHUD_DoJogador();
-            // Desenha a interface do usuário (UI) - depois dos tiles para não ficar escondida
+            // Desenha a interface do usuário (UI) - depois dos tiles para não ficar
+            // escondida
             interfaceDoUsuario.desenhar(g2);
 
-            //Cutscene
+            // Cutscene
             gerenciadorDeCutscene.desenhar(g2);
-            
 
-            //DEBUG
-            if(teclado.mostrarTextoDebug == true){
+            // DEBUG
+            if (teclado.mostrarTextoDebug == true) {
 
                 // DEBUG DOS EVENTOS
                 mEventos.desenhar(g2);
@@ -521,31 +560,37 @@ public class PainelDoJogo extends JPanel implements Runnable {
                 int x = 10;
                 int y = 270;
                 int linhaAltura = 20;
-                g2.drawString("MundoX" + jogador.mundoX, x, y); y += linhaAltura;
-                g2.drawString("MundoY" + jogador.mundoY, x, y); y += linhaAltura;
-                g2.drawString("Coluna" + (jogador.mundoX + jogador.areaSolida.x) / tamanhoDoTile, x, y); y += linhaAltura;
-                g2.drawString("Linha" + (jogador.mundoY + jogador.areaSolida.y) / tamanhoDoTile, x, y); y += linhaAltura;
-                g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y); y += linhaAltura;
+                g2.drawString("MundoX" + jogador.mundoX, x, y);
+                y += linhaAltura;
+                g2.drawString("MundoY" + jogador.mundoY, x, y);
+                y += linhaAltura;
+                g2.drawString("Coluna" + (jogador.mundoX + jogador.areaSolida.x) / tamanhoDoTile, x, y);
+                y += linhaAltura;
+                g2.drawString("Linha" + (jogador.mundoY + jogador.areaSolida.y) / tamanhoDoTile, x, y);
+                y += linhaAltura;
+                g2.drawString("Tempo de desenho: " + tempoDeDesenho, x, y);
+                y += linhaAltura;
                 g2.drawString("Modo de DEBUG: " + teclado.modoDebugAtivo, x, y);
-                
+
                 // DEBUG - desenhar área de colisão do jogador
-                /*g2.setColor(new Color(255, 0, 0, 120)); 
-                g2.drawRect(
-                    jogador.mundoX + jogador.areaSolida.x - jogador.mundoX + jogador.telaX,
-                    jogador.mundoY + jogador.areaSolida.y - jogador.mundoY + jogador.telaY,
-                    jogador.areaSolida.width,
-                    jogador.areaSolida.height
-                );
-                */
-               
-               //desenha o caminho sendo calculado.
-               if(teclado.modoDebugAtivo){
+                /*
+                 * g2.setColor(new Color(255, 0, 0, 120));
+                 * g2.drawRect(
+                 * jogador.mundoX + jogador.areaSolida.x - jogador.mundoX + jogador.telaX,
+                 * jogador.mundoY + jogador.areaSolida.y - jogador.mundoY + jogador.telaY,
+                 * jogador.areaSolida.width,
+                 * jogador.areaSolida.height
+                 * );
+                 */
+
+                // desenha o caminho sendo calculado.
+                if (teclado.modoDebugAtivo) {
                     g2.setColor(new Color(255, 0, 0, 120));
 
-                    for(int i = 0; i < localizarCaminhos.listaCaminho.size(); i++){
+                    for (int i = 0; i < localizarCaminhos.listaCaminho.size(); i++) {
 
                         int mundoX = localizarCaminhos.listaCaminho.get(i).coluna * tamanhoDoTile;
-                        int mundoY = localizarCaminhos.listaCaminho.get(i).linha * tamanhoDoTile; 
+                        int mundoY = localizarCaminhos.listaCaminho.get(i).linha * tamanhoDoTile;
 
                         int telaX = mundoX - jogador.mundoX + jogador.telaX;
                         int telaY = mundoY - jogador.mundoY + jogador.telaY;
@@ -554,10 +599,10 @@ public class PainelDoJogo extends JPanel implements Runnable {
                     }
                 }
             }
-        } 
+        }
     }
 
-    public void iniciarMusica( int i){
+    public void iniciarMusica(int i) {
         musica.setArquivo(i);
         musica.iniciar();
         musica.repetir();
@@ -567,70 +612,72 @@ public class PainelDoJogo extends JPanel implements Runnable {
         musica.parar();
     }
 
-    public void iniciarEfeitoSonoro(int i){
+    public void iniciarEfeitoSonoro(int i) {
         efeitoSonoro.tocarEfeitoConcorrente(i);
-        // efeitoSonoro.setArquivo(i); 
-        // efeitoSonoro.iniciar(); 
+        // efeitoSonoro.setArquivo(i);
+        // efeitoSonoro.iniciar();
     }
 
-    //para a chuva
+    // para a chuva
     public void iniciarEfeitoSonoroLoop(int i) {
-        efeitoSonoro.setArquivo(i);  // carrega o arquivo no Clip
-        efeitoSonoro.iniciar();       // toca uma vez
-        efeitoSonoro.repetir(); 
+        efeitoSonoro.setArquivo(i); // carrega o arquivo no Clip
+        efeitoSonoro.iniciar(); // toca uma vez
+        efeitoSonoro.repetir();
     }
 
     public void pararEfeitoSonoro() {
         efeitoSonoro.parar();
     }
-    
 
-    public void alterarArea(){
+    public void alterarArea() {
+        // System.out.println(
+        // "ALTERANDO AREA: " +
+        // areaAtual + " -> " + proximaArea
+        // );
 
-        if(proximaArea != areaAtual){
+        if (proximaArea != areaAtual) {
             pararMusica();
 
-            if(proximaArea == fora){
+            if (proximaArea == fora) {
                 iniciarMusica(0);
-                
+
                 if (proximaArea == fora) {
-                   // chuva.setAtiva(true);
+                    // chuva.setAtiva(true);
                 } else {
-                   // chuva.setAtiva(false);
+                    // chuva.setAtiva(false);
                 }
             }
-            
 
-            if(proximaArea == interior){
+            if (proximaArea == interior) {
                 iniciarMusica(18);
             }
-            
-            if(proximaArea == masmorra){
+
+            if (proximaArea == masmorra) {
                 iniciarMusica(19);
             }
 
-            if(proximaArea == santuario){
+            if (proximaArea == santuario) {
                 iniciarMusica(23);
             }
 
-            if(proximaArea == floresta){
+            if (proximaArea == floresta) {
                 iniciarMusica(18);
             }
 
             criarObjetos.setNpc();
         }
-        
+
         areaAtual = proximaArea;
-        criarObjetos.setInimigos(); //aSetter- criarObjetos
+        criarObjetos.setInimigos(); // aSetter- criarObjetos
 
     }
 
-    public void removerTempDaEntidade(){
+    public void removerTempDaEntidade() {
 
-        for(int numeroMapa = 0; numeroMapa < maxMapa; numeroMapa++){
-            
-            for(int i =0; i < Obj[1].length; i++){
-                if(Obj[numeroMapa][i] != null && Obj[numeroMapa][i].temp == true){
+        for (int numeroMapa = 0; numeroMapa < maxMapa; numeroMapa++) {
+
+            for (int i = 0; i < Obj[1].length; i++) {
+                if (Obj[numeroMapa][i] != null && Obj[numeroMapa][i].temp == true) {
                     Obj[numeroMapa][i] = null;
                 }
             }

@@ -42,7 +42,8 @@ public class NpcComerciante extends Entidade{
     public void setDialogo(){
         dialogo[0][0] = "He he, então você me encontrou.\nTenho algumas coisas boas.\nVocê quer trocar?";
         dialogo[1][0] = "Volte sempre, hehe!";
-        dialogo[2][0] = "Você precisa de mais moedas para comprá-los!";
+        // dialogo[2][0] = "Você precisa de mais moedas para comprá-los!";
+        dialogo[2][0] = "Você precisa de mais almas para comprá-los!";
         dialogo[3][0] = "Você não pode carregar mais nada!"; 
         dialogo[4][0] = "Você não pode vender um item equipado!";
     }

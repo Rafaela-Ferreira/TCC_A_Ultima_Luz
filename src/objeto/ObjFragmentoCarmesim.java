@@ -23,6 +23,6 @@ public class ObjFragmentoCarmesim extends Entidade{
         painel.iniciarEfeitoSonoro(1);
         painel.interfaceDoUsuario.adicionarMensagem("Fragmento da Espada +" + valor);
         painel.jogador.fragmentoDaEspada += valor; 
-        return true;
+        return false;
     }
 }

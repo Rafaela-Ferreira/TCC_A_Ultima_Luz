@@ -6,7 +6,7 @@ import main.PainelDoJogo;
 import objeto.ObjAlma;
 import objeto.ObjCoracao;
 import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
+// import objeto.ObjMoedaBronze;
 import objeto.ObjPedra;
 
 public class GuardiaoDePedra  extends Entidade{
@@ -87,7 +87,7 @@ public class GuardiaoDePedra  extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            // droparItem(new ObjMoedaBronze(painel), -16, 0);
             droparItem(new ObjAlma(painel), 16, 0);
         }
         if(i >= 50 && i < 75){

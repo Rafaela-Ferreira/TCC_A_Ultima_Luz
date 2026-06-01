@@ -879,15 +879,8 @@ public class Entidade {
                         Entidade inimigo = painel.inimigo[painel.mapaAtual][indiceInimigo];
 
                         if (inimigo != null && !inimigo.invencivel && inimigo.vivo) {
-
-                            int dano = ataque - inimigo.defesa;
-                            if (dano < 1) dano = 1;
-
-                            inimigo.vida -= dano;
-                            inimigo.invencivel = true;
-
-                            setEmpurrao(inimigo, this, poderDoEmpurrao);
-                        }
+                        inimigo.receberDano(this);
+                    }
                     }
                 }
             }
@@ -1242,3 +1235,4 @@ public class Entidade {
 
     }
 }
+

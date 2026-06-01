@@ -10,6 +10,7 @@ import main.inimigo.chefao.DariusOColecionadorDeAlmas;
 import main.inimigo.chefao.KaelgorOGuerreiroEmChamas;
 import objeto.ObjDiamante;
 import objeto.ObjPortaDeFerro;
+import dados.Progresso;
 
 public class GerenciadorDeCutscene {
     PainelDoJogo painel;
@@ -242,6 +243,25 @@ public class GerenciadorDeCutscene {
             //rolando o créditos para cima
             y--;
             desenharString(1f, 38f, y, creditosFinais, 40);
+            // quando os créditos saírem da tela, encerra a cena final
+            int totalLinhas = creditosFinais.split("\\n").length;
+            int alturaCreditos = totalLinhas * 40; // tamanho aproximado do bloco de texto
+            if (y + alturaCreditos < 0) {
+                // Resetar o progresso do jogo
+                Progresso.eronODevoradorSilencioso = false;
+                Progresso.dariusOColecionadorDeAlmas = false;
+                Progresso.aurionOArcanjoCaido = false;
+                Progresso.kaelgorOGuerreiroEmChamas = false;
+                Progresso.cutsceneInicialVista = false;
+                Progresso.invasorMapa1Derrotado = false;
+                // Progresso.invasaoMapa1Ativa = false;
+                Progresso.invasaoMapa1Ativa = true;
+                
+                numeroDaCena = NA;
+                faseDaCena = 0;
+                painel.estadoDoJogo = painel.tituloEstado;
+                painel.pararMusica();
+            }
         }
 
     }
