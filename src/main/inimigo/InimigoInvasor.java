@@ -133,7 +133,8 @@ public class InimigoInvasor extends Entidade{
     public void morrer() {
 
         Progresso.invasorMapa1Derrotado = true;
-        Progresso.invasaoMapa1Ativa = false;
+        // Progresso.invasaoMapa1Ativa = false;
+        Progresso.invasaoMapa1Ativa = true;
 
         painel.batalhaComChefeAtiva = false;
         painel.interfaceDoUsuario.adicionarMensagem("O espírito hostil foi dissipado.");
@@ -143,7 +144,8 @@ public class InimigoInvasor extends Entidade{
     public void verificarDrop() {
 
         Progresso.invasorMapa1Derrotado = true;
-        Progresso.invasaoMapa1Ativa = false;
+        // Progresso.invasaoMapa1Ativa = false;
+        Progresso.invasaoMapa1Ativa = true;
 
         painel.batalhaComChefeAtiva = false;
 

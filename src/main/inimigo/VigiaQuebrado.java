@@ -87,7 +87,7 @@ public class VigiaQuebrado extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            // droparItem(new ObjMoedaBronze(painel), -16, 0);
             droparItem(new ObjAlma(painel), 16, 0);
         }
         if(i >= 50 && i < 75){

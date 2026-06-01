@@ -23,6 +23,6 @@ public class ObjFragmentoFlamejante extends Entidade{
         painel.iniciarEfeitoSonoro(1);
         painel.jogador.fragmentoDaEspada += valor; 
 
-        return true;
+        return false;
     }
 }

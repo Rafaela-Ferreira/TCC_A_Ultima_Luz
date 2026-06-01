@@ -89,7 +89,7 @@ public class MaoDoAbismo  extends Entidade{
 
         //definir o drop do inimigo 
         if(i < 50){
-            droparItem(new ObjMoedaBronze(painel), -16, 0);
+            // droparItem(new ObjMoedaBronze(painel), -16, 0);
             droparItem(new ObjAlmaMedia(painel), 16, 0);
         }
         if(i >= 50 && i < 75){

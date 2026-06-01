@@ -138,6 +138,11 @@ public class Iluminacao {
         }
     }
     public void desenhar(Graphics2D g2){
+    //     System.out.println(
+    //     "Mapa=" + painel.mapaAtual +
+    //     " Area=" + painel.areaAtual +
+    //     " Alpha=" + filtroAlpha
+    // );
 
         if(painel.areaAtual == painel.fora){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filtroAlpha));

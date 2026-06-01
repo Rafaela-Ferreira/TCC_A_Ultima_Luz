@@ -37,7 +37,7 @@ import objeto.ObjMachado;
 import objeto.ObjMagiaCurta;
 import objeto.ObjMagiaFogo;
 import objeto.ObjMana;
-import objeto.ObjMoedaBronze;
+// import objeto.ObjMoedaBronze;
 import objeto.ObjPedra;
 import objeto.ObjPicareta;
 import objeto.ObjPocaoAzul;
@@ -45,6 +45,7 @@ import objeto.ObjPocaoVermelha;
 import objeto.ObjPorta;
 import objeto.ObjPortaDeFerro;
 import objeto.ObjTocha;
+import objeto.ObjNevoaDensa;
 
 
 public class GeradorDeEntidade {
@@ -83,8 +84,9 @@ public class GeradorDeEntidade {
             case ObjChuva.objNome : objeto = new ObjChuva(painel); break;
             case ObjPorta.objNome : objeto = new ObjPorta(painel); break;
             case ObjPortaDeFerro.objNome : objeto = new ObjPortaDeFerro(painel); break;
+            case ObjNevoaDensa.objNome : objeto = new ObjNevoaDensa(painel); break;
             case ObjBau.objNome : objeto = new ObjBau(painel); break;
-            case ObjMoedaBronze.objNome : objeto = new ObjMoedaBronze(painel); break;
+            // case ObjMoedaBronze.objNome : objeto = new ObjMoedaBronze(painel); break;
             case ObjAlma.objNome : objeto = new ObjAlma(painel); break;
             case ObjAlmapequena.objNome : objeto = new ObjAlmapequena(painel); break;
             case ObjAlmaMedia.objNome : objeto = new ObjAlmaMedia(painel); break;
