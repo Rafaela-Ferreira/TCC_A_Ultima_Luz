@@ -1,3 +1,8 @@
 Link do material complementar!
 
+Conteúdo:
+- Executavel do jogo;
+- Video de execução do projeto;
+- Video de como gerar um executavel.
+
 https://drive.google.com/drive/folders/1g-DXCE5PCRdVQdBv-qM2bqQH23qGOFcF?usp=sharing
