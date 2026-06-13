@@ -12,13 +12,13 @@ O desenvolvimento seguiu uma abordagem de prototipagem incremental, permitindo a
 
 As etapas do projeto envolveram:
 
-- 1. Definição do escopo do jogo;
-- 2. Levantamento dos requisitos funcionais e não funcionais;
-- 3. Elaboração da narrativa e ambientação;
-- 4. Modelagem da arquitetura do sistema;
-- 5. Implementação dos sistemas principais;
-- 6. Testes e refinamento das mecânicas;
-- 7. Empacotamento e distribuição do executável.
+- Definição do escopo do jogo;
+- Levantamento dos requisitos funcionais e não funcionais;
+- Elaboração da narrativa e ambientação;
+- Modelagem da arquitetura do sistema;
+- Implementação dos sistemas principais;
+- Testes e refinamento das mecânicas;
+- Empacotamento e distribuição do executável.
 
 ## Conceitos Computacionais Aplicados
 
