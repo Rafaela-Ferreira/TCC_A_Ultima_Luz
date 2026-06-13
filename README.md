@@ -62,14 +62,10 @@ O projeto incorpora diversas características encontradas em jogos do gênero So
 A história de **A Última Luz** é apresentada de forma indireta, incentivando a exploração do mundo e a
 interpretação dos acontecimentos pelo jogador.
 
----
-
 ## 🌍 Ambientação
 
 Em um mundo em constante transformação, o jogador explora diferentes  mapas, enfrentando inimigos e descobrindo fragmentos da história.  
 O ciclo **dia/noite** afeta a jogabilidade e a ambientação, tornando o mundo mais dinâmico e vivo.
-
----
 
 ## 👥 Público-Alvo
 
