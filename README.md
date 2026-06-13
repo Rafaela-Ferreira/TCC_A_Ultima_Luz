@@ -72,8 +72,6 @@ O ciclo **dia/noite** afeta a jogabilidade e a ambientação, tornando o mundo m
 Voltado para jogadores **a partir de 12 anos**, fãs de **RPGs e jogos de ação** com foco em **exploração, estratégia e progressão**.  
 O protótipo foi desenvolvido para a plataforma **PC**.
 
----
-
 ## 🧩 Mecânicas Implementadas
 
 - 🎮 **Game loop funcional** e controle via teclado  
@@ -89,14 +87,10 @@ O protótipo foi desenvolvido para a plataforma **PC**.
 - 💰 **Sistema de comércio e saque de baús**  
 - 🎭 **Cutscenes, quebra cabeça e efeitos sonoros** integrados  
 
----
-
 ## 🛠️ Tecnologias e Referências
 
 O desenvolvimento foi inspirado em tutoriais e conceitos apresentados pelo canal [RyiSnow](https://www.youtube.com/@RyiSnow), fundamentais para a estrutura de base do jogo.  
 As mecânicas e recursos visuais foram adaptados e expandidos para criar uma experiência única.
-
----
 
 ## ⚙️ Configuração do Ambiente
 
@@ -133,7 +127,6 @@ em um ambiente 2D desenvolvido integralmente em Java.
 ## 🖼️ Imagem do Protótipo
 
 <img src="logo.jpg" alt="Tela do jogo A Última Luz" width="400"/>
-
 
 
 ## 🧑‍💻 Autoras
