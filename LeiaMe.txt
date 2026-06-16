@@ -1,0 +1,27 @@
+Nome: Nancy Miyuki Yuzawa - 3025641
+Nome: Rafaela Ferreira dos Santos - 3026353
+
+Título: Desenvolvimento de um jogo 2D em java: A Última Luz
+
+Resumo: O presente trabalho tem como objetivo o desenvolvimento de um protótipo de um jogo digital
+do gênero Soulslike 2D, com visão top-down e estética pixel art, utilizando a linguagem Java
+21 e ferramentas de desenvolvimento acessíveis. Trata-se de um estudo aplicado com foco na
+implementação de um sistema interativo e mecânicas características do gênero, como combate
+estratégico, nível moderado de dificuldade e progressão baseada em tentativa e erro. A
+metodologia adotada foi a prototipagem incremental, permitindo o desenvolvimento gradual
+do sistema que envolveu a definição do escopo do projeto, elaboração da narrativa por meio
+de storytelling ambiental e narrativa fragmentada, bem como o desenvolvimento de
+personagens, inimigos e cenários. Foram implementados sistemas fundamentais, incluindo
+movimentação do personagens, gerenciamento de atributos, inteligência artificial básica para
+inimigos com o uso do algoritmo A*, sistema de combate, inventário, progressão por níveis,
+sistema de salvamento, mapas interconectados e interação com personagens não jogáveis.
+Além disso, foram integrados recursos de áudio e elementos visuais, respeitando licenças de
+uso. Como resultado, obteve-se um protótipo funcional intitulado A Última Luz, capaz de
+demonstrar a viabilidade da adaptação dos principais conceitos do gênero Soulslike para um
+ambiente 2D. Conclui-se que o projeto atingiu seus objetivos ao integrar diferentes áreas da
+computação, como lógica de programação, estrutura de dados e inteligência artificial,
+contribuindo para o aprendizado prático.
+
+Orientador: Prof. Me. Fábio Feliciano de Oliveira
+
+Mês/Ano: Junho de 2026

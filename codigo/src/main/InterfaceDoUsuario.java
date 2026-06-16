@@ -425,7 +425,7 @@ public class InterfaceDoUsuario {
 
         // imagem
         try {
-            BufferedImage imagemAlma = ImageIO.read(new File("res/objeto/alma.png"));
+            BufferedImage imagemAlma = ImageIO.read(new File("codigo/res/objeto/alma.png"));
             g2.drawImage(imagemAlma, xImagem, yImagem, tamanhoIcone, tamanhoIcone, null);
         } catch (Exception e) {
             e.printStackTrace();

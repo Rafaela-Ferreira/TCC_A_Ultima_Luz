@@ -126,10 +126,13 @@ em um ambiente 2D desenvolvido integralmente em Java.
 
 ## 🖼️ Imagem do Protótipo
 
-<img src="logo.jpg" alt="Tela do jogo A Última Luz" width="400"/>
+<img src="codigo/res/logo.jpg" alt="Tela do jogo A Última Luz" width="400"/>
 
 
 ## 🧑‍💻 Autoras
 - Nancy Miyuki CP3025641 – Desenvolvedora e pesquisadora do projeto.
 - Rafaela Ferreira CP3026353 – Desenvolvedora e pesquisadora do projeto.
 
+## Orientador
+- Prof. Me. Fábio Feliciano de Oliveira
+- Junho de 2026
